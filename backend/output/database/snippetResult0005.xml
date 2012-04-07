@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>74461</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.devdaily.com/java/edu/JDBC-SQLProcessor/Simple_JDBC_Example.shtml</url>
+</description>
+<TEXT orderid="0" >
+devdaily home&#160;|&#160;apple&#160;|&#160;java&#160;|&#160;perl&#160;|&#160;unix&#160;|&#160;directory&#160;|&#160;blog
+
+  
+ 
+ 
+
+
+
+
+
+
+ 
+ 
+ 
+  
+    
+    
+
+    
+  
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+ Up: sqlprocessor
+ Previous: Motivation
+ Next: The same functionality using
+ &#160;   Contents 
+
+
+
+
+
+
+
+  
+    
+      
+    
+  
+
+
+
+
+  
+  
+    
+      
+      
+	
+        
+	
+
+A Simple JDBC Example
+
+
+I&apos;ll begin by creating a Java class using plain old JDBC to interact with a database. After this I&apos;ll demonstrate incremental improvements to this approach by adding SQLProcessor features to the code. I think you&apos;ll see that the SQLProcessor is a significant improvement over JDBC.
+
+
+
+The database I&apos;ll be using for this demonstration is the &quot;Coffee Break&quot; database defined in Sun&apos;s JDBC Tutorial. For my purposes I&apos;ve implemented this in a MySQL database.
+
+
+The JDBC Program
+
+
+To get started I&apos;ve created a simple BasicJDBCDemo Java class that shows how JDBC code is typically written. This class is shown here:
+</TEXT>
+<CODE orderid="1" >
+package com.devdaily.sqlprocessortests;
+
+import java.sql.*;
+
+public class BasicJDBCDemo
+{
+  Connection conn;
+
+  public static void main(String[] args)
+  {
+    new BasicJDBCDemo();
+  }
+ 
+  public BasicJDBCDemo()
+  {
+    try
+    {
+      Class.forName(&quot;com.mysql.jdbc.Driver&quot;).newInstance();
+      String url = &quot;jdbc:mysql://localhost/coffeebreak&quot;;
+      conn = DriverManager.getConnection(url, &quot;username&quot;, &quot;password&quot;);
+      doTests();
+      conn.close();
+    }
+    catch (ClassNotFoundException ex) {System.err.println(ex.getMessage());}
+    catch (IllegalAccessException ex) {System.err.println(ex.getMessage());}
+    catch (InstantiationException ex) {System.err.println(ex.getMessage());}
+    catch (SQLException ex)           {System.err.println(ex.getMessage());}
+  }
+
+  private void doTests()
+  {
+    doSelectTest();
+
+    doInsertTest();  doSelectTest();
+    doUpdateTest();  doSelectTest();
+    doDeleteTest();  doSelectTest();
+  }
+
+  private void doSelectTest()
+  {
+    System.out.println(&quot;[OUTPUT FROM SELECT]&quot;);
+    String query = &quot;SELECT COF_NAME, PRICE FROM COFFEES&quot;;
+    try
+    {
+      Statement st = conn.createStatement();
+      ResultSet rs = st.executeQuery(query);
+      while (rs.next())
+      {
+        String s = rs.getString(&quot;COF_NAME&quot;);
+        float n = rs.getFloat(&quot;PRICE&quot;);
+        System.out.println(s + &quot;   &quot; + n);
+      }
+    }
+    catch (SQLException ex)
+    {
+      System.err.println(ex.getMessage());
+    }
+  }
+
+  private void doInsertTest()
+  {
+    System.out.print(&quot;\n[Performing INSERT] ... &quot;);
+    try
+    {
+      Statement st = conn.createStatement();
+      st.executeUpdate(&quot;INSERT INTO COFFEES &quot; +
+                       &quot;VALUES (&apos;BREAKFAST BLEND&apos;, 200, 7.99, 0, 0)&quot;);
+    }
+    catch (SQLException ex)
+    {
+      System.err.println(ex.getMessage());
+    }
+  }
+
+  private void doUpdateTest()
+  {
+    System.out.print(&quot;\n[Performing UPDATE] ... &quot;);
+    try
+    {
+      Statement st = conn.createStatement();
+      st.executeUpdate(&quot;UPDATE COFFEES SET PRICE=4.99 WHERE COF_NAME=&apos;BREAKFAST BLEND&apos;&quot;);
+    }
+    catch (SQLException ex)
+    {
+      System.err.println(ex.getMessage());
+    }
+  }
+
+  private void doDeleteTest()
+  {
+    System.out.print(&quot;\n[Performing DELETE] ... &quot;);
+    try
+    {
+      Statement st = conn.createStatement();
+      st.executeUpdate(&quot;DELETE FROM COFFEES WHERE COF_NAME=&apos;BREAKFAST BLEND&apos;&quot;);
+    }
+    catch (SQLException ex)
+    {
+      System.err.println(ex.getMessage());
+    }
+  }
+}
+</CODE>
+<TEXT orderid="2" >
+&#160;
+
+
+
+
+
+
+
+ Discussion of the BasicJDBCDemo class 
+
+
+For my SQLProcessor examples, this is the &quot;reference implementation&quot; of my class, a basic database-interaction class written using standard JDBC programming techniques.
+
+
+
+The program begins in the main method, which creates a new instance of the class by invoking its constructor. The constructor establishes the database connection, calls a method named doTests(), and then closes the connection, at which point program execution stops.
+
+
+
+
+
+The doTests method
+
+
+
+The doTests method first runs the doSelectTest method. This runs a SQL SELECT query, selecting the COF_NAME and PRICE fields from the COFFEES table. It loops through the JDBC ResultSet, printing the output from each record as it goes along. The output from the doSelectTest method looks like this:
+
+
+
+[OUTPUT FROM SELECT]
+Colombian   7.99
+French_Roast   8.99
+Espresso   9.99
+Colombian_Decaf   8.99
+French_Roast_Decaf   9.99
+
+
+
+The doTests method next calls a method named doInsertTest. This method invokes a SQL INSERT command using a JDBC Statement. The doTests method calls the doSelectTest again so you can see the output after the INSERT has been run. That&apos;s all the tests really do - they perform an action, and then run the SELECT statement so you can see the changes to the database.
+
+
+
+
+
+
+
+
+
+In the same manner the doInsertTest is followed by the doUpdateTest and doDeleteTest method calls, with a doSelectTest call in between each to show the output from the SELECT statement.
+
+
+
+This application shows straightforward JDBC program, written in the cleanest manner possible for this demonstration. How can it be made better? Let&apos;s start to look at the SQLProcessor.
+
+
+
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+ Up: sqlprocessor
+ Previous: Motivation
+ Next: The same functionality using
+ &#160;   Contents
+</TEXT>
+</result>

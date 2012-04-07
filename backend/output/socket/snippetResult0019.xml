@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>17227</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.java-tips.org/java-se-tips/java.net/how-to-send-a-datagram.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home    Java SE Tips               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					How to send a Datagram									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;0
+
+
+PoorBest&#160;
+		
+				
+			
+				
+
+This Java tip demonstrates a method of sending a Datagram. This code may be
+used in implementing a communication between different components in a network.
+</TEXT>
+<CODE orderid="1" >
+&#160;&#160;&#160;&#160;public&#160;static&#160;void&#160;senddatagram(InetAddress&#160;target,&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;int&#160;port,&#160;byte[]&#160;outbuf,&#160;int&#160;len)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;try&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DatagramPacket&#160;request&#160;=&#160;new&#160;DatagramPacket(outbuf,&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;len,&#160;target,&#160;port);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DatagramSocket&#160;socket&#160;=&#160;new&#160;DatagramSocket();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.send(request);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;catch&#160;(SocketException&#160;e)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;catch&#160;(IOException&#160;e)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;}
+</CODE>
+<TEXT orderid="2" >
+&#160;Related Tips 
+A custom combobox editor for use with the EditableComboBox class
+A demonstration of Java2D transformations
+A game of Tic-Tac-Toe that can be played between two client applets
+A Label that uses inline HTML to format its text
+A program to print limits of the primitive types
+A sample of inline DTD definition
+A sample of linked DTD definition
+A sample XML file
+
+			
+		
+				
+
+		&#160;
+
+		
+
+			
+									
+						
+							&lt; Prev
+					
+										&#160;
+
+					
+										
+						
+							Next &gt;
+					
+								
+			
+			                
+
+
+
+
+
+
+
+ 
+Page 1 of 0 ( 0 comments )
+
+
+       You can share your information about this topic using the form below! 
+
+Please do not post your questions with this form! Thanks.
+
+ 
+
+  
+    
+      
+                
+          
+          
+
+          
+          Name (required)
+
+          
+          
+
+                    
+          
+
+          E-Mail (required)          
+                    
+
+          
+          
+          
+
+          Your email will not be displayed on the site - only to our administrator          
+          
+
+          Homepage(optional)
+
+
+
+
+
+
+
+          
+          
+
+          Comment          
+                    Enable HTML code :
+          
+          Yes
+          
+          No 
+
+          
+          
+          
+          
+
+          
+
+ 
+          
+
+          
+          
+        
+      
+    
+  
+
+
+
+
+
+&#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+      
+    
+    
+      
+        
+          &#160;
+          &#160;
+          &#160;
+        
+        
+          &#160;
+          
+              &#160;            
+          &#160;
+        
+        
+          &#160;
+          &#160;
+          &#160;
+        
+      
+    
+    
+      
+        
+            
+            
+            
+        
+      
+    
+	
+	
+
+
+		
+				
+			
+				
+			
+		
+		
+		
+
+
+
+
+
+
+
+
+Home
+
+
+-
+
+
+About Us
+
+
+-
+
+
+Privacy Policy
+
+
+
+
+
+
+Copyright 2005 - 2008 www.java-tips.org
+Java is a trademark of Sun Microsystems, Inc.
+</TEXT>
+</result>

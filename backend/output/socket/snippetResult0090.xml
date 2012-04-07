@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>9883</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.javacoffeebreak.com/books/extracts/javanotesv3/c10/quiz.html</url>
+</description>
+<TEXT orderid="0" >
+New to
+Java? We&apos;ll help you get started with our revised
+beginner&apos;s tutorial,
+or our free
+online textbook.
+
+  
+  
+	 
+    
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+      
+      
+      
+         
+
+
+        
+
+        Get the latest Java books
+
+
+      
+    
+    
+    
+      
+        
+          h t t p : / /w w w . j a v a c o f f e e b r e a k . c
+          o m /
+          
+            
+              
+                
+            
+          
+        
+      
+    
+  
+  
+
+
+
+Quiz Questions
+
+    For Chapter 10
+
+
+
+THIS PAGE CONTAINS A SAMPLE quiz on material from 
+Chapter 10 of this on-line
+Java textbook.  You should be able to answer these questions after
+studying that chapter.  Sample answers to all the quiz questions can
+be found here.
+
+
+
+Question 1:
+In Java, input/output is done using streams.  Streams are an
+abstraction.  Explain what this means and why it is important.
+
+
+
+Question 2:
+Java has two types of streams: character streams and byte streams.  Why?
+What is the difference between the two types of streams?
+
+
+
+Question 3:
+What is a file?  Why are files necessary?
+
+
+
+Question 4:
+What is the point of the following statement?
+</TEXT>
+<CODE orderid="1" >
+out = new PrintWriter( new FileWriter(&quot;data.dat&quot;) );
+</CODE>
+<TEXT orderid="2" >
+Why would you need a statement that involves two different
+stream classes, PrintWriter and FileWriter?
+
+
+
+Question 5:
+The package java.io includes a class named URL.
+What does an object of type URL represent, and how
+is it used?
+
+
+
+Question 6:
+Explain what is meant by the client / server model of
+network communication.
+
+
+
+Question 7:
+What is a Socket?
+
+
+
+Question 8:
+What is a ServerSocket and how is it used?
+
+
+
+Question 9:
+Network server programs are often multithreaded.
+Explain what this means and why it is true.
+
+
+
+Question 10:
+Write a complete program that will display the first ten
+lines from a text file.  The lines should be written to 
+standard output, System.out.  The file name is
+given as the command-line argument args[0].  You
+can assume that the file contains at least ten lines.
+Don&apos;t bother to make the program robust.
+
+
+
+
+
+
+
+
+
+
+[ Answers
+| Chapter Index
+| Main Index
+]
+</TEXT>
+</result>

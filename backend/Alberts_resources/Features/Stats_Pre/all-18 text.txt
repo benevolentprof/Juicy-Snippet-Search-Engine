@@ -1,0 +1,1814 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.J48 -C 0.25 -M 2
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+J48 pruned tree
+------------------
+
+stopwords <= 3
+|   separator <= 1: text (7.0/1.0)
+|   separator > 1: code (43.0)
+stopwords > 3: text (41.0)
+
+Number of Leaves  : 	3
+
+Size of the tree : 	5
+
+
+Time taken to build model: 0.02 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         311               93.9577 %
+Incorrectly Classified Instances        20                6.0423 %
+Kappa statistic                          0.8773
+Mean absolute error                      0.066 
+Root mean squared error                  0.2304
+Relative absolute error                 13.2545 %
+Root relative squared error             46.2236 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.957     0.082      0.936     0.957     0.946      0.968    text
+                 0.918     0.043      0.944     0.918     0.931      0.968    code
+Weighted Avg.    0.94      0.065      0.94      0.94      0.939      0.968
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 176   8 |   a = text
+  12 135 |   b = code
+
+//////////////////////////////////////////////////////////////////////////////////
+
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.SMO -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0"
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+SMO
+
+Kernel used:
+  Linear Kernel: K(x,y) = <x,y>
+
+Classifier for classes: text, code
+
+BinarySMO
+
+Machine linear: showing attribute weights, not support vectors.
+
+        -0.5817 * (normalized) length
+ +      -4.9002 * (normalized) indentation
+ +       1.0233 * (normalized) comments
+ +      -0.4945 * (normalized) nondic
+ +      -0.2979 * (normalized) keywords
+ +       1.8691 * (normalized) separator
+ +       0.1094 * (normalized) operator
+ +      -0.9508 * (normalized) numofwords
+ +      -2.1584 * (normalized) stopwords
+ +       0.8684
+
+Number of kernel evaluations: 531 (65.385% cached)
+
+
+
+Time taken to build model: 0.39 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         203               61.3293 %
+Incorrectly Classified Instances       128               38.6707 %
+Kappa statistic                          0.2798
+Mean absolute error                      0.3867
+Root mean squared error                  0.6219
+Relative absolute error                 77.6213 %
+Root relative squared error            124.7571 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.304     0          1         0.304     0.467      0.652    text
+                 1         0.696      0.535     1         0.697      0.652    code
+Weighted Avg.    0.613     0.309      0.793     0.613     0.569      0.652
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+  56 128 |   a = text
+   0 147 |   b = code
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.SimpleLogistic -I 0 -M 500 -H 50 -W 0.0
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+SimpleLogistic:
+
+Class 0 :
+-0.52 + 
+[length] * 0    +
+[indentation] * 0.26 +
+[comments] * -0.35 +
+[separator] * -0.17 +
+[numofwords] * 0    +
+[stopwords] * 0.13
+
+Class 1 :
+0.52 + 
+[length] * 0    +
+[indentation] * -0.26 +
+[comments] * 0.35 +
+[separator] * 0.17 +
+[numofwords] * 0    +
+[stopwords] * -0.13
+
+
+Time taken to build model: 0.24 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         299               90.3323 %
+Incorrectly Classified Instances        32                9.6677 %
+Kappa statistic                          0.8084
+Mean absolute error                      0.1178
+Root mean squared error                  0.25  
+Relative absolute error                 23.6428 %
+Root relative squared error             50.1489 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.826     0          1         0.826     0.905      0.987    text
+                 1         0.174      0.821     1         0.902      0.987    code
+Weighted Avg.    0.903     0.077      0.921     0.903     0.903      0.987
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 152  32 |   a = text
+   0 147 |   b = code
+
+///////////////////////////////////////////////////////////////////
+
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.Logistic -R 1.0E-8 -M -1
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+Logistic Regression with ridge parameter of 1.0E-8
+Coefficients...
+                    Class
+Variable             text
+=========================
+length             0.0445
+indentation       13.5705
+comments         -13.1969
+nondic            -2.5358
+keywords          -9.1166
+separator          -13.15
+operator          10.6804
+numofwords          1.232
+stopwords          3.5756
+Intercept        -11.5341
+
+
+Odds Ratios...
+                    Class
+Variable             text
+=========================
+length             1.0455
+indentation     782706.24
+comments                0
+nondic             0.0792
+keywords           0.0001
+separator               0
+operator       43492.9738
+numofwords         3.4282
+stopwords         35.7164
+
+
+Time taken to build model: 0.08 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         309               93.3535 %
+Incorrectly Classified Instances        22                6.6465 %
+Kappa statistic                          0.8665
+Mean absolute error                      0.0664
+Root mean squared error                  0.2525
+Relative absolute error                 13.3217 %
+Root relative squared error             50.6505 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.908     0.034      0.971     0.908     0.938      0.983    text
+                 0.966     0.092      0.893     0.966     0.928      0.986    code
+Weighted Avg.    0.934     0.06       0.936     0.934     0.934      0.985
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 167  17 |   a = text
+   5 142 |   b = code
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.MultilayerPerceptron -L 0.3 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H a
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+Sigmoid Node 0
+    Inputs    Weights
+    Threshold    -5.049359762576442
+    Node 2    4.5844143393745185
+    Node 3    3.884841869013276
+    Node 4    2.09024582384737
+    Node 5    6.120321521765055
+    Node 6    1.879753021289438
+Sigmoid Node 1
+    Inputs    Weights
+    Threshold    5.0356364770875
+    Node 2    -4.566925724901138
+    Node 3    -3.8817678933397723
+    Node 4    -2.0662328115772843
+    Node 5    -6.162977067326083
+    Node 6    -1.8303196801356287
+Sigmoid Node 2
+    Inputs    Weights
+    Threshold    2.7831931522994906
+    Attrib length    1.59748389256346
+    Attrib indentation    4.939733835453469
+    Attrib comments    -3.9157799445943864
+    Attrib nondic    -0.08321471014127532
+    Attrib keywords    -1.4112902607155369
+    Attrib separator    -8.502884655410648
+    Attrib operator    -0.15992650691442772
+    Attrib numofwords    2.903430055325858
+    Attrib stopwords    8.586022148893333
+Sigmoid Node 3
+    Inputs    Weights
+    Threshold    2.311760142507754
+    Attrib length    1.285948640635729
+    Attrib indentation    4.302704249649678
+    Attrib comments    -3.3148120170153854
+    Attrib nondic    -0.0252016513264434
+    Attrib keywords    -1.2171556289851568
+    Attrib separator    -7.268703771759593
+    Attrib operator    -0.08771761940566833
+    Attrib numofwords    2.497481822568128
+    Attrib stopwords    7.259090422373874
+Sigmoid Node 4
+    Inputs    Weights
+    Threshold    1.0520192399770607
+    Attrib length    0.7094051236456226
+    Attrib indentation    2.2308300034324575
+    Attrib comments    -1.6840997615067674
+    Attrib nondic    0.05151438072408292
+    Attrib keywords    -0.5460728701503442
+    Attrib separator    -3.6331628423363806
+    Attrib operator    0.059666583340072105
+    Attrib numofwords    1.3000948010104945
+    Attrib stopwords    3.6602628265384616
+Sigmoid Node 5
+    Inputs    Weights
+    Threshold    3.829430647649466
+    Attrib length    2.1013445351758047
+    Attrib indentation    6.22666178938274
+    Attrib comments    -5.251886670781241
+    Attrib nondic    -0.06676362068599498
+    Attrib keywords    -1.735677204475987
+    Attrib separator    -11.199888234150377
+    Attrib operator    -0.3468272177520339
+    Attrib numofwords    3.9755768307796595
+    Attrib stopwords    11.40990062272287
+Sigmoid Node 6
+    Inputs    Weights
+    Threshold    0.9173248796981925
+    Attrib length    0.6677887889855385
+    Attrib indentation    2.03901823157172
+    Attrib comments    -1.4652762818683338
+    Attrib nondic    -0.03183346191522901
+    Attrib keywords    -0.42410184004811663
+    Attrib separator    -3.1263099564278214
+    Attrib operator    0.10630046271642367
+    Attrib numofwords    1.1182257204766497
+    Attrib stopwords    3.1725390827117685
+Class text
+    Input
+    Node 0
+Class code
+    Input
+    Node 1
+
+
+Time taken to build model: 0.72 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         304               91.8429 %
+Incorrectly Classified Instances        27                8.1571 %
+Kappa statistic                          0.8371
+Mean absolute error                      0.1128
+Root mean squared error                  0.2368
+Relative absolute error                 22.6499 %
+Root relative squared error             47.5073 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.87      0.02       0.982     0.87      0.922      0.979    text
+                 0.98      0.13       0.857     0.98      0.914      0.979    code
+Weighted Avg.    0.918     0.069      0.926     0.918     0.919      0.979
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 160  24 |   a = text
+   3 144 |   b = code
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.Logistic -R 1.0E-8 -M -1
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+Logistic Regression with ridge parameter of 1.0E-8
+Coefficients...
+                    Class
+Variable             text
+=========================
+length             0.0445
+indentation       13.5705
+comments         -13.1969
+nondic            -2.5358
+keywords          -9.1166
+separator          -13.15
+operator          10.6804
+numofwords          1.232
+stopwords          3.5756
+Intercept        -11.5341
+
+
+Odds Ratios...
+                    Class
+Variable             text
+=========================
+length             1.0455
+indentation     782706.24
+comments                0
+nondic             0.0792
+keywords           0.0001
+separator               0
+operator       43492.9738
+numofwords         3.4282
+stopwords         35.7164
+
+
+Time taken to build model: 0.05 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         309               93.3535 %
+Incorrectly Classified Instances        22                6.6465 %
+Kappa statistic                          0.8665
+Mean absolute error                      0.0664
+Root mean squared error                  0.2525
+Relative absolute error                 13.3217 %
+Root relative squared error             50.6505 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.908     0.034      0.971     0.908     0.938      0.983    text
+                 0.966     0.092      0.893     0.966     0.928      0.986    code
+Weighted Avg.    0.934     0.06       0.936     0.934     0.934      0.985
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 167  17 |   a = text
+   5 142 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.bayes.BayesNet -D -Q weka.classifiers.bayes.net.search.local.K2 -- -P 1 -S BAYES -E weka.classifiers.bayes.net.estimate.SimpleEstimator -- -A 0.5
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+Bayes Network Classifier
+not using ADTree
+#attributes=10 #classindex=9
+Network structure (nodes followed by parents)
+length(2): class 
+indentation(2): class 
+comments(1): class 
+nondic(1): class 
+keywords(1): class 
+separator(2): class 
+operator(1): class 
+numofwords(3): class 
+stopwords(3): class 
+class(2): 
+LogScore Bayes: -299.4801023982742
+LogScore BDeu: -315.5936369056092
+LogScore MDL: -322.5413641563936
+LogScore ENTROPY: -288.70991785751727
+LogScore AIC: -303.70991785751727
+
+
+Time taken to build model: 0.03 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         280               84.5921 %
+Incorrectly Classified Instances        51               15.4079 %
+Kappa statistic                          0.6894
+Mean absolute error                      0.1549
+Root mean squared error                  0.3614
+Relative absolute error                 31.0909 %
+Root relative squared error             72.5119 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.842     0.15       0.876     0.842     0.859      0.913    text
+                 0.85      0.158      0.812     0.85      0.831      0.913    code
+Weighted Avg.    0.846     0.153      0.847     0.846     0.846      0.913
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 155  29 |   a = text
+  22 125 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.bayes.NaiveBayes 
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+Naive Bayes Classifier
+
+                  Class
+Attribute          text     code
+                 (0.52)   (0.48)
+=================================
+length
+  mean          852.7823 141.4615
+  std. dev.    1667.5042 181.5159
+  weight sum          47       44
+  precision      94.3077  94.3077
+
+indentation
+  mean             6.723   0.8239
+  std. dev.        4.731   1.4795
+  weight sum          47       44
+  precision       0.5411   0.5411
+
+comments
+  mean            0.0355   0.4545
+  std. dev.       0.2778   1.1439
+  weight sum          47       44
+  precision       1.6667   1.6667
+
+nondic
+  mean           19.9959   3.0061
+  std. dev.      39.6054   5.0108
+  weight sum          47       44
+  precision       6.9615   6.9615
+
+keywords
+  mean            3.6007        1
+  std. dev.       8.0642    1.851
+  weight sum          47       44
+  precision       3.3846   3.3846
+
+separator
+  mean            5.6516  14.3229
+  std. dev.      20.7453  15.4713
+  weight sum          47       44
+  precision       5.2083   5.2083
+
+operator
+  mean            4.3972   2.5833
+  std. dev.       18.795   4.9874
+  weight sum          47       44
+  precision      10.3333  10.3333
+
+numofwords
+  mean           87.4191   6.7233
+  std. dev.     147.4307  11.2552
+  weight sum          47       44
+  precision      16.4348  16.4348
+
+stopwords
+  mean           30.1726   0.3234
+  std. dev.      40.6518   1.1955
+  weight sum          47       44
+  precision       4.7429   4.7429
+
+
+
+Time taken to build model: 0.02 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         270               81.571  %
+Incorrectly Classified Instances        61               18.429  %
+Kappa statistic                          0.631 
+Mean absolute error                      0.1855
+Root mean squared error                  0.4278
+Relative absolute error                 37.2286 %
+Root relative squared error             85.8334 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.788     0.15       0.868     0.788     0.826      0.861    text
+                 0.85      0.212      0.762     0.85      0.804      0.861    code
+Weighted Avg.    0.816     0.177      0.821     0.816     0.816      0.861
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 145  39 |   a = text
+  22 125 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.bayes.NaiveBayesMultinomial 
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+The independent probability of a class
+--------------------------------------
+text	0.5161290322580645
+code	0.4838709677419355
+
+The probability of a word given the class
+-----------------------------------------
+	text	code	
+length	0.8412948696283928	0.811960326132413	
+indentation	0.0067054593274057574	0.004826259931656146	
+comments	4.2141651996312946E-5	0.0026281285843418457	
+nondic	0.020038355524246793	0.02417878297594497	
+keywords	0.0038981028096589454	0.007358760036157169	
+separator	0.005773406323494869	0.08186620540224847	
+operator	0.005478414759520676	0.016951429369004897	
+numofwords	0.0869171572423954	0.04835756595188995	
+stopwords	0.02985209273288816	0.0018725416163435644	
+class	2.107082599815647E-5	1.3140642921709213E-4	
+
+
+Time taken to build model: 0 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         308               93.0514 %
+Incorrectly Classified Instances        23                6.9486 %
+Kappa statistic                          0.8599
+Mean absolute error                      0.0654
+Root mean squared error                  0.2279
+Relative absolute error                 13.1251 %
+Root relative squared error             45.7301 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.918     0.054      0.955     0.918     0.936      0.987    text
+                 0.946     0.082      0.903     0.946     0.924      0.986    code
+Weighted Avg.    0.931     0.066      0.932     0.931     0.931      0.987
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 169  15 |   a = text
+   8 139 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.bayes.NaiveBayesMultinomialUpdateable 
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+The independent probability of a class
+--------------------------------------
+text	48.0
+code	45.0
+
+The probability of a word given the class
+-----------------------------------------
+	text	code	
+length	Infinity	Infinity	
+indentation	1.6121134754742085E138	8.925873616609595E15	
+comments	7.38905609893065	4.851651954097903E8	
+nondic	Infinity	8.131762205128143E79	
+keywords	2.2104421435549888E80	2.091659496012996E24	
+separator	9.924029383747696E118	3.676734123126915E270	
+operator	8.25211544181389E112	1.0567887114362587E56	
+numofwords	Infinity	6.612555656075053E159	
+stopwords	Infinity	1544174.4670851405	
+class	2.7182818284590455	2.7182818284590455	
+
+
+Time taken to build model: 0 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         308               93.0514 %
+Incorrectly Classified Instances        23                6.9486 %
+Kappa statistic                          0.8599
+Mean absolute error                      0.0655
+Root mean squared error                  0.2282
+Relative absolute error                 13.1446 %
+Root relative squared error             45.7903 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.918     0.054      0.955     0.918     0.936      0.987    text
+                 0.946     0.082      0.903     0.946     0.924      0.986    code
+Weighted Avg.    0.931     0.066      0.932     0.931     0.931      0.986
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 169  15 |   a = text
+   8 139 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.bayes.NaiveBayesSimple 
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+Naive Bayes (simple)
+
+Class text: P(C) = 0.51612903
+
+Attribute length
+Mean: 849.4893617	Standard Deviation: 1691.82959714
+
+Attribute indentation
+Mean: 6.74966572	Standard Deviation: 4.7525388 
+
+Attribute comments
+Mean: 0.0212766 	Standard Deviation: 0.14586499
+
+Attribute nondic
+Mean: 20.21276596	Standard Deviation: 39.96843111
+
+Attribute keywords
+Mean: 3.91489362	Standard Deviation: 8.11287165
+
+Attribute separator
+Mean: 5.80851064	Standard Deviation: 20.79677891
+
+Attribute operator
+Mean: 5.5106383 	Standard Deviation: 18.84706452
+
+Attribute numofwords
+Mean: 87.74468085	Standard Deviation: 148.75913828
+
+Attribute stopwords
+Mean: 30.12234043	Standard Deviation: 40.87982362
+
+
+
+Class code: P(C) = 0.48387097
+
+Attribute length
+Mean: 140.40909091	Standard Deviation: 170.88841976
+
+Attribute indentation
+Mean: 0.81199388	Standard Deviation: 1.49197281
+
+Attribute comments
+Mean: 0.43181818	Standard Deviation: 1.1492713 
+
+Attribute nondic
+Mean: 4.15909091	Standard Deviation: 4.56958184
+
+Attribute keywords
+Mean: 1.25      	Standard Deviation: 1.75373356
+
+Attribute separator
+Mean: 14.13636364	Standard Deviation: 15.81372808
+
+Attribute operator
+Mean: 2.90909091	Standard Deviation: 3.82657891
+
+Attribute numofwords
+Mean: 8.34090909	Standard Deviation: 10.21613676
+
+Attribute stopwords
+Mean: 0.30113636	Standard Deviation: 0.7749335 
+
+
+
+Time taken to build model: 0 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         281               85.1515 %
+Incorrectly Classified Instances        49               14.8485 %
+Kappa statistic                          0.702 
+Mean absolute error                      0.1482
+Root mean squared error                  0.3843
+Relative absolute error                 29.7457 %
+Root relative squared error             77.0891 %
+Total Number of Instances              330     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.831     0.122      0.894     0.831     0.861      0.906    text
+                 0.878     0.169      0.806     0.878     0.84       0.924    code
+Weighted Avg.    0.852     0.143      0.855     0.852     0.852      0.914
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 152  31 |   a = text
+  18 129 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.bayes.NaiveBayesUpdateable 
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+Naive Bayes Classifier
+
+                  Class
+Attribute          text     code
+                 (0.52)   (0.48)
+=================================
+length
+  mean          852.7823 141.4615
+  std. dev.    1667.5042 181.5159
+  weight sum          47       44
+  precision      94.3077  94.3077
+
+indentation
+  mean             6.723   0.8239
+  std. dev.        4.731   1.4795
+  weight sum          47       44
+  precision       0.5411   0.5411
+
+comments
+  mean            0.0355   0.4545
+  std. dev.       0.2778   1.1439
+  weight sum          47       44
+  precision       1.6667   1.6667
+
+nondic
+  mean           19.9959   3.0061
+  std. dev.      39.6054   5.0108
+  weight sum          47       44
+  precision       6.9615   6.9615
+
+keywords
+  mean            3.6007        1
+  std. dev.       8.0642    1.851
+  weight sum          47       44
+  precision       3.3846   3.3846
+
+separator
+  mean            5.6516  14.3229
+  std. dev.      20.7453  15.4713
+  weight sum          47       44
+  precision       5.2083   5.2083
+
+operator
+  mean            4.3972   2.5833
+  std. dev.       18.795   4.9874
+  weight sum          47       44
+  precision      10.3333  10.3333
+
+numofwords
+  mean           87.4191   6.7233
+  std. dev.     147.4307  11.2552
+  weight sum          47       44
+  precision      16.4348  16.4348
+
+stopwords
+  mean           30.1726   0.3234
+  std. dev.      40.6518   1.1955
+  weight sum          47       44
+  precision       4.7429   4.7429
+
+
+
+Time taken to build model: 0 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         270               81.571  %
+Incorrectly Classified Instances        61               18.429  %
+Kappa statistic                          0.631 
+Mean absolute error                      0.1855
+Root mean squared error                  0.4278
+Relative absolute error                 37.2286 %
+Root relative squared error             85.8334 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.788     0.15       0.868     0.788     0.826      0.861    text
+                 0.85      0.212      0.762     0.85      0.804      0.861    code
+Weighted Avg.    0.816     0.177      0.821     0.816     0.816      0.861
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 145  39 |   a = text
+  22 125 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.meta.Dagging -F 10 -S 1 -W weka.classifiers.functions.SMO -- -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0"
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+Vote combines the probability distributions of these base learners:
+	weka.classifiers.functions.SMO -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0"
+	weka.classifiers.functions.SMO -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0"
+	weka.classifiers.functions.SMO -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0"
+	weka.classifiers.functions.SMO -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0"
+	weka.classifiers.functions.SMO -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0"
+	weka.classifiers.functions.SMO -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0"
+	weka.classifiers.functions.SMO -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0"
+	weka.classifiers.functions.SMO -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0"
+	weka.classifiers.functions.SMO -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0"
+	weka.classifiers.functions.SMO -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0"
+using the 'Average of Probabilities' combination rule 
+
+
+Time taken to build model: 2.05 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         219               66.1631 %
+Incorrectly Classified Instances       112               33.8369 %
+Kappa statistic                          0.3511
+Mean absolute error                      0.3577
+Root mean squared error                  0.4457
+Relative absolute error                 71.7997 %
+Root relative squared error             89.4213 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.473     0.102      0.853     0.473     0.608      0.894    text
+                 0.898     0.527      0.576     0.898     0.702      0.894    code
+Weighted Avg.    0.662     0.291      0.73      0.662     0.65       0.894
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+  87  97 |   a = text
+  15 132 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.LADTree -B 10
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+weka.classifiers.trees.LADTree:
+
+: 0,0
+|  (1)stopwords < 2.875: -0.83,0.83
+|  |  (2)separator < 1: 1.642,-1.642
+|  |  |  (4)length < 13.5: -1.517,1.517
+|  |  |  (4)length >= 13.5: 0.746,-0.746
+|  |  (2)separator >= 1: -0.595,0.595
+|  (1)stopwords >= 2.875: 0.955,-0.955
+|  (3)stopwords < 3.5: -0.803,0.803
+|  |  (5)separator < 1: 0.799,-0.799
+|  |  (5)separator >= 1: -1.266,1.266
+|  (3)stopwords >= 3.5: 1.087,-1.087
+|  (6)numofwords < 9.5: -0.289,0.289
+|  (6)numofwords >= 9.5: 0.495,-0.495
+|  (7)separator < 4.5: 0.405,-0.405
+|  |  (8)indentation < 0.026: -0.608,0.608
+|  |  (8)indentation >= 0.026: 0.477,-0.477
+|  (7)separator >= 4.5: -0.365,0.365
+Legend: text, code
+#Tree size (total): 25
+#Tree size (number of predictor nodes): 17
+#Leaves (number of predictor nodes): 12
+#Expanded nodes: 98
+#Processed examples: 3759
+#Ratio e/n: 38.357142857142854
+
+Time taken to build model: 0.06 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         311               93.9577 %
+Incorrectly Classified Instances        20                6.0423 %
+Kappa statistic                          0.8785
+Mean absolute error                      0.0696
+Root mean squared error                  0.2361
+Relative absolute error                 13.9653 %
+Root relative squared error             47.3629 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.918     0.034      0.971     0.918     0.944      0.964    text
+                 0.966     0.082      0.904     0.966     0.934      0.964    code
+Weighted Avg.    0.94      0.055      0.942     0.94      0.94       0.964
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 169  15 |   a = text
+   5 142 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.ADTree -B 10 -E -3
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+Alternating decision tree:
+
+: -0.032
+|  (1)stopwords < 3.5: 0.96
+|  |  (2)separator < 1: -1.225
+|  |  (2)separator >= 1: 1.445
+|  (1)stopwords >= 3.5: -1.853
+|  (3)stopwords < 0.875: 0.609
+|  (3)stopwords >= 0.875: -1.005
+|  (4)separator < 2.5: -0.558
+|  |  (7)length < 13.5: 0.275
+|  |  (7)length >= 13.5: -0.456
+|  (4)separator >= 2.5: 0.49
+|  |  (6)stopwords < 11: 0.552
+|  |  (6)stopwords >= 11: -0.245
+|  (5)indentation < 0.026: 0.558
+|  (5)indentation >= 0.026: -0.361
+|  |  (10)separator < 6.5: -0.325
+|  |  (10)separator >= 6.5: 0.128
+|  (8)stopwords < 2.875: 0.293
+|  |  (9)keywords < 0.5: -0.196
+|  |  (9)keywords >= 0.5: 0.385
+|  (8)stopwords >= 2.875: -0.308
+Legend: -ve = text, +ve = code
+Tree size (total number of nodes): 31
+Leaves (number of predictor nodes): 21
+
+Time taken to build model: 0.03 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         315               95.1662 %
+Incorrectly Classified Instances        16                4.8338 %
+Kappa statistic                          0.9029
+Mean absolute error                      0.0894
+Root mean squared error                  0.2156
+Relative absolute error                 17.9495 %
+Root relative squared error             43.2595 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.924     0.014      0.988     0.924     0.955      0.983    text
+                 0.986     0.076      0.912     0.986     0.948      0.983    code
+Weighted Avg.    0.952     0.041      0.954     0.952     0.952      0.983
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 170  14 |   a = text
+   2 145 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.BFTree -S 1 -M 2 -N 5 -C 1.0 -P POSTPRUNED
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+Best-First Decision Tree
+
+stopwords < 2.875
+|  separator < 1.0: text(4.0/1.0)
+|  separator >= 1.0: code(42.0/0.0)
+stopwords >= 2.875
+|  numofwords < 9.5: text(2.0/1.0)
+|  numofwords >= 9.5: text(41.0/0.0)
+
+Size of the Tree: 7
+
+Number of Leaf Nodes: 4
+
+Time taken to build model: 0.05 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         308               93.0514 %
+Incorrectly Classified Instances        23                6.9486 %
+Kappa statistic                          0.859 
+Mean absolute error                      0.0802
+Root mean squared error                  0.2508
+Relative absolute error                 16.0902 %
+Root relative squared error             50.3127 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.946     0.088      0.93      0.946     0.938      0.954    text
+                 0.912     0.054      0.931     0.912     0.921      0.954    code
+Weighted Avg.    0.931     0.073      0.931     0.931     0.93       0.954
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 174  10 |   a = text
+  13 134 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.DecisionStump 
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+Decision Stump
+
+Classifications
+
+stopwords <= 3.5 : code
+stopwords > 3.5 : text
+stopwords is missing : text
+
+Class distributions
+
+stopwords <= 3.5
+text	code	
+0.12	0.88	
+stopwords > 3.5
+text	code	
+1.0	0.0	
+stopwords is missing
+text	code	
+0.5164835164835165	0.4835164835164835	
+
+
+Time taken to build model: 0 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         298               90.0302 %
+Incorrectly Classified Instances        33                9.9698 %
+Kappa statistic                          0.8023
+Mean absolute error                      0.141 
+Root mean squared error                  0.2902
+Relative absolute error                 28.3075 %
+Root relative squared error             58.228  %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.826     0.007      0.993     0.826     0.902      0.91     text
+                 0.993     0.174      0.82      0.993     0.898      0.91     code
+Weighted Avg.    0.9       0.081      0.917     0.9       0.9        0.91 
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 152  32 |   a = text
+   1 146 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.FT -I 15 -F 0 -M 15 -W 0.0
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+FT tree 
+------------------
+: FT_1:15/15 (91)
+
+Number of Leaves  : 	1
+
+Size of the Tree : 	1
+FT_1:
+Class 0 :
+-0.73 + 
+[length] * 0    +
+[indentation] * 0.38 +
+[comments] * -0.35 +
+[separator] * -0.17 +
+[numofwords] * 0    +
+[stopwords] * 0.13
+
+Class 1 :
+0.73 + 
+[length] * 0    +
+[indentation] * -0.38 +
+[comments] * 0.35 +
+[separator] * 0.17 +
+[numofwords] * 0    +
+[stopwords] * -0.13
+
+
+Time taken to build model: 0.06 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         297               89.7281 %
+Incorrectly Classified Instances        34               10.2719 %
+Kappa statistic                          0.7967
+Mean absolute error                      0.1264
+Root mean squared error                  0.2697
+Relative absolute error                 25.3618 %
+Root relative squared error             54.1015 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.815     0          1         0.815     0.898      0.982    text
+                 1         0.185      0.812     1         0.896      0.982    code
+Weighted Avg.    0.897     0.082      0.917     0.897     0.897      0.982
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 150  34 |   a = text
+   0 147 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.LMT -I -1 -M 15 -W 0.0
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+Logistic model tree 
+------------------
+
+stopwords <= 3: LM_1:13/26 (50)
+stopwords > 3: LM_2:13/26 (41)
+
+Number of Leaves  : 	2
+
+Size of the Tree : 	3
+
+LM_1:
+Class 0 :
+0.72 + 
+[length] * 0    +
+[indentation] * 0.26 +
+[comments] * -0.35 +
+[keywords] * -2.56 +
+[separator] * -1.5 +
+[numofwords] * 0.15 +
+[stopwords] * 0.88
+
+Class 1 :
+-0.72 + 
+[length] * 0    +
+[indentation] * -0.26 +
+[comments] * 0.35 +
+[keywords] * 2.56 +
+[separator] * 1.5  +
+[numofwords] * -0.15 +
+[stopwords] * -0.88
+
+LM_2:
+Class 0 :
+6.04 + 
+[length] * 0    +
+[indentation] * 0.26 +
+[comments] * 0.37 +
+[separator] * -0.17 +
+[numofwords] * 0    +
+[stopwords] * 0.13
+
+Class 1 :
+-6.04 + 
+[length] * 0    +
+[indentation] * -0.26 +
+[comments] * -0.37 +
+[separator] * 0.17 +
+[numofwords] * 0    +
+[stopwords] * -0.13
+
+
+Time taken to build model: 0.39 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         312               94.2598 %
+Incorrectly Classified Instances        19                5.7402 %
+Kappa statistic                          0.8843
+Mean absolute error                      0.0557
+Root mean squared error                  0.2141
+Relative absolute error                 11.1798 %
+Root relative squared error             42.9509 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.929     0.041      0.966     0.929     0.947      0.99     text
+                 0.959     0.071      0.916     0.959     0.937      0.989    code
+Weighted Avg.    0.943     0.054      0.944     0.943     0.943      0.99 
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 171  13 |   a = text
+   6 141 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.RandomForest -I 10 -K 0 -S 1
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+Random forest of 10 trees, each constructed while considering 4 random features.
+Out of bag error: 0.1099
+
+
+
+Time taken to build model: 0.03 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         307               92.7492 %
+Incorrectly Classified Instances        24                7.2508 %
+Kappa statistic                          0.8545
+Mean absolute error                      0.1571
+Root mean squared error                  0.249 
+Relative absolute error                 31.5336 %
+Root relative squared error             49.9515 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.897     0.034      0.971     0.897     0.932      0.968    text
+                 0.966     0.103      0.882     0.966     0.922      0.968    code
+Weighted Avg.    0.927     0.065      0.931     0.927     0.928      0.968
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 165  19 |   a = text
+   5 142 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.RandomTree -K 0 -M 1.0 -S 1
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+
+RandomTree
+==========
+
+indentation < 3.17
+|   stopwords < 0.88
+|   |   separator < 1
+|   |   |   nondic < 1.5 : code (1/0)
+|   |   |   nondic >= 1.5 : text (1/0)
+|   |   separator >= 1 : code (36/0)
+|   stopwords >= 0.88
+|   |   separator < 8 : text (7/0)
+|   |   separator >= 8 : code (3/0)
+indentation >= 3.17
+|   stopwords < 2.88
+|   |   length < 138 : text (2/0)
+|   |   length >= 138 : code (4/0)
+|   stopwords >= 2.88 : text (37/0)
+
+Size of the tree : 15
+
+Time taken to build model: 0 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         293               88.5196 %
+Incorrectly Classified Instances        38               11.4804 %
+Kappa statistic                          0.7716
+Mean absolute error                      0.1148
+Root mean squared error                  0.3388
+Relative absolute error                 23.0438 %
+Root relative squared error             67.9754 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.826     0.041      0.962     0.826     0.889      0.893    text
+                 0.959     0.174      0.815     0.959     0.881      0.893    code
+Weighted Avg.    0.885     0.1        0.897     0.885     0.885      0.893
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 152  32 |   a = text
+   6 141 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.REPTree -M 2 -V 0.0010 -N 3 -S 1 -L -1
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+
+REPTree
+============
+
+stopwords < 0.88 : code (26/0) [14/1]
+stopwords >= 0.88
+|   separator < 11.5 : text (29/0) [15/1]
+|   separator >= 11.5
+|   |   length < 1635.5 : code (3/0) [1/0]
+|   |   length >= 1635.5 : text (2/0) [1/0]
+
+Size of the tree : 7
+
+Time taken to build model: 0 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         303               91.5408 %
+Incorrectly Classified Instances        28                8.4592 %
+Kappa statistic                          0.8301
+Mean absolute error                      0.0957
+Root mean squared error                  0.2848
+Relative absolute error                 19.2032 %
+Root relative squared error             57.1409 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.891     0.054      0.953     0.891     0.921      0.921    text
+                 0.946     0.109      0.874     0.946     0.908      0.921    code
+Weighted Avg.    0.915     0.079      0.918     0.915     0.916      0.921
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 164  20 |   a = text
+   8 139 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.SimpleCart -S 1 -M 2.0 -N 5 -C 1.0
+Relation:     codesnippets
+Instances:    91
+Attributes:   10
+              length
+              indentation
+              comments
+              nondic
+              keywords
+              separator
+              operator
+              numofwords
+              stopwords
+              class
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+CART Decision Tree
+
+stopwords < 2.875
+|  separator < 1.0: text(4.0/1.0)
+|  separator >= 1.0: code(42.0/0.0)
+stopwords >= 2.875: text(43.0/1.0)
+
+Number of Leaf Nodes: 3
+
+Size of the Tree: 5
+
+Time taken to build model: 0.06 seconds
+
+=== Evaluation on test set ===
+=== Summary ===
+
+Correctly Classified Instances         308               93.0514 %
+Incorrectly Classified Instances        23                6.9486 %
+Kappa statistic                          0.859 
+Mean absolute error                      0.0838
+Root mean squared error                  0.2457
+Relative absolute error                 16.8115 %
+Root relative squared error             49.2983 %
+Total Number of Instances              331     
+
+=== Detailed Accuracy By Class ===
+
+               TP Rate   FP Rate   Precision   Recall  F-Measure   ROC Area  Class
+                 0.946     0.088      0.93      0.946     0.938      0.957    text
+                 0.912     0.054      0.931     0.912     0.921      0.957    code
+Weighted Avg.    0.931     0.073      0.931     0.931     0.93       0.957
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 174  10 |   a = text
+  13 134 |   b = code
+
+
+////////////////////////////////////////////////////////////////////////////////////////////

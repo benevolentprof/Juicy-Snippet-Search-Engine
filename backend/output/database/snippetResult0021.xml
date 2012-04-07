@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>74295</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.devdaily.com/java/jdbc-connection-string-mysql-postgresql-sqlserver</url>
+</description>
+<TEXT orderid="0" >
+devdaily.com
+  
+  
+  
+      
+
+  
+    mission&#160;&#160;|&#160;&#160;contact&#160;
+              |&#160;&#160;login&#160;&#160;
+         
+
+  
+      
+
+  
+      
+
+  
+ 
+
+
+
+
+
+
+
+    
+
+
+
+
+
+      
+      
+    
+
+    categories
+    
+  best practices&#160;(48)
+  career&#160;(37)
+  cvs&#160;(27)
+  design&#160;(6)
+  drupal&#160;(14)
+  eclipse&#160;(6)
+  gadgets&#160;(32)
+  intellij&#160;(4)
+  java&#160;(317)
+  jbuilder&#160;(20)
+  jdbc&#160;(20)
+  swing&#160;(74)
+  jsp&#160;(8)
+  latex&#160;(26)
+  linux/unix&#160;(179)
+  mac&#160;os&#160;x&#160;(152)
+  mysql&#160;(37)
+  news&#160;(51)
+  ooa/ood&#160;(9)
+  perl&#160;(144)
+  php&#160;(26)
+  postgresql&#160;(17)
+  ruby&#160;(52)
+  servlets&#160;(10)
+  svn&#160;(7)
+  technology&#160;(32)
+  testing&#160;(4)
+  uml&#160;(13)
+
+
+
+
+    popular
+    
+
+    java developer jobs
+    php, cakephp, and lamp jobs
+    geek gifts under $10
+    geek gifts under $20
+    75+ linux and unix tutorials
+    20+ vi/vim tutorials
+
+
+
+
+
+    related
+    Java JDBC example - How do I connect to a database?
+A Java DB2 JDBC Driver class and URL example
+Java MySQL JDBC Driver class and URL example
+A Java JDBC SQL Server Driver class and URL example
+Java JDBC Postgresql Driver class and URL example
+
+
+    
+  
+  
+    
+    
+          JDBC connection string examples
+    
+    
+    
+    
+    
+    
+
+  
+    
+    
+        Submitted by alvin on September 18, 2009 - 7:47pm
+    
+                    tags:&#160; connection string
+db2
+java
+jdbc
+jdbc
+mysql
+postgres
+postgresql
+sql server
+sqlserver
+url
+
+          
+    Some days we all need something simple, like the example syntax for a JDBC connection string (URL) for a particular database.
+To that end, here are some example Java JDBC connection string examples for various databases, including MySQL, Postgres, SQL Server, and DB2.
+
+JDBC connection string examples in tabular format
+If you just need one of these Java JDBC connection strings, here&apos;s a quick table showing the syntax for JDBC URL&apos;s and drivers that I&apos;ve used on recent projects.
+(However, if you&apos;d like to see more detailed JDBC URL and Driver examples for each database, see the sections below.)
+
+    
+        
+            Database
+            URL (JDBC Connection String)
+
+            JDBC Driver
+        
+        
+            MySQL
+            jdbc:mysql://HOST/DATABASE
+
+            com.mysql.jdbc.Driver
+        
+        
+            Postgresql
+            jdbc:postgresql://HOST/DATABASE
+
+            org.postgresql.Driver
+        
+        
+            SQL Server
+            jdbc:microsoft:sqlserver://HOST:1433;DatabaseName=DATABASE
+
+            com.microsoft.jdbc.sqlserver.SQLServerDriver
+        
+        
+            DB2
+            jdbc:as400://HOST/DATABASE;
+
+            com.ibm.as400.access.AS400JDBCDriver
+        
+    
+
+MySQL JDBC connection string (JDBC&#160;URL)
+Here&apos;s a sample MySQL JDBC connection string and JDBC&#160;driver string, taken from a Java properties file:
+
+db_url      = jdbc:mysql://HOST/DATABASE
+db_driver   = com.mysql.jdbc.Driver
+db_username = USERNAME
+db_password = PASSWORD
+
+Here&apos;s a similar MySQL JDBC connection string (URL) and driver inside of a little Java source code:
+</TEXT>
+<CODE orderid="1" >
+try
+{
+  Class.forName(&quot;com.mysql.jdbc.Driver&quot;).newInstance();
+  String url = &quot;jdbc:mysql://HOST/DATABASE&quot;;
+  conn = DriverManager.getConnection(url, &quot;username&quot;, &quot;password&quot;);
+  doTests();
+  conn.close();
+}
+catch (ClassNotFoundException ex) {System.err.println(ex.getMessage());}
+catch (IllegalAccessException ex) {System.err.println(ex.getMessage());}
+catch (InstantiationException ex) {System.err.println(ex.getMessage());}
+catch (SQLException ex)           {System.err.println(ex.getMessage());}
+</CODE>
+<TEXT orderid="2" >
+And while I&apos;m in the neighborhood, here&apos;s a MySQL JDBC URL for a MySQL server that is listening on a very non-standard port (5150, in honor of Van Halen):
+
+db_url      = jdbc:mysql://HOST:5150/DATABASE
+db_driver   = com.mysql.jdbc.Driver
+db_username = USERNAME
+db_password = PASSWORD
+
+Postgresql JDBC connection string example
+Here&apos;s a sample Postgresql JDBC connection string and JDBC&#160;driver string, taken from a Java properties file:
+
+db_url      = jdbc:postgresql://HOST/DATABASE
+db_driver   = org.postgresql.Driver
+db_username = USERNAME
+db_password = PASSWORD
+
+And here&apos;s the same Postgres JDBC driver and URL (connection string) shown in a snippet of Java source code:
+</TEXT>
+</result>

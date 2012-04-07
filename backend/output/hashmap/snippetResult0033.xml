@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>18908</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.java-tips.org/java-se-tips/org.xml.sax/handling-namespaces-during-parsing-3.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home    Java SE Tips               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					Handling namespaces during parsing									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;0
+
+
+PoorBest&#160;
+		
+				
+			
+				
+
+Since there is a huge amount of DTD-types and XML-documents 
+from different vendors, we can meet problem of name-conflict in
+XML data. This can take place when we try to combine two or more
+DTD-definitions into one. In order to separate definitions with 
+the same name from different DTD&apos;s a namespaces can be used.
+
+Namespace is bound to a vendors unique-URL and uniquely identifies
+the type of the element it defines.
+
+Since hamespace-to-url mapping takes place in XML documet, SAX handler
+has to be able to process it:
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.util.HashMap;
+
+import&#160;java.util.Iterator;
+
+import&#160;java.util.Map;
+
+
+
+import&#160;org.xml.sax.SAXException;
+
+import&#160;org.xml.sax.helpers.DefaultHandler;
+
+
+
+/**
+
+&#160;*&#160;This&#160;example&#160;demonstrates&#160;how&#160;to&#160;indicate&#160;current&#160;position
+
+&#160;*&#160;in&#160;the&#160;source&#160;XML-document.
+
+&#160;*/
+
+
+
+public&#160;class&#160;SampleOfNamespacePrefixes&#160;extends&#160;DefaultHandler&#160;{
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;//&#160;this&#160;will&#160;store&#160;URI&#160;to&#160;prefix&#160;correspondance:
+
+&#160;&#160;&#160;&#160;private&#160;Map&#160;namespaceMapping&#160;=&#160;new&#160;HashMap();
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;//&#160;nothing&#160;serious,&#160;just&#160;save&#160;a&#160;previx&#160;declaration:
+
+&#160;&#160;&#160;&#160;public&#160;void&#160;startPrefixMapping(String&#160;prefix,&#160;String&#160;uri)&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;throws&#160;SAXException&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;namespaceMapping.put(uri,&#160;prefix);
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;//&#160;just&#160;remove&#160;prefix-declaration&#160;when&#160;its&#160;not&#160;needed&#160;anymore:
+
+&#160;&#160;&#160;&#160;public&#160;void&#160;endPrefixMapping(String&#160;prefix)&#160;throws&#160;SAXException&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Iterator&#160;i&#160;=&#160;namespaceMapping.keySet().iterator();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;for&#160;(;&#160;i.hasNext();&#160;)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;uri&#160;=&#160;(String)&#160;i.next();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;uriPrefix&#160;=&#160;(String)&#160;namespaceMapping.get(uri);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if&#160;(prefix.equals(uriPrefix))&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;namespaceMapping.remove(uri);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;break;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+&#160;Related Tips 
+A custom combobox editor for use with the EditableComboBox class
+A demonstration of Java2D transformations
+A game of Tic-Tac-Toe that can be played between two client applets
+A Label that uses inline HTML to format its text
+A program to print limits of the primitive types
+A sample of inline DTD definition
+A sample of linked DTD definition
+A sample XML file
+
+			
+		
+				
+
+		&#160;
+
+		
+
+			
+									
+						
+							&lt; Prev
+					
+										&#160;
+
+					
+										
+						
+							Next &gt;
+					
+								
+			
+			                
+
+
+
+
+
+
+
+ 
+Page 1 of 0 ( 0 comments )
+
+
+       You can share your information about this topic using the form below! 
+
+Please do not post your questions with this form! Thanks.
+
+ 
+
+  
+    
+      
+                
+          
+          
+
+          
+          Name (required)
+
+          
+          
+
+                    
+          
+
+          E-Mail (required)          
+                    
+
+          
+          
+          
+
+          Your email will not be displayed on the site - only to our administrator          
+          
+
+          Homepage(optional)
+
+
+
+
+
+
+
+          
+          
+
+          Comment          
+                    Enable HTML code :
+          
+          Yes
+          
+          No 
+
+          
+          
+          
+          
+
+          
+
+ 
+          
+
+          
+          
+        
+      
+    
+  
+
+
+
+
+
+&#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+      
+    
+    
+      
+        
+          &#160;
+          &#160;
+          &#160;
+        
+        
+          &#160;
+          
+              &#160;            
+          &#160;
+        
+        
+          &#160;
+          &#160;
+          &#160;
+        
+      
+    
+    
+      
+        
+            
+            
+            
+        
+      
+    
+	
+	
+
+
+		
+				
+			
+				
+			
+		
+		
+		
+
+
+
+
+
+
+
+
+Home
+
+
+-
+
+
+About Us
+
+
+-
+
+
+Privacy Policy
+
+
+
+
+
+
+Copyright 2005 - 2008 www.java-tips.org
+Java is a trademark of Sun Microsystems, Inc.
+</TEXT>
+</result>

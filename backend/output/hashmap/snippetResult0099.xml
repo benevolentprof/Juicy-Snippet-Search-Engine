@@ -1,0 +1,995 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75459</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/jdk6/collections-framework-enhancemen.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Collections Framework Enhancements
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In Collection framework, we are able to improve the performance hashing function that is used by java.util.HashMap.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Collections Framework Enhancements
+
+
+
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+In Collection framework, we are able to improve the performance hashing function that is used by
+java.util.HashMap. It provides some new Collection interfaces also.
+
+
+
+Following new Interfaces and Classes are provided in JAVA SE 6 :
+
+  Deque &#150; Deque is a interface. It is a short for &#147;Double Ended Queue&#148;. This interface defines some methods that access the element at both ends. That means by the methods of this interface we can add and remove the elements at both ends.
+
+    
+  ArrayDeque &#150; ArrayDeque Class implements a Deque interface. This class have no capacity restriction, it can grow according to usage. If the external Synchronization is not available then it don&#146;t support concurrent
+    access by multiple thread.
+
+  
+    Constructors Details :
+    
+  public ArrayDeque()
+
+    Above Constructor is used to make a empty array deque with an default capacity that 16 elements.
+
+    
+  
+  public  ArrayDeque(int numElements)
+
+Above Construtor is used to make a empty array deque with the initial capacity that is sufficient to hold the specified elements.
+
+    
+  public  ArrayDeque&lt;Etype&gt;()
+
+    
+Etype is the type of  the elements that held in this Collection. Above Constructor is used to make a array deque containing elements of specified type.
+
+  Methods Details :
+  
+    void  addFirst(Etype e)
+
+      Above method is used to insert the element at the starting point of the array deque
+
+      
+    void  addLast(Etype e)
+
+      Above method is used to insert the element at the end point of the array deque.
+      
+   
+ 
+  
+   
+  
+  &#160;&#160;&#160;&#160;&#160; Above two methods throws following Exception:
+  
+    IllegalStateException &#150; Due to capacity restriction the element cannot be added.
+      
+  ClassCastException  &#150; Class of the specified element prevents it from being added to this deque
+    
+  
+  NullPointerException &#150; If specified element is null.
+      
+
+  IllegalArgumentException  &#150; If element having some property that prevent it from being added to this deque
+
+  
+  
+       
+
+
+  boolean  offerFirst(Etype e)
+
+    Above method is also used to insert the specified element at the starting point of the array deque. This method is preferable when we using a capacity restricted deque. When element is added in array deque then its return true else it return false.
+
+    
+  
+  boolean  offerLast(Etype e)
+
+    Above method is also used to insert the specified element at the end point of the array deque. This method is preferable when we using a capacity restricted deque. When element is added in array deque then its return true else it return false.
+
+
+  &#160;&#160;&#160; Above two methods throws following Exception:&#160;
+  
+    ClassCastException &#150; Class of the specified element prevents it from being added to this deque.
+    NullPointerException  &#150; If specified element is null.
+    IllegalArgumentException  &#150; If element having some property that prevent it from being added to this deque.
+    
+  
+  
+    Etype  removeFirst()
+
+  Above method is used to remove the first element of the array deque. And we can also retrieve this element. But if array deque is empty then it throws a
+      NoSuchElementException.
+
+      
+    
+  Etype  removeLast()
+
+  Above method is used to remove the last element of the array deque. And we can also retrieve this element. But if array deque is empty then it throws a
+  NoSuchElementException.
+
+      
+    
+  Etype  pollFirst()
+
+  Above method is same as removeFirst(). It is also used to retrieve and remove the first element of the deque. But it does not throws any Exception even the deque is empty, its only return null.
+
+    
+    Etype  pollLast()
+
+      Above method is same as removeLast(). It is also used to retrieve and remove the last element of the deque. But it does not throws any Exception even the deque is empty, its only return null.
+
+      
+    Etype  getFirst()
+
+      Above method is used just for retrieving the first element of deque. But if array deque is empty then it throws a
+      NoSuchElementException.
+
+      
+    Etype  getLast()
+
+      Above method is used just for retrieving the last element of deque. But if array deque is empty then it throws a
+      NoSuchElementException.
+
+      
+    Etype  peekFirst()
+
+      Above method is same as getFirst().It is also used to retrieving the first element of the deque. But it does not throws any Exception even the deque is empty, its only return null.
+
+      
+    Etype  peekLast()
+
+      Above method is same as getLast().It is also used to retrieving the last element of the deque. But it does not throws any Exception even the deque is empty, its only return null.
+
+      
+    boolean  removeFirstOccurrence(Object obj)
+
+      Above method is used to remove the first occurrence of the specified element. It return true when the specified element was remove. But if the deque does not contain the specified element it is unchanged.
+
+      
+    boolean  removeLastOccurrence(Object obj)
+
+      Above method is used to remove the last occurrence of the specified element. It return true when the specified element was remove. But if the deque does not contain the specified element it is unchanged.
+      
+  
+  
+
+ The following example demonstrates the above
+  methods:
+</TEXT>
+<CODE orderid="1" >
+import java.io.*;
+import java.util.*;
+        public class NewDeque
+{
+        	public static void main(String s[])throws IOException
+	{
+        		Console c=System.console();
+		if(c==null)		
+		{
+			System.err.println(&quot;Console object is not available&quot;);
+			System.exit(1);
+		}
+			ArrayDeque&lt;String&gt; dqname = new ArrayDeque&lt;String&gt;();
+			String name = null;
+        			name = c.readLine(&quot;Enter any String: &quot;);
+			dqname.add(name);    
+			show(dqname);
+	
+			name=c.readLine(&quot;Enter any string to add on starting 
+point of deque by addFirst():&quot;);
+			dqname.addFirst(name);
+			show(dqname);
+        			name=c.readLine(&quot;Enter any string to add on ending 
+point of deque by addLast():&quot;);
+			dqname.addLast(name);
+			show(dqname);
+        			name=c.readLine(&quot;Enter any string to add on starting
+ point of deque by offerfirst() :&quot;);
+			dqname.offerFirst(name);
+			show(dqname);
+        			name=c.readLine(&quot;Enter any string to add on ending 
+point of deque by offerlast() :&quot;);
+			dqname.offerLast(name);
+			show(dqname);
+        			System.out.println(&quot;Getting the first element 
+by using getFirst()&quot;);
+			String str1=dqname.getFirst();
+			System.out.println(&quot;First element is  : &quot;+str1);
+        			System.out.println(&quot;Getting the Last element by using 
+getLast()&quot;);
+			str1=dqname.getLast();
+			System.out.println(&quot;Last element is  : &quot;+str1);
+	
+        			System.out.println(&quot;Getting the first element by 
+using peekFirst()&quot;);
+			str1=dqname.peekFirst();
+			System.out.println(&quot;First element is  : &quot;+str1);
+	
+        			System.out.println(&quot;Getting the Last element by
+ using peekLast()&quot;);
+			str1=dqname.peekLast();
+			System.out.println(&quot;Last element is  : &quot;+str1);
+        			System.out.println(&quot;Removing the first element
+ by using removeFirst()&quot;);
+			str1=dqname.removeFirst();
+			show(dqname);			
+        			System.out.println(&quot;Removing the Last element
+ by using removeLast()&quot;);
+			str1=dqname.removeLast();
+        			show(dqname);
+        			System.out.println(&quot;Removing the first element
+ by using pollFirst()&quot;);
+			str1=dqname.pollFirst();
+			show(dqname);
+        			System.out.println(&quot;Removing the Last element
+ by using pollFirst()&quot;);
+			str1=dqname.pollLast();
+			show(dqname);
+	}
+        			static void show(ArrayDeque&lt;String&gt; dqname)
+			{
+			Iterator&lt;String&gt; nameIter = dqname.iterator();
+			 while(nameIter.hasNext())
+        			System.out.println(nameIter.next()); 
+			}
+}
+</CODE>
+<TEXT orderid="2" >
+Output of the program is:&#160;&#160;
+  
+    
+      C:\j2se6&gt;javac NewDeque.java
+
+        
+
+        C:\j2se6&gt;java NewDeque
+
+        Enter any String: Rose
+
+        Rose
+
+        Enter any string to add on starting point of deque by addFirst():India
+
+        India
+
+        Rose
+
+        Enter any string to add on ending point of deque by addLast():Net
+
+        India
+
+        Rose
+
+        Net
+
+        Enter any string to add on starting point of deque by offerfirst() :Com
+
+        Com
+
+        India
+
+        Rose
+
+        Net
+
+        Enter any string to add on ending point of deque by offerlast() :Chandan
+
+        Com
+
+        India
+
+        Rose
+
+        Net
+
+        Chandan
+
+        Getting the first element by using getFirst()
+
+        First element is  : Com
+
+        Getting the Last element by using getLast()
+
+        Last element is  : Chandan
+
+        Getting the first element by using peekFirst()
+
+        First element is  : Com
+
+        Getting the Last element by using peekLast()
+
+        Last element is  : Chandan
+
+        Removing the first element by using removeFirst()
+
+        India
+
+        Rose
+
+        Net
+
+        Chandan
+
+        Removing the Last element by using removeLast()
+
+        India
+
+        Rose
+
+        Net
+
+        Removing the first element by using pollFirst()
+
+        Rose
+
+        Net
+
+        Removing the Last element by using pollFirst()
+
+        Rose
+
+        
+
+        C:\j2se6&gt;
+    
+  
+  
+  Download this Example
+  
+
+		
+		
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+      
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java SE 6 ...  180000 viewsEnhancements in Networking Features ...  181051 viewsCustom Collection Implementations ...  181873 viewsChanges in Jar and Zip ...  181879 viewsChanges in I/O ...  181920 viewsIntroduction to collection Implementations ...  182064 viewsIntroduction to Collection Algorithms ...  182091 viewsJava Web Start Enhancements in version 6 ...  182171 viewsCollections Framework Enhancements ...  182387 viewsAdvantages and Disadvantages of the Collection Framework ...  182690 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+algorithm
+api
+ide
+collections
+orm
+ant
+data
+form
+interface
+framework
+software
+io
+multiple
+ip
+order
+vi
+collection
+tag
+int
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+1 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+		Its good
+
+		Posted by Roopesh Soni on Tuesday, 03.13.07 @ 15:38pm | #11576
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								SCADA in Future
+										Collections Framework Enhancements
+										Custom Collection Implementations
+										Affine Transform Example
+										Java 6.0 Collection Framework
+										Making a Frame Non Resizable in Java
+										Introduction to Collection Algorithms
+										Complete Hibernate 3.0 Tutorial
+										Java Bitwise AND &quot; &amp;&quot; Operator
+										Convert  Date  to  String
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

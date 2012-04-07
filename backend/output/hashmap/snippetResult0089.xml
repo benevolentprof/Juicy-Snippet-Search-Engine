@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75937</docid>
+<orderid>4</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/javatutorials/resetting_object_output_stream.shtml</url>
+</description>
+<TEXT orderid="2" >
+Next we have the code that Receives lots of Person objects
+    and code that Sends them:
+</TEXT>
+<CODE orderid="3" >
+import java.net.*;
+import java.io.*;
+
+public class Receiver {
+  public static void main(String[] args) throws Exception {
+    ServerSocket ss = new ServerSocket(7000);
+    Socket socket = ss.accept();
+    ObjectInputStream ois = new ObjectInputStream(
+        socket.getInputStream());
+    int count=0;
+    while(true) {
+      Person p = (Person) ois.readObject();
+      if (count++ % 1000 == 0) {
+        System.out.println(p);
+      }
+    }
+  }
+}
+
+
+import java.net.Socket;
+import java.io.*;
+
+public class Sender {
+  public static void main(String[] args) throws IOException {
+    long start = System.currentTimeMillis();
+    Socket s = new Socket(&quot;localhost&quot;, 7000);
+    ObjectOutputStream oos = new ObjectOutputStream(
+        s.getOutputStream());
+    Person p = new Person(&quot;Heinz&quot;, &quot;Kabutz&quot;, 0);
+    for (int age=0; age &lt; 1500 * 1000; age++) {
+      p.setAge(age);
+      oos.writeObject(p);
+    }
+    long end = System.currentTimeMillis();
+    System.out.println(&quot;That took &quot; + (end-start) + &quot;ms&quot;);
+  }
+}
+</CODE>
+<TEXT orderid="4" >
+The output was:
+
+  
+java Receiver:
+  *snip*
+  Heinz Kabutz, 0
+  Heinz Kabutz, 0
+  Heinz Kabutz, 0
+  Heinz Kabutz, 0
+  Heinz Kabutz, 0
+  Heinz Kabutz, 0
+
+java Sender:
+  That took 19548ms
+  
+
+  
+    When we run this, we will see lots of People objects on the
+    Receiver side, but all the age values will be 0, even though
+    we changed the age on the Sender side.  Why is this?
+  
+
+  
+    When you construct an ObjectOutputStream and an ObjectInputStream,
+    they each contain a cache of objects that have already
+    been sent across this stream.  The cache relies on object
+ identity, rather than the traditional hashing function.  It is
+ more similar to a java.util.IdentityHashMap than a normal java.util.HashMap.
+ So, if you resend the same
+    object, only a pointer to the object is sent across the
+    network.  This is very clever, and saves network bandwidth.
+    However, the ObjectOutputStream cannot detect whether your
+    object was changed internally, resulting in the Receiver
+    just seeing the same object over and over again.  You will
+    notice that this was quite fast.  We sent 1&apos;500&apos;000 objects
+    in 19548ms (on my machine). (well, we only sent one object,
+    and 1&apos;499&apos;999 pointers to that object).
+  
+
+  
+    There seemed to be some problem with sending the same Person
+    object many times, especially if the contents of that Person
+    changed.  Due to the optimisation in ObjectOutputStream,
+    only the pointer to the Person would be sent each time.
+    So, what would happen if we simply sent a new Person each
+    time?  Let&apos;s try it out...
+</TEXT>
+<CODE orderid="5" >
+import java.net.Socket;
+import java.io.*;
+
+public class Sender2 {
+  public static void main(String[] args) throws IOException {
+    long start = System.currentTimeMillis();
+    Socket s = new Socket(&quot;localhost&quot;, 7000);
+    ObjectOutputStream oos = new ObjectOutputStream(
+        s.getOutputStream());
+    for (int age=0; age &lt; 1500 * 1000; age++) {
+      oos.writeObject(new Person(&quot;Heinz&quot;, &quot;Kabutz&quot;, age));
+    }
+    long end = System.currentTimeMillis();
+    System.out.println(&quot;That took &quot; + (end-start) + &quot;ms&quot;);
+  }
+}
+</CODE>
+<TEXT orderid="6" >
+This seems to run fine for a while, until we all of a sudden
+    see an OutOfMemory error on both the Receiver and the Sender2.
+    Someone once challenged regarding the pathetic speed of Java.
+    They claimed that Java was so slow that the Garbage Collector
+    could not even keep up with objects that were being read over
+    the network.  It sounded strange to me that Java should run
+    out of memory so after some questioning, we traced the
+    problem to the object cache growing in the Receiver and never
+    being cleared.  Since the Person objects are always distinct,
+    they are put into the cache on both sides of the
+    ObjectOutputStream.  The Receiver&apos;s side cannot clear entries
+    from the table, since it does not know which entries the
+    Sender might send again.  It then keeps on growing until the
+    JVM runs out of memory.
+  
+
+  Resetting ObjectOutputStream
+
+  
+    One hack^H^H^H^Hsolution to the OutOfMemory problem is to
+    every time that you send an object also reset the cache on
+    both sides.  Let&apos;s try out what that does to our performance:
+</TEXT>
+</result>

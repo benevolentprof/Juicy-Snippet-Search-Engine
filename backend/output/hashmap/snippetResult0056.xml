@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>76003</docid>
+<orderid>20</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/javatutorials/javaapi.shtml</url>
+</description>
+<TEXT orderid="18" >
+call.
+&quot;nodeString&quot;)
+</TEXT>
+<CODE orderid="19" >
+Preferences.node(&quot;nodeString&quot;)
+</CODE>
+<TEXT orderid="20" >
+returns a Preferencesobject for the node specified
+by &quot;nodeString&quot;. It can specify a node relative to the current one, ex. &quot;child1&quot;, which will return a child
+preference node (as we use it in getChildAt), or an absolute path can be specified,
+ex. &quot;/com/polymorph/UI&quot; will return a node &quot;UI&quot;, with parent node &quot;polymorph&quot;.
+Preference Key-Value pairs
+
+
+OK, our editor is now able to handle the nodes in the user and/or system preferences hierarchy, but how to
+we actually access the preference values? Well, the Preferences API allows us to save preferences in our
+custom defined preferences structure in a very similar way as we would in a Hashmap: we put key-value pairs
+in the preferences node, where the key is a specific preference setting name, and the value can either be a
+String, int, long, boolean, float, double or byte[]. Once you have a Preferences object, you can
+just call
+</TEXT>
+<CODE orderid="21" >
+put(&quot;keyStr&quot;, &quot;valueStr&quot;)
+</CODE>
+<TEXT orderid="22" >
+, or &quot;keyStr&quot;, 123l)
+</TEXT>
+</result>

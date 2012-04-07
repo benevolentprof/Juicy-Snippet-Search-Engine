@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>13610</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-tips.org/other-api-tips/jdbc/import-data-from-txt-or-csv-files-into-mysql-database-t-2.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home  Other API Tips  JDBC    Import Data from Txt or CSV files into MYSQL database tables               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					Import Data from Txt or CSV files into MYSQL database tables									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;33
+
+
+PoorBest&#160;
+		
+				
+			
+				
+
+Mysql-connector-java-3.1.10 is a JDBC connector for MYSQL database.
+MYSQL provides LOAD DATA INFILE utility to import data from files like 
+csv, txt or xls into database tables.
+
+The example below imports data from .txt file into table.
+
+temp.txt file is a tab separated file: 
+
+
+&quot;1 string&quot;      100
+&quot;2 string&quot;      102
+&quot;3 string&quot;      104
+&quot;4 string&quot;      106
+
+
+
+testtable structure
+CREATE TABLE testtable
+(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+text varchar(45) NOT NULL,
+price integer not null);
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.sql.Connection;
+
+import&#160;java.sql.DriverManager;
+
+import&#160;java.sql.Statement;
+
+import&#160;java.sql.ResultSet;
+
+import&#160;java.sql.SQLException;
+
+
+
+public&#160;class&#160;automateImport
+
+{
+
+&#160;&#160;&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;
+
+&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DBase&#160;db&#160;=&#160;new&#160;DBase();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Connection&#160;conn&#160;=&#160;db.connect(
+
+&#160;&#160;&#160;&#160;&quot;jdbc:mysql://localhost:3306/test&quot;,&quot;root&quot;,&quot;caspian&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;db.importData(conn,args[0]);
+
+&#160;&#160;&#160;&#160;}
+
+
+
+}
+
+
+
+class&#160;DBase
+
+{
+
+&#160;&#160;&#160;&#160;public&#160;DBase()
+
+&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;}
+
+
+
+&#160;&#160;&#160;&#160;public&#160;Connection&#160;connect(String&#160;db_connect_str,&#160;
+
+&#160;&#160;String&#160;db_userid,&#160;String&#160;db_password)
+
+&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Connection&#160;conn;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;try&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Class.forName(&#160;&#160;
+
+&#160;&#160;&#160;&#160;&quot;com.mysql.jdbc.Driver&quot;).newInstance();
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;conn&#160;=&#160;DriverManager.getConnection(db_connect_str,&#160;
+
+&#160;&#160;&#160;&#160;db_userid,&#160;db_password);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;catch(Exception&#160;e)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;e.printStackTrace();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;conn&#160;=&#160;null;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return&#160;conn;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;public&#160;void&#160;importData(Connection&#160;conn,String&#160;filename)
+
+&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Statement&#160;stmt;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;query;
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;try
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;stmt&#160;=&#160;conn.createStatement(
+
+&#160;&#160;&#160;&#160;ResultSet.TYPE_SCROLL_SENSITIVE,
+
+&#160;&#160;&#160;&#160;ResultSet.CONCUR_UPDATABLE);
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;query&#160;=&#160;&quot;LOAD&#160;DATA&#160;INFILE&#160;&apos;&quot;+filename+
+
+&#160;&#160;&#160;&#160;&quot;&apos;&#160;INTO&#160;TABLE&#160;testtable&#160;(text,price);&quot;;
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;stmt.executeUpdate(query);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;catch(Exception&#160;e)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;e.printStackTrace();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;stmt&#160;=&#160;null;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;}
+
+};
+</CODE>
+<TEXT orderid="2" >
+If you want to import a CSV file, you can use the following query:
+</TEXT>
+</result>

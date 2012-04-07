@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>1360</docid>
+<orderid>12</orderid>
+<type>TEXT</type>
+<url>http://www.zetcode.com/tutorials/mysqlcapitutorial</url>
+</description>
+<TEXT orderid="10" >
+We check the return value. If the mysql_init() function fails, we print the error message and terminate the application.
+</TEXT>
+<CODE orderid="11" >
+if (mysql_real_connect(conn, &quot;localhost&quot;, &quot;zetcode&quot;, &quot;passwd&quot;, NULL, 0, NULL, 0) == NULL) {
+     printf(&quot;Error %u: %s\n&quot;, mysql_errno(conn), mysql_error(conn));
+     exit(1);
+ }
+</CODE>
+<TEXT orderid="12" >
+The mysql_real_connect() function establishes a connection to the database.
+We provide connection handler, host name, user name and passwor parameters to the function. The other
+four parameters are the database name, port number, unix socket and finally the client flag.
+</TEXT>
+<CODE orderid="13" >
+if (mysql_query(conn, &quot;create database testdb&quot;)) {
+     printf(&quot;Error %u: %s\n&quot;, mysql_errno(conn), mysql_error(conn));
+     exit(1);
+ }
+</CODE>
+<TEXT orderid="14" >
+The mysql_query() executes the SQL statement. In our case, the statement creates a new
+database.
+</TEXT>
+</result>

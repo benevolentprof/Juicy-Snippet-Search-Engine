@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>81248</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/j2me/api/javax/microedition/io/class-use/StreamConnection.html</url>
+</description>
+<TEXT orderid="0" >
+Overview&#160;
+      Package&#160;
+      Class&#160;
+   &#160;Use&#160;
+      Tree&#160;
+      Deprecated&#160;
+      Index&#160;
+      Help&#160;
+  
+
+
+
+MID Profile
+
+
+
+
+
+&#160;PREV&#160;
+&#160;NEXT
+
+  FRAMES  &#160;
+&#160;NO FRAMES
+
+
+
+
+
+
+
+Uses of Interface
+javax.microedition.io.StreamConnection
+
+
+
+
+
+Packages that use StreamConnection
+
+
+javax.microedition.io
+ MID Profile includes networking support based on the 
+    GenericConnection framework from the Connected
+    Limited Device Configuration.&#160;
+
+
+&#160;
+
+
+
+
+
+Uses of StreamConnection in javax.microedition.io
+
+
+&#160;
+
+
+
+
+Subinterfaces of StreamConnection in javax.microedition.io
+
+
+
+&#160;interface
+ContentConnection
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;This interface defines the stream connection over which
+ content is passed.
+
+
+
+&#160;interface
+HttpConnection
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;This interface defines the necessary methods and constants
+ for an HTTP connection.
+
+
+&#160;
+
+
+
+
+Methods in javax.microedition.io that return StreamConnection
+
+
+
+&#160;StreamConnection
+</TEXT>
+<CODE orderid="1" >
+StreamConnectionNotifier.acceptAndOpen()
+</CODE>
+<TEXT orderid="2" >
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Returns a StreamConnection that represents
+ a server side socket connection.
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+  
+      Overview&#160;
+      Package&#160;
+      Class&#160;
+   &#160;Use&#160;
+      Tree&#160;
+      Deprecated&#160;
+      Index&#160;
+      Help&#160;
+  
+
+
+
+MID Profile
+
+
+
+
+
+&#160;PREV&#160;
+&#160;NEXT
+
+  FRAMES  &#160;
+&#160;NO FRAMES
+
+
+
+
+
+Submit a comment or suggestion Version 1.0 of MID Profile Specification
+Java is a trademark or registered trademark of Sun Microsystems,  Inc. in the US and other countries. Copyright (c) 1993-2001 Sun Microsystems, Inc. 901 San Antonio Road,Palo Alto, California, 94303, U.S.A.  All Rights Reserved.
+</TEXT>
+</result>

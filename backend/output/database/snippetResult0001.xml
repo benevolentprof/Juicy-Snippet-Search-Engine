@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>79647</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=153</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            What is JDBC?
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+
+The JDBC API is a Java API that can access any kind of tabular data,
+especially data stored in a Relational Database.
+JDBC helps you to write java applications that manage these three programming
+activities:
+
+  
+  Connect to a data source, like a database 
+  Send queries and update statements to the database 
+  Retrieve and process the results received from the database in answer to
+    your query
+
+    
+
+    The following simple code fragment gives a simple example of these three
+    steps:
+</TEXT>
+<CODE orderid="1" >
+Connection con = DriverManager.getConnection
+           ( &quot;jdbc:myDriver:wombat&quot;, &quot;myLogin&quot;,&quot;myPassword&quot;);
+			  
+Statement stmt = con.createStatement();
+ResultSet rs = stmt.executeQuery(&quot;SELECT a, b, c FROM Table1&quot;);
+while (rs.next()) {
+	int x = rs.getInt(&quot;a&quot;);
+	String s = rs.getString(&quot;b&quot;);
+	float f = rs.getFloat(&quot;c&quot;);
+	}
+</CODE>
+<TEXT orderid="2" >
+This short code fragment instantiates a DriverManager object to
+    connect to a database driver and log into the database, instantiates a Statement
+    object that carries your SQL language query to the database; instantiates a ResultSet
+    object that retrieves the results of your query, and executes a simple while
+    loop, which retrieves and displays those results. It&apos;s that simple.
+
+
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</TEXT>
+</result>

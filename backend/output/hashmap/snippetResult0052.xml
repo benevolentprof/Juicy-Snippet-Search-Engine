@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>8957</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/other/article.php/10936_3735436_1/Working-With-Design-Patterns-Singleton.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Working With Design Patterns: Singleton
+			
+			
+				
+				
+					March 20, 2008
+					By 
+Jeff Langr
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+The singleton is perhaps the most maligned software design pattern out there. It&apos;s right up there with the visitor pattern, which is often denigrated by developers as too complex. Yet, the notion behind singleton is simple: ensure that only one instance of a specific type exists during application execution.
+
+The default Java behavior, as with most languages, allows you to create as many instances of a given class as you want. Up until J2SE 5, Java allowed no direct way to impose a restriction on the number of instances. In J2SE 5 and later versions, you can use the enum construct to constrain how many objects of a given type exist. You can also provide a unique name for each of these known instances.
+
+In languages such as C and C++, an enum (&quot;enumeration&quot;) is simply a series of integral values, where each element in the series maps to a unique symbol. The use of enums allows you to craft more expressive code. In Java, the enum is better viewed as a class like any other, except for a few key differences. An enum can have constructors, methods, and fields, but it cannot be subclassed. An enum definition first supplies the names of the known instances; no other instances can be created by any means.
+
+From a simplistic standpoint, you could consider the catalog in a library system a candidate for a singleton. After all, you don&apos;t want to have to know what books were added to what catalog. Listing 1 shows how you might implement the catalog singleton using the enum construct.
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		Listing 1: The catalog singleton, expressed as an enum.
+</TEXT>
+<CODE orderid="1" >
+import java.util.*;
+
+public enum Catalog {
+   soleInstance;
+
+   private Map&lt;String,Book&gt; books = new HashMap&lt;String,Book&gt;();
+
+   public void add(Book book) {
+      books.put(book.getClassification(), book);
+   }
+
+   public Book get(String classification) {
+      return books.get(classification);
+   }
+}
+</CODE>
+<TEXT orderid="2" >
+Not much to it, is there? Client code must refer to the single known object, soleInstance (see Listing 2).
+
+Listing 2: Accessing the enum singleton.
+</TEXT>
+<CODE orderid="3" >
+import static org.junit.Assert.*;
+import org.junit.*;
+
+public class CatalogTest {
+   @Test
+   public void singleBook() {
+      Book book = new Book(&quot;QA123&quot;, &quot;Schmidt&quot;, &quot;Bugs&quot;, &quot;2005&quot;);
+      Catalog.soleInstance.add(book);
+      assertSame(book, Catalog.soleInstance.get(&quot;QA123&quot;));
+   }
+}
+</CODE>
+</result>

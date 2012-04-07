@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>7041</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/data/article.php/10932_1556041_3/The-Java-Database-Control-in-BEA-Weblogic.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Data &amp; Java
+					
+				
+				
+					Read More in Data &amp; Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			The Java Database Control in BEA Weblogic
+			
+			
+				
+				
+					December 12, 2002
+					By 
+Sams Publishing
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+If you want to require customers to log in before they check their order status, you need your Web service to maintain a conversation. The login method initiates a conversation, and the logout method terminates the conversation. During the life of the conversation, you keep track of the customer&apos;s ID so you can use it for any status queries.
+Listing 6.5 shows the main order status Web service. In addition to the login and logout methods, the Orders Web service includes methods to retrieve all available orders (using the customer ID determined during the login method), and also to get the status for a particular order. These data retrieval methods simply make use of the OrderStatusCtrl database control from Listing 6.1, and also the OrderStatus data object from Listing 6.4.
+
+Listing 6.5 Source Code for Orders.jws
+</TEXT>
+<CODE orderid="1" >
+import weblogic.jws.control.JwsContext;
+
+public class Orders
+{ 
+  public int customerId;
+  
+  /**
+   * @jws:control
+   */
+  private OrderStatusCtrl orderStatus;
+  /** @jws:context */ 
+  JwsContext context; 
+
+  /**
+   * @jws:operation
+   * @jws:conversation phase=&quot;start&quot;
+   */
+  public String login(String userName, String password)
+  {
+    Customer cust = orderStatus.getCustomerByUserName(
+      userName);
+    
+    if (cust != null)
+    {
+      if (!cust.password.equals(password))
+      {
+        customerId = -1;
+        context.finishConversation();
+        return &quot;Invalid password&quot;;
+      }
+      else
+      {
+        customerId = cust.customerId;
+        return &quot;Login successful&quot;;
+      }
+    }
+    else
+    {
+      customerId = -1;
+      context.finishConversation();
+      return &quot;Invalid user-id&quot;;
+    }
+  }
+  
+  /**
+   * @jws:operation
+   * @jws:conversation phase=&quot;continue&quot;
+   * @jws:return-xml xml-map::
+   *   &lt;getAllOrdersResponse xmlns=&quot;http://openuri.org/&quot;&gt;
+   *   &lt;order-statuses&gt;
+   *   &lt;order xm:multiple=&quot;o in return&quot; xmlns:xm=&quot;http://bea.com/jws/xmlmap&quot;
+   *     id=&quot;{o.orderId}&quot;&gt;
+   *     &lt;status&gt;{o.orderStatus}&lt;/status&gt;
+   *     &lt;statusCode&gt;{o.orderStatusCode}&lt;/statusCode&gt;
+   *   &lt;/order&gt;
+   *   &lt;/order-statuses&gt;
+   *   &lt;/getAllOrdersResponse&gt;
+   *   
+   * ::
+   */
+  public OrderStatus[] getAllOrders()
+  {
+    if (customerId &gt;= 0)
+    {
+      return orderStatus.getCustomerOrders(customerId);
+    }
+    else
+    {
+      return null;
+    }
+  }
+  
+  /**
+   * @jws:operation
+   * @jws:conversation phase=&quot;continue&quot;
+   * @jws:parameter-xml xml-map::
+   *   &lt;getOrderStatus xmlns=&quot;http://openuri.org/&quot;&gt;
+   *   &lt;order-id&gt;{orderId}&lt;/order-id&gt;
+   *   &lt;/getOrderStatus&gt;
+   *   
+   * ::
+   * @jws:return-xml xml-map::
+   *   &lt;getOrderStatusResponse xmlns=&quot;http://openuri.org/&quot;&gt;
+   *   &lt;order id=&quot;{return.orderId}&quot;&gt;
+   *     &lt;status&gt;{return.orderStatus}&lt;/status&gt;
+   *     &lt;statusCode&gt;{return.orderStatusCode}&lt;/statusCode&gt;
+   *   &lt;/order&gt;
+   *   &lt;/getOrderStatusResponse&gt;
+   *   
+   * ::
+   */
+  public OrderStatus getOrderStatus(int orderId)
+  {
+    if (customerId &gt;= 0)
+    {
+      return orderStatus.getOrderStatus(customerId, orderId);
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  /**
+   * @jws:operation
+   * @jws:conversation phase=&quot;finish&quot;
+   */
+  public void logout()
+  {
+  }
+}
+</CODE>
+<TEXT orderid="2" >
+Although the database control might not solve all your database needs, it should certainly be sufficient for smaller applications. In larger, more complex applications, it becomes more difficult to manage your code. The reason for this is that there is often logic in your Java code that implements business rules on top of the data. For example, you might have a rule that says that a customer ID can never start with &apos;9&apos;. When you have several Web services that manipulate the customer data, you might find that you are enforcing these rules in several places.
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		To help manage the complexity of business rules, developers often make &quot;business objects&quot; that manage data in the database and also maintain business rules. In this kind of scenario, any Web service that needed to update the customer table would use methods in a special Customer business object that would perform any special processing or validation of the customer data.
+Enterprise JavaBeans (EJBs) are a special case of business object. The EJB architecture provides a standard way to represent these business objects and also provides powerful mechanisms for storing these objects in a database and retrieving them. You will learn how to access EJBs in Chapter 10, &quot;Including an EJB Control.&quot;
+
+
+
+About the Authors
+
+Joseph Weber is a Software Architect, Manager and consultant from Wisconsin.  Mr. Weber has been an outspoken champion of Java and related technologies since their public birth in 1995.  During his career he has provided senior leadership in software definition, research, development and implementation to numerous Fortune 200 and large government organizations.  Currently Mr. Weber is a Senior Software Engineer and Project Manager for UltraVisual Medical Systems where he is helping to develop next generation medical imaging software (PACS).  Mr. Weber is also the founder, and sole official member of the Green Sky Society dedicated to irradiating the social misunderstanding that the sky is blue and not green.  BEA WebLogic Workshop Kick Start marks Joe&apos;s 11th book.  He recently outlined and contributed to Sams&apos; Java Web Services Unleashed (0-672-32363-X) and co-wrote Que&apos;s Special Edition Using Java 2 (2000 edition: 0-7897-2468-5).  
+
+Mark Wutka has been programming since the Carter administration and considers programming a relaxing pastime. He managed to get a computer science degree while designing and developing networking software at Delta Air Lines. Although he has been known to delve into areas of system and application architecture, he isn&apos;t happy unless he&apos;s writing code-usually in Java. As a consultant for Wutka Consulting, Mr. Wutka enjoys solving interesting technical problems and helping his coworkers explore new technologies. He has taught classes, written articles and books, and given lectures. His first book, Hacking Java, outsold Stephen King at the local technical bookstore. He&apos;s also known for having a warped sense of humor. 
+
+Most recently, Mr. Wutka contributed to Java Web Services Unleashed, and wrote Special Edition Using Java Server Pages and Servlets (ISBN: 0-7897-2441-3) and Special Edition Using Java 2 Enteprise Edition (ISBN: 0-7897-2503-7) He plays a mean game of Scrabble, a lousy game of chess, and is the bane of every greenskeeper east of Atlanta. 
+
+Source of this material
+
+
+
+This is Chapter 6: The Database Control from the book BEA WebLogic Workshop Kick Start (ISBN:0-672-32417-2) written by Joseph Weber and Mark Wutka, published by Sams Publishing. 
+
+&#169; Copyright Pearson Education. All rights reserved.
+
+To access the full Table of Contents for the book 
+
+
+Other Chapters from Sams Publishing:
+Web Services and Flows (WSFL)
+
+
+Overview of JXTA
+
+   
+Introduction to EJBs
+
+
+Processing Speech with Java
+
+   
+
+
+
+
+
+
+
+			
+			
+			
+			
+				
+				
+1 
+2 
+3 
+
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

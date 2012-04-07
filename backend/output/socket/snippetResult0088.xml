@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>6014</docid>
+<orderid>6</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/other/article.php/972641/Exceptions-The-Missing-Link-Arrives-for-Java.htm</url>
+</description>
+<TEXT orderid="4" >
+blocks. Code that can potentially throw an exception is wrapped in a try{} block; handling of exception by name is provided in one of the catch blocks. The finally{} block is used for some clean-up even when no exception is encountered. Code in finally{} is executed unconditionally. Strictly speaking this is not an exception handler like the catch{} block. 
+If an Exception is thrown from within a synchronized block or a synchronized method, then it is guaranteed that the locks held by the thread are relinquished. 
+Exceptions can be &apos;checked&apos; or &apos;unchecked&apos;. All Errors and all Subclasses of the RuntimeException class belong to the &apos;unchecked&apos; variety, which means that either they are program bugs (RuntimeException) or they are conditions beyond a programmer&apos;s control. In either case, the application may not have an Exception handler for &apos;unchecked&apos; exception. All other exceptions are &apos;checked&apos; exceptions, which means that the application should either provide a handler for them or declare them in the throws clause of the method signature. 
+A catch (SomeException se){} is not only able to handle SomeException but also any subclass of SomeException. 
+An application can define its own exceptions. These can be derived from any of the Exception classes, and the application can throw the exception by using the throw statement. 
+As we know that each thread in Java has its own stack, when a Throwable is created as a result of an exception and we invoke printStackTrace() on the Throwable, the entire execution trace of the thread is printed on the standard error. 
+
+
+To Handle or to Throw Is the Question
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		If you have written any serious Java programs, then chances are that you have used the general Layer pattern more often than not. As the name suggests, the application is logically divided into layers where each layer has a function of its own. And each layer &apos;talks&apos; to its adjacent layers through well-defined, published interfaces. Consider an example of an application requiring some persistence for some of its data and invoking the persist() method on a layer that handles persistence. The persistence-handling layer may write the data in a file or to a database or even in memory, which is decided by some configurable parameter of that layer. The application is not bothered by these details; however, it is interested in the outcome. If the data could not be persisted, then the application may take some action like notifying someone of the failure, retrying, or even trying some alternate action. 
+
+As we have stated, persistence could take place at a number of places and many things could go wrong. For example, if writing to a file, some IOException may be thrown; or if writing to a database, some SQLException may be thrown; or if writing to some buffers, some user-defined BufferCapacityReachedException may be thrown. In a good design, it is expected that the persistence layer will handle all these exceptions and map them to some higher-level exception that is intelligible to the application using the layer. In this case, all these exceptions could map into UnableToPersistException and be re-thrown for the application to handle.
+</TEXT>
+<CODE orderid="5" >
+.....
+public void persist() throws UnableToPersistException  {
+
+  try {
+    .......
+    // try database operation or file IO or writing to memory depending upon some flags
+  }  
+  catch ( IOException ioe) {
+    throw new UnableToPersistException (&quot;Some problem occurred in writing to file:&quot; + ioe.getMessage());
+  }
+  catch (SQLException sqe) {
+     throw new UnableToPersistException (&quot;Some problem occurred in writing to database:&quot; + ioe.getMessage());
+  }
+  catch (BufferCapacityReachedException bcre) {
+     throw new UnableToPersistException (&quot;Some problem occurred in writing to memory:&quot; + ioe.getMessage());
+   }
+}
+</CODE>
+<TEXT orderid="6" >
+What we have done here is shielded the upper layer from implementation details of the lower layer and provided a consistent and meaningful API to it. This also allows for extensibility, as in future the lower layer may write to a network socket in addition to the above and still throw a universal UnableToPersistException in case of any problem. 
+All this discussion is fine and is in accordance with the spirit of object-oriented design, but what if the higher layer were interested in the details of what caused the UnableToPersistException? 
+ 
+For example, what if we were logging for errors and the developer wanted to know the real reason for the exception? Unfortunately, in versions prior to JDK 1.4, the original cause was lost. Sure, we are passing the message when we are throwing our UnableToPersistException, but the fact that there was an IOException or the SQLException is lost forever. 
+
+Exception Chaining in JDK 1.4
+
+Two new constructors have been added to class Throwable:
+</TEXT>
+<CODE orderid="7" >
+Throwable(Throwable) Throwable(String, Throwable)
+</CODE>
+<TEXT orderid="8" >
+. As is apparent, the purpose of these constructors is to &quot;wrap in&quot; the cause of this exception. This &quot;wrapped&quot; exception can be reached by calling the getCause() method on any Throwable. 
+
+In order to have backward compatibility, a new method has been added --
+</TEXT>
+</result>

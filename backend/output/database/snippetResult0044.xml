@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>4285</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/data/article.php/942641/An-Overview-of-Java-Database-Connectivity.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Data &amp; Java
+					
+				
+				
+					Read More in Data &amp; Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			An Overview of Java Database Connectivity
+			
+			
+				
+				
+					December 18, 2001
+					By 
+Anand Narayanaswamy
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+[This article assumes you have a basic understanding of Java application and applet programming.]
+
+Suppose you have a set of records in an Access database that you
+        have to view through a front-end tool. You can design a user interface
+        by using various programming languages such as Visual Basic, Visual C++,
+        etc. Java, however, provides a more consistent approach in developing these
+        interfaces through the javax.swing package. Moreover, Java provides
+        the Java Database Connectivity (JDBC) API, with which you can connect your app to any database designed either using Microsoft Access or SQL Server. In this article, we will examine the basic steps required to handle JDBC using javax.swing for creating user interfaces. 
+
+Before proceeding further, let us take a quick look at Microsoft&apos;s Object Database Connectivity (ODBC) and the preference of JDBC over ODBC. The ODBC API offers connectivity to almost all databases on almost all platforms and is the most widely used programming interface for accessing relational databases. But ODBC cannot be used directly with Java programs due to various reasons. 
+
+
+
+ ODBC uses a C interface. This has drawbacks in security, implementation, robustness, etc.
+ ODBC makes use of pointers (which have been removed from Java).
+
+
+        
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		Hence JDBC came into existence. If you&apos;ve done database programming
+        using Visual Basic, then you will be familiar with ODBC. You can connect
+        a VB application to an Access database or an Oracle table directly via
+        ODBC. Since Java is a product of Sun Microsystems, you have to make use
+        of JDBC along with ODBC in order to develop Java database applications. JDBC is a set of Java APIs for executing SQL statements. This API consists of a set
+        of classes and interfaces to enable programmers to write pure database
+        applications. 
+
+Let us now examine the basic steps required in all Java programs to handle JDBC. 
+
+Step 1: Loading Drivers
+
+First, you have to load the appropriate driver. You can use one driver from the available four. However, the JDBC-ODBC driver is the most preferred among developers. In order to load the driver, you have to give the following syntax:
+</TEXT>
+<CODE orderid="1" >
+Class.ForName(&quot;sun.jdbc.odbc.JdbcOdbcDriver&quot;);
+</CODE>
+<TEXT orderid="2" >
+Step 2: Making a Connection
+
+The getConnection() method of the Driver Manager class is called to obtain the Connection object. The syntax looks like this:
+</TEXT>
+</result>

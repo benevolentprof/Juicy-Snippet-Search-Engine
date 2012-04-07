@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>7371</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/ent/article.php/10933_3548721_2/Groovy-Development.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Enterprise Java
+					
+				
+				
+					Read More in Enterprise Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Groovy Development
+			
+			
+				
+				
+					September 15, 2005
+					By 
+Dick Wall
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Native List and Map Syntax
+Like Jython (my previous favorite JVM-based scripting language), Groovy has some very powerful support for lists and maps built in. For example, instead of having to say:
+</TEXT>
+<CODE orderid="1" >
+HashMap myMap = new HashMap();
+myMap..put(&quot;1&quot;,&quot;Fred&quot;);
+myMap.put(&quot;2&quot;,&quot;George&quot;);
+</CODE>
+<TEXT orderid="2" >
+You can use the much shorter and clearer:
+groovyMap = [&quot;1&quot;:&quot;Fred&quot;, &quot;2&quot;:&quot;George&quot;]
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		Give it a try in the GroovyConsole and run it; you should see the groovyMap contents printed to the command line standard output.
+Likewise, list support is built in:
+myList = [1,&quot;2&quot;,&quot;Three&quot;,4]
+Note: Boxing for the int values in the list is handled for you, so the above is perfectly valid Groovy syntax.
+Not much exciting there, but the simplicity continues:
+</TEXT>
+<CODE orderid="3" >
+copyList = myList[1..2]
+</CODE>
+</result>

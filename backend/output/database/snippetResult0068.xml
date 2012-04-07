@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>74293</docid>
+<orderid>0</orderid>
+<type>CODE</type>
+<url>http://www.devdaily.com/java/java-postgresql-jdbc-driver-class-url-connection</url>
+</description>
+<CODE orderid="0" >
+devdaily.com
+  
+  
+  
+      
+
+  
+    mission&#160;&#160;|&#160;&#160;contact&#160;
+              |&#160;&#160;login&#160;&#160;
+         
+
+  
+      
+
+  
+      
+
+  
+ 
+
+
+
+
+
+
+
+    
+
+
+
+
+
+      
+      
+    
+
+    categories
+    
+  best practices&#160;(48)
+  career&#160;(37)
+  cvs&#160;(27)
+  design&#160;(6)
+  drupal&#160;(14)
+  eclipse&#160;(6)
+  gadgets&#160;(32)
+  intellij&#160;(4)
+  java&#160;(317)
+  jbuilder&#160;(20)
+  jdbc&#160;(20)
+  swing&#160;(74)
+  jsp&#160;(8)
+  latex&#160;(26)
+  linux/unix&#160;(179)
+  mac&#160;os&#160;x&#160;(152)
+  mysql&#160;(37)
+  news&#160;(51)
+  ooa/ood&#160;(9)
+  perl&#160;(144)
+  php&#160;(26)
+  postgresql&#160;(17)
+  ruby&#160;(52)
+  servlets&#160;(10)
+  svn&#160;(7)
+  technology&#160;(32)
+  testing&#160;(4)
+  uml&#160;(13)
+
+
+
+
+    popular
+    
+
+    java developer jobs
+    php, cakephp, and lamp jobs
+    geek gifts under $10
+    geek gifts under $20
+    75+ linux and unix tutorials
+    20+ vi/vim tutorials
+
+
+
+
+
+    related
+    Java MySQL JDBC Driver class and URL example
+A Java DB2 JDBC Driver class and URL example
+Java JDBC example - How do I connect to a database?
+A Java JDBC SQL Server Driver class and URL example
+JDBC connection string examples
+
+
+    
+  
+  
+    
+    
+          Java JDBC Postgresql Driver class and URL example
+    
+    
+    
+    
+    
+    
+
+  
+    
+    
+        Submitted by alvin on October 7, 2009 - 8:25pm
+    
+                    tags:&#160; database
+driver
+java
+jdbc
+jdbc
+postgres
+postgresql
+url
+
+          
+    Here&apos;s a quick post to help anyone that needs a quick JDBC Driver and URL reference when using Postgresql (Postgres) with Java (and JDBC).
+The basic Postgresql JDBC Driver and URL information you need is shown here:
+
+Postgresql (Postgres) URL (JDBC Connection) String:
+jdbc:postgresql://HOST/DATABASE
+
+Postgresql (Postgres) JDBC Driver String:
+org.postgresql.Driver
+</CODE>
+<TEXT orderid="1" >
+It may also help to see this used in a simple Java JDBC application. To that end, here&apos;s a simple Java JDBC Postgresql example that shows how to use the Postgres Driver and URL to establish a database connection.
+</TEXT>
+<CODE orderid="2" >
+public class JdbcPostgresqlDriverUrlExample
+{
+  public static void main(String[] args)
+  {
+    Connection connection = null;
+    try
+    {
+      // the postgresql driver string
+      Class.forName(&quot;org.postgresql.Driver&quot;);
+    
+      // the postgresql url
+      String url = &quot;jdbc:postgresql://THE_HOST/THE_DATABASE&quot;;
+      
+      // get the postgresql database connection
+      connection = DriverManager.getConnection(url,&quot;THE_USER&quot;, &quot;THE_PASSWORD&quot;);
+      
+      // now do whatever you want to do with the connection
+      // ...
+      
+    }
+    catch (ClassNotFoundException e)
+    {
+      e.printStackTrace();
+      System.exit(1);
+    }
+    catch (SQLException e)
+    {
+      e.printStackTrace();
+      System.exit(2);
+    }
+  }
+}
+</CODE>
+</result>

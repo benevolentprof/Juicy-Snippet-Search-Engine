@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>80675</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=1053</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            How to export from database to excel using VB.net
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+
+
+In this article we can see how to export from database to excel. We can load the data from a database to dataset and then create a new Excel file and write the data into the Excel file.
+First step is to Load the Product table data to data set, next is to create a new Excel file and write the data from dataset to Excel file.
+</TEXT>
+<CODE orderid="1" >
+For i = 0 to ds.Tables (0).Rows.Count - 1
+	For j = 0 to ds.Tables (0).Columns.Count - 1
+		xlWorkSheet.Cells (i + 1, j + 1) = _
+		ds.Tables (0).Rows (i).Item (j)
+	Next
+
+
+
+
+Imports System.Data
+Imports System.Data.SqlClient
+Imports Excel = Microsoft.Office.Interop.Excel
+Public Class Form1
+    Private Sub Button1_Click(ByVal sender As System.Object, _
+        ByVal e As System.EventArgs) Handles Button1.Click
+
+        Dim cnn As SqlConnection
+        Dim connectionString As String
+        Dim sql As String
+        Dim i, j As Integer
+
+        Dim xlApp As Excel.Application
+        Dim xlWorkBook As Excel.Workbook
+        Dim xlWorkSheet As Excel.Worksheet
+        Dim misValue As Object = System.Reflection.Missing.Value
+
+        xlApp = New Excel.ApplicationClass
+        xlWorkBook = xlApp.Workbooks.Add(misValue)
+        xlWorkSheet = xlWorkBook.Sheets(&quot;sheet1&quot;)
+
+        connectionString = &quot;data source=servername;&quot; &amp; _
+        &quot;initial catalog=databasename;user id=username;password=password;&quot;
+        cnn = New SqlConnection(connectionString)
+        cnn.Open()
+        sql = &quot;SELECT * FROM Product&quot;
+        Dim dscmd As New SqlDataAdapter(sql, cnn)
+        Dim ds As New DataSet
+        dscmd.Fill(ds)
+
+        For i = 0 To ds.Tables(0).Rows.Count - 1
+            For j = 0 To ds.Tables(0).Columns.Count - 1
+                xlWorkSheet.Cells(i + 1, j + 1) = _
+                ds.Tables(0).Rows(i).Item(j)
+            Next
+        Next
+
+        xlWorkSheet.SaveAs(&quot;C:\vbexcel.xlsx&quot;)
+        xlWorkBook.Close()
+        xlApp.Quit()
+
+        releaseObject(xlApp)
+        releaseObject(xlWorkBook)
+        releaseObject(xlWorkSheet)
+
+        cnn.Close()
+
+        MsgBox(&quot;You can find the file C:\vbexcel.xlsx&quot;)
+    End Sub
+
+    Private Sub releaseObject(ByVal obj As Object)
+        Try
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(obj)
+            obj = Nothing
+        Catch ex As Exception
+            obj = Nothing
+        Finally
+            GC.Collect()
+        End Try
+    End Sub
+End Class
+</CODE>
+<TEXT orderid="2" >
+&#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</TEXT>
+</result>

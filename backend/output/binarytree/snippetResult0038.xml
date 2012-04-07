@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>79828</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=1136</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            Creating Tree Views in Code using VB.net
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+
+You can create tree views in code as well as at design time.
+The trick here is realizing that the hierarchical nature of tree views means that one node&apos;s Nodes collection can contain child nodes, which can itself contain child nodes, and so on, so you can refer to nodes using syntax like MyNode.Nodes(3). Nodes(5). To add a new node, you use the Nodes collection&apos;s Add method. Like other controls, you can use the BeginUpdate and EndUpdate methods to turn off updating of the tree view while you&apos;re updating it. Note that this example uses the Clear method to clear all nodes in the tree view before refilling it. (Note also that I&apos;m using a few advanced programming techniques here, such as creating our own classes and storing objects in an ArrayList
+collection.) Here&apos;s the code, showing how to stock a tree view with nodes, and how to give those nodes child nodes, and so on, at run time:
+</TEXT>
+<CODE orderid="1" >
+Public Class Form1
+    Inherits System.Windows.Forms.Form
+
+    &apos;Windows Form Designer generated code
+
+    Private EmployeeArray As New ArrayList()
+
+    Private Sub Button1_Click(ByVal sender As System.Object, _
+        ByVal e As System.EventArgs) Handles Button1.Click
+        Dim intLoopIndex As Integer
+        For intLoopIndex = 0 To 9
+            EmployeeArray.Add(New Employee(&quot;Employee &quot; &amp; _
+                intLoopIndex.ToString()))
+        Next intLoopIndex
+
+        Dim EmployeeObject As Employee
+        For Each EmployeeObject In EmployeeArray
+            For intLoopIndex = 0 To 3
+                EmployeeObject.EmployeeAccounts.Add(New _
+                    Account(&quot;Account &quot; &amp; intLoopIndex.ToString()))
+            Next intLoopIndex
+        Next EmployeeObject
+
+        TreeView1.BeginUpdate()
+        TreeView1.Nodes.Clear()
+
+        Dim RootNode = New TreeNode(&quot;Employees&quot;)
+        TreeView1.Nodes.Add(RootNode)
+
+        For Each EmployeeObject In EmployeeArray
+            TreeView1.Nodes(0).Nodes.Add(New _
+                TreeNode(EmployeeObject.EmployeeName))
+
+            Dim AccountObject As Account
+            For Each AccountObject In EmployeeObject.EmployeeAccounts
+                TreeView1.Nodes(0).Nodes(_
+                    EmployeeArray.IndexOf(EmployeeObject)).Nodes.Add(_
+                    New TreeNode(AccountObject.AccountID))
+            Next AccountObject
+        Next EmployeeObject
+
+        TreeView1.EndUpdate()
+    End Sub
+End Class
+
+Public Class Employee
+    Private Index = 0
+    Public EmployeeName As String
+    Public EmployeeAccounts As New ArrayList()
+
+    Public Sub New(ByVal Name As String)
+        EmployeeName = Name
+    End Sub
+End Class
+
+Public Class Account
+    Public AccountID As String
+    Public Sub New(ByVal ID As String)
+        AccountID = ID
+    End Sub
+End Class
+</CODE>
+<TEXT orderid="2" >
+&#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</TEXT>
+</result>

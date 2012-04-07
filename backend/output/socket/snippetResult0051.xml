@@ -1,0 +1,1222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>6275</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/other/article.php/898371/User-Code-A-Little-Socket-App.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			User Code: A Little Socket App
+			
+			
+				
+				
+					October 5, 2001
+					By 
+Kalyan Kumar
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+
+Here is a small socket application developed in Java.
+ This application has a 
+simple WebServer, Proxy Server and a Cascading Proxy Server.
+
+
+
+
+
+
+http.useproxy=true
+http.proxyhost=131.107.2.240
+http.proxyport=88
+
+
+
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+</TEXT>
+<CODE orderid="1" >
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+/**
+ *   Description: This is an simple java class file which
+ *   has an small WebServer, Cascading Proxy Server
+ *   and an Proxy Server in built which will serve
+ *   only for &quot;http://&quot; protocol.It can act as
+ *   an Internet connection sharer for multiple
+ *   systems inside a LAN.This is not for 
+ *   commercial use.Make sure that you have an
+ *   single internet connection from the machine 
+ *   from where you are running this application.
+ *
+ *   The author can be contacted at kalyan.kumar@onebox.com
+ *
+ *   Important note:
+ *  (&lt;--&gt;)For httpd.class to run sucessfully search for String docroot
+ *   and set your own document root. Note that http.properties file should be
+ *   in the directory from which your are running this class file.WebServer 
+ *   in this application supports.html,.gif,.jpeg file extentions.
+ *
+ *   Author:--&gt; R.KalyanKumar
+ *   Dated :--&gt; 9th-May-2001 
+ *   
+ *   Warranty: Author accepts no responsibility for errors in application. No warranty
+ *   is implied or assumed. May not be used for commercial purposes.    
+ *
+ *   Type &quot;java http&quot; and  to start the application
+ *   Type  to terminate this application
+ *
+ *  Happy Browsing
+ **/
+
+public class http implements Runnable
+{
+	ServerSocket httpSocket=null;
+	Socket httpAcceptSock=null;
+	Properties env=new Properties();
+	FileInputStream fis=null;
+	String externalProxyHost=&quot;&quot;;
+	int externalProxyport=80;
+					  
+	static {
+		byte b[]=new byte[2048];
+		byte r[]=new byte[1];
+	}
+	
+	public http() {
+		new httpd(8400).start();
+		////you can change this port &apos;8400&apos; for your convenience
+	}
+	
+	
+	public void run() {
+		try
+		{
+			httpSocket=new ServerSocket(8200);//you can change this port &apos;8200&apos; for your convenience
+			p(&quot;8200-&gt;Proxy Server Running!&quot;);
+			env.load(fis=new FileInputStream(&quot;http.properties&quot;));
+			//make sure http.properties file is in the directory where this application is running
+			Boolean useProxy=new Boolean(env.getProperty(&quot;http.useproxy&quot;).trim());
+			boolean usepxy=useProxy.booleanValue();
+			
+	
+			while(true) {
+				httpAcceptSock=httpSocket.accept();
+				p(&quot;Accepted Connection from &quot;+httpAcceptSock.getInetAddress().getHostName());
+			if(usepxy==true) {
+				externalProxyHost=(String)env.getProperty(&quot;http.proxyhost&quot;).trim();
+				String pport=(String)env.getProperty(&quot;http.proxyport&quot;);
+				externalProxyport=Integer.parseInt(pport);
+				(new Thread(new phttp(externalProxyHost,externalProxyport,httpAcceptSock))).start();
+				p(&quot;Using external PROXY&quot;);
+			}
+			else
+			{
+				(new Thread(new WWWListener(httpAcceptSock))).start();
+				p(&quot;Direct Connect to WWW&quot;);
+			}
+			}
+		}catch(Exception err) {
+			//err.printStackTrace();
+		}
+	}
+	
+	public void p(Object o) {
+		System.out.println(o.toString());
+	}
+	
+	public static void main(String args[]) {
+		http h=new http();
+		Thread th=new Thread(h);
+		th.start();
+	}
+}
+
+
+class phttp implements Runnable {
+	String phost;
+	int pport;
+	Socket s;
+	InputStream in,in1;
+	OutputStream out,out1;
+	int read;
+	Socket httpProxyAcceptSock=null;
+	byte b[]=new byte[2048];
+	byte r[]=new byte[1024];
+	
+	phttp(String phost,int pport,Socket s) {
+		this.phost=phost;
+		this.pport=pport;
+		this.s=s;
+	}
+	
+	public synchronized void run() {
+		try
+		{
+			httpProxyAcceptSock=new Socket(phost,pport);
+			out1=httpProxyAcceptSock.getOutputStream();
+			in1=httpProxyAcceptSock.getInputStream();
+			readRequest();
+		}catch(Exception err) {
+			//err.printStackTrace();
+		}
+	}
+	
+	public void readRequest() {
+		try
+		{
+			in=s.getInputStream();
+			
+			while((read=in.read(r))&gt;0) {
+				out1.write(r,0,read);
+				
+				out1.flush();
+				(new httpResponse(s.getOutputStream(),in1,new String(r,0,read))).start();
+				if(read&lt;=0) break;
+			}
+		}catch(Exception err) {
+			//err.printStackTrace();
+		}
+	}
+	
+	class httpResponse extends Thread
+	{
+		OutputStream o;
+		InputStream i;
+		int re;
+		String tocache;
+		httpCache cache=new httpCache();
+		
+		httpResponse(OutputStream o,InputStream i,String tocache){
+			this.o=o;
+			this.i=i;
+			this.tocache=tocache;
+		}
+		
+		public synchronized void run() {
+			try
+			{
+				if(cache.isInCache(tocache)) {
+					o.write(cache.serveFromCache(tocache),0,cache.serveFromCache(tocache).length);
+					o.flush();
+				}
+				else {
+					while((re=i.read(b))&gt;0) {
+						o.write(b,0,re);
+						cache.cache(tocache,b);						
+						o.flush();
+						if(re&lt;=0) break;
+					}
+				}
+				o.close();
+				i.close();
+				s.close();
+			}catch(Exception err) {
+				//err.printStackTrace();
+			}
+		}
+	}
+}
+
+class WWWListener implements Runnable {
+	Socket s,httpProxyAcceptSock=null;
+	byte onebyte[]=new byte[1024];
+	InputStream i_s,http_pi;
+	OutputStream o_s,http_po;
+	byte b[]=new byte[2048];	
+	int r,r1;
+	StringBuffer sb=new StringBuffer();
+	StringBuffer sb1=new StringBuffer();
+	String wwwHost=&quot;&quot;;
+	int port;
+	String m;
+	
+	
+	WWWListener(Socket s) {
+		this.s=s;
+		try
+		{
+			o_s=s.getOutputStream();
+			i_s=s.getInputStream();
+		}catch(Exception err) {
+			//err.printStackTrace();
+		}
+	}
+	public synchronized void run() {
+		try
+		{
+			while((r=i_s.read(onebyte))&gt;0)
+			{
+				sb.append(new String(onebyte,0,r));
+				sb1.append(new String(onebyte,0,r));
+				
+				String www_host=parseRequest(sb1.toString());
+				StringTokenizer addport=new StringTokenizer(www_host,&quot;:&quot;);
+				String dummy=addport.nextToken();
+				String address=addport.nextToken();
+				try
+				{
+					m=addport.nextToken();		
+				}catch(NoSuchElementException err){
+					port=80;
+				}
+				if(m!=null) {
+					port=Integer.parseInt(m.trim());
+				}
+				else
+				{
+					port=80;
+				}
+				httpProxyAcceptSock=new Socket(address.trim(),port);
+				System.out.println(&quot;Remote Host:&quot;+httpProxyAcceptSock.getInetAddress().getHostName());
+				http_po=httpProxyAcceptSock.getOutputStream();
+				http_pi=httpProxyAcceptSock.getInputStream();
+				http_po.write(sb.toString().getBytes(),0,sb.toString().length());
+				http_po.flush();
+				(new httpWWWResponse(http_pi,o_s,sb.toString())).start();
+				if(r&lt;=0) break;
+			}
+		}catch(Exception err) {
+			//err.printStackTrace();
+		}
+	}
+	
+	public String parseRequest(String rs) {
+		System.out.println(&quot;REQUEST&quot;);
+		StringTokenizer tok=new StringTokenizer(rs,&quot;\n&quot;);
+		while(tok.hasMoreTokens()) {
+			String tk=tok.nextToken();
+			//System.out.println(tk);
+			if(tk.startsWith(&quot;Host: &quot;)) {
+				wwwHost=tk;
+			}
+		}
+		return wwwHost;
+	}
+	
+	class httpWWWResponse extends Thread
+	{
+		InputStream i;
+		OutputStream o;
+		int rd;
+		String tocache;
+		httpCache cache=new httpCache();
+		
+		httpWWWResponse(InputStream i,OutputStream o,String tocache) {
+			this.i=i;
+			this.o=o;
+			this.tocache=tocache;
+		}
+		
+		public synchronized void run() {
+			try
+			{
+				if(cache.isInCache(tocache))
+				{
+					o.write(cache.serveFromCache(tocache),0,cache.serveFromCache(tocache).length);
+					o.flush();
+				}
+				else
+				{
+					while((rd=i.read(b))&gt;0) {
+						o.write(b,0,rd);
+						o.flush();
+						cache.cache(tocache,b);
+						if(rd&lt;=0) break;
+					}
+				}
+				o.close();
+				i.close();
+				s.close();
+				httpProxyAcceptSock.close();
+			}catch(Exception err) {
+				//System.err.println(err);
+			}
+		}
+	}
+}
+
+
+class httpCache extends Hashtable
+{
+	String s;
+	byte[] b=new byte[2048];
+	
+	httpCache() {
+		
+	}
+	
+	public void cache(String s,byte[] b) {
+		this.s=s;
+		this.b=b;
+		super.put(s,b);
+	}
+	
+	public byte[] serveFromCache(String s) {
+		this.s=s;
+		byte  cas[]=super.get(s).toString().getBytes();
+		System.out.println(&quot;Served from cache for REQUEST:\n&quot;+s);
+		return cas;
+	}
+	
+	public boolean isInCache(String s) {
+		this.s=s;
+		return super.containsKey(s);
+	}
+}
+
+class httpd extends Thread {
+
+	int serverport;
+	ServerSocket srv;
+	Socket scli;
+	InputStream in;
+	OutputStream out;
+	boolean hrun=false;
+	String docroot=&quot;f://html/&quot;;// set your own document root here
+
+	public httpd(int serverport) {
+		this.serverport=serverport;
+		try
+		{
+			srv=new ServerSocket(serverport);
+			System.out.println(serverport+&quot;-&gt;WebServer Running!&quot;);
+			
+		}catch(Exception err) {
+			//err.printStackTrace();
+		}
+	}
+
+	public synchronized void run() {
+		try
+		{
+			while(true) {
+				scli=srv.accept();
+				BufferedReader in=new BufferedReader(new InputStreamReader(scli.getInputStream()));
+				String reqDoc=in.readLine();
+				String r1=reqDoc.substring(reqDoc.indexOf(&quot; &quot;),reqDoc.lastIndexOf(&quot; &quot;));
+				System.out.println(r1);
+				if(r1.trim().startsWith(&quot;http://&quot;)) {
+					URL u=new URL(r1);
+					String r2=docroot+u.getFile().trim();
+					System.out.println(&quot;Request on &quot;+serverport+&quot; :&quot;+docroot+r2);
+					new httpdResponse(scli,r2).start();
+				}
+				else
+				{
+					System.out.println(&quot;Request on &quot;+serverport+&quot; :&quot;+docroot+r1.trim());
+					String r2=docroot+r1.trim();
+					new httpdResponse(scli,r2).start();
+				}
+			}
+		}catch(Exception err) {
+			System.out.println(&quot;WebServer Error:&quot;+err);
+		}
+	}
+
+	class httpdResponse extends Thread {
+
+		Socket s;
+		String rqdoc;
+
+		httpdResponse(Socket s,String rqdoc) {
+			this.s=s;
+			this.rqdoc=rqdoc;
+			try
+			{
+				out=s.getOutputStream();
+			}catch(Exception err) {
+				System.out.println(&quot;could not respond:&quot;+err);
+			}
+		}
+
+		public synchronized void run() {
+			try
+			{
+				File f=new File(rqdoc);
+				int filelength=(int)f.length();
+				byte b[]=new byte[filelength];
+				FileInputStream fis=new FileInputStream(f);
+				fis.read(b,0,b.length);
+				out.write(b,0,b.length);
+				out.flush();
+				System.out.println(b.length+&quot; bytes transferred to &quot;+s.getInetAddress().getHostName());
+				out.close();
+				fis.close();
+			}catch(Exception err) {
+				try
+				{
+					PrintWriter pw=new PrintWriter(s.getOutputStream());
+					pw.println(&quot;&lt;body&gt;&lt;font color=red&gt;&lt;center&gt;Requested Document Not Found&lt;/center&gt;&lt;/font&gt;&lt;/body&gt;&quot;);
+					pw.flush();
+					pw.close();
+					System.out.println(&quot;respond run:&quot;+err);
+				}catch(Exception er) {
+				}
+			}
+		
+		}
+	}
+}
+</CODE>
+<TEXT orderid="2" >
+1 
+
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

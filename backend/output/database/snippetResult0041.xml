@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>74262</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.devdaily.com/java/jdbc-read-java-timestamp-mysql-table</url>
+</description>
+<TEXT orderid="0" >
+devdaily.com
+  
+  
+  
+      
+
+  
+    mission&#160;&#160;|&#160;&#160;contact&#160;
+              |&#160;&#160;login&#160;&#160;
+         
+
+  
+      
+
+  
+      
+
+  
+ 
+
+
+
+
+
+
+
+    
+
+
+
+
+
+      
+      
+    
+
+    categories
+    
+  best practices&#160;(48)
+  career&#160;(37)
+  cvs&#160;(27)
+  design&#160;(6)
+  drupal&#160;(14)
+  eclipse&#160;(6)
+  gadgets&#160;(32)
+  intellij&#160;(4)
+  java&#160;(317)
+  jbuilder&#160;(20)
+  jdbc&#160;(20)
+  swing&#160;(74)
+  jsp&#160;(8)
+  latex&#160;(26)
+  linux/unix&#160;(179)
+  mac&#160;os&#160;x&#160;(152)
+  mysql&#160;(37)
+  news&#160;(51)
+  ooa/ood&#160;(9)
+  perl&#160;(144)
+  php&#160;(26)
+  postgresql&#160;(17)
+  ruby&#160;(52)
+  servlets&#160;(10)
+  svn&#160;(7)
+  technology&#160;(32)
+  testing&#160;(4)
+  uml&#160;(13)
+
+
+
+
+    popular
+    
+
+    java developer jobs
+    php, cakephp, and lamp jobs
+    geek gifts under $10
+    geek gifts under $20
+    75+ linux and unix tutorials
+    20+ vi/vim tutorials
+
+
+
+
+
+    related
+    MySQL timestamp - how to default to &quot;now&quot;
+MySQL example: Default a field to the current date/time
+Java Timestamp example - how to create a &quot;current timestamp&quot;
+HSQLDB timestamp - How to specify a default date/time
+MySQL FAQ: How do I show the fields or schema of a database table?
+
+
+    
+  
+  
+    
+    
+          JDBC Timestamp - How to select a Java Timestamp field from a database timestamp column
+    
+    
+    
+    
+    
+    
+
+  
+    
+    
+        Submitted by alvin on September 9, 2009 - 8:35pm
+    
+                    tags:&#160; dao
+database
+java
+java
+java timestamp
+jdbc
+jdbc timestamp
+mysql
+mysql timestamp
+select
+sql
+timestamp
+
+          
+    Here&apos;s a JDBC&#160;Timestamp example, showing how to read a Java Timestamp field from a database Timestamp column (a MySQL Timestamp field) in a SQL&#160;SELECT&#160;statement. I pulled this source code out of a real-world Java application, so I&apos;ll break it into small steps, and hopefully it will make sense.
+The MySQL timestamp field definition
+My Java application uses a MySQL database, including one table named commands that has a MySQL Timestamp field I need to read. The SQL&#160;definition for this MySQL table is shown below:
+</TEXT>
+<CODE orderid="1" >
+create table commands (
+  id int auto_increment not null,
+  command_name varchar(128) not null,
+  command_line varchar(1024) not null,
+  updated_by_id int,
+  updated_time timestamp not null default now(),
+  foreign key (updated_by_id) references nagios_users(id) ON DELETE SET NULL,
+  primary key (id),
+  constraint unique index idx_commands_cmd_name_unique (command_name)
+) ENGINE = InnoDB;
+</CODE>
+<TEXT orderid="2" >
+For our Timestamp purposes, the most important part of this table is the field named updated_time, which is the MySQL timestamp field we&apos;ll be reading in our JDBC&#160;code.
+The example Java bean class
+Next, I created a Java class that is essentially a JavaBean that maps to this database table. The fields of this class primarily match the fields from the commands table, and the class has getter and setter methods for each field.
+For the purposes of our example, I&apos;ve stripped down my JavaBean class to only show the code for our Java and MySQL&#160;Timestamp purposes. Here are the lines of source code from this class that relate to this Timestamp field, with a little added documentation:
+</TEXT>
+</result>

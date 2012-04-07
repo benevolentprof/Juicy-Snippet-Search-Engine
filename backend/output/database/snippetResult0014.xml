@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>7455</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/ent/article.php/10933_3405781_3/Creating-and-Deploying-Stateless-Session-Beans-and-CMP-Entity-Beans.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Enterprise Java
+					
+				
+				
+					Read More in Enterprise Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Creating and Deploying Stateless Session Beans and CMP Entity Beans
+			
+			
+				
+				
+					September 9, 2004
+					By 
+Olexiy &amp; Alexander Prokhorenko
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+You probably will never believe this, but we are finished with the source code; the only things left are the configuration files for our JAR, WAR, and EAR. But stop! We also need to create a MySQL database, a user for this database, and create a table &quot;for&quot; our entity beans. For this purpose, you can use MySQL Control Center tool (if you are using MySQL on a Windows computer) or the simple mysqladmin tool. Of course, you also can just simply use the next SQL queries to create the database, new user, and table. Here they are:
+
+
+CREATE DATABASE jbossdb;
+INSERT INTO mysql.db VALUES (
+&apos;localhost&apos;,
+&apos;jbossdb&apos;,
+&apos;userjboss&apos;,
+&apos;Y&apos;,&apos;Y&apos;,&apos;Y&apos;,&apos;Y&apos;,&apos;Y&apos;,&apos;Y&apos;,&apos;N&apos;,&apos;Y&apos;,&apos;Y&apos;,&apos;Y&apos;,&apos;Y&apos;,&apos;Y&apos;);
+INSERT INTO mysql.user VALUES(
+&apos;localhost&apos;,
+&apos;userjboss&apos;,
+password(&apos;zzz&apos;),
+&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,
+   &apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;N&apos;,&apos;&apos;,&apos;&apos;,&apos;&apos;,&apos;&apos;,0,0,0);
+</TEXT>
+<CODE orderid="1" >
+These queries will help you to create the database (first query), make user userjboss able to work with the newly created database jbossdb (second query), and create this new user userjboss with a password of zzz (third query).
+
+Now, use the following query to create the table:
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		
+USE jbossdb;
+CREATE TABLE story (
+   story_id integer, 
+   pub_date timestamp
+);
+</CODE>
+<TEXT orderid="2" >
+Okay; now databases, user, tables&#8212;everything seems to be ready. Let&apos;s continue with the configuration files for JBoss. We need to create src/WEB-INF/web.xml for Tomcat (which is with JBoss). Here it is:
+
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE web-app PUBLIC
+&quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;
+&quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;&gt;
+&lt;web-app /&gt;
+
+
+It&apos;s empty, yes. We are using JSP, and do not have something to configure and to put into the Web container&apos;s configuration file. But we need to have it because it&apos;s required by the J2EE spec (of course, you know that!).
+
+Now, we will create the next configuration files&#8212;src/META-INF/application.xml:
+
+
+&lt;?xml version=&quot;1.0&quot; ?&gt;
+&lt;!DOCTYPE application PUBLIC
+&quot;-//Sun Microsystems, Inc.//DTD J2EE Application 1.2//EN&quot;
+    &quot;http://java.sun.com/j2ee/dtds/application_1_2.dtd&quot;&gt;
+&lt;application&gt;
+   &lt;display-name&gt;Teste and Story&lt;/display-name&gt;
+   &lt;!-- EJB module --&gt;
+   &lt;module&gt;
+      &lt;ejb&gt;teste-ejb.jar&lt;/ejb&gt;
+   &lt;/module&gt;
+      &lt;!-- Web module --&gt;
+   &lt;module&gt;
+      &lt;web&gt;
+         &lt;web-uri&gt;teste.war&lt;/web-uri&gt;
+         &lt;context-root&gt;teste&lt;/context-root&gt;
+      &lt;/web&gt;
+   &lt;/module&gt;
+&lt;/application&gt;
+
+
+and the configuration file&#8212;src/META-INF/jboss.xml:
+
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE jboss PUBLIC 
+&quot;-//JBoss//DTD JBOSS 3.0//EN&quot; 
+&quot;http://www.jboss.org/j2ee/dtd/jboss_3_0.dtd&quot;&gt;
+&lt;jboss&gt;
+   &lt;enterprise-beans&gt;
+      &lt;session&gt;
+         &lt;ejb-name&gt;Teste&lt;/ejb-name&gt;
+         &lt;jndi-name&gt;ejb/Example/Teste&lt;/jndi-name&gt;
+      &lt;/session&gt;
+      &lt;entity&gt;
+         &lt;ejb-name&gt;Story&lt;/ejb-name&gt;
+         &lt;jndi-name&gt;ejb/Example/Story&lt;/jndi-name&gt;
+      &lt;/entity&gt;
+   &lt;/enterprise-beans&gt;
+   &lt;resource-managers /&gt;
+&lt;/jboss&gt;
+
+
+Here, we define JNDI names for our session stateless bean and CMP entity bean. The names are pretty easy, so if you even never saw this configuration file before, you will be able to understand everything using your own simple logic.
+
+The next configuration file is&#8212;src/META-INF/ejb-jar.xml:
+
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE ejb-jar PUBLIC 
+&quot;-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN&quot; 
+&quot;http://java.sun.com/dtd/ejb-jar_2_0.dtd&quot;&gt;
+&lt;ejb-jar&gt;
+   &lt;description&gt;Teste and Story&lt;/description&gt;
+   &lt;display-name&gt;Teste and Story&lt;/display-name&gt;
+   &lt;enterprise-beans&gt;
+      &lt;session&gt;
+         &lt;display-name&gt;Teste Session Stateless Bean&lt;/display-name&gt;
+         &lt;ejb-name&gt;Teste&lt;/ejb-name&gt;
+         &lt;home&gt;teste.TesteHome&lt;/home&gt;
+         &lt;remote&gt;teste.Teste&lt;/remote&gt;
+         &lt;ejb-class&gt;teste.TesteBean&lt;/ejb-class&gt;
+         &lt;session-type&gt;Stateless&lt;/session-type&gt;
+         &lt;transaction-type&gt;Container&lt;/transaction-type&gt;
+      &lt;/session&gt;
+      &lt;entity&gt;
+         &lt;display-name&gt;Story Entity CMP Bean&lt;/display-name&gt;
+         &lt;ejb-name&gt;Story&lt;/ejb-name&gt;
+         &lt;home&gt;teste.StoryHome&lt;/home&gt;
+         &lt;remote&gt;teste.Story&lt;/remote&gt;
+         &lt;ejb-class&gt;teste.StoryBean&lt;/ejb-class&gt;
+         &lt;reentrant&gt;False&lt;/reentrant&gt; 
+         &lt;persistence-type&gt;Container&lt;/persistence-type&gt;
+         &lt;cmp-version&gt;2.x&lt;/cmp-version&gt;
+         &lt;abstract-schema-name&gt;story&lt;/abstract-schema-name&gt;
+         &lt;primkey-field&gt;storyId&lt;/primkey-field&gt;
+         &lt;prim-key-class&gt;java.lang.Integer&lt;/prim-key-class&gt;
+         &lt;cmp-field&gt;&lt;field-name&gt;storyId&lt;/field-name&gt;&lt;/cmp-field&gt;
+         &lt;cmp-field&gt;&lt;field-name&gt;pubDate&lt;/field-name&gt;&lt;/cmp-field&gt;
+      &lt;/entity&gt;
+   &lt;/enterprise-beans&gt;
+   &lt;assembly-descriptor /&gt;
+&lt;/ejb-jar&gt;
+
+
+I want you to pay attention to the &lt;entity&gt; section. Just take a look and keep in your mind the last four lines in this section. We are defining the primary key, and describing fields of our entity bean.
+
+Here is next configuration file&#8212;src/META-INF/jbosscmp-jdbc.xml:
+
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE jbosscmp-jdbc PUBLIC 
+&quot;-//JBoss//DTD JBOSSCMP-JDBC 3.0//EN&quot; 
+&quot;http://www.jboss.org/j2ee/dtd/jbosscmp-jdbc_3_0.dtd&quot;&gt;
+&lt;jbosscmp-jdbc&gt;
+   &lt;defaults&gt;
+      &lt;datasource&gt;java:/MySqlDS&lt;/datasource&gt;
+      &lt;datasource-mapping&gt;mySQL&lt;/datasource-mapping&gt;
+      &lt;create-table&gt;false&lt;/create-table&gt;
+      &lt;remove-table&gt;false&lt;/remove-table&gt;
+      &lt;pk-constraint&gt;true&lt;/pk-constraint&gt;
+      &lt;preferred-relation-mapping&gt;foreign-key&lt;/preferred-relation-mapping&gt;
+   &lt;/defaults&gt;
+   &lt;enterprise-beans&gt;
+      &lt;entity&gt;
+         &lt;ejb-name&gt;Story&lt;/ejb-name&gt;
+         &lt;table-name&gt;story&lt;/table-name&gt;
+         &lt;cmp-field&gt;
+            &lt;field-name&gt;storyId&lt;/field-name&gt;
+            &lt;column-name&gt;story_id&lt;/column-name&gt;
+            &lt;not-null/&gt;
+         &lt;/cmp-field&gt;
+         &lt;cmp-field&gt;
+            &lt;field-name&gt;pubDate&lt;/field-name&gt;
+            &lt;column-name&gt;pub_date&lt;/column-name&gt;
+            &lt;not-null/&gt;
+         &lt;/cmp-field&gt;
+      &lt;/entity&gt;
+   &lt;/enterprise-beans&gt;
+&lt;/jbosscmp-jdbc&gt;
+
+
+Don&apos;t worry about the first part of this file, but again, pay attention to the bottom part. Here, we are defining what each field from entity bean means compared to the database table. So, as you can see, we are saying that the storyId field is story_id column from our table, and pubDate is pub_date in the database. Besides, all descriptions of fields are informative enough, and do not demand further explanation. Certainly, for a deeper understanding of their essence, you should study the EJB specification, but that&apos;s beyond the scope of this article.
+
+And one last configuration file is src/META-INF/mysql-ds.xml. You can take it from C:\jboss-3.2.3\docs\examples\jca\mysql-ds.xml (we assume that JBoss is installed in this directory) and modify it to have the correct database name, user&apos;s name, and password. Or, you can just use the following one:
+
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!-- ========================================================== --&gt;
+&lt;!--                                                            --&gt;
+&lt;!--  JBoss Server Configuration                                --&gt;
+&lt;!--                                                            --&gt;
+&lt;!-- ========================================================== --&gt;
+&lt;!-- $Id: mysql-ds.xml,v 1.1 2002/07/22 22:57:24 d_jencks Exp $ --&gt;
+&lt;!-- ========================================================== --&gt;
+&lt;!--  Datasource config for MySQL using 2.0.11 driver           --&gt;
+&lt;!-- ========================================================== --&gt;
+&lt;datasources&gt;
+   &lt;local-tx-datasource&gt;
+      &lt;jndi-name&gt;MySqlDS&lt;/jndi-name&gt;
+      &lt;connection-url&gt;jdbc:mysql://localhost:3306/jbossdb
+         &lt;/connection-url&gt;
+      &lt;driver-class&gt;org.gjt.mm.mysql.Driver&lt;/driver-class&gt;
+      &lt;user-name&gt;userjboss&lt;/user-name&gt;
+      &lt;password&gt;zzz&lt;/password&gt;
+      &lt;/local-tx-datasource&gt;
+&lt;/datasources&gt;
+
+
+Well, we are almost done. We need to compile everything, create JAR, WAR, and EAR, and deploy. Please check that JBoss is running, so you will see in its logs how everything will be deployed. Change the directory to the root directory where you placed all files, where build.xml is located, and type:
+
+ant all
+
+If everything was done correctly, you should see the same screen as the one below:
+
+
+
+
+
+Click here for a larger image.
+
+
+Please check your JBoss logs and you will see that everything was deployed correctly (like below):
+
+
+
+
+
+Click here for a larger image.
+
+
+This is a really huge portion of different debug information; do not worry about understanding it all. Just check that everything was deployed correctly, with no errors. And now, at least, when everything is deployed, you can open your favourite browser and type this next URL, http://localhost:8080/teste/index1.jsp, and you will see the following screen:
+
+
+
+
+
+Click here for a larger image.
+
+
+Then, type http://localhost:8080/teste/index2.jsp and you will get almost the same screen (yup, I&apos;ve run this page many times, so I already have a lot of entities created!). On the left, and in bold, you will see the entities&apos; ID and the creation date; all fields that have an entity bean.
+
+
+
+
+
+Click here for a larger image.
+
+
+Of course, now you will want to check that these entities &quot;forced&quot; to create equal records in the MySQL database. If you will execute any database client and execute the next query:
+</TEXT>
+</result>

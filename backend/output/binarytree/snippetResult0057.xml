@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>76126</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/javajdktutorials/c11/exercises.shtml</url>
+</description>
+<TEXT orderid="0" >
+Home | JSP | EJB | JDBC | Java Servlets | WAP&#160; | Free JSP Hosting&#160; | Spring Framework | Web Services | BioInformatics | Java Server Faces | Jboss 3.0 tutorial | Hibernate 3.0 | XML
+
+				
+				
+  
+
+
+  
+    
+				
+
+  
+    
+    
+	
+    
+  
+
+
+	
+  
+
+
+
+  
+    
+				
+
+
+
+	&#160;
+	&#160;
+	
+		
+
+	
+
+
+		Hot Web Programming Job
+	
+
+
+
+
+
+
+&#160;
+
+
+
+
+	
+  
+
+
+  
+    	  Tutorial Categories: Ajax
+		| Articles
+		| JSP
+		| Bioinformatics
+		| Database
+		| Free
+		Books |
+		Hibernate
+		| J2EE
+		| J2ME
+		| Java
+		| JavaScript
+		| JDBC
+		| JMS
+		| Linux
+		| MS
+		Technology |
+		PHP
+		| RMI
+		| Web-Services
+		| Servlets
+		| Struts
+		| UML
+		
+	
+
+		
+
+
+	
+  
+
+
+
+
+
+
+
+
+
+
+ 
+	
+		
+	
+ 
+
+
+ 
+	
+		
+		
+	
+ 
+
+  
+    
+
+
+&#160;
+
+    
+  
+
+
+
+   
+    
+      
+
+
+  
+    
+      
+        
+          Search Host
+      
+      
+        
+          
+            All Platform
+            Windows
+            Linux
+            Unix
+            BSD
+            AOL
+            Mac
+			
+      
+      
+        Monthly Fee($) 
+      
+      
+         
+      
+      
+        Disk Space (MB)
+      
+      
+        
+      
+      
+        
+      
+    
+  
+
+
+    
+  
+
+ 
+	
+	
+	
+ 
+
+ 
+	
+	
+	
+ 
+
+ 
+	
+	
+	
+ 
+
+
+ 
+	
+		
+		Register With us for Newsletter!
+		
+	
+ 
+
+ 
+	
+
+Visit Forum! Post Questions!
+
+
+	
+ 
+
+
+ 
+	
+	
+	Jobs At RoseIndia.net!
+	
+
+	
+ 
+
+  
+    
+      Have
+      tutorials?
+
+      Add
+      your tutorial to our Java Resource and get tons of hits.
+      We offer free hosting for your
+      tutorials. and exposure for thousands of readers. drop a mail
+
+      roseindia_net@yahoo.com&#160;
+
+      &#160;&#160;&#160;
+    
+  
+    
+    
+      Tutorials
+    
+  
+
+
+  
+    
+      Java Server Pages
+    
+  
+
+  
+    
+      JAXB
+    
+  
+
+  
+    
+      Java
+      Beans
+    
+  
+  
+    
+      JDBC
+    
+  
+  
+    
+      MySQL
+    
+  
+  
+    
+      Java
+      Servlets
+    
+  
+
+  
+    
+      Struts
+    
+  
+
+  
+    
+      Bioinformatics
+    
+  
+
+  
+    
+      Java Code Examples
+    
+  
+
+  
+    
+      Interview Questions
+    
+  
+
+  
+    &#160;
+  
+  
+    
+      
+        
+          
+            
+              Join For Newsletter
+            
+            
+              
+            
+            
+              
+
+                Powered by groups.yahoo.com
+				
+
+				Visit Group! Post Questions!
+				
+            
+          
+        
+      
+    
+  
+
+ 
+    
+      Web Promotion
+    
+  
+
+  
+    
+      Web Submission
+    
+  
+
+  
+    
+      Submit Sites
+    
+  
+
+  
+    
+      Manual Submission?
+    
+  
+
+  
+    
+      Web Promotion Guide
+    
+  
+
+
+  
+    
+      Hosting Companies
+    
+  
+
+  
+    
+      Web Hosting Guide
+    
+  
+
+  
+    
+      Web Hosting
+    
+  
+
+  
+    
+      Linux
+    
+  
+
+  
+    
+      Beginner Guide to Linux Server
+    
+  
+
+
+ 
+    
+      Frameworks
+    
+  
+
+  
+    
+      Persistence Framework
+    
+  
+
+  
+    
+      Web Frameworks
+    
+  
+
+
+  
+    
+      Free EAI Tools
+    
+  
+
+  
+    
+      Web Servers
+    
+  
+
+  
+    
+      Aspect Oriented Programming
+    
+  
+
+  
+    
+      Free Proxy Servers
+    
+  
+
+
+  
+    
+      Softwares
+    
+  
+
+  
+    
+      Adware &amp; Spyware Remover
+    
+  
+
+
+  
+    
+      Open Source Softwares
+    
+  
+
+  
+    
+
+		
+
+
+    
+  
+
+
+
+
+
+
+
+	
+
+		
+					
+
+					
+
+  
+    
+
+Programming Exercises
+
+    For Chapter 11
+
+
+
+THIS PAGE CONTAINS programming exercises based on
+material from  Chapter 11 of this on-line
+Java textbook.  Each exercise has a link to a discussion of one possible solution of that
+exercise.
+
+
+
+Exercise 11.1:
+The DirectoryList program, given as an example at the end of
+Section 10.2, will print a list of
+files in a directory specified by the user.  But some of the files
+in that directory might themselves be directories.  And the subdirectories
+can themselves contain directories.  And so on.  Write a modified version of
+DirectoryList that will list all the files in a directory and
+all its subdirectories, to any level of nesting.  You will need a 
+recursive subroutine to do the listing.  The subroutine should
+have a parameter of type File.  You will need the constructor
+from the File class that has the form
+
+
+         public File( File dir, String fileName )
+            // Constructs the File object representing a file
+            // named fileName in the directory specified by dir.
+
+
+See the solution!
+
+
+
+
+Exercise 11.2:
+Make a new version of the sample program WordList.java,
+from Section 10.3, that stores words in a
+binary sort tree instead of in an array.
+
+
+See the solution!
+
+
+
+
+Exercise 11.3:
+Suppose that linked lists of integers are made from objects belonging to
+the class
+
+
+         class ListNode {
+            int item;       // An item in the list.
+            ListNode next;  // Pointer to the next node in the list.
+         }
+
+
+Write a subroutine that will make a copy of a list, with the order of
+the items of the list reversed.  The subroutine should have a parameter
+of type ListNode, and it should return a value of type
+ListNode.  The original list should not be modified.
+
+You should also write a main() routine to test your
+subroutine.
+
+See the solution!
+
+
+
+
+Exercise 11.4:
+Section 11.4 explains how to use recursion to print
+out the items in a binary tree in various orders.  That section also
+notes that a non-recursive subroutine can be used to print the items,
+provided that a stack or queue is used as an auxiliary data structure.
+Assuming that a queue is used, here is an algorithm for such a
+subroutine:
+
+
+           Add the root node to an empty queue
+           while the queue is not empty:
+              Get a node from the queue
+              Print the item in the node
+              if node.left is not null:
+                 add it to the queue
+              if node.right is not null:
+                 add it to the queue
+
+
+Write a subroutine that implements this algorithm, and write a 
+program to test the subroutine.  Note that you will need a queue of
+TreeNodes, so you will need to write a class to represent 
+such queues.
+
+See the solution!
+
+
+
+
+Exercise 11.5:
+In Section 11.4, I say that &quot;if the [binary sort] 
+tree is created randomly, there is a high probability that the tree is approximately 
+balanced.&quot;  For this exercise, you will do an experiment to test whether that is true.
+
+
+The depth of a node in a binary tree
+is the length of the path from the root of the tree to that node.
+That is, the root has depth 0, its children have depth 1, its
+grandchildren have depth 2, and so on.  In a balanced tree, all
+the leaves in the tree are about the same depth.  For example,
+in a perfectly balanced tree with 1023 nodes, all the leaves are at depth 9.
+In an approximately balanced tree with 1023 nodes, the average
+depth of all the leaves should be not too much bigger than 9.
+
+On the other hand, even if the tree is approximately balanced,
+there might be a few leaves that have much larger depth than
+the average, so we might also want to look at the maximum depth
+among all the leaves in a tree.
+
+For this exercise, you should create a random binary sort tree with
+1023 nodes.  The items in the tree can be real numbers, and you can
+create the tree by generating 1023 random real numbers and inserting them
+into the tree, using the usual insert() method for binary
+sort trees.  Once you have the tree, you should compute and output
+the average depth of all the leaves in the tree and the maximum
+depth of all the leaves.  To do this, you will need three 
+recursive subroutines:  one to count the leaves, one to find the
+sum of the depths of all the leaves, and one to find the maximum
+depth.  The latter two subroutines should have an int-valued
+parameter, depth, that tells how deep in the tree you&apos;ve gone.
+When you call the routine recursively, the parameter increases by 1.
+  
+
+See the solution!
+
+
+
+
+Exercise 11.6:
+The parsing programs in Section 11.5 work with expressions made up of numbers
+and operators.  We can make things a little more interesting by allowing
+the variable &quot;x&quot; to occur.  This would allow expression such as
+&quot;3*(x-1)*(x+1)&quot;, for example.  Make a new version of the
+sample program SimpleParser3.java
+that can work with such expressions.  In your program, the main()
+routine can&apos;t simply print the value of the expression, since the value
+of the expression now depends on the value of x.  Instead,
+it should print the value of the expression for x=0, 
+x=1, x=2, and x=3.
+
+The original program will have to be modified in several other ways.
+Currently, the program uses classes ConstNode, BinOpNode,
+and UnaryMinusNode to represent nodes in an expression tree.
+Since expressions can now include&#160;x, you will need a
+new class, VariableNode, to represent an occurrence of x
+in the expression.
+
+In the original program, each of the node classes has an instance method,
+&quot;double value()&quot;, which returns the value of the node.  But in 
+your program, the value can depend on x, so you should
+replace this method with one of the form &quot;double value(double xValue)&quot;,
+where the parameter xValue is the value of&#160;x.
+
+Finally, the parsing subroutines in your program will have to take
+into account the fact that expressions can contain x.  There
+is just one small change in the BNF rules for the expressions:
+A &lt;factor&gt; is allowed to be the variable x:
+</TEXT>
+<CODE orderid="1" >
+&lt;factor&gt;  ::=  &lt;number&gt;  |  &lt;x-variable&gt;  |  &quot;(&quot; &lt;expression&gt; &quot;)&quot;
+</CODE>
+<TEXT orderid="2" >
+where &lt;x-variable&gt; can be either a lower case or
+an upper case&#160;&quot;X&quot;.  This change in the BNF requires a change in
+the factorTree() subroutine.
+
+
+See the solution!
+
+
+
+
+Exercise 11.7:
+This exercise builds on the previous exercise, Exercise 11.6.  To understand
+it, you should have some background in Calculus.  The derivative
+of an expression that involves the variable x can be defined
+by a few recursive rules:
+
+
+
+The derivative of a constant is 0.
+The derivative of x is 1.
+If A is an expression, let dA be the derivative of A.
+Then the derivative of -A is -dA.
+If A and B are expressions, let dA be the 
+derivative of A and let dB be the derivative of B.
+Then
+   
+   The derivative of A+B is dA+dB.
+   The derivative of A-B is dA-dB.
+   The derivative of A*B is A*dB + B*dA.
+   The derivative of A/B is (B*dA - A*dB) / (B*B).
+   
+
+
+For this exercise, you should modify your program from the previous
+exercise so that it can compute the derivative of an expression.
+You can do this by adding a derivative-computing method to each of
+the node classes.  First, add another abstract method to the
+ExpNode class:
+</TEXT>
+</result>

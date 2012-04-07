@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>76463</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/javajdktutorials/c11/ex-11-7-answer.shtml</url>
+</description>
+<TEXT orderid="0" >
+Home | JSP | EJB | JDBC | Java Servlets | WAP&#160; | Free JSP Hosting&#160; | Spring Framework | Web Services | BioInformatics | Java Server Faces | Jboss 3.0 tutorial | Hibernate 3.0 | XML
+
+				
+				
+  
+
+
+  
+    
+				
+
+  
+    
+    
+	
+    
+  
+
+
+	
+  
+
+
+
+  
+    
+				
+
+
+
+	&#160;
+	&#160;
+	
+		
+
+	
+
+
+		Hot Web Programming Job
+	
+
+
+
+
+
+
+&#160;
+
+
+
+
+	
+  
+
+
+  
+    	  Tutorial Categories: Ajax
+		| Articles
+		| JSP
+		| Bioinformatics
+		| Database
+		| Free
+		Books |
+		Hibernate
+		| J2EE
+		| J2ME
+		| Java
+		| JavaScript
+		| JDBC
+		| JMS
+		| Linux
+		| MS
+		Technology |
+		PHP
+		| RMI
+		| Web-Services
+		| Servlets
+		| Struts
+		| UML
+		
+	
+
+		
+
+
+	
+  
+
+
+
+
+
+
+
+
+
+
+ 
+	
+		
+	
+ 
+
+
+ 
+	
+		
+		
+	
+ 
+
+  
+    
+
+
+&#160;
+
+    
+  
+
+
+
+   
+    
+      
+
+
+  
+    
+      
+        
+          Search Host
+      
+      
+        
+          
+            All Platform
+            Windows
+            Linux
+            Unix
+            BSD
+            AOL
+            Mac
+			
+      
+      
+        Monthly Fee($) 
+      
+      
+         
+      
+      
+        Disk Space (MB)
+      
+      
+        
+      
+      
+        
+      
+    
+  
+
+
+    
+  
+
+ 
+	
+	
+	
+ 
+
+ 
+	
+	
+	
+ 
+
+ 
+	
+	
+	
+ 
+
+
+ 
+	
+		
+		Register With us for Newsletter!
+		
+	
+ 
+
+ 
+	
+
+Visit Forum! Post Questions!
+
+
+	
+ 
+
+
+ 
+	
+	
+	Jobs At RoseIndia.net!
+	
+
+	
+ 
+
+  
+    
+      Have
+      tutorials?
+
+      Add
+      your tutorial to our Java Resource and get tons of hits.
+      We offer free hosting for your
+      tutorials. and exposure for thousands of readers. drop a mail
+
+      roseindia_net@yahoo.com&#160;
+
+      &#160;&#160;&#160;
+    
+  
+    
+    
+      Tutorials
+    
+  
+
+
+  
+    
+      Java Server Pages
+    
+  
+
+  
+    
+      JAXB
+    
+  
+
+  
+    
+      Java
+      Beans
+    
+  
+  
+    
+      JDBC
+    
+  
+  
+    
+      MySQL
+    
+  
+  
+    
+      Java
+      Servlets
+    
+  
+
+  
+    
+      Struts
+    
+  
+
+  
+    
+      Bioinformatics
+    
+  
+
+  
+    
+      Java Code Examples
+    
+  
+
+  
+    
+      Interview Questions
+    
+  
+
+  
+    &#160;
+  
+  
+    
+      
+        
+          
+            
+              Join For Newsletter
+            
+            
+              
+            
+            
+              
+
+                Powered by groups.yahoo.com
+				
+
+				Visit Group! Post Questions!
+				
+            
+          
+        
+      
+    
+  
+
+ 
+    
+      Web Promotion
+    
+  
+
+  
+    
+      Web Submission
+    
+  
+
+  
+    
+      Submit Sites
+    
+  
+
+  
+    
+      Manual Submission?
+    
+  
+
+  
+    
+      Web Promotion Guide
+    
+  
+
+
+  
+    
+      Hosting Companies
+    
+  
+
+  
+    
+      Web Hosting Guide
+    
+  
+
+  
+    
+      Web Hosting
+    
+  
+
+  
+    
+      Linux
+    
+  
+
+  
+    
+      Beginner Guide to Linux Server
+    
+  
+
+
+ 
+    
+      Frameworks
+    
+  
+
+  
+    
+      Persistence Framework
+    
+  
+
+  
+    
+      Web Frameworks
+    
+  
+
+
+  
+    
+      Free EAI Tools
+    
+  
+
+  
+    
+      Web Servers
+    
+  
+
+  
+    
+      Aspect Oriented Programming
+    
+  
+
+  
+    
+      Free Proxy Servers
+    
+  
+
+
+  
+    
+      Softwares
+    
+  
+
+  
+    
+      Adware &amp; Spyware Remover
+    
+  
+
+
+  
+    
+      Open Source Softwares
+    
+  
+
+  
+    
+
+		
+
+
+    
+  
+
+
+
+
+
+
+
+	
+
+		
+					
+
+					
+
+  
+    
+
+Solution for
+
+    Programming Exercise 11.7
+
+
+
+THIS PAGE DISCUSSES ONE POSSIBLE SOLUTION to
+the following exercise from this on-line
+Java textbook.
+
+Exercise 11.7:
+This exercise builds on the previous exercise, Exercise 11.6.  To understand
+it, you should have some background in Calculus.  The derivative
+of an expression that involves the variable x can be defined
+by a few recursive rules:
+
+
+
+The derivative of a constant is 0.
+The derivative of x is 1.
+If A is an expression, let dA be the derivative of A.
+Then the derivative of -A is -dA.
+If A and B are expressions, let dA be the 
+derivative of A and let dB be the derivative of B.
+Then
+   
+   The derivative of A+B is dA+dB.
+   The derivative of A-B is dA-dB.
+   The derivative of A*B is A*dB + B*dA.
+   The derivative of A/B is (B*dA - A*dB) / (B*B).
+   
+
+
+For this exercise, you should modify your program from the previous
+exercise so that it can compute the derivative of an expression.
+You can do this by adding a derivative-computing method to each of
+the node classes.  First, add another abstract method to the
+ExpNode class:
+</TEXT>
+<CODE orderid="1" >
+abstract ExpNode derivative();
+</CODE>
+<TEXT orderid="2" >
+Then implement this method in each of the four subclasses of
+ExpNode.  All the information that you need is in the
+rules given above.  In your main program, you should print out
+the stack operations that define the derivative, instead of the
+operations for the original expression.  Note that the formula that
+you get for the derivative can be much more complicated than
+it needs to be.  For example, the derivative of 3*x+1
+will be computed as (3*1+0*x)+0.  This is correct, even
+though it&apos;s kind of ugly.
+
+As an alternative to printing out stack operations, you might want
+to print the derivative as a fully parenthesized expression.
+You can do this by adding a printInfix() routine to each
+node class.  The problem of deciding which parentheses can be left
+out without altering the meaning of the expression is a fairly
+difficult one, which I don&apos;t advise you to attempt.
+
+(There is one curious thing that happens here:
+If you apply the rules, as given, to an expression tree, the
+result is no longer a tree, since the same subexpression can
+occur at multiple points in the derivative.  For example,
+if you build a node to represent B*B by saying
+&quot;new BinOpNode(&apos;*&apos;,B,B)&quot;, then the left and right children
+of the new node are actually the same node!  This is not allowed
+in a tree.  However, the difference is harmless in this case since, like a tree,
+the structure that you get has no loops in it.  Loops, on the
+other hand, would be a disaster in most of the recursive subroutines
+that we have written to process trees, since it would lead to infinite
+recursion.)
+
+
+Discussion
+
+
+The solution to Exercise 11.6 already allows the variable x to occur
+in expressions.  Since we are building on that solution, no changes are needed in the
+parsing routines.  There are a few easy changes in the main() routine, since
+it must take the derivative of the expression entered by the user and then work with
+that derivative.  The changes are shown in the solution that is given below.
+
+Aside from that, we only need to add the &quot;ExpNode derivative()&quot; method
+to each of the node classes.  Since I want to print out the derivative in fully parenthesized
+infix form, I also add another method, &quot;void printInfix()&quot;.  Since this is
+not a required part of the exercise -- and since it&apos;s fairly simple to do -- I won&apos;t
+discuss the printInfix() method further.
+
+All the information that is needed for writing the derivative() methods
+is given in the derivative rules that are listed in the exercise.  The first three
+rules are pretty simple:
+
+
+Since the derivative of a constant is 0, the derivative() method in
+the ConstNode class has to return an ExpNode that represents
+the expression &quot;0&quot;.  That&apos;s easy.  We just need a constant node that contains
+the number 0.  The definition of derivative() in the ConstNode
+class is just: &quot;return new ConstNode(0);&quot;.
+Similarly, the derivative of x is 1, so the definition of derivative()
+in the VariableNode class is &quot;return new ConstNode(1);&quot;.
+The derivative of -A is -dA, that is, it consists of
+a unary minus operator applied to the derivative of the operand A.  So,
+in the UnaryMinusNode class, we have to compute the derivative of
+the operand and then create an ExpNode that applies
+a unary minus to that derivative.  The derivative of operand
+is operand.derivative(), so we only need to
+&quot;return new UnaryMinusNode(operand.derivative());&quot;.
+
+
+In the BinOpNode class, the derivative rule that we need
+to apply depends on the value of the binary operator, +, -, *, or /.
+The rules for A+B and A-B are easy to implement.
+Let&apos;s look at the case of *, where the rule is that the
+derivative of A*B is A*dB+B*dA.  In the BinOpNode
+class, A is the left operand and B is the
+right operand.  We can compute the derivatives dA and
+dB as left.derivative() and right.derivative().
+We then have to build an expression tree to represent A*dB+B*dA.
+We need one node to represent the + operation and two more nodes
+to represent the two * operations.  We can create the
+tree step-by-step:
+</TEXT>
+<CODE orderid="3" >
+ExpNode dA = left.derivative();
+         ExpNode dB = right.derivative();
+         ExpNode firstHalf = new BinOpNode(&apos;*&apos;, left, dB);   // A*dB
+         ExpNode secondHalf = new BinOpNode(&apos;*&apos;, right, dA); // B*dA
+         ExpNode answer = new BinOpNode(&apos;+&apos;, firstHalf, secondHalf);
+         return answer;  // This is the derivative we want!
+</CODE>
+<TEXT orderid="4" >
+In my solution, however, I did the same thing in one statement:
+</TEXT>
+</result>

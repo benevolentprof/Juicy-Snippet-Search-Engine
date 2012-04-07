@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>79339</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=556</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            Binary Tree - (Self-referential Structures) example program in C
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+Suppose we want to handle the more general problem of counting the occurrences
+of all the words in some input. Since the list of words isn&apos;t known in
+advance, we can&apos;t conveniently sort it and use a binary search. Yet we can&apos;t do
+a linear search for each word as it arrives, to see if it&apos;s already been seen;
+the program would take too long. (More precisely, its running time is likely to
+grow quadratically with the number of input words.) How can we organize the data
+to copy efficiently with a list or arbitrary words?
+One solution is to keep the set of words seen so far sorted at all times, by
+placing each word into its proper position in the order as it arrives. This
+shouldn&apos;t be done by shifting words in a linear array, though - that also takes
+too long. Instead we will use a data structure called a binary tree.
+The tree contains one ``node&apos;&apos; per distinct word; each node contains
+
+  A pointer to the text of the word,
+  A count of the number of occurrences,
+  A pointer to the left child node,
+  A pointer to the right child node.
+
+No node may have more than two children; it might have only zero or one.
+The nodes are maintained so that at any node the left subtree contains only
+words that are lexicographically less than the word at the node, and the right
+subtree contains only words that are greater. This is the tree for the sentence
+``now is the time for all good men to come to the aid of their party&apos;&apos;, as built
+by inserting each word as it is encountered:
+
+To find out whether a new word is already in the tree, start at the root and
+compare the new word to the word stored at that node. If they match, the
+question is answered affirmatively. If the new record is less than the tree
+word, continue searching at the left child, otherwise at the right child. If
+there is no child in the required direction, the new word is not in the tree,
+and in fact the empty slot is the proper place to add the new word. This process
+is recursive, since the search from any node uses a search from one of its
+children. Accordingly, recursive routines for insertion and printing will be
+most natural.
+Going back to the description of a node, it is most conveniently represented
+as a structure with four components:
+</TEXT>
+<CODE orderid="1" >
+struct tnode {     /* the tree node: */
+       char *word;           /* points to the text */
+       int count;            /* number of occurrences */
+       struct tnode *left;   /* left child */
+       struct tnode *right;  /* right child */
+   };
+</CODE>
+<TEXT orderid="2" >
+This recursive declaration of a node might look chancy, but it&apos;s correct. It is
+illegal for a structure to contain an instance of itself, but
+</TEXT>
+</result>

@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>7225</docid>
+<orderid>9</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/ent/article.php/10933_3597071_3/Serializing-an-Object-via-a-ClientServer-Connection.htm</url>
+</description>
+<CODE orderid="7" >
+serverOutputStream.close();
+serverInputStream.close();
+</CODE>
+<TEXT orderid="8" >
+This completes the code for the Server. As with the Client, the code in the Server is incorporated inside a try/catch block. This is required for compilation. As stated earlier, you will cover the various exceptions and how to handle them in later articles. Listing 3 contains the complete code for the Server.
+</TEXT>
+<CODE orderid="9" >
+import java.io.*;
+import java.net.*;
+
+public class Server {
+
+   public static void main(String[] arg) {
+
+      Employee employee = null;
+
+      try {
+
+         ServerSocket socketConnection = new ServerSocket(11111);
+
+         System.out.println(&quot;Server Waiting&quot;);
+
+         Socket pipe = socketConnection.accept();
+
+         ObjectInputStream serverInputStream = new    
+            ObjectInputStream(pipe.getInputStream());
+
+         ObjectOutputStream serverOutputStream = new 
+            ObjectOutputStream(pipe.getOutputStream());
+
+         employee = (Employee )serverInputStream.readObject();
+
+         employee .setEmployeeNumber(256);
+         employee .setEmployeeName(&quot;John&quot;);
+
+         serverOutputStream.writeObject(employee);
+
+         serverInputStream.close();
+         serverOutputStream.close();
+
+
+      }  catch(Exception e) {System.out.println(e); 
+      }
+   }
+
+}
+</CODE>
+<TEXT orderid="10" >
+Listing 3: The Server
+
+Running the System
+
+In this article, you simply set up the infrastructure for a working Client/Server model. There are many fascinating points that you will explore in future articles. However, you should get this basic model up and running so that you can verify that the system is in working order.
+
+Compiling the Code
+
+I compile the code using a DOS Shell. Eventually, you will need two of these DOS Shells&#8212;one to run the Server and one for the Client. You can open a DOS Shell in the Programs-&gt;Accessories option.
+
+Type the following code at the command prompt to compile all three of the files.
+
+
+&quot;C:Program FilesJavajdk1.5.0_06binjavac&quot; Employee.java
+&quot;C:Program FilesJavajdk1.5.0_06binjavac&quot; Client.java
+&quot;C:Program FilesJavajdk1.5.0_06binjavac&quot; Server.java
+
+
+Figure 1 shows the screen shot of how this is accomplished.
+
+
+Figure 1: Compiling the Code
+
+Starting the Server
+
+In one of the DOS Shells, type in the following line at the command prompt.
+
+&quot;C:Program FilesJavajdk1.5.0_06binjava&quot; Server
+
+Figure 2 shows what happens in the DOS Shell.
+
+
+Figure 2: Starting the Server
+
+If everything is working properly, the &quot;Server Waiting&quot; message is displayed. At this point, you can start the Client.
+
+Starting the Client
+
+In a separate DOS Shell, start the Client with the following line:
+
+&quot;C:Program FilesJavajdk1.5.0_06binjava&quot; Client
+
+The result is shown in Figure 3.
+
+
+Figure 3: Starting the Client
+
+If all is well, you will see that the employeeNumber and the employeeName both were changed. You can put some specific identification in the print statements to provide further assurance.
+
+With the circuit complete, the Server should exit cleanly, as shown in Figure 4.
+
+
+Figure 4: Completing the System
+
+Conclusion
+
+In this article, you covered the basic concepts involved with creating a simple Client/Server model. The code is a complete and functional model. There are many interesting aspects of Client/Server models that you have yet to explore.
+
+Moving an object from one place to another is often a tricky proposition. Using modern object-oriented languages makes life a lot easier for today&apos;s programmers. It is very interesting to look at code from earlier programming languages pertaining to network programming. In years past, basic network programming required the programmer to develop code that was sometimes quite complex or purchase third-party software that was often hard to use. Languages such as Java and .NET have much of this functionality built right into the language.
+
+As stated earlier, although the example of this article is complete and useful, it is quite basic. There are many more fascinating topics to explore regarding client/server applications. Next month, you will investigate several of these interesting topics.
+
+References
+
+Tyma, Paul, Gabriel Torok and Troy Downing: Java Primer Plus. The Waite Group, 1996.
+
+www.javasoft.com
+
+
+About the Author
+Matt Weisfeld is a faculty member at Cuyahoga Community College (Tri-C) in Cleveland, Ohio. Matt is a member of the Information Technology department, teaching programming languages such as C++, Java, and C# .NET as well as various web technologies. Prior to joining Tri-C, Matt spent 20 years in the information technology industry gaining experience in software development, project management, business development, corporate training, and part-time teaching. Matt holds an MS in computer science and an MBA in project management. Besides The Object-Oriented Thought Process
+, which is now in it&apos;s second edition, Matt has published two other computer books, and more than a dozen articles in magazines and journals such as Dr. Dobb&apos;s Journal, The C/C++ Users Journal, Software Development Magazine, Java Report, and the international journal Project Management. Matt has presented at conferences throughout the United States and Canada.
+			
+			
+			
+			
+				
+				
+1 
+2 
+3 
+
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

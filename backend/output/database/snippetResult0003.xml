@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>11030</docid>
+<orderid>9</orderid>
+<type>TEXT</type>
+<url>http://www.javaworld.com/jw-01-2000/dbxml/docs/dbxml/sax/JDBCSAXUtil.html</url>
+</description>
+<TEXT orderid="7" >
+Method Detail
+
+
+
+
+setupSourceFromProperties
+</TEXT>
+<CODE orderid="8" >
+public static JDBCInputSource setupSourceFromProperties(java.lang.String&#160;propertyFile)
+                                                 throws java.io.IOException,
+                                                        java.lang.ClassNotFoundException
+</CODE>
+<TEXT orderid="9" >
+Create a JDBCInputSource object from information in a property file.
+ It also loads the specified JDBC driver.
+ The property file must have following entries:
+ 
+ JDBC driver to be loaded to access the database: &quot;driver&quot;
+ JDBC URL of database: &quot;URL&quot;
+ User name to be used to access the database: &quot;user&quot;
+ Password to be used to access the database: &quot;password&quot;
+ Table to be parsed: &quot;table&quot;
+ 
+Parameters:propertyFile - name of property file describing the database sourceReturns:a JDBCInputSource objectThrows:java.io.IOException - if an i/o error occursjava.lang.ClassNotFoundException - if an JDBC driver specified cannot be
+                                   loaded
+
+
+
+
+
+setupSourceFromProperties
+</TEXT>
+<CODE orderid="10" >
+public static JDBCInputSource setupSourceFromProperties(java.util.Properties&#160;dbProperties)
+                                                 throws java.io.IOException,
+                                                        java.lang.ClassNotFoundException
+</CODE>
+<TEXT orderid="11" >
+Create a JDBCInputSource object from information in a property object.
+Parameters:dbProperties - A propery object descrbing the JDBC sourceReturns:a JDBCInputSource objectThrows:java.io.IOException - if an i/o error occursjava.lang.ClassNotFoundException - if an JDBC driver specified cannot be
+                                   loaded
+
+
+
+
+
+
+
+
+
+
+
+
+  
+      Overview&#160;
+      Package&#160;
+   &#160;Class&#160;
+      Tree&#160;
+      Deprecated&#160;
+      Index&#160;
+      Help&#160;
+  
+
+
+
+
+
+
+
+
+
+&#160;PREV CLASS&#160;
+&#160;NEXT CLASS
+
+  FRAMES  &#160;
+&#160;NO FRAMES
+
+
+
+  SUMMARY: &#160;INNER&#160;|&#160;FIELD&#160;|&#160;CONSTR&#160;|&#160;METHOD
+
+DETAIL: &#160;FIELD&#160;|&#160;CONSTR&#160;|&#160;METHOD
+</TEXT>
+</result>

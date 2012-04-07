@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>74453</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.devdaily.com/java/swing/tame/tree/IconNodeRenderer.java.shtml</url>
+</description>
+<TEXT orderid="0" >
+devdaily home&#160;|&#160;java&#160;|&#160;perl&#160;|&#160;unix&#160;|&#160;directory&#160;|&#160;blog
+ 
+ 
+
+
+
+
+
+
+ 
+ 
+ 
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What this is
+
+This file is part of the Tame Swing collection that we have compiled. All of the Java source code in these examples was created by Nobuo Tamemasa. As these examples have become hard to find on the internet, we have put them in one place here, supported by minimal advertising. In time we will include images of each running sample Java/Swing application.
+
+The intent of having these files here is to help you learn Java and Swing by example, and Tame certainly created some terrific examples of the power of the Swing framework.
+
+
+Other links
+
+  &#160;The main &quot;Tame Swing&quot; page
+  &#160;Other source code files at this package level
+
+The source code
+</TEXT>
+<CODE orderid="1" >
+/* (swing1.1) */
+package tame.tree;
+
+import java.awt.Component;
+import java.util.Hashtable;
+
+import javax.swing.Icon;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultTreeCellRenderer;
+
+/**
+@author Nobuo Tamemasa
+@version 1.0 01/12/99
+*/
+public class IconNodeRenderer extends DefaultTreeCellRenderer {
+
+  public Component getTreeCellRendererComponent(JTree tree, Object value,
+      boolean sel, boolean expanded, boolean leaf,
+      int row, boolean hasFocus) {
+
+    super.getTreeCellRendererComponent(tree, value,
+       sel, expanded, leaf, row, hasFocus);
+
+    Icon icon = ((IconNode)value).getIcon();
+
+    if (icon == null) {
+      Hashtable icons = (Hashtable)tree.getClientProperty(&quot;JTree.icons&quot;);
+      String name = ((IconNode)value).getIconName();
+      if ((icons != null) &amp;&amp; (name != null)) {
+        icon = (Icon)icons.get(name);
+        if (icon != null) {
+          setIcon(icon);
+        }
+      }
+    } else {
+      setIcon(icon);
+    }
+
+    return this;
+  }
+}
+</CODE>
+<TEXT orderid="2" >
+Copyright &#169; 1998-2009 DevDaily.com
+
+All Rights Reserved.
+</TEXT>
+</result>

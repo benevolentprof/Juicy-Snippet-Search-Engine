@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>80671</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=1128</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            Defining tables and classes (using MySQL) in Ruby on Rails
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+
+Data definitions are specified only in the database. Active Record queries
+the database for the column names (that then serves to determine which
+attributes are valid) on regular object instantiation through the new
+constructor and relies on the column names in the rows with the finders.
+</TEXT>
+<CODE orderid="1" >
+# CREATE TABLE companies (
+   #   id int(11) unsigned NOT NULL auto_increment,
+   #   client_of int(11),
+   #   name varchar(255),
+   #   type varchar(100),
+   #   PRIMARY KEY  (id)
+   # )
+</CODE>
+<TEXT orderid="2" >
+Active Record automatically links the &quot;Company&quot; object to the
+&quot;companies&quot; table
+   class Company &lt; ActiveRecord::Base
+     has_many :people, :class_name =&gt; &quot;Person&quot;
+   end
+
+   class Firm &lt; Company
+     has_many :clients
+
+     def people_with_all_clients
+      clients.inject([]) { |people, client| people + client.people }
+     end
+   end
+
+The foreign_key is only necessary because we didn&#145;t use &quot;firm_id&quot;
+in the data definition
+   class Client &lt; Company
+     belongs_to :firm, :foreign_key =&gt; &quot;client_of&quot;
+   end
+
+   # CREATE TABLE people (
+   #   id int(11) unsigned NOT NULL auto_increment,
+   #   name text,
+   #   company_id text,
+   #   PRIMARY KEY  (id)
+   # )
+
+Active Record will also automatically link the &quot;Person&quot; object to
+the &quot;people&quot; table
+   class Person &lt; ActiveRecord::Base
+     belongs_to :company
+   end
+
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</TEXT>
+</result>

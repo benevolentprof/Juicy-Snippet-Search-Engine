@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>8308</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/other/article.php/10936_1488051_3/The-Servlet-Container-Model.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			The Servlet Container Model
+			
+			
+				
+				
+					October 24, 2002
+					By 
+Que Publishing
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Acquiring a Binary Stream for the Response
+Suppose you want to open a binary file in a browser from a servlet. It isn&apos;t text so you have to write the file to the servlet&apos;s output stream. Let&apos;s practice with a PDF document. First, you get the servlet&apos;s output stream with:
+</TEXT>
+<CODE orderid="1" >
+ServletOutputStream out = res.getOutputStream();
+</CODE>
+<TEXT orderid="2" >
+Next, you set the file type in the response object using one of the standard MIME (Multipurpose Internet Mail Extension) protocols. Several listings of content type names are available on the Internet including one at ftp://ftp.isi.edu/in-notes/iana/assignments/media-types. Then you use an HTTP response header named content-disposition. This header allows the servlet to specify information about the file&apos;s presentation. Using that header, you can indicate that the content should be opened separately (not actually in the browser) and that it should not be displayed automatically, but rather upon some further action by the user. You can also suggest the filename to be used if the content is to be saved to a file. That filename would be the name of the file that appears in the Save As dialog box. If you don&apos;t specify the filename, you are likely to get the name of your servlet in that box. To find out more about the content-disposition header, check out Resources or go to http://www.alternic.org/rfcs/rfc2100/rfc2183.txt.
+Sending a binary stream to the client is not easy. Listing 4.10 will help you do it right.
+Listing 4.10 Servlet That Sends a File to the Client
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+</TEXT>
+</result>

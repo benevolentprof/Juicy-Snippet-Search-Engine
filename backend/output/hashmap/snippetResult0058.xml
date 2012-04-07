@@ -1,0 +1,799 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75746</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/example/java/util/HashTable.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Creating a Hash Table
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				This section explains the implementation of the hash table. What is the hash table and how to create that?
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Creating a Hash Table : Java Util
+
+
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+This section explains the implementation of the hash table. What is the hash table
+and how to create that? Hash Table holds the records according to the unique key
+value. It stores the non-contiguous key for several values. Hash Table is
+created using an algorithm (hashing function) to store the key and value
+regarding to the key in the hash bucket. If you want to store the value for the
+new key and if that key is already exists in the hash bucket then the situation
+known as  collision  occurs which is the problem in the hash table i.e. maintained
+by the hashing function. The drawback is that hash tables require a little bit
+more memory, and that you can not use the normal list procedures for working
+with them.
+This program simply asks you for the number of entries which have to entered
+into the hash table and takes one-by-one key and it&apos;s value as input. It shows
+all the elements with the separate key.
+Code Description:
+Hashtable&lt;Integer,&#160;String&gt;&#160;hashTable&#160;=&#160;new&#160;Hashtable&lt;Integer,&#160;String&gt;():
+
+
+
+
+
+
+Above code creates the instance of the Hashtable class. This code is
+using the type checking of the elements which will be held by the hash table.
+
+hashTable.put(key,&#160;in.readLine()):
+
+
+
+
+
+
+Above method puts the values in the hash table regarding to the unique key.
+This method takes two arguments in which, one is the key and another one is the
+value for the separate key.
+Map&lt;Integer,&#160;String&gt;&#160;map&#160;=&#160;new&#160;TreeMap&lt;Integer,&#160;String&gt;(hashTable):
+
+
+Above code creates an instance of the TreeMap for the hash table
+which name is passed through the constructor of the TreeMap class. This
+code creates the Map with the help of the instance of the TreeMap class. This
+map has been created in the program for showing several values and it&apos;s separate
+key present in the hash table. This code has used the type checking.
+
+
+Here is the code of the program:
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.util.*;
+
+import&#160;java.io.*;
+
+
+
+public&#160;class&#160;HashTable{
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;throws&#160;IOException{
+
+&#160;&#160;&#160;&#160;int&#160;key;
+
+&#160;&#160;&#160;&#160;try{
+
+&#160;&#160;&#160;&#160;&#160;&#160;BufferedReader&#160;in&#160;=&#160;new&#160;BufferedReader(new&#160;InputStreamReader(System.in));
+
+&#160;&#160;&#160;&#160;&#160;&#160;System.out.print(&quot;How&#160;many&#160;elements&#160;you&#160;want&#160;to&#160;enter&#160;to&#160;the&#160;hash&#160;table&#160;:&#160;&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;int&#160;n&#160;=&#160;Integer.parseInt(in.readLine());
+
+&#160;&#160;&#160;&#160;&#160;&#160;Hashtable&lt;Integer,&#160;String&gt;&#160;hashTable&#160;=&#160;new&#160;Hashtable&lt;Integer,&#160;String&gt;();
+
+&#160;&#160;&#160;&#160;&#160;&#160;for(int&#160;i&#160;=&#160;0;&#160;i&#160;&lt;&#160;n;&#160;i++){
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print(&quot;Enter&#160;key&#160;for&#160;the&#160;hash&#160;table&#160;:&#160;&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;key&#160;=&#160;Integer.parseInt(in.readLine());
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print(&quot;Enter&#160;value&#160;for&#160;the&#160;key&#160;:&#160;&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;hashTable.put(key,&#160;in.readLine());
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;Map&lt;Integer,&#160;String&gt;&#160;map&#160;=&#160;new&#160;TreeMap&lt;Integer,&#160;String&gt;(hashTable);
+
+&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(map);
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;catch(NumberFormatException&#160;ne){
+
+&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(ne.getMessage()&#160;+&#160;&quot;&#160;is&#160;not&#160;a&#160;legal&#160;value.&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;Please&#160;enter&#160;a&#160;numeric&#160;value.&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;System.exit(1);
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+Download this example.
+
+
+		
+		
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+      
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Removing a Preference from a Preference Node ...  192724 viewsRemoving a Preference Node  ...  192742 viewsCreating a Preference Node  ...  192816 viewsFinding a Preference in a Preference Tree  ...  192820 viewsGetting the Maximum Size of a Preference Key and Value  ...  192823 viewsListening for Changes to Preference Values in a Preference Node  ...  192826 viewsDetermining If a Preference Node Contains a Specific Key  ...  192827 viewsGetting and Setting Java Type Values in a Preference  ...  192830 viewsDetermining If a Preference Node Exists  ...  192836 viewsDetermining When a Preference Node Is Added or Removed  ...  192848 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+reference
+io
+method
+user
+remove
+new
+rmi
+using
+this
+node
+oo
+move
+root
+example
+add
+to
+exam
+ref
+ld
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+3 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+		can u teach me how to create a timetable by using java??
+
+tq.
+
+		Posted by eylanaila on Wednesday, 04.8.09 @ 08:15am | #86626
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		Your web Site is very Nice.
+
+		Posted by N.Boopalan on Tuesday, 07.3.07 @ 17:32pm | #20661
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		Hashtable is the older collection class... I suggest to use HashMap&lt;K,V&gt; which is the newer equivalent.
+
+
+
+HashMap is not synchronized, but Hashtable is, so if you you have thread safe code, it is better to use the newer HashMap&lt;K,V&gt;
+
+
+
+You didn&apos;t mention it, but TreeMap&lt;K,V&gt; is a specialized type of hash in which the keys are sorted (via an internal binary tree which stays balanced).  The K has to implement the natural comparison (compareTo()).
+
+
+
+Finally, when you define your own class for the K (key), its ALWAYS good advice to implement 3 methods: equals(), hashCode(), and compareTo().  Why?  By having all 3 methods, you can use your K (key) either in a HashMap or in a TreeMap.  And make sure that your compareTo() and equals() are consistent with each other.  An easy way to accomplish this, is to have your equals() method call the compareTo() method as a helper method.
+
+		Posted by dennis.bednar on Tuesday, 12.5.06 @ 20:39pm | #436
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Creating a Hash Table
+										J2ME Kxml Example
+										Phone Book Midlet Example
+										Operating System Information
+										Sorting elements of a Collection
+										Making a Collection Read-Only
+										Get Blob
+										Read Cookies from Servlet
+										Download JDK
+										Creating a Copy of a Collection
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

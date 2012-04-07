@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>18870</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-tips.org/java-se-tips/org.w3c.dom/how-to-traverse-the-dom-tree-as-a-list-4.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home    Java SE Tips               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					How to traverse the DOM tree as a list									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;13
+
+
+PoorBest&#160;
+		
+				
+			
+				
+
+There is a way to travers a DOM-tree like an ordinary linear list.
+For these purposes DOM interface suggests NodeIterator interface. Besides flatting,
+such iterator can also filter the nodes found in the source tree. 
+This approach allows to avoid multiple checking of current node type as well as
+using recursive method-calls for browsing the tree.
+The following program shows how to traverse DOM-elements only:
+</TEXT>
+<CODE orderid="1" >
+import&#160;javax.xml.parsers.DocumentBuilder;
+
+import&#160;javax.xml.parsers.DocumentBuilderFactory;
+
+
+
+import&#160;org.w3c.dom.traversal.DocumentTraversal;
+
+import&#160;org.w3c.dom.traversal.NodeFilter;
+
+import&#160;org.w3c.dom.traversal.NodeIterator;
+
+
+
+import&#160;org.w3c.dom.*;
+
+
+
+/**
+
+&#160;*&#160;This&#160;sample&#160;program&#160;using&#160;node-iterator&#160;for
+
+&#160;*&#160;linear&#160;traverse&#160;of&#160;DOM-document.
+
+&#160;*/
+
+
+
+public&#160;class&#160;Test&#160;{
+
+
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;{
+
+&#160;&#160;try&#160;{
+
+&#160;&#160;&#160;&#160;//&#160;load&#160;the&#160;document&#160;from&#160;a&#160;file:
+
+&#160;&#160;&#160;&#160;DocumentBuilderFactory&#160;factory&#160;=&#160;DocumentBuilderFactory.newInstance();
+
+&#160;&#160;&#160;&#160;DocumentBuilder&#160;loader&#160;=&#160;factory.newDocumentBuilder();
+
+&#160;&#160;&#160;&#160;Document&#160;document&#160;=&#160;loader.parse(&quot;sample.xml&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;//&#160;this&#160;cast&#160;is&#160;checked&#160;on&#160;Apache&#160;implementation&#160;(Xerces):
+
+&#160;&#160;&#160;&#160;DocumentTraversal&#160;traversal&#160;=&#160;(DocumentTraversal)&#160;document;
+
+
+
+&#160;&#160;&#160;&#160;NodeIterator&#160;iterator&#160;=&#160;traversal.createNodeIterator(
+
+&#160;&#160;&#160;&#160;&#160;&#160;document.getDocumentElement(),&#160;NodeFilter.SHOW_ELEMENT,&#160;null,&#160;true);
+
+
+
+&#160;&#160;&#160;&#160;for&#160;(Node&#160;n&#160;=&#160;iterator.nextNode();&#160;n&#160;!=&#160;null;&#160;n&#160;=&#160;iterator.nextNode())&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;Element:&#160;&quot;&#160;+&#160;((Element)&#160;n).getTagName());
+
+&#160;&#160;&#160;&#160;}
+
+
+
+&#160;&#160;}&#160;catch&#160;(Exception&#160;ex)&#160;{
+
+&#160;&#160;&#160;&#160;ex.printStackTrace();
+
+&#160;&#160;}
+
+&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+&#160;Related Tips 
+A custom combobox editor for use with the EditableComboBox class
+A demonstration of Java2D transformations
+A game of Tic-Tac-Toe that can be played between two client applets
+A Label that uses inline HTML to format its text
+A program to print limits of the primitive types
+A sample of inline DTD definition
+A sample of linked DTD definition
+A sample XML file
+
+			
+		
+				
+
+		&#160;
+
+		
+
+			
+									
+						
+							&lt; Prev
+					
+										&#160;
+
+					
+										
+						
+							Next &gt;
+					
+								
+			
+			                
+
+
+
+
+
+
+
+ 
+Page 1 of 0 ( 0 comments )
+
+
+       You can share your information about this topic using the form below! 
+
+Please do not post your questions with this form! Thanks.
+
+ 
+
+  
+    
+      
+                
+          
+          
+
+          
+          Name (required)
+
+          
+          
+
+                    
+          
+
+          E-Mail (required)          
+                    
+
+          
+          
+          
+
+          Your email will not be displayed on the site - only to our administrator          
+          
+
+          Homepage(optional)
+
+
+
+
+
+
+
+          
+          
+
+          Comment          
+                    Enable HTML code :
+          
+          Yes
+          
+          No 
+
+          
+          
+          
+          
+
+          
+
+ 
+          
+
+          
+          
+        
+      
+    
+  
+
+
+
+
+
+&#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+      
+    
+    
+      
+        
+          &#160;
+          &#160;
+          &#160;
+        
+        
+          &#160;
+          
+              &#160;            
+          &#160;
+        
+        
+          &#160;
+          &#160;
+          &#160;
+        
+      
+    
+    
+      
+        
+            
+            
+            
+        
+      
+    
+	
+	
+
+
+		
+				
+			
+				
+			
+		
+		
+		
+
+
+
+
+
+
+
+
+Home
+
+
+-
+
+
+About Us
+
+
+-
+
+
+Privacy Policy
+
+
+
+
+
+
+Copyright 2005 - 2008 www.java-tips.org
+Java is a trademark of Sun Microsystems, Inc.
+</TEXT>
+</result>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>8185</docid>
+<orderid>8</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/other/article.php/10936_2170111_2/Introduction-to-Jython.htm</url>
+</description>
+<TEXT orderid="6" >
+But now, the window is a mess--the buttons are placed on top of 
+  each other, and on top of the text field. We&apos;ve forgotten to give the window a 
+  layout manager (which is the mechanism Swing uses to automatically place items 
+  within a window). No problem, we can just add it after we import the 
+  appropriate package.
+</TEXT>
+<CODE orderid="7" >
+&gt;&gt;&gt; import java.awt as awt
+&gt;&gt;&gt; win.contentPane.layout = awt.FlowLayout(  )
+&gt;&gt;&gt; win.pack(  )
+</CODE>
+<TEXT orderid="8" >
+Adding Behavior
+  At this point, the window should look right, but it doesn&apos;t do 
+  anything. We I want it to place some text in the text field depending on what 
+  button you push. First, we need to create the text we want used.&gt;&gt;&gt; quotes = {&quot;Groucho&quot;: &quot;Say the secret word&quot;, &quot;Chico&quot;: &quot;Viaduct?&quot;, &quot;Harpo&quot;: &quot;HONK!&quot;}
+
+  This line sets up a Python dictionary. A 
+  dictionary in Python is more or less equivalent to a Java HashMap: a collection of key/value pairs designed to be 
+  accessed in constant time no matter which element is accessed or how large the 
+  dictionary is. Again, the Python type is well integrated with the core 
+  language, allowing the creation in one line of what would take a series of
+</TEXT>
+<CODE orderid="9" >
+put(key, value)
+</CODE>
+<TEXT orderid="10" >
+calls in Java.
+  Once the text is in place, we can define a function that will 
+  perform the actual text replacement.
+</TEXT>
+</result>

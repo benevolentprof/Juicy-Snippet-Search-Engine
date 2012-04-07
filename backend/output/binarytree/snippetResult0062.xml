@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>76998</docid>
+<orderid>4</orderid>
+<type>TEXT</type>
+<url>http://en.wikibooks.org/wiki/Java_Programming/API/java.lang.Object</url>
+</description>
+<TEXT orderid="2" >
+Keep in mind that when you override equals(), you always need to also override hashCode() so the two methods are consistent. If two objects are equal, they must have the same hashcode.
+For more information also see Java Programming/Comparing Objects
+[edit] getClass() Method
+There is a Class object for each class in your program. Every array also belongs to a class that is reflected as a Class object that is shared by all arrays with the same element type and number of dimensions. The primitive Java types (boolean, byte, char, short, int, long, float, and double), and the keyword void are also represented as Class objects. Class has no public constructor. Instead Class objects are constructed automatically by the Java Virtual Machine as classes are loaded
+For more information see Class.
+The most popular use of the Class is to find out the object&apos;s class name during runtime.
+</TEXT>
+<CODE orderid="3" >
+import com.yourCompany.Customer;
+...
+Object obj = new Customer();
+...
+System.out.println( &quot;Name:&quot; + obj.getClass().getName() );
+</CODE>
+<TEXT orderid="4" >
+The output:
+
+Name: com.yourCompany.Customer
+
+[edit] hashCode() Method
+Most cases you should not override this method, the default implementation of this method returns a unuiqe number for the object. The number is used when the object is put in a collection. Finding an object in a big collection may take a while, if object are compared one by one sequentially. To speed the search up, objects may placed in a tree structure, waited by an integer hash code. Comparing the hash code as navigating throught the tree, the number of object comperization can be reduced.
+
+   _______ A _____
+   |              |  
+__ B__          __C__
+|     |        |     |
+D     E        F     G
+...  ...      ...   ...
+
+To give you a general idea how it may work, see the above diagram. Let&apos;s say we are searching object G. If at each &apos;node&apos; of the tree we can decide which way to go, then by 3 steps we reach the object G.
+By constrast in a linear search:
+
+A --- B  ----- C  ---- C  ---- D  ---- E ---- F ---- G
+
+We would need 8 steps to reach the object G.
+So the search will be faster with the tree structure. Adding a new object however, will be slower because the tree structure needs to be maintained. The place of the new object in the tree has to be found first.
+[edit] toString() Methods
+This method can be used to convert an object to a String. It is used in StringBuffer to convert it contence to String.
+The default implementation returns some numbers and the class name. Some cases the toString() method will be called by the JVM. For example:
+</TEXT>
+<CODE orderid="5" >
+String str = &quot;This customer is &quot; + objCust;
+</CODE>
+<TEXT orderid="6" >
+The toString() method is called on the objCust object.
+The toString() method can also be used for debugging:
+</TEXT>
+</result>

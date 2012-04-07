@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>793</docid>
+<orderid>29</orderid>
+<type>CODE</type>
+<url>http://java.sun.com/docs/books/tutorial/reflect/member/ctorLocation.html</url>
+</description>
+<CODE orderid="27" >
+Constructor.isVarArgs()
+</CODE>
+<TEXT orderid="28" >
+.
+
+ The final example reports the output for a constructor which has been
+declared with a generic parameter type:
+</TEXT>
+<CODE orderid="29" >
+$ java ConstructorSift java.util.HashMap java.util.Map
+public java.util.HashMap(java.util.Map&lt;? extends K, ? extends V&gt;)
+      *GenericParameterType[0]: java.util.Map&lt;? extends K, ? extends V&gt;
+</CODE>
+<TEXT orderid="30" >
+Exception types may be retrieved for constructors in a similar way as for
+methods.  See the
+MethodSpy
+example described in Obtaining Method Type
+Information section for further details.
+
+        
+        
+            &#171; Previous
+            &#8226;
+            Trail
+            &#8226;
+            Next &#187;
+        
+    
+    
+
+
+    Problems with the examples? Try Compiling and Running
+        the Examples: FAQs.
+    
+
+    Complaints? Compliments? Suggestions? Give
+    us your feedback.
+ 
+
+
+Your use of this page (http://java.sun.com/docs/books/tutorial (Last Updated 1/12/2010))
+and all the material on pages under &quot;The Java Tutorials&quot; banner is
+subject to the Terms of Use.
+Additionally, (i) any example code contained in any of these Java
+Tutorials pages is also licensed under the
+Code
+Sample License, and (ii) the entire Java Tutorials content is available for
+download under the Java Tutorials Limited Non-Commercial License
+for limited, non-commercial individual and/or research and instructional use at
+Sun Download Center.
+
+
+
+    
+         
+	 
+            
+              
+              
+           
+          
+          
+
+          
+		About Sun | About This Site | Terms of Use | Trademarks&#160; 
+	 
+          
+		A Sun Developer Network Site
+
+      		Copyright 1995,2010 Oracle Corporation and/or is affiliates
+	 
+          
+
+
+    
+    
+        Previous page: Constructors
+        
+Next page: Retrieving and Parsing Constructor Modifiers
+    
+
+    
+    Discuss
+    We welcome your participation in our community.  Please keep your comments
+    civil and on point.  You may optionally provide your email address to
+    be notified of replies &#8212; your information is not used for any other
+    purpose.  By submitting a comment, you agree to these
+    Terms of Use.
+</TEXT>
+</result>

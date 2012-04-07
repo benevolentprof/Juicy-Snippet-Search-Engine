@@ -1,0 +1,1012 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75454</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/jdk6/map-interface.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Introduction to Map and SortedMap Interface
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				A Map is an object that maps keys to values. It is not an extension of the collection interface rather it has own interface hierarchy. 
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+       Introduction to Map and SortedMap Interface
+
+
+
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+Map Interface:
+A Map is an object that maps keys to
+values. It is not an extension of the collection interface rather it has own
+interface hierarchy. Map provides a more general
+way for storing elements without containing duplicate keys.
+It allows you to store pairs of elements, termed &quot;keys&quot; and
+&quot;values&quot;, where each key maps to one value. Thus the
+keys in a map must be unique.
+The Map interface methods can be broken down into three
+sets of operations: 
+Altering: The alteration operations allow you to
+add and remove key-value pairs from the map. Both the key and value can be null.
+
+Querying: The query operations allow the user to
+retrieve key/value pairs from the Map.
+
+Providing alternative views: This method allow you to work with the different
+views which can be used to analyze Map key/value Objects.
+Map Methods Returning
+Views:
+These methods return objects
+which allow you to traverse the elements of the Map, and also delete elements
+from the Map.
+
+
+
+  
+    
+    
+      Method
+    
+    
+      Uses
+    
+    
+    
+      
+        &#160;entrySet()
+      
+      Returns a Set
+        view of the mappings contained in the map. Each element in the set is a
+        Map.Entry object which can have it&apos;s key and value elements accessed
+        with getKey() and getValue() methods (also has a setValue() method)
+    
+    
+      keySet()
+      Returns a Set
+        view of the keys contained in the map. Removing elements from the Set
+        will also remove the corresponding mapping (key and value) from the Map
+    
+    
+      values()
+      Returns a
+        Collection view of the values contained in the map. Removing elements
+        from the Collection will also remove the corresponding mapping (key and
+        value) from the Map
+    
+  
+
+Map.Entry Interface:
+
+
+
+Each element is a map has a key and value. Each key-value
+pair is saved in a java.util.Map.Entry object. A set of these map entries
+can be obtained by calling a map&apos;s entrySet( )
+method. Iterating over a map is done by iterating over this set.
+The Collections Framework provides three
+general-purpose  Map implementation:
+HashMap
+
+TreeMap
+
+LinkedHashMap
+HashMap:
+
+The HashMap is a class which is used to perform some basic operations
+such as inserting, deleting, and locating elements in a Map
+. The&#160; java.util.HashMap class is
+implemented with and roughly equivalent to a Hashtable&#160; except that
+it is unsynchronized and permits null. It works with the Iterators requires
+a well-defined implementation of the method hashCode( ).
+TreeMap:
+
+The TreeMap implementation is useful when you need to traverse the
+keys from
+a collection in a sorted manner. The elements added to a TreeMap  must be sortable in
+order to work properly. It is depend upon the size of the specified collection,
+it may be faster to add elements to a HashMap , then convert the map to a
+TreeMap for traversing the sorted keys.
+LinkedHashMap:
+
+A LinkedHashMap is implemented using both Hash
+table and linked list implementation of the Map interface. This
+implementation differs from HashMap that maintains a doubly-linked list
+running through all of its entries in it. The orders of its elements are based on the order in which they were inserted into the set (insertion-order).&#160;
+The list of methods supported by Map interface are shown in the table given below:
+
+  
+    
+      Method
+    
+    
+      Uses
+    
+  
+  
+    
+      &#160;put(Object
+      key, Object value)
+    
+    
+      Associates the specified value with the specified key
+      in the map.
+    
+  
+  
+    
+      &#160;clear(
+      )
+    
+    
+      Removes all mappings from the map
+    
+  
+  
+    
+      &#160;putAll(Map t)
+    
+    
+       Copies all of the mappings from the specified map to
+      the map.
+    
+  
+  
+    
+      &#160;isEmpty(
+      )
+    
+    
+       Returns true if this map contains no key-value mappings.
+    
+  
+  
+    
+      &#160;iterator(
+      )
+    
+    
+      Returns an
+      Iterator object for the
+      collection which may be used to retrieve an object.
+    
+  
+  
+    
+      &#160;remove(Object key)
+    
+    
+      Removes the mapping for this key from this map if it is present.
+    
+  
+  
+    
+      &#160;keySet( )
+    
+    
+      &#160;Returns a set view of the keys contained in this map.
+    
+  
+  
+    
+      &#160;entrySet( )
+    
+    
+      &#160;Returns a set view of the mappings contained in this map.
+    
+  
+  
+    
+      &#160;values( )
+    
+    
+      &#160;Returns a collection view of the values contained in this map.
+    
+  
+  
+    
+      &#160;size(
+      )
+    
+    
+       Returns the number of key-value mappings in this map.
+    
+  
+
+SortedMap Interface:
+The
+Collection Framework provides a special Map interface for maintaining elements
+in a sorted order called SortedMap .
+The SortedMap  interface extends the Map interface which maintains its elements in ascending
+order. Working with
+a SortedMap is
+just similar to a SortedSet except, the sort is done on the map keys.&#160;In addition to methods
+of&#160; the Map interface, it provides two methods shown as:
+firstKey( )
+
+lastKey( )&#160;
+The firstKey( ) method returns the first (lowest)
+value currently in the map while the lastKey( ) method returns the
+last (highest) value currently in the map.
+Let see an example implementing the  HashMap and
+ TreeMap
+class.
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.util.*;
+
+
+
+public&#160;class&#160;MapDemo&#160;{
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String&#160;args[])&#160;{&#160;
+
+&#160;&#160;&#160;&#160;String&#160;days[]={&quot;Sunday&quot;,&#160;&quot;Monday&quot;,&#160;&quot;Tuesday&quot;,&#160;&quot;Wednesnday&quot;,
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&quot;Thursday&quot;,&#160;&quot;Friday&quot;,&#160;&quot;Saturday&quot;};
+
+&#160;&#160;&#160;Map&lt;Integer,&#160;String&gt;&#160;map&#160;=&#160;new&#160;HashMap&lt;Integer,&#160;String&gt;();
+
+&#160;&#160;try{
+
+&#160;&#160;for(int&#160;i=0;&#160;i&lt;7;&#160;i++){
+
+&#160;&#160;&#160;&#160;map.put(i,&#160;days[i]);
+
+&#160;&#160;}
+
+&#160;&#160;
+
+&#160;&#160;TreeMap&lt;Integer,&#160;String&gt;&#160;tMap=new&#160;TreeMap&lt;Integer,&#160;String&gt;(map);
+
+&#160;&#160;&#160;&#160;&#160;//Rerieving&#160;all&#160;keys
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Keys&#160;of&#160;tree&#160;map:&#160;&quot;&#160;+&#160;tMap.keySet());
+
+&#160;&#160;&#160;&#160;//Rerieving&#160;all&#160;values
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Values&#160;of&#160;tree&#160;map:&#160;&quot;&#160;+&#160;tMap.values());
+
+&#160;&#160;&#160;&#160;//Rerieving&#160;the&#160;First&#160;key&#160;and&#160;its&#160;value
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;First&#160;key:&#160;&quot;&#160;+&#160;tMap.firstKey()&#160;+&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&quot;&#160;Value:&#160;&quot;&#160;+&#160;tMap.get(tMap.firstKey())&#160;+&#160;&quot;\n&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;//Removing&#160;the&#160;first&#160;key&#160;and&#160;value
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Removing&#160;first&#160;data:&#160;&quot;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
++&#160;tMap.remove(tMap.firstKey()));
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Now&#160;the&#160;tree&#160;map&#160;Keys:&#160;&quot;&#160;+&#160;tMap.keySet());
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Now&#160;the&#160;tree&#160;map&#160;contain:&#160;&quot;&#160;+&#160;tMap.values()&#160;+&#160;&quot;\n&quot;);
+
+&#160;&#160;&#160;&#160;//Rerieving&#160;the&#160;Last&#160;key&#160;and&#160;value
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Last&#160;key:&#160;&quot;&#160;+&#160;tMap.lastKey()&#160;+&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&quot;&#160;Value:&#160;&quot;&#160;+&#160;tMap.get(tMap.lastKey())&#160;+&#160;&quot;\n&quot;);&#160;&#160;
+
+&#160;&#160;&#160;&#160;//Removing&#160;the&#160;last&#160;key&#160;and&#160;value
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Removing&#160;last&#160;data:&#160;&quot;&#160;+&#160;tMap.remove(tMap.lastKey()));
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Now&#160;the&#160;tree&#160;map&#160;Keys:&#160;&quot;&#160;+&#160;tMap.keySet());
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Now&#160;the&#160;tree&#160;map&#160;contain:&#160;&quot;&#160;+&#160;tMap.values());
+
+&#160;&#160;}
+
+&#160;&#160;catch(Exception&#160;e){}
+
+&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+Output of this program:
+
+  
+    C:\nisha&gt;javac MapDemo.java
+
+      
+
+      C:\nisha&gt;java MapDemo
+
+      Keys of tree map: [0, 1, 2, 3, 4, 5, 6]
+
+      Values of tree map: [Sunday, Monday, Tuesday, Wednesnday, Thursday, Friday, Saturday]
+
+      First key: 0 Value: Sunday
+
+      
+
+      Removing first data: Sunday
+
+      Now the tree map Keys: [1, 2, 3, 4, 5, 6]
+
+      Now the tree map contain: [Monday, Tuesday, Wednesnday, Thursday, Friday, Saturday]
+
+      
+
+      Last key: 6 Value: Saturday
+
+      
+
+      Removing last data: Saturday
+
+      Now the tree map Keys: [1, 2, 3, 4, 5]
+
+      Now the tree map contain: [Monday, Tuesday, Wednesnday, Thursday, Friday]
+
+      
+
+      C:\nisha&gt;
+
+      
+  
+
+
+The given program stores the values mapping with their
+keys to the map. The keySet( ) method retrieves all keys from the map and the
+ values( ) method retrieves all the values added to a map. The remove(
+) method removes the key from the map with its value specified in it.
+Download this Program:&#160;
+
+
+ 
+		
+		
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+
+    
+
+
+     
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java SE 6 ...  180000 viewsEnhancements in Networking Features ...  181051 viewsCustom Collection Implementations ...  181872 viewsChanges in Jar and Zip ...  181879 viewsChanges in I/O ...  181920 viewsIntroduction to collection Implementations ...  182063 viewsIntroduction to Collection Algorithms ...  182090 viewsJava Web Start Enhancements in version 6 ...  182171 viewsCollections Framework Enhancements ...  182386 viewsAdvantages and Disadvantages of the Collection Framework ...  182690 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+algorithm
+api
+ide
+collections
+orm
+ant
+data
+form
+interface
+framework
+software
+io
+multiple
+ip
+order
+vi
+collection
+tag
+int
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+0 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								How to retrieve URL information
+										Introduction to Map and SortedMap Interface
+										Database driven webservices
+										JavaScript Combo Box Validation
+										Introduction to List and Queue Interface
+										Convert Character into a String
+										JSF HTML Tag Reference
+										log4j
+										Set Interface
+										Java BigDecimal compareTo example
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

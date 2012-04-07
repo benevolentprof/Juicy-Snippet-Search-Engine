@@ -1,0 +1,897 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>74851</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/java-get-example/java-binary-tree-code.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Java binary tree code
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				Binary Tree are the specialized tree that has two possible branches i.e left and right branch.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+      Java binary tree code
+	  
+ 
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+Binary Tree are the specialized tree that has two possible branches i.e left
+and right branch. These tree are useful when you build a parse of tree
+especially in mathematics and Boolean. The java binary tree find its application
+in games. Binary Tree is basic concept of data structure.
+Understand with Example
+In this Tutorial we want to describe you a code that helps you in
+understanding Java binary tree code. For this we have a class name
+BinayTreeExample.Inside the main method we instantiate Binary Tree Example class
+to a memory, that
+call run( ) method. Inside this class&#160; we have a static node class and have
+two static node variable Node left, Node right and int value to store the
+respective node value. The Node constructor create a node object that accept a
+node value as argument that can be object or reference. The run method ( )
+create an instance of node class start with node value of 25.The
+System.out.println print the value&#160; of the node by&#160; calling -
+rootnode.value - The rootnode.value return you the value of the node.
+In the same way you insert the different value in the node using insert&#160;
+( ) method.. The insert method accept a node and int as argument value. The
+conditional operator is used to evaluate the position of various node, if the
+value of the node is less than the root node then, the system.out.println print
+the value of node to the left of root node, Incase the value of node is greater
+than root node, the println print the node value to the right of it.
+
+
+
+	BinaryTreeExample.java
+</TEXT>
+<CODE orderid="1" >
+public&#160;class&#160;BinaryTreeExample&#160;{
+
+
+
+&#160;&#160;&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)
+    
+      &#160;&#160; &#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;new&#160;BinaryTreeExample().run();
+
+&#160;&#160;&#160;&#160;}
+
+      
+
+&#160;&#160;&#160;&#160;static&#160;class&#160;Node&#160;
+      &#160;&#160; {
+
+      
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Node&#160;left;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Node&#160;right;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;value;
+
+      
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;public&#160;Node(int&#160;value)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;this.value&#160;=&#160;value;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;}
+
+      
+
+&#160;&#160;&#160;&#160;public&#160;void&#160;run()&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Node&#160;rootnode&#160;=&#160;new&#160;Node(25);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;Building&#160;tree&#160;with&#160;rootvalue&#160;
+
+      &quot;&#160;+&#160;rootnode.value);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;=======================
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160; ==========&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;insert(rootnode,&#160;11);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;insert(rootnode,&#160;15);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;insert(rootnode,&#160;16);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;insert(rootnode,&#160;23);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;insert(rootnode,&#160;79);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;Traversing&#160;tree&#160;in&#160;order&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;========================
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160; =========&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printInOrder(rootnode);
+
+      
+
+&#160;&#160;&#160;&#160;}
+
+      
+
+&#160;&#160;&#160;&#160;public&#160;void&#160;insert(Node&#160;node,&#160;int&#160;value)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if&#160;(value&#160;&lt;&#160;node.value)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if&#160;(node.left&#160;!=&#160;null)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;insert(node.left,&#160;value);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;else&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;&#160;&#160;Inserted&#160;&quot;&#160;+&#160;value&#160;+&#160;
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &quot;&#160;to&#160;left&#160;of&#160;node&#160;&quot;&#160;+&#160;node.value);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;node.left&#160;=&#160;new&#160;Node(value);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;else&#160;if&#160;(value&#160;&gt;&#160;node.value)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if&#160;(node.right&#160;!=&#160;null)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;insert(node.right,&#160;value);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;else&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;&#160;&#160;Inserted&#160;&quot;&#160;+&#160;value&#160;+&#160;&quot;&#160;
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      to&#160;right&#160;of&#160;node&#160;&quot;&#160;+&#160;node.value);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;node.right&#160;=&#160;new&#160;Node(value);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;}
+
+      
+
+&#160;&#160;&#160;&#160;public&#160;void&#160;printInOrder(Node&#160;node)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if&#160;(node&#160;!=&#160;null)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printInOrder(node.left);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;&#160;&#160;Traversed&#160;&quot;&#160;+&#160;node.value);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printInOrder(node.right);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;}
+
+}&quot;&#160;to&#160;left&#160;of&#160;node&#160;&quot;&#160;+&#160;node.value);
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;node.left&#160;=&#160;new&#160;Node(value);
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;else&#160;if&#160;(value&#160;&gt;&#160;node.value)&#160;{
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if&#160;(node.right&#160;!=&#160;null)&#160;{
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;insert(node.right,&#160;value);
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;else&#160;{
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;&#160;&#160;Inserted&#160;&quot;&#160;+&#160;value&#160;+&#160;&quot;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      to&#160;right&#160;of&#160;node&#160;&quot;&#160;+&#160;node.value);
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;node.right&#160;=&#160;new&#160;Node(value);
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+&#160;&#160;&#160;&#160;}
+      
+&#160;&#160;&#160;&#160;public&#160;void&#160;printInOrder(Node&#160;node)&#160;{
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if&#160;(node&#160;!=&#160;null)&#160;{
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printInOrder(node.left);
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;&#160;&#160;Traversed&#160;&quot;&#160;+&#160;node.value);
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printInOrder(node.right);
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+&#160;&#160;&#160;&#160;}
+}
+</CODE>
+<TEXT orderid="2" >
+Output of the program
+
+  
+    &#160; 
+  
+      
+Building&#160;tree&#160;with&#160;root&#160;value&#160;25
+
+=================================
+
+&#160;&#160;Inserted&#160;11&#160;to&#160;left&#160;of&#160;node&#160;25
+
+&#160;&#160;Inserted&#160;15&#160;to&#160;right&#160;of&#160;node&#160;11
+
+&#160;&#160;Inserted&#160;16&#160;to&#160;right&#160;of&#160;node&#160;15
+
+&#160;&#160;Inserted&#160;23&#160;to&#160;right&#160;of&#160;node&#160;16
+
+&#160;&#160;Inserted&#160;79&#160;to&#160;right&#160;of&#160;node&#160;25
+
+      
+
+Traversing&#160;tree&#160;in&#160;order
+
+=================================
+
+&#160;&#160;Traversed&#160;11
+
+&#160;&#160;Traversed&#160;15
+
+&#160;&#160;Traversed&#160;16
+
+&#160;&#160;Traversed&#160;23
+
+&#160;&#160;Traversed&#160;25
+
+&#160;&#160;Traversed&#160;79
+    
+   
+  
+  
+
+
+Download Source code
+
+ 
+
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+      
+    
+  
+
+
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java error identifier excepted ...  180003 viewsJava error class ...  180011 viewsJava error java.lang.noclassdeffounderror ...  180012 viewsGet Length of Array ...  180040 viewsGet Length of Array ...  180062 viewsGet Java Version ...  180079 viewsGet Property by Name ...  180107 viewsJava get Free Memory ...  180114 viewsJava get available Font ...  180115 viewsJava error icon ...  180115 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+java
+windows
+c
+error
+orm
+form
+diff
+io
+dialog
+icons
+sed
+format
+version
+window
+display
+icon
+port
+using
+log
+support
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+1 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+		this is not a simple Binary Tree.. the rules defined by your insert method are the ones for a Binary Search Tree (BST)
+
+		Posted by Costianu Valentin on Sunday, 11.22.09 @ 00:25am | #92777
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Java Array Length
+										Java binary tree code
+										Java binary tree insert
+										Servlet Example To Insert Mysql Clob Data
+										Sysdeo Tomcat Launcher Plugin
+										Constructor Overloading in Java
+										changing Background Color
+										Java clone method example
+										JavaScript array map
+										Tutorials - Java Server Pages Technology
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

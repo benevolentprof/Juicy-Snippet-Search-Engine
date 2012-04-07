@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>2838</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/article.php/10922_3837316_3/Non-Blocking-IO-Made-Possible-in-Java.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					
+				
+				
+					Read More in Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Non-Blocking I/O Made Possible in Java
+			
+			
+				
+				
+					September 16, 2009
+					By 
+Thribhuvan S Thakur
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+NIO.2 Features in JDK 1.7
+In this section we will cover some of the features of NIO.2 from the perspective of this article:
+
+An abstraction of a file system - java.nio.file 
+Enhancements to java.io.channels 
+asynchronous I/O 
+java.nio.file
+Typical operations such as deleting, copying and moving files are supported, as well as file access permission retrieval and existence checking. Metadata about the files themselves and the file stores in which they reside are provided. Improved file I/O capabilities include channel- based I/O and directory operations (including create, delete and read). Where supported by the host operating system, the creation of UNIX-style symbolic and hard links is supported. An interesting capability to recursively walk a directory tree is provided as well as locating sets of files matching a specific filename pattern specified by a UNIX shell-style glob or regular expression.
+The capabilities of this package are dependent upon the semantics of the host operating system.
+Below is an example of using java.nio.file.Path to open a file as a Channel:
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+</TEXT>
+<CODE orderid="1" >
+FileSystem fileSystem = FileSystems.getDefault();
+  Path file1 = fileSystem.getPath(&quot;C:/TestFileChannel.java&quot;);
+  FileChannel fcin = FileChannel.open(file1);
+</CODE>
+<TEXT orderid="2" >
+An Updated java.nio.channels
+SeekableByteChannel (New Addition) 
+
+Maintains a current file position. 
+Factory methods such as newByteChannel(&#133;) 
+Methods to read and write to the channel using ByteBuffer 
+
+FileChannel (Updated) 
+
+Implements SeekableByteChannel 
+New open() methods to open a file with Channel semantics. 
+
+NetworkChannel (New Addition) 
+
+Represents a network socket and defines methods for binding, setting socket options and returning local addresses. 
+
+ServerSocketChannel / SocketChannel / DatagramChannel (Updated) 
+
+Each of the network oriented channels implements NetworkChannel 
+Methods related to binding and connecting have been added without requiring socket() 
+Multicast support has been added to DatagramChannel 
+
+Asynchronous I/O for Sockets and Files
+AsynchronousChannel
+A channel that supports asynchronous I/O operations.
+AsynchronousByteChannel
+An asynchronous channel that can read and write bytes.
+AsynchronousFileChannel
+An asynchronous channel for reading, writing, and manipulating a file without support for a current file position (i.e. not seekable). You could specify the file position to each read and write operation.
+
+AsynchronousSocketChannel
+An asynchronous channel for connection oriented network client-sockets (TCP) with timeout on read/write operations.
+
+AsynchronousDatagramChannel
+An asynchronous channel for datagram-oriented sockets with a support for multicasting.
+
+AsynchronousServerSocketChannel
+An asynchronous channel for stream-oriented listening sockets.
+
+CompletionHandler
+A handler for consuming the result of an asynchronous I/O operation as call back methods:
+</TEXT>
+<CODE orderid="3" >
+cancelled(), completed(), failed()
+</CODE>
+<TEXT orderid="4" >
+. The caller supplies the implementation for each call back (avoid long lived and blocking operations inside these methods).
+AsynchronousChannelGroup
+A grouping of asynchronous channels for the purpose of resource sharing (i.e. thread pools). Asynchronous channels that do not specify a group at construction time are bound to the default group maintained by JVM.
+Using Asynchronous IO API
+The Asynchronous IO is initiated with java.util.concurrent specific classes to implement robust and scalable Network IO components. Following code snippet demonstrates how to create an AsychronousChannelGroup using java.util.concurrent.ExecutorService that leverages N number of threads (fixed thread pool).
+  //Use java.util.concurrent.Executor to run the tasks submitted  
+  //creating an an asynchronous channel group with a fixed thread pool.
+  java.util.concurrent.ExecutorService executor =    Executors.newFixedThreadPool(poolSize);
+  AsynchronousChannelGroup group =  AsynchronousChannelGroup.withThreadPool(executor); 
+
+
+An Asynchronous channel could be a part of a group of could exist independently (part of default group maintained by JVM). Following code snippet demonstrates how to use create an AsynchronousChannel both ways - part of a group or part of a default group.
+</TEXT>
+</result>

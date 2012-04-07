@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>7644</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/j2me/article.php/10934_1436051_2/The-Connected-Limited-Device-Configuration-CLDC.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Java J2ME
+					
+				
+				
+					Read More in Java J2ME &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			The Connected Limited Device Configuration (CLDC)
+			
+			
+				
+				
+					July 30, 2002
+					By 
+Eric Gigu&#232;re
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+The Generic Connection Framework
+
+J2SE includes many classes for performing input and output,
+classes that are found in the java.io and the java.net packages.
+Unfortunately, there are a large number of I/O classes and
+they tend to encapsulate I/O models that are not necessarily
+found on all devices. For example, some handheld devices do
+not have file systems. Socket support is not universal, either.
+
+
+What the CLDC has done, then, is to define a new set of
+APIs for I/O called the Generic Connection Framework.
+The GFC, part of the new javax.microedition.io
+package, defines interfaces for the different kinds
+of I/O that are possible and a factory class for
+creating objects that implement those interfaces.
+The type of object to create is specified in the
+protocol part of the URL (universal resource locator)
+passed to the factory class.
+
+For example, a socket connection can be made
+using code like this:
+</TEXT>
+<CODE orderid="1" >
+import java.io.*;
+import javax.microedition.io.*;
+
+StreamConnection conn = null;
+InputStream is = null;
+String url = &quot;socket://somewhere.com:8909&quot;;
+
+try {
+    conn = (StreamConnection) Connector.open( url );
+    is = conn.openInputStream();
+    .... // etc. etc.
+}
+catch( ConnectionNotFoundException cnfe ){
+    // handle it 
+}
+catch( IOException e ){
+    // handle it
+}
+finally {
+    if( is != null ) try { is.close(); } catch( Exception e ){}
+    if( conn != null ) try { conn.close(); } catch( Exception e ){}
+}
+</CODE>
+<TEXT orderid="2" >
+Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		The code above assumes that the device knows how to
+map the &quot;socket&quot; protocol in the URL to an object that
+implements the GCF&apos;s StreamConnection interface, which
+defines methods for obtaining the input and output streams
+of a socket connection. It should be noted, however,
+that the CLDC does not actually define any I/O
+implementations. In other words, the CLDC defines
+the interfaces of the GCF, but the
+implementation classes -- the ones that do the actual
+I/O -- are left to the profiles and/or the device vendor
+to define. For example, the Mobile Information Device
+Profile (MIDP) -- a CLDC-based profile -- requires support
+for a subset of HTTP 1.1 and so it recognizes the 
+&quot;http&quot; protocol in URLs and returns objects that
+implement the GCF&apos;s ContentConnection interface.
+
+
+Using the CLDC
+By itself, the CLDC is a limited programming
+platform. Because it does not define any user
+interface classes or implement any I/O models,
+about all you can do for output is write to the
+System.out stream, which may or may not be captured
+to a console or file. You really need the extra
+classes defined by a J2ME profile (like those of the MIDP)
+or device-specific classes (like those on the RIM
+BlackBerry devices or certain Japanese i-Mode phones)
+to do anything interactive.
+
+If you&apos;re still interested in trying out the CLDC,
+Sun has a reference implementation hosted on Windows
+or Solaris available for download from its website.
+This reference implementation includes the preverify
+offline verification utility as well as a CLDC VM
+and the CLDC runtime classes. 
+See Sun&apos;s
+main CLDC page for links to it and to the CLDC
+specification. You can also use toolkits or
+integrated development environments like Sun&apos;s
+J2ME 
+Wireless Toolkit, Metrowerks&apos; 
+CodeWarrior Wireless Studio,
+or Borland&apos;s JBuilder
+MobileSet to explore CLDC programming.
+
+Next: The Connected Device Configuration
+
+
+Eric Gigu&#232;re is the author of Java 2 Micro Edition, the first
+book about J2ME, and co-author of Mobile Information Device Profile for
+Java 2 Micro Edition, both published by John Wiley &amp; Sons. He works as a
+software developer for iAnywhere Solutions, a subsidiary of Sybase. For more
+information about Eric, see his web site or drop him a note at ericgiguere@ericgiguere.com.
+
+# # #
+
+			
+			
+			
+			
+				
+				
+1 
+2 
+
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

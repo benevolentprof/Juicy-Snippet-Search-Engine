@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>29326</docid>
+<orderid>0</orderid>
+<type>CODE</type>
+<url>http://www.exampledepot.com/egs/javax.swing.tree/Tree2Path.html</url>
+</description>
+<CODE orderid="0" >
+Example DepotUseful code samples
+
+
+        
+    
+            
+  Home
+  Java
+  Contact
+  Blog
+
+	
+
+
+    
+    
+
+	
+	    
+	
+		
+
+ 
+
+
+
+
+
+
+	    
+	
+	
+
+    
+
+
+    
+    
+
+	
+	    
+	
+		
+
+              
+
+    
+
+
+Java &#187; Java packages &#187; javax.swing.tree &#187; Nodes
+
+
+
+
+
+    
+
+
+    
+
+ Converting All Nodes in a JTree Component to a TreePath Array
+
+
+
+
+
+
+COPY
+// If expanded, return only paths of nodes that are expanded.
+public TreePath[] getPaths(JTree tree, boolean expanded) {
+    TreeNode root = (TreeNode)tree.getModel().getRoot();
+
+    // Create array to hold the treepaths
+    List list = new ArrayList();
+
+    // Traverse tree from root adding treepaths for all nodes to list
+    getPaths(tree, new TreePath(root), expanded, list);
+
+    // Convert list to array
+    return (TreePath[])list.toArray(new TreePath[list.size()]);
+}
+public void getPaths(JTree tree, TreePath parent, boolean expanded, List list) {
+    // Return if node is not expanded
+    if (expanded &amp;&amp; !tree.isVisible(parent)) {
+        return;
+    }
+
+    // Add node to list
+    list.add(parent);
+
+    // Create paths for all children
+    TreeNode node = (TreeNode)parent.getLastPathComponent();
+    if (node.getChildCount() &gt;= 0) {
+        for (Enumeration e=node.children(); e.hasMoreElements(); ) {
+            TreeNode n = (TreeNode)e.nextElement();
+            TreePath path = parent.pathByAddingChild(n);
+            getPaths(tree, path, expanded, list);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+    
+
+
+    
+    
+
+	
+		    
+		    
+		    
+		        	
+			Related examples
+
+		    
+		    
+	
+	    
+	
+		
+    
+  
+  
+      
+        
+      
+  
+                Adding a Node to a JTree Component
+  
+  
+  
+      
+  
+                Converting a Node in a JTree Component to a TreePath
+  
+  
+  
+      
+  
+                Finding a Node in a JTree Component
+  
+  
+  
+      
+  
+                Removing a Node to a JTree Component
+  
+  
+  
+      
+  
+                Visiting All the Nodes in a JTree Component
+  
+  
+    
+  
+  
+  
+  
+  
+  
+ 
+	    
+	
+	
+
+    
+
+
+    
+    
+
+	
+		    
+		    
+		    
+		        	
+			Post a comment
+
+		    
+		    
+	
+	    
+	
+		
+
+ Your name: 
+ 
+
+
+ Comment: *
+ 
+
+More information about formatting options
+
+CAPTCHAThis question is for testing whether you are a human visitor and to prevent automated spam submissions.
+
+ What code is in the image?: *
+ 
+ Enter the characters shown in the image. Ignore spaces and be careful about upper and lower case.
+
+
+
+
+
+	    
+	
+	
+
+    
+
+
+
+
+
+
+    
+                
+        Login&#160;|&#160;Terms of Use&#160;|&#160;Trademarks&#160;|&#160;Privacy Statement
+Copyright &#169; 2009&#160;Example Depot.&#160;All Rights Reserved.
+</CODE>
+</result>

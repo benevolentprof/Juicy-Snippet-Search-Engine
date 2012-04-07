@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75189</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/java-conversion/BinaryToDecima.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Convert Binary to Decimal
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this section, you will learn how to convert a  binary number  into a decimal number.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Convert Binary to Decimal
+ 
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+In this section, you will learn how to convert&#160;a&#160;
+binary number&#160; into a decimal number. The java.lang package provides the facility
+to convert the integer data into the binary to decimal.&#160;
+Code Description:
+      In this program, you will learn the use of parseLong()
+method.&#160; Define a class &quot;BinaryToDecimal&quot; using the&#160; parseLong()
+      method. This method is used to
+      parse the string argument as a signed decimal
+long. This method has been used for converting a long to a string and a
+String to a long.
+Here
+is the code of this program:
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.lang.*;
+
+import&#160;java.io.*;
+
+
+
+public&#160;class&#160;BinaryToDecimal{
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;throws&#160;IOException{
+
+&#160;&#160;&#160;&#160;BufferedReader&#160;bf=&#160;new&#160;BufferedReader(new&#160;InputStreamReader(System.in));
+
+&#160;&#160;&#160;&#160;System.out.print(&quot;Enter&#160;the&#160;Binary&#160;value:&#160;&quot;);
+
+&#160;&#160;&#160;&#160;String&#160;str&#160;=&#160;bf.readLine();
+
+&#160;&#160;&#160;&#160;long&#160;num&#160;=&#160;Long.parseLong(str);
+
+&#160;&#160;&#160;&#160;long&#160;rem;
+
+&#160;&#160;&#160;&#160;while(num&#160;&gt;&#160;0){
+
+&#160;&#160;&#160;&#160;&#160;&#160;rem&#160;=&#160;num&#160;%&#160;10;
+
+&#160;&#160;&#160;&#160;&#160;&#160;num&#160;=&#160;num&#160;/&#160;10;
+
+&#160;&#160;&#160;&#160;&#160;&#160;if(rem&#160;!=&#160;0&#160;&amp;&amp;&#160;rem&#160;!=&#160;1){
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;This&#160;is&#160;not&#160;a&#160;binary&#160;number.&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;Please&#160;try&#160;once&#160;again.&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.exit(0);
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;int&#160;i=&#160;Integer.parseInt(str,2);
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Decimal:=&quot;+&#160;i);
+
+&#160;&#160;}
+
+}
+    
+   
+  
+   
+
+
+
+Download this program.
+</CODE>
+<TEXT orderid="2" >
+Output of this program:
+
+  
+    C:\corejava&gt;java BinaryToDecimal
+
+      Enter the Binary value:
+
+      10010
+
+      Decimal:=18
+
+      C:\corejava&gt;_
+  
+
+
+		
+		
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+
+      
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java Conversion ...  182452 viewsConvert Carats To Grams ...  183101 viewsConvert Grams To Carat ...  183133 viewsConvert Grams To Ounce ...  183168 viewsImplementing Continue Statement In Java ...  183184 viewsThe Unary Operators ...  183240 viewsConvert One Unit to Another ...  183273 viewsJava Date Conversion ...  183299 viewsConvert Gallons To Liters ...  183300 viewsConvert Grams To Pounds ...  183317 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+convert
+io
+help
+this
+program
+to
+learn
+ram
+ear
+e
+il
+section
+in
+converting
+m
+ps
+pro
+s
+is
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+1 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+		it is good for the new learning people
+
+		Posted by nbv prakash on Wednesday, 07.30.08 @ 00:46am | #69846
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Java - Continue statement in Java
+										Convert Binary to Decimal
+										Spring cglib2
+										Spring asm Dependency
+										The @configuration annotation example in Spring 3.0 Framework
+										Develop Hello World example using Spring 3.0 Framework
+										Learn Features of Spring 3.0
+										Spring 3.0 Tutorials with example code
+										Axis2 Eclipse plugin Tutorial
+										Calling Constructor in Spring
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

@@ -1,0 +1,880 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>6505</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/other/article.php/617391/Java-and-Internet-Programming-Introduction.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Java and Internet Programming: Introduction
+			
+			
+				
+				
+					November 9, 1999
+					By 
+Thornton Rose
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+
+ This article is part one of a three-part series on writing Java programs that use and implement Internet services. In this part, I cover the tools and resources you will need, the protocols that your programs will use, the basics of sockets, and a very simple client program. Tools and resources There are actually only a couple of tools that you will need to write Java programs for the Internet. They are:   Java Development Kit (JDK), any version Your favorite text editor.  
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		Access to a Unix server (particularly one that is not secured) will make doing some things easier and more interesting, but it is not necessary. Also, having two PCs on a LAN can be helpful, but that is not necessary either. All the example programs for this series of articles can be run on a standalone PC. Protocols Programs that use or implement Internet services communicate with each other according to rules defined by one or more of the Net protocols. There are many of these protocols, but those that form the foundation for all the others are Internet Protocol (IP), Transport Control Protocol (TCP), and User Datagram Protocol (UDP). IP is the lowest-level protocol. It defines the format and rules for the transmission of data in packets called datagrams. I am not going to go into any detail on this protocol, because one cannot write programs in Java that use it directly. Its primary importance is that it is the base protocol. TCP is built on top of IP (which is where we get the common abbreviation TCP/IP). It defines the format and rules for the transport of packets from program to program on the Internet and provides mechanisms for acknowledging the delivery of IP packets, for requesting re-transmission of lost packets, and for assembling received packets in the order in which they were sent. UDP is an unreliable counterpart to TCP. It does not guarantee packet delivery, nor does it provide packet sequencing and re-transmission. This may not seem very useful, but UDP has less overhead than TCP and is often faster. Ports When opening a socket, both an Internet address and a port must be specified. The port is an integer in the range 1 to 65535. If you think of the Internet address as a street address, then the port number is like an apartment number. Here is a list of common Internet protocols and the port numbers associated with them [ref. 2]:    SERVICE/PROTOCOL  PORT DESCRIPTION   echo 7 Used to verify that two machines can connect by having one echo back the other&apos;s data.*   daytime 13 Provides an ASCII representation of the current time on the server.*   ftp 20/21 Used for file transfers. Port 21 is used for commands; port 20 is used for data.   telnet 23 Used for interactive, remote, command-line sessions.   smtp 25 Simple Mail Transfer Protocol, which is used to send email between machines.   whois 43 Simple directory service for network administrators.   finger 79 Used to get information about one or more users on the host machine.   http 80 HyperText Transfer Protocol, the underlying protocol of the World Wide Web.   pop3 110 Post Office Protocol Version 3, which is used to transfer e-mail from a host (e-mail server) to an e-mail client.   nntp 119 Network News Transfer Protocol, used to disseminate Usenet news.    *These protocols have both TCP and UDP implementations. Sockets Sockets are endpoints for communication between two machines [ref. 1], and subsequently between programs that use Internet protocols. Basically, they work like any other type of I/O object. You open them, read and/or write data, then close them when you are done. In the Java API, sockets are provided via the classes in the java.net package. There are many classes in this package, to provide various levels of abstraction for the programmer, but the key classes are Socket, ServerSocket, DatagramSocket, DatagramPacket, and InetAddress. Here&apos;s a brief synopsis of each:    CLASS DESCRIPTION   Socket  Communication endpoint used by a client to connect to a server using TCP.   ServerSocket Communication endpoint on which a server accepts connections from clients.   DatagramSocket Socket for sending and receiving UDP packets.   DatagramPacket Represents a UDP packet.   InetAddress Represents an Internet address.    Simple client By this point you are probably wondering how all the information I have presented so far can get you to writing internet programs in Java. So, let&apos;s take a look at a very simple TCP client.  Listing 1.  Here is the code for daytime.java, a simple program that uses the daytime protocol to get the date &amp; time from a given host.    &#160; Listing 1
+ HttpSessionExample.java 
+by David Reilly. &#160;
+</TEXT>
+<CODE orderid="1" >
+// Import I/O &amp; servlet packages
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class HttpSessionExample extends javax.servlet.http.HttpServlet
+{
+	// Implementation of GET request
+	public void doGet (HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		// Assign a content type
+		response.setContentType( &quot;text/html&quot; );
+
+		// Prevent caching of server-side responses
+		response.setHeader( &quot;Cache-Control&quot; ,  &quot;no-cache&quot; );
+
+		// Create a stream for writing HTML output
+		PrintStream pout = new PrintStream (response.getOutputStream());
+
+		// Get the user session, and create one if one doesn&apos;t already exist
+		HttpSession userSession = request.getSession(true);
+
+		// Check for presence of state data in userSession		
+		String background = (String) userSession.getValue(&quot;background&quot;);
+		String foreground = (String) userSession.getValue(&quot;foreground&quot;);
+
+		if (background == null)
+		{
+			// No background stored - place default value in session
+			background = getDefaultBackground();
+			userSession.putValue(&quot;background&quot;, background);
+		}	
+		if (foreground == null)
+		{
+			// No foreground stored - place default value in session
+			foreground = getDefaultForeground();
+			userSession.putValue(&quot;foreground&quot;, foreground);
+		}
+
+		// Next, check for a change in parameter from FORM
+		if ( request.getParameter(&quot;background&quot;) != null)
+		{
+			background = request.getParameter(&quot;background&quot;);			
+			userSession.putValue (&quot;background&quot;, background);
+		}
+		if ( request.getParameter(&quot;foreground&quot;) != null)
+		{
+			foreground = request.getParameter(&quot;foreground&quot;);
+			userSession.putValue (&quot;foreground&quot;, foreground);
+		}
+
+
+		pout.println (&quot;&lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;HttpSessionExample&lt;/TITLE&gt;&lt;/HEAD&gt;&quot;);
+		pout.println (&quot;&lt;BODY BGCOLOR=&apos;&quot; + background + &quot;&apos; TEXT=&apos;&quot; + foreground + &quot;&apos;&gt;&quot;);
+		pout.println (&quot;This is an example of a servlet that uses HttpSession to store state info &lt;p&gt;\n&quot;);
+
+		// Print form
+		pout.println (&quot;&lt;form action=&apos;&quot; + response.encodeUrl(request.getRequestURI()) + &quot;&apos; method=get&gt;\n&quot;);
+		pout.println (&quot;Background : &lt;input type=text name=background value=&apos;&quot; + background + &quot;&apos;&gt;&lt;br&gt;\n&quot;);
+		pout.println (&quot;Foreground : &lt;input type=text name=foreground value=&apos;&quot; + foreground + &quot;&apos;&gt;&lt;br&gt;\n&quot;);
+		pout.println (&quot;&lt;input type=submit&gt;&quot;);
+		pout.println (&quot;&lt;/form&gt;&quot;);
+		
+		pout.println (&quot;&lt;a href=&apos;&quot; + response.encodeUrl ( request.getRequestURI() ) + &quot;&apos;&gt;
+Hyperlink example of URL rewriting&lt;/a&gt; - not supported by all servers&quot;);&lt;!--Broken Link? --&gt;
+		pout.flush();
+
+	}
+
+	// Implemention of POST request
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		// Pass to doGet
+		doGet(request,response);
+	}
+
+	public String getDefaultBackground() { return &quot;white&quot;; }
+	public String getDefaultForeground() { return &quot;black&quot;; }
+}
+</CODE>
+<TEXT orderid="2" >
+Here is the algorithm:  Get the host from the command-line. If it&apos;s blank, print an error message and exit. Get the host&apos;s IP address. Open a socket to connect to the host. Set the socket I/O timeout to 5 seconds. (This is an optional step, but the default timeout may be longer than you wish the program to wait for a response from the host.) Get a reference to the socket&apos;s input stream. Read a line from the input stream. (Note that the  readLine() method blocks until either input is received or a timeout occurs.) Print the data that was received. Close the socket and exit.  When you run the Daytime program (included in the zip file linked below), you must specify the host machine (by IP or name) from which to get the date &amp; time. If you have access to an unsecured Unix server, give it a try. If you want to run the program local, in one shell (an &quot;MS-DOS Prompt&quot; window on Windows) run DaytimeServer (included in the zip file linked below), then in another shell run Daytime and specify &quot;localhost&quot; as the host. Ping Some ambitious readers may want to try writing a ping program in Java. It seems like it should be a simple program, but unfortunately it&apos;s not. Ping uses the Internet Control Message Protocol (ICMP), which is treated like a high-level protocol but is a actually just a part of IP. To send ICMP messages, you have to be able to directly manipulate the IP header, which requires using what are called &quot;raw sockets&quot; (ICMP sockets). The Java API doesn&apos;t support raw sockets, so you would have to implement them in C/C++ as native code. Summary In this article, I have presented the basics of Internet protocols, ports, and sockets, and have shown you a very simple Java program that uses the Daytime protocol to get the date &amp; time from a host machine. Hopefully, this information will help you take a solid first step toward writing your own Internet programs in Java. In the next part of this series, I&apos;ll show you some more client programs, some simple server programs, and how to use UDP. Related links  Internet RFCs, STDs, FYIs, etc.  References  Java Platform 1.2 API Specification. Copyright 1993-1998 Sun Microsystems, Inc. Java Network Programming. Harold, Elliotte Rusty. Copyright 1997 O&apos;Reilly &amp; Associates, Inc.  About the author Thornton Rose is a contract software developer in Atlanta, Ga. Thornton can be reached via e-mail at trose@avana.net.    
+ 
+
+
+			
+			
+			
+			
+				
+1 
+
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

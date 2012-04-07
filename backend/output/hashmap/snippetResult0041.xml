@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>74636</docid>
+<orderid>7</orderid>
+<type>CODE</type>
+<url>http://www.roseindia.net/javatutorials/enum_inversion_problem.shtml</url>
+</description>
+<CODE orderid="5" >
+public enum Animal implements EnumConverter {
+  Ape(100), Bee(50), Cat(80);
+
+  private final byte value;
+
+  Animal(int value) {
+    this.value = (byte) value;
+  }
+
+  public byte convert() {
+    return value;
+  }
+}
+
+public enum Tree implements EnumConverter {
+  Acorn(30), Birch(60), Cedar(40);
+
+  private final byte value;
+
+  Tree(int value) {
+    this.value = (byte) value;
+  }
+
+  public byte convert() {
+    return value;
+  }
+}
+</CODE>
+<TEXT orderid="6" >
+In order to lookup the enum based on a byte value, we define
+    the ReverseEnumMap, for which you have to pass in a class
+    object that is an enum and implements EnumConverter.  This
+    allows us to get all the enum values from the class, and
+    to then call the convert() method on them.  Note the special
+    syntax that allows us to specify that a generic must
+    implement several interfaces is done with the &amp;, such as
+</TEXT>
+<CODE orderid="7" >
+&lt;V extends Enum&lt;V&gt; &amp; EnumConverter&gt;.
+  
+
+import java.util.*;
+
+public class ReverseEnumMap&lt;V extends Enum&lt;V&gt; &amp; EnumConverter&gt; {
+  private Map&lt;Byte, V&gt; map = new HashMap&lt;Byte, V&gt;();
+  public ReverseEnumMap(Class&lt;V&gt; valueType) {
+    for (V v : valueType.getEnumConstants()) {
+      map.put(v.convert(), v);
+    }
+  }
+
+  public V get(byte num) {
+    return map.get(num);
+  }
+}
+
+import java.util.*;
+
+public class ReverseEnumMap&lt;V extends Enum&lt;V&gt; &amp; EnumConverter&gt; {
+  private Map&lt;Byte, V&gt; map = new HashMap&lt;Byte, V&gt;();
+  public ReverseEnumMap(Class&lt;V&gt; valueType) {
+    for (V v : valueType.getEnumConstants()) {
+      map.put(v.convert(), v);
+    }
+  }
+
+  public V get(byte num) {
+    return map.get(num);
+  }
+}
+</CODE>
+<TEXT orderid="8" >
+You could also hold the reverse map inside an array of size
+    256.  Even though you cannot directly construct an instance
+    of an array of generics, you can do so using reflection.  We
+    have the enum type class available in the constructor of the ReverseEnumMap, so it is a matter of simply calling
+</TEXT>
+<CODE orderid="9" >
+Array.newInstance(valueType, 256);
+</CODE>
+</result>

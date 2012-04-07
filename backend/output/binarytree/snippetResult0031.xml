@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>10124</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.javacoffeebreak.com/books/extracts/javanotesv3/c11/ex-11-2-answer.html</url>
+</description>
+<TEXT orderid="0" >
+New to
+Java? We&apos;ll help you get started with our revised
+beginner&apos;s tutorial,
+or our free
+online textbook.
+
+  
+  
+	 
+    
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+      
+      
+      
+         
+
+
+        
+
+        Get the latest Java books
+
+
+      
+    
+    
+    
+      
+        
+          h t t p : / /w w w . j a v a c o f f e e b r e a k . c
+          o m /
+          
+            
+              
+                
+            
+          
+        
+      
+    
+  
+  
+
+
+
+Solution for
+
+    Programming Exercise 11.2
+
+
+
+THIS PAGE DISCUSSES ONE POSSIBLE SOLUTION to
+the following exercise from this on-line
+Java textbook.
+
+Exercise 11.2:
+Make a new version of the sample program WordList.java,
+from Section 10.3, that stores words in a
+binary sort tree instead of in an array.
+
+
+
+Discussion
+
+
+In WordList.java, an array is used
+to store a list of (lower case) word in alphabetical order, and at the end of the
+program the words are output to a file in order.  Since a binary sort tree
+is designed to store words in alphabetical order, it can be used as 
+a substitute for the array.  At the end of the program, an inorder
+traversal of the tree can be used to output the words to the file.
+Using an inorder traversal guarantees that the words will be output in order.
+
+Only a few changes are needed in the main() routine.  They are
+marked in red in the solution shown below.  It uses a differnt type of
+variable, and it calls a few different routines, but the logic is unchanged.
+The code that we need in
+order to implement the binary sort tree can be copied almost directly
+from Section 11.4.  The inorderPrint()
+routine in that section prints its strings to standard output.  In order
+to print to a file, I have added a parameter of type PrintWriter.
+The main() routine provides a stream for writing to the
+output file.
+
+The treeInsert() routine from Section 11.4 has been renamed
+to wordList() here, to be consistent with the subroutine call
+in the main() routine.  I have also made a few other changes
+to adapt it to this program.  The wordList() routine coverts
+its parameter to lower case.  It also refuses to insert duplicate items
+into the tree.  That is, if it finds a copy of the parameter already in
+the tree, it returns without adding anything to the tree.
+
+All-in-all, the substitution of the binary tree for the array is
+very straightforward.
+
+
+The Solution
+
+Changes in the main() routine are shown in red.
+In the part of the program that implements binary sort trees, changes
+from the versions in Section 11.4 are shown in red.
+
+
+   /*
+      This program lets the user specify a text file for input and a file
+      for output.  All the words are read from the input file.  Words are
+      converted to lower case.  An alphabetical list of all the words that
+      were found, without repetition, is written to the output file, with
+      one word per line.  A word in this program is defined to be any
+      sequence of letters.
+      
+      In this version of the program, words are stored in a binary
+      sort tree.
+      
+      This class depends on the non-standard classes TextIO and TextReader,
+   */
+   
+   import java.io.*;
+   
+   public class WordListWithTree {
+   
+   
+      //------------------ The main program ------------------------------------
+         
+   
+      static TreeNode root;  // Points to the root of the binary sort
+                             //   tree that holds the words.  At the
+                             //   beginning of the program, when the tree
+                             //   is empty, root is null.
+      
+   
+      public static void main(String[] args) {
+      
+         TextReader in;    // A stream for reading from the input file.
+         PrintWriter out;  // A stream for writing to the output file.
+         
+         String inputFileName;   // Input file name, specified by the user.
+         String outputFileName;  // Output file name, specified by the user.
+         
+         root = null;  // Start with an empty tree.  (Not really necessary,
+                       //   since null is the default initial value anyway.)
+         
+         /* Get the input file name from the user and try to create the
+            input stream.  If there is a FileNotFoundException, print
+            a message and terminate the program. */
+         
+         TextIO.put(&quot;Input file name?  &quot;);
+         inputFileName = TextIO.getln().trim();
+         try {
+            in = new TextReader(new FileReader(inputFileName));
+         }
+         catch (FileNotFoundException e) {
+             TextIO.putln(&quot;Can&apos;t find file \&quot;&quot; + inputFileName + &quot;\&quot;.&quot;);
+             return;
+         }
+         
+         /* Get the output file name from the user and try to create the
+            output stream.  If there is an IOException, print a message
+            and terminate the program. */
+   
+         TextIO.put(&quot;Output file name? &quot;);
+         outputFileName = TextIO.getln().trim();
+         try {
+            out = new PrintWriter(new FileWriter(outputFileName));
+         }
+         catch (IOException e) {
+             TextIO.putln(&quot;Can&apos;t open file \&quot;&quot; + outputFileName + &quot;\&quot; for output.&quot;);
+             TextIO.putln(e.toString());
+             return;
+         }
+         
+         /* Read all the words from the input stream and insert them into
+            the array of words.  Reading from a TextReader can result in
+            an error of type TextReader.Error.  If one occurs, print an
+            error message and terminate the program. */
+         
+         try {
+            while (true) {
+                  // Skip past and non-letters in the input stream.  If an
+                  //   end-of-stream has been reached, end the loop.  Otherwise,
+                  //   read a word and insert it into the array of words.
+               while ( ! in.eof() &amp;&amp; ! Character.isLetter(in.peek()) )
+                  in.getAnyChar();
+               if (in.eof())
+                  break;
+               insertWord(in.getAlpha());
+            }
+         }
+         catch (TextReader.Error e) {
+            TextIO.putln(&quot;An error occurred while reading from the input file.&quot;);
+            TextIO.putln(e.toString());
+            return;
+         }
+         
+         /* Write all the words from the tree to the output stream. */
+   
+         inorderPrint(root, out);
+         
+         /* Finish up by checking for an error on the output stream and
+            printing either a warning message or a message that the words
+            have been output to the output file. */
+         
+         if (out.checkError() == true) {
+            TextIO.putln(&quot;\nSome error occurred while writing output.&quot;);
+            TextIO.putln(&quot;Output might be incomplete or invalid.&quot;);
+         }
+         else {
+            TextIO.putln(&quot;\n&quot; + countNodes(root) + &quot; words from \&quot;&quot; + inputFileName + 
+                          &quot;\&quot; output to \&quot;&quot; + outputFileName + &quot;\&quot;.&quot;);
+         }
+      
+      } // end main()
+      
+   
+     //------------- A class and subroutines for the binary sort tree ----------
+   
+      static class TreeNode {
+                 // An object of type TreeNode represents one node
+                 // in a binary tree of strings.
+          String item;      // The data in this node.
+          TreeNode left;    // Pointer to left subtree.
+          TreeNode right;   // Pointer to right subtree.
+          TreeNode(String str) {
+                 // Constructor.  Make a node containing str.
+             item = str;
+          }
+      }  // end class TreeNode
+      
+      
+      static void inorderPrint(TreeNode node, PrintWriter output) {
+               // Output the items in the tree to which node points.
+               // The items are listed, one to a line, on the specified
+               // output streams.  An inorder listing is used, which
+               // will print the words in the binary sort tree in
+               // alphabetical order.
+           if (node != null) {
+              inorderPrint( node.left, output );
+              output.println(node.item);
+              inorderPrint( node.right, output );
+           }
+      }  // end inorderPrint()
+      
+      
+      static int countNodes(TreeNode node) {
+             // Return the number of nodes in the tree to which node points.
+          if (node == null)
+             return 0;
+          else 
+             return 1 + countNodes(node.left) + countNodes(node.right);
+      }
+      
+      
+      static void insertWord(String newItem) {
+               // Add the word to the binary sort tree to which the
+               // global variable &quot;root&quot; refers.  Duplicate entries
+               // will be ignored!  All words are converted to lower case.
+         newItem = newItem.toLowerCase();
+         if ( root == null ) {
+                 // The tree is empty.  Set root to point to a new node 
+                 // containing the new item.
+             root = new TreeNode( newItem );
+             return;
+          }
+          TreeNode runner; // Runs down the tree to find a place for newItem.
+          runner = root;   // Start at the root.
+          while (true) {
+             if ( newItem.equals(runner.item) ) {
+                     // The word is already in the tree.  Don&apos;t insert
+                     // another copy.  Just return.
+                 return;
+             }
+             if ( newItem.compareTo(runner.item) &lt; 0 ) {
+                      // Since the new item is less than the item in runner,
+                      // it belongs in the left subtree of runner.  If there
+                      // is an open space at runner.left, add a node there.
+                      // Otherwise, advance runner down one level to the left.
+                if ( runner.left == null ) {
+                   runner.left = new TreeNode( newItem );
+                   return;  // New item has been added to the tree.
+                }
+                else
+                   runner = runner.left;
+             }
+             else {
+                      // Since the new item is greater than or equal to the 
+                      // item in runner, it belongs in the right subtree of
+                      // runner.  If there is an open space at runner.right, 
+                      // add a new node there.  Otherwise, advance runner
+                      // down one level to the right.
+                if ( runner.right == null ) {
+                   runner.right = new TreeNode( newItem );
+                   return;  // New item has been added to the tree.
+                }
+                else
+                   runner = runner.right;
+              }
+          } // end while
+      }  // end insertWord()
+      
+      
+   }  // end class WordListWithTree
+</TEXT>
+<CODE orderid="1" >
+New to
+Java? We&apos;ll help you get started with our revised
+beginner&apos;s tutorial,
+or our free
+online textbook.
+
+  
+  
+	 
+    
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+      
+      
+      
+         
+
+
+        
+
+        Get the latest Java books
+
+
+      
+    
+    
+    
+      
+        
+          h t t p : / /w w w . j a v a c o f f e e b r e a k . c
+          o m /
+          
+            
+              
+                
+            
+          
+        
+      
+    
+  
+  
+
+
+
+Solution for
+
+    Programming Exercise 11.2
+
+
+
+THIS PAGE DISCUSSES ONE POSSIBLE SOLUTION to
+the following exercise from this on-line
+Java textbook.
+
+Exercise 11.2:
+Make a new version of the sample program WordList.java,
+from Section 10.3, that stores words in a
+binary sort tree instead of in an array.
+
+
+
+Discussion
+
+
+In WordList.java, an array is used
+to store a list of (lower case) word in alphabetical order, and at the end of the
+program the words are output to a file in order.  Since a binary sort tree
+is designed to store words in alphabetical order, it can be used as 
+a substitute for the array.  At the end of the program, an inorder
+traversal of the tree can be used to output the words to the file.
+Using an inorder traversal guarantees that the words will be output in order.
+
+Only a few changes are needed in the main() routine.  They are
+marked in red in the solution shown below.  It uses a differnt type of
+variable, and it calls a few different routines, but the logic is unchanged.
+The code that we need in
+order to implement the binary sort tree can be copied almost directly
+from Section 11.4.  The inorderPrint()
+routine in that section prints its strings to standard output.  In order
+to print to a file, I have added a parameter of type PrintWriter.
+The main() routine provides a stream for writing to the
+output file.
+
+The treeInsert() routine from Section 11.4 has been renamed
+to wordList() here, to be consistent with the subroutine call
+in the main() routine.  I have also made a few other changes
+to adapt it to this program.  The wordList() routine coverts
+its parameter to lower case.  It also refuses to insert duplicate items
+into the tree.  That is, if it finds a copy of the parameter already in
+the tree, it returns without adding anything to the tree.
+
+All-in-all, the substitution of the binary tree for the array is
+very straightforward.
+
+
+The Solution
+
+Changes in the main() routine are shown in red.
+In the part of the program that implements binary sort trees, changes
+from the versions in Section 11.4 are shown in red.
+
+
+   /*
+      This program lets the user specify a text file for input and a file
+      for output.  All the words are read from the input file.  Words are
+      converted to lower case.  An alphabetical list of all the words that
+      were found, without repetition, is written to the output file, with
+      one word per line.  A word in this program is defined to be any
+      sequence of letters.
+      
+      In this version of the program, words are stored in a binary
+      sort tree.
+      
+      This class depends on the non-standard classes TextIO and TextReader,
+   */
+   
+   import java.io.*;
+   
+   public class WordListWithTree {
+   
+   
+      //------------------ The main program ------------------------------------
+         
+   
+      static TreeNode root;  // Points to the root of the binary sort
+                             //   tree that holds the words.  At the
+                             //   beginning of the program, when the tree
+                             //   is empty, root is null.
+      
+   
+      public static void main(String[] args) {
+      
+         TextReader in;    // A stream for reading from the input file.
+         PrintWriter out;  // A stream for writing to the output file.
+         
+         String inputFileName;   // Input file name, specified by the user.
+         String outputFileName;  // Output file name, specified by the user.
+         
+         root = null;  // Start with an empty tree.  (Not really necessary,
+                       //   since null is the default initial value anyway.)
+         
+         /* Get the input file name from the user and try to create the
+            input stream.  If there is a FileNotFoundException, print
+            a message and terminate the program. */
+         
+         TextIO.put(&quot;Input file name?  &quot;);
+         inputFileName = TextIO.getln().trim();
+         try {
+            in = new TextReader(new FileReader(inputFileName));
+         }
+         catch (FileNotFoundException e) {
+             TextIO.putln(&quot;Can&apos;t find file \&quot;&quot; + inputFileName + &quot;\&quot;.&quot;);
+             return;
+         }
+         
+         /* Get the output file name from the user and try to create the
+            output stream.  If there is an IOException, print a message
+            and terminate the program. */
+   
+         TextIO.put(&quot;Output file name? &quot;);
+         outputFileName = TextIO.getln().trim();
+         try {
+            out = new PrintWriter(new FileWriter(outputFileName));
+         }
+         catch (IOException e) {
+             TextIO.putln(&quot;Can&apos;t open file \&quot;&quot; + outputFileName + &quot;\&quot; for output.&quot;);
+             TextIO.putln(e.toString());
+             return;
+         }
+         
+         /* Read all the words from the input stream and insert them into
+            the array of words.  Reading from a TextReader can result in
+            an error of type TextReader.Error.  If one occurs, print an
+            error message and terminate the program. */
+         
+         try {
+            while (true) {
+                  // Skip past and non-letters in the input stream.  If an
+                  //   end-of-stream has been reached, end the loop.  Otherwise,
+                  //   read a word and insert it into the array of words.
+               while ( ! in.eof() &amp;&amp; ! Character.isLetter(in.peek()) )
+                  in.getAnyChar();
+               if (in.eof())
+                  break;
+               insertWord(in.getAlpha());
+            }
+         }
+         catch (TextReader.Error e) {
+            TextIO.putln(&quot;An error occurred while reading from the input file.&quot;);
+            TextIO.putln(e.toString());
+            return;
+         }
+         
+         /* Write all the words from the tree to the output stream. */
+   
+         inorderPrint(root, out);
+         
+         /* Finish up by checking for an error on the output stream and
+            printing either a warning message or a message that the words
+            have been output to the output file. */
+         
+         if (out.checkError() == true) {
+            TextIO.putln(&quot;\nSome error occurred while writing output.&quot;);
+            TextIO.putln(&quot;Output might be incomplete or invalid.&quot;);
+         }
+         else {
+            TextIO.putln(&quot;\n&quot; + countNodes(root) + &quot; words from \&quot;&quot; + inputFileName + 
+                          &quot;\&quot; output to \&quot;&quot; + outputFileName + &quot;\&quot;.&quot;);
+         }
+      
+      } // end main()
+      
+   
+     //------------- A class and subroutines for the binary sort tree ----------
+   
+      static class TreeNode {
+                 // An object of type TreeNode represents one node
+                 // in a binary tree of strings.
+          String item;      // The data in this node.
+          TreeNode left;    // Pointer to left subtree.
+          TreeNode right;   // Pointer to right subtree.
+          TreeNode(String str) {
+                 // Constructor.  Make a node containing str.
+             item = str;
+          }
+      }  // end class TreeNode
+      
+      
+      static void inorderPrint(TreeNode node, PrintWriter output) {
+               // Output the items in the tree to which node points.
+               // The items are listed, one to a line, on the specified
+               // output streams.  An inorder listing is used, which
+               // will print the words in the binary sort tree in
+               // alphabetical order.
+           if (node != null) {
+              inorderPrint( node.left, output );
+              output.println(node.item);
+              inorderPrint( node.right, output );
+           }
+      }  // end inorderPrint()
+      
+      
+      static int countNodes(TreeNode node) {
+             // Return the number of nodes in the tree to which node points.
+          if (node == null)
+             return 0;
+          else 
+             return 1 + countNodes(node.left) + countNodes(node.right);
+      }
+      
+      
+      static void insertWord(String newItem) {
+               // Add the word to the binary sort tree to which the
+               // global variable &quot;root&quot; refers.  Duplicate entries
+               // will be ignored!  All words are converted to lower case.
+         newItem = newItem.toLowerCase();
+         if ( root == null ) {
+                 // The tree is empty.  Set root to point to a new node 
+                 // containing the new item.
+             root = new TreeNode( newItem );
+             return;
+          }
+          TreeNode runner; // Runs down the tree to find a place for newItem.
+          runner = root;   // Start at the root.
+          while (true) {
+             if ( newItem.equals(runner.item) ) {
+                     // The word is already in the tree.  Don&apos;t insert
+                     // another copy.  Just return.
+                 return;
+             }
+             if ( newItem.compareTo(runner.item) &lt; 0 ) {
+                      // Since the new item is less than the item in runner,
+                      // it belongs in the left subtree of runner.  If there
+                      // is an open space at runner.left, add a node there.
+                      // Otherwise, advance runner down one level to the left.
+                if ( runner.left == null ) {
+                   runner.left = new TreeNode( newItem );
+                   return;  // New item has been added to the tree.
+                }
+                else
+                   runner = runner.left;
+             }
+             else {
+                      // Since the new item is greater than or equal to the 
+                      // item in runner, it belongs in the right subtree of
+                      // runner.  If there is an open space at runner.right, 
+                      // add a new node there.  Otherwise, advance runner
+                      // down one level to the right.
+                if ( runner.right == null ) {
+                   runner.right = new TreeNode( newItem );
+                   return;  // New item has been added to the tree.
+                }
+                else
+                   runner = runner.right;
+              }
+          } // end while
+      }  // end insertWord()
+      
+      
+   }  // end class WordListWithTree
+
+
+
+
+
+
+[ Exercises
+| Chapter Index
+| Main Index
+]
+</CODE>
+</result>

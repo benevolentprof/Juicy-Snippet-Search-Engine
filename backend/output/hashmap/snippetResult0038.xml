@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>76687</docid>
+<orderid>43</orderid>
+<type>CODE</type>
+<url>http://www.roseindia.net/javacertification/scjp5/DeclarationsInitializationandScoping.shtml</url>
+</description>
+<CODE orderid="41" >
+// Creates an empty enum map with the specified key type.
+EnumMap(Class&lt;K&gt; keyType)
+
+// Creates an enum map with the same key type as the specified enum map, initially
+// containing the same mappings (if any).
+EnumMap(EnumMap&lt;K,? extends V&gt; m)
+
+// Creates an enum map initialized from the specified map.
+EnumMap(Map&lt;K,? extends V&gt; m)
+
+					
+    
+                    
+					Method summary of the class EnumMap&lt;K extends Enum&lt;K&gt;,V&gt;:
+</CODE>
+<TEXT orderid="42" >
+// Removes all mappings from this map.
+void clear()
+
+// Returns a shallow copy of this enum map.
+EnumMap&lt;K,V&gt; clone()
+
+// Returns true if this map contains a mapping for the specified key.
+boolean containsKey(Object key)
+
+// Returns true if this map maps one or more keys to the specified
+// value.
+boolean containsValue(Object value)
+
+// Returns a Set view of the mappings contained in this map.
+Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet()
+
+// Compares the specified object with this map for equality.
+boolean equals(Object o)
+
+// Returns the value to which this map maps the specified key, or null
+// if this map contains no mapping for the specified key.
+V get(Object key)
+
+// Returns a Set view of the keys contained in this map.
+Set&lt;K&gt; keySet()
+
+// Associates the specified value with the specified key in this map.
+V put(K key, V value)
+
+// Copies all of the mappings from the specified map to this map.
+void putAll(Map&lt;? extends K,? extends V&gt; m)
+
+// Removes the mapping for this key from this map if present.
+V remove(Object key)
+
+// Returns the number of key-value mappings in this map.
+int size()
+
+// Returns a Collection view of the values contained in this map.
+Collection&lt;V&gt; values()
+</TEXT>
+<CODE orderid="43" >
+Example of using EnumMap:
+					
+
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import static java.lang.System.out;
+
+public class UsingEnumMap {
+
+	enum Day {
+		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+	}
+
+	public static void main(String[] args) {
+
+		int[] freqArray = { 12, 34, 56, 23, 5, 13, 78 };
+
+		// Create a Map of frequencies
+		Map&lt;Day, Integer&gt; ordinaryMap = new HashMap&lt;Day, Integer&gt;();
+		for (Day day : Day.values()) {
+			ordinaryMap.put(day, freqArray[day.ordinal()]);
+		}
+		out.println(&quot;Frequency Map: &quot; + ordinaryMap);
+
+		// Create an EnumMap of frequencies
+		EnumMap&lt;Day, Integer&gt; frequencyEnumMap = new EnumMap&lt;Day, Integer&gt;(
+				ordinaryMap);
+
+		// Change some frequencies
+		frequencyEnumMap.put(Day.MONDAY, 100);
+		frequencyEnumMap.put(Day.FRIDAY, 123);
+		out.println(&quot;Frequency EnumMap: &quot; + frequencyEnumMap);
+
+		// Values
+		Collection&lt;Integer&gt; frequencies = frequencyEnumMap.values();
+		out.println(&quot;Frequencies: &quot; + frequencies);
+
+		// Keys
+		Set&lt;Day&gt; days = frequencyEnumMap.keySet();
+		out.println(&quot;Days: &quot; + days);
+	}
+}
+					
+					
+    
+					Output:
+</CODE>
+<TEXT orderid="44" >
+Frequency Map: {THURSDAY=23, SUNDAY=78, SATURDAY=13, WEDNESDAY=56, FRIDAY=5, TUESDAY=34, MONDAY=12}
+Frequency EnumMap: {MONDAY=100, TUESDAY=34, WEDNESDAY=56, THURSDAY=23, FRIDAY=123, SATURDAY=13, SUNDAY=78}
+Frequencies: [100, 34, 56, 23, 123, 13, 78]
+Days: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY]
+					
+    
+					Creating and using packages
+				
+                    
+					To make classes easier to find and to use, to avoid naming conflicts, and to control access, programmers bundle 
+					groups of related classes and interfaces into packages. A package is a collection of related classes and 
+					interfaces providing access protection and namespace management. 
+				
+                    
+					The classes and interfaces that are part of the Java platform are members of various packages that bundle classes 
+					by function: fundamental classes are in java.lang, classes for reading and writing 
+					(input and output) are in java.io, and so on. You can put your classes and interfaces 
+					in packages, too.
+				
+                    
+					To create a package, you put a class or an interface in it. To do this, you put a package statement 
+					at the top of the source file in which the class or the interface is defined. For example, the following code appears 
+					in the source file Circle.java and puts the Circle class in the 
+					graphics package:
+</TEXT>
+<CODE orderid="45" >
+package graphics;
+
+public class Circle extends Graphic implements Draggable {
+	...
+}
+</CODE>
+</result>

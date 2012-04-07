@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>10726</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.javaworld.com/javaworld/jw-12-2007/jw-12-ibatisjasper.html</url>
+</description>
+<TEXT orderid="0" >
+InfoWorld: Modernizing IT
+
+
+JavaWorld: Solutions for Java Developers
+
+
+               
+                 
+
+
+
+  
+  
+    
+    
+    Advanced search
+  
+
+  
+
+
+            
+            
+               
+            
+         
+         
+
+
+            
+      
+      
+
+
+ 
+
+
+
+
+
+
+Research Centers
+			+ Core JavaClient-side JavaDesign PatternsJava LanguageJava Platform APIsJava Programming ConceptsSwing/GUI ProgrammingThreads/Concurrency
+			+ Enterprise JavaAjax/RIA/Web 2.0Architecture &amp; ScalabilityEnterprise Best PracticesJava &amp; XMLJava Web DevelopmentWeb Services &amp; SOAs
+			+ Mobile Java
+			+ Tools &amp; MethodsApplication ServersData Management/RDBMSEnterprise MiddlewareJava IDEsJava SecurityOpen Source ToolsScripting/Other LanguagesSoftware Development LifecycleSoftware Development MethodologiesTesting &amp; DebuggingWeb Application Frameworks
+			+ JavaWorld ArchivesDesign TechniquesHow-to JavaJava 101Java Design PatternsJava Q&amp;AJava TipsJava TrapsServer-side JavaUnder the Hood
+ 
+    
+      Site Resources
+      Featured Articles
+      News &amp; Views
+      Community
+      Java Q&amp;A
+      JW Blogs
+	  Podcasts
+	  Site Map
+    
+    
+	
+	
+      Careers
+	  Newsletters
+      Whitepapers
+      RSS Feeds
+    
+   
+   
+	
+		 About JavaWorld
+         Advertise
+         Write for JW
+	
+	
+	
+
+	
+		
+            
+               
+               
+                  
+                     Development Tools
+                  
+               
+               
+            
+            
+               
+            
+            
+               
+                  
+                     
+	
+		
+		JW&apos;s Most Read
+		
+		
+	
+	
+		 Recent:
+
+   Java Tips:&#160;The Serialization algorithm revealed
+   Know your Oracle application server
+   SwingX, JRuby: Survivors?
+   Cloud-ready, multicore-friendly apps, Part 2
+   Lean service architectures with Java EE 6
+
+Archives:
+
+   Hello, OSGi:&#160;Bundles for beginners (2008)
+   
+   Sockets programming in Java:&#160;A tutorial (1996)
+   
+   Understanding JPA, Part 1 (2008)
+   
+   Smartly load your properties (2003)
+   
+   REST for Java developers, Part 1 (2008)
+   
+
+	
+	
+		 
+	
+
+
+
+                        
+
+
+            
+      
+      
+
+
+ 
+
+
+
+
+
+                     
+                     Featured White PapersFree Trial Download: Build Professional Java Installers with InstallAnywhere
+                             
+	
+	
+          
+            Newsletter sign-up  View all newsletters
+			Sign up for our Enterprise Java Newsletter 
+            
+              
+                
+                Enterprise Java
+              
+		    
+            
+			
+			
+            
+          
+        
+        
+       
+    
+        Sponsored Links
+    
+  
+		
+			Slow Apps? Overloaded DBMS? - FREE Download
+			
+            FREE Download Feb 14 - March 7th Eliminate bottlenecks &amp; maximize performance ScaleOut StateServer&#174; 
+	
+   
+  
+	
+
+
+	
+
+
+
+                     
+                     
+                  
+                  JavaWorld.com
+                     &gt; Java Development Tools &gt;
+
+                  
+                     
+                     
+                     
+                     
+                     Flexible reporting with JasperReports and iBATIS
+                     Integrate JasperReports with your existing iBATIS implementation
+                        
+                     
+                     By&#160;Scott Monahan,&#160;JavaWorld.com,&#160;12/13/07
+                     
+    
+        
+            Print
+            Email
+            Feedback
+            Resources
+            Discuss
+            
+    
+    
+        Digg
+        Reddit
+        SlashDot
+        Stumble
+        del.icio.us
+        Technorati
+        dzone
+          
+
+                     
+                     
+                     
+
+
+
+                     The core task of many Java applications is to retrieve data and display it, sometimes in sophisticated print- or Web-based
+                        reports. Luckily for Java developers, two popular open source solutions work especially well together to help you accomplish
+                        this task. The iBATIS Data Mapper framework provides a simple XML-based mechanism for linking Java objects to a data repository.
+                        JasperReports is a full featured Java reporting library that you can embed in your applications. Put the two together and
+                        you have a winning combination for producing scalable, easy-to-maintain reports.
+                     
+                     JasperReports is an open source Java reporting library that is quickly gaining popularity as a viable alternative to costly proprietary
+                        reporting solutions. With any reporting solution, getting the data to the reporting engine is the most basic implementation
+                        concern. Unfortunately, Jasper poses a small problem in this area.
+                     
+                     Most Java applications use some type of data-fetching framework for data mapping and dynamic SQL generation, such as the iBatis Data Mapper Framework. Jasper&apos;s default mechanism for retrieving and managing data isn&apos;t flexible enough to leverage existing data mapping frameworks,
+                        however. Instead, you pass the Jasper engine a connection to your database, and it uses SQL queries embedded in an XML-based
+                        report template to populate the report.
+                     
+                     Although simple to implement, this mechanism ties you to the Jasper template&apos;s embedded SQL. Besides, who wants to add yet
+                        another moving piece to an already complex application? You would be better off leveraging the existing data framework and
+                        just letting Jasper handle report generation.
+                     
+                     In this article you&apos;ll learn how to integrate JasperReports and the iBATIS Data Mapper Framework for just such a solution.
+                        I&apos;ll walk through two simple scenarios where the goal is to integrate Jasper and iBATIS for report generation. The first scenario
+                        applies to iBATIS implementations that use iBATIS&apos;s data capabilities to return a list of Java beans. This scenario doesn&apos;t
+                        require you to write any custom code. The Jasper framework contains supporting classes that allow the data returned from iBATIS
+                        to fill a Jasper report.
+                     
+                     For the second scenario -- a more basic uses of iBATIS that returns a list of java.util.Map objects -- you&apos;ll create a custom Jasper data source to feed a Jasper report. In addition to working with the Jasper framework
+                        classes, for both exercises you&apos;ll use the iReport report designer, which eases and accelerates the process of creating template files in Jasper.
+                     
+                     Running the examples
+                     This article&apos;s example code generates a simple monthly sales report for each type of implementation I cover. The data for the reports is retrieved from
+                        an embedded Apache Derby database via the iBATIS Data Mapper framework. The examples are built into a JSF/Spring-based Web application that runs in
+                        the same JVM as Derby. I&apos;ve provided an Ant script for building that WAR file -- just execute the buildWar task to compile content and build it. You&apos;ll need Tomcat 5.5x to deploy and run the examples. You&apos;ll also need the Abode Acrobat Reader Web browser plug-in to view the report output.
+                     
+                     Getting the iBATIS data into Jasper
+                     Using iBATIS to return a list of a specific type of Java beans (I&apos;ll call this a return list) is much tidier than using the framework to return a list of java.util.Map objects. Most developers using iBATIS take this approach to data mapping, and it happens to make integration with Jasper
+                        a snap.
+                     
+                     The Jasper framework provides a JRDataSource implementation that your application can use to fill a report template with data from an iBATIS return list. The JRBeanCollectionDataSource class is constructed from a collection of Java beans and knows how to loop through the collection and access the beans&apos; properties.
+                        Listing 1 shows how you can pass an instance of a JRBeanCollectionDataSource when calling on the Jasper engine to populate a report.
+                     
+                     Listing 1. Populating a report with JRBeanCollectionDataSource
+</TEXT>
+<CODE orderid="1" >
+/* Helper method to create a fully populated JasperPrint object from an list of Java beans */
+private JasperPrint fillReport (List dataList) throws JRException {
+   
+    // this map could be filled with parameters defined in the report
+    Map parameters = new HashMap();
+   
+    // make sure the .jasper file (a compiled version of the .jrxml template file) exists
+    String localPath = this.servlet.getServletContext().getRealPath(&quot;/&quot;);
+      
+    File reportFile = new File(localPath + &quot;WEB-INF&quot; + File.separator + &quot;monthySales.jasper&quot;);
+      
+    if (!reportFile.exists()) {
+        throw new JRRuntimeException(&quot;monthySales.jasper file not found.&quot;);
+    }
+   
+    // load up the report
+    JasperReport jasperReport = (JasperReport)JRLoader.loadObject(reportFile);
+   
+    // pass JRBeanCollectionDataSource (which is populated with iBATIS list) to fillReport method
+    return JasperFillManager.fillReport (jasperReport, parameters,
+         new JRBeanCollectionDataSource (dataList));
+}
+</CODE>
+<TEXT orderid="2" >
+In Listing 1, you first define the parameters map, which is the mechanism for passing parameter values to the report at runtime. For example, you could define a parameter
+                        named REPORT_TITLE in the report template and pass the value for this parameter to the report by simply adding the key/value pair to the map
+                        (e.g., Key=REPORT_TITLE, Value=Sale Report). The parameters map is passed to the fillReport method. The next portion of code loads a compiled Jasper template (.jasper) file. Finally, the static fillReport method is called. It does the actual work of building the report and returns a JasperPrint object, which is passed to a specific type of Jasper exporter to write out the report. The example code for this article
+                        uses a JRPdfExporter to write the report to PDF format (see the PdfServlet.java class).
+                     
+                     Although this mechanism lets the Jasper framework link with iBATIS, you might need to modify the Java beans that iBATIS populates,
+                        depending on your report&apos;s requirements. Jasper&apos;s field objects know how to work with the common JDBC mapping types. For example,
+                        Jasper stores an Oracle numeric field type as a java.math.BigDecimal object. Any of the iBATIS bean properties that you plan to use in a report must map to one of Jasper&apos;s defined field types.
+                        You should select your report field types carefully, because the formatting and expression capabilities are better in some
+                        types than in others. For example, a BigDecimal type is more convenient to work with than a String when you&apos;re trying to apply a currency format.
+                     
+                     
+                        
+                     
+
+
+
+
+									 
+									 	 1234Next&#160;&gt;
+									 
+                     
+                     
+                     
+                     
+                     
+                     
+    
+        
+            Print
+            Email
+            Feedback
+            Resources 
+            
+    
+    
+        Digg
+        Reddit
+        SlashDot
+        Stumble
+        del.icio.us
+        Technorati
+        dzone
+          
+
+                     Comments (4)4Welcome,  LogoutLog in | Register    
+    
+        
+            Login
+                
+                    
+                        Username
+                        
+                                                
+                            
+                        
+                    
+                    
+                        Password
+                        
+                                                
+                            
+                        
+                    
+                
+            
+            
+                            
+                            
+                Forgot your account info?
+            
+        
+    
+    
+    respond this topicBy Anonymous on March 6, 2010, 8:26 amDon&apos;t you acknowledge that it is high time to get the loans, which will make you dreams real. Reply | Read entire commentClass Not FoundBy Anonymous on January 4, 2010, 2:55 pmFYI: directory &quot;...Jaspersoft\iReport-3.7.0\lib&quot; doesn&apos;t exist, and doesn&apos;t seem to load any jars in it&apos;s classpath if you create it. Use Tools -&gt; Options -&gt; Classpath....Reply | Read entire commentHey i want to ask that can we generate report dynamically? by thBy Anonymous on December 18, 2009, 6:50 amHey i want to ask that can we generate report dynamically? by that i mean that user selects the attributes from the front end and then can we pass those attributes...Reply | Read entire commentKewl!!!!By Anonymous on September 29, 2009, 11:20 amKewl!!!!Logo DesignReply | Read entire comment View all comments
+
+    Add comment
+        
+        Screen Name            
+        
+        Anonymous comments subject to approval. Register here for member benefits.  
+        
+        
+        Subject            
+                   
+        Comment (required)
+        
+        
+        
+         
+         
+        
+        
+        Have a JavaWorld account? Log in here. Register now for a free account.
+        
+        
+    
+
+ 
+ 
+                     
+                        
+                     
+                     
+
+ Archived Discussions (Read only)
+
+
+
+
+
+Subject
+
+ 
+
+
+
+
+
+
+
+
+Forum migration complete By Athen
+
+
+
+
+
+
+
+
+
+Forum migration update By Athen
+
+
+
+
+
+
+
+
+
+
+
+
+
+                     Resources
+
+                           
+                              &#160;
+                              Downloads
+                              
+                                 Sample application source code
+                                 Latest iReport install package
+                                 iBATIS for Java
+                                 Apache Tomcat
+                                 Apache Ant
+                                 Abobe Acrobat Reader (for viewing Jasper reports in browser)
+                                 
+                              
+                              More about the tools discussed in this article
+                              
+                                 JasperForge.org is home to JasperReports, iReport, and the rest of the open source JasperSoft Business Intelligence Suite.
+                                 
+                                 Visit the iBATIS homepage to learn more about the iBATIS Data Mapper Framework.
+                                 
+                                 See &quot;Reports made easy with JasperReports&quot; (Erik Swenson, JavaWorld, September 2002) to learn more about JasperReports.
+                                 
+                                 &quot;Try on Derby for size&quot; (Jeff Hanson, JavaWorld, September 2006) introduces Apache Derby, a transactional, embeddable, pure-Java relational database.
+                                 
+                                 The three-part tutorial &quot;Improve persistence with Apache Derby and iBATIS&quot; (Daniel Wintschel, IBM developerWorks, January through March 2006) shows how to improve persistence in Java applications
+                                    by combining iBATIS with Derby.
+                                 
+                                 Visit the JavaWorld Java Development Tools research center for more articles about using Java tools to increase your daily productivity.
+                                 
+                                 Also see Network World&apos;s IT Buyer&apos;s Guides: Side-by-side comparison of hundreds of products in over 70 categories.
+                                 
+                              
+                           
+                        
+
+                     
+
+                  
+               
+               
+		
+
+
+
+
+ 
+
+               
+                  
+               
+               
+
+
+            
+      
+      
+
+
+ 
+
+
+
+
+
+               
+
+    
+        Sponsored Links
+    
+    &#160;
+
+   
+      
+         
+            
+               XpoLog Center Correlate application logs with server metrics
+               - XpoLog
+            &#160;
+      
+   
+
+    
+
+
+               
+                  
+               
+               RESEARCH CENTERS: 
+Java Standard Edition | 
+Java Enterprise Edition | 
+Java Micro Edition  | 
+Development Tools
+
+About Us | Advertise | Contact Us | Terms of Service/Privacy 
+Copyright, 2006-2008 Network World, Inc. All rights reserved.
+
+            
+            
+    
+        
+            RESEARCH CENTERS
+            Core Java
+            Enterprise Java
+            Mobile Java
+            Tools &amp; Methods
+            JavaWorld Archives
+        
+        IDG Network
+            CIO Computerworld
+            CSO
+            Demo GamePro
+        
+        
+            Games.net
+            IDGconnect.com
+            IDG World Expo
+            InfoWorld
+            ITworld
+            LinuxWorld.com
+        
+        
+            MacUser 
+            Macworld
+            NetworkWorld.com
+            PC World
+            Playlistmag.com
+        
+    
+
+About Us | Advertise | Contact Us | Terms of Service/Privacy
+Copyright, 2006-2010 Infoworld, Inc. All rights reserved.
+</TEXT>
+</result>

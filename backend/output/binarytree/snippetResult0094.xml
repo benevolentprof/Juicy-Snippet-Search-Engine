@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>76003</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/javatutorials/javaapi.shtml</url>
+</description>
+<TEXT orderid="0" >
+Home | JSP | EJB | JDBC | Java Servlets | WAP&#160; | Free JSP Hosting&#160; | Spring Framework | Web Services | BioInformatics | Java Server Faces | Jboss 3.0 tutorial | Hibernate 3.0 | XML
+
+				
+				
+  
+
+
+  
+    
+				
+
+  
+    
+    
+	
+    
+  
+
+
+	
+  
+
+
+
+  
+    
+				
+
+
+
+	&#160;
+	&#160;
+	
+		
+
+	
+
+
+		Hot Web Programming Job
+	
+
+
+
+
+
+
+&#160;
+
+
+
+
+	
+  
+
+
+  
+    	  Tutorial Categories: Ajax
+		| Articles
+		| JSP
+		| Bioinformatics
+		| Database
+		| Free
+		Books |
+		Hibernate
+		| J2EE
+		| J2ME
+		| Java
+		| JavaScript
+		| JDBC
+		| JMS
+		| Linux
+		| MS
+		Technology |
+		PHP
+		| RMI
+		| Web-Services
+		| Servlets
+		| Struts
+		| UML
+		
+	
+
+		
+
+
+	
+  
+
+
+
+
+
+
+
+
+
+
+ 
+	
+		
+	
+ 
+
+
+ 
+	
+		
+		
+	
+ 
+
+  
+    
+
+
+&#160;
+
+    
+  
+
+
+
+   
+    
+      
+
+
+  
+    
+      
+        
+          Search Host
+      
+      
+        
+          
+            All Platform
+            Windows
+            Linux
+            Unix
+            BSD
+            AOL
+            Mac
+			
+      
+      
+        Monthly Fee($) 
+      
+      
+         
+      
+      
+        Disk Space (MB)
+      
+      
+        
+      
+      
+        
+      
+    
+  
+
+
+    
+  
+
+ 
+	
+	
+	
+ 
+
+ 
+	
+	
+	
+ 
+
+ 
+	
+	
+	
+ 
+
+
+ 
+	
+		
+		Register With us for Newsletter!
+		
+	
+ 
+
+ 
+	
+
+Visit Forum! Post Questions!
+
+
+	
+ 
+
+
+ 
+	
+	
+	Jobs At RoseIndia.net!
+	
+
+	
+ 
+
+  
+    
+      Have
+      tutorials?
+
+      Add
+      your tutorial to our Java Resource and get tons of hits.
+      We offer free hosting for your
+      tutorials. and exposure for thousands of readers. drop a mail
+
+      roseindia_net@yahoo.com&#160;
+
+      &#160;&#160;&#160;
+    
+  
+    
+    
+      Tutorials
+    
+  
+
+
+  
+    
+      Java Server Pages
+    
+  
+
+  
+    
+      JAXB
+    
+  
+
+  
+    
+      Java
+      Beans
+    
+  
+  
+    
+      JDBC
+    
+  
+  
+    
+      MySQL
+    
+  
+  
+    
+      Java
+      Servlets
+    
+  
+
+  
+    
+      Struts
+    
+  
+
+  
+    
+      Bioinformatics
+    
+  
+
+  
+    
+      Java Code Examples
+    
+  
+
+  
+    
+      Interview Questions
+    
+  
+
+  
+    &#160;
+  
+  
+    
+      
+        
+          
+            
+              Join For Newsletter
+            
+            
+              
+            
+            
+              
+
+                Powered by groups.yahoo.com
+				
+
+				Visit Group! Post Questions!
+				
+            
+          
+        
+      
+    
+  
+
+ 
+    
+      Web Promotion
+    
+  
+
+  
+    
+      Web Submission
+    
+  
+
+  
+    
+      Submit Sites
+    
+  
+
+  
+    
+      Manual Submission?
+    
+  
+
+  
+    
+      Web Promotion Guide
+    
+  
+
+
+  
+    
+      Hosting Companies
+    
+  
+
+  
+    
+      Web Hosting Guide
+    
+  
+
+  
+    
+      Web Hosting
+    
+  
+
+  
+    
+      Linux
+    
+  
+
+  
+    
+      Beginner Guide to Linux Server
+    
+  
+
+
+ 
+    
+      Frameworks
+    
+  
+
+  
+    
+      Persistence Framework
+    
+  
+
+  
+    
+      Web Frameworks
+    
+  
+
+
+  
+    
+      Free EAI Tools
+    
+  
+
+  
+    
+      Web Servers
+    
+  
+
+  
+    
+      Aspect Oriented Programming
+    
+  
+
+  
+    
+      Free Proxy Servers
+    
+  
+
+
+  
+    
+      Softwares
+    
+  
+
+  
+    
+      Adware &amp; Spyware Remover
+    
+  
+
+
+  
+    
+      Open Source Softwares
+    
+  
+
+  
+    
+
+		
+
+
+    
+  
+
+
+
+
+
+
+
+	
+
+		
+					
+
+					
+
+  
+    
+Preferences API - What do you Prefer?
+
+
+
+  
+  
+    
+      
+      
+        &#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+      
+    
+  
+  
+
+2001-09-17 The Java Specialists&apos; Newsletter [Issue 030] - What do you Prefer?
+Author:
+  Herman Lintvelt (Polymorph Systems)
+
+
+If you are reading this, and have not subscribed, please consider doing it now by going to our
+subscribe
+page.  You can subscribe either via email or RSS.
+
+
+
+
+
+With the arrival of my second child, a 4.2kg daughter which we
+called Nicola Constance Bettina Kabutz, I have been rather busy
+changing nappies, rocking the child to sleep, and more
+exhaustingly, helping my 3 year old son cope with life in
+general.  Fortunately for my die-hard supporters out there,
+Herman Lintvelt (herman@javaspecialists.co.za)
+stepped in and saved the day.  I promise to pull my socks up and
+get these things done more regularly as soon as life returns to
+stability.
+
+
+
+With regards
+
+
+
+Heinz
+
+
+
+
+
+
+Recently I&apos;ve downloaded JDK 1.4 beta 2, and then forgot about it
+for a while as my struggles with JMF required all my resources.
+But then, on a cold Worcester (South Africa) evening, while
+sitting in front of my fireplace with a nice warm fire heating
+the room, I was thinking about things I prefer. My preferences.
+
+
+
+
+Do not worry, I won&apos;t carry on being philosophical. It actually
+reminded me of the new Preferences API in JDK1.4, so I put away
+the red wine, and pulled out my laptop. And was I pleasantly
+surprised.
+
+The Preferences API
+
+
+The guys at Sun has seen the need for handling preferences in a
+somewhat better and easier to use way than using 
+Properties or implementing a complex preference subsystem
+that saves it to a database or some other backing store. So they
+created the Preferences API.
+
+
+
+Using this API starts with the Preferences class in
+the java.util.prefs package.  This class represents
+a preference node in some kind of preference hierarchy. Such a
+node can have child nodes, as well as key-value pairs belonging
+to it (similar to Windows Registry). The 4 important static
+methods of Preferences are:
+</TEXT>
+<CODE orderid="1" >
+// return system preference-node for package that O belongs to
+Preferences systemNodeForPackage(Object 0);
+// return root node of system preferences
+Preferences systemRoot();
+// return system preference-node for package that O belongs to
+Preferences userNodeForPackage(Object O);
+// return root node of user preferences
+Preferences userRoot();
+</CODE>
+<TEXT orderid="2" >
+Some explanation is probably needed. The preference data gets
+saved in two tree-like structures in an implementation specific
+way. The JDK for Windows version saves it in the Windows
+Registry, but it is possible to create one&apos;s own implementation
+that might for example use a database. The one tree is used to
+store user-specific preferences (each user on a system will have
+a seperate tree), and the other tree stores system preferences.
+(The definition of user and system depends on the preferences
+implementation.  In the Windows JDK version it maps to Windows
+users and system-wide preferences.) Each node in this tree can be
+represented by a Preferences object.
+
+
+However, if you&apos;re like me you do not like theory too much (and
+that&apos;s what javadocs are for), so let us explore this API with an
+example: a &quot;Cross-platform Registry Editor&quot;.
+
+Cross-platform Registry Editor
+
+
+The idea of this Java tool is to be able to view and edit
+preferences saved via the Preferences API, no matter on what
+platform it is executed (i.e. the backing store used is
+transparent to the user).
+
+Preference Nodes
+
+
+We implement the class PreferencesEditor as a
+JDialog, and it must contain a JTree to present the preferences
+trees (user and/or system), and a JTable to display and edit the
+actual preference values.  We need the following inner classes:
+PrefTreeNode to represent a preference node in the
+JTree, PrefTableModel to handle the display and
+editing of preference values in the table, and
+PrefTreeSelectionListener to update the JTable with
+the currently selected preference node.
+
+I list the code for PreferenceEditor with
+discussions in between the code.
+</TEXT>
+<CODE orderid="3" >
+//add all other necessary imports here
+import java.util.prefs.Preferences;
+import java.util.prefs.BackingStoreException;
+
+public class PreferencesEditor extends JDialog {
+  JTree prefTree;
+  JTable editTable;
+
+  /**
+   * Creates PreferencesEditor dialog that show all System and
+   * User preferences.
+   * @param owner owner JFrame
+   * @param title title of dialog
+   */
+  public PreferencesEditor(JFrame owner, String title){
+    this(owner, title, null, true, null, true);
+  }
+
+  /**
+   * @param owner owner JFrame
+   * @param title title of dialog
+   * @param userObj the package to which this object belongs is
+   * used as the root-node of the User preferences tree (if
+   * userObj is null, then the rootnode of all user preferences
+   * will be used)
+   * @boolean showUserPrefs if true, then show user preferences
+   * @param systemObj the package to which this object belongs is
+   * used as the root-node of the System preferences tree (if
+   * systemObj is null, then the rootnode of all system
+   * preferences will be used)
+   * @param showSystemPrefs if true, then show system preferences
+   */ 
+  public PreferencesEditor(JFrame owner, String title,
+      Object userObj, boolean showUserPrefs, Object systemObj,
+      boolean showSystemPrefs) {
+    super(owner, title);
+    getContentPane().setLayout(new BorderLayout(5,5));
+    setSize(640,480);
+    createTree(userObj, showUserPrefs, systemObj, showSystemPrefs);
+    editTable = new JTable();
+    createSplitPane();
+    createButtonPanel();
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  }
+</CODE>
+<TEXT orderid="4" >
+As mentioned in the code comments, there are two constructors:
+one give access to all the system and user preferences, and one
+can be used to only display/edit a specified subset of the
+preferences. Let&apos;s first look at the createTree(...),
+createUserNode(...) and
+createSystemRootNode(...) methods to see how this is
+done:
+</TEXT>
+</result>

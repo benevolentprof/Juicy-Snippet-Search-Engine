@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>5150</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/ent/article.php/10933_3728576_3/Dynamic-Service-Discovery-with-Java.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Enterprise Java
+					
+				
+				
+					Read More in Enterprise Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Dynamic Service Discovery with Java
+			
+			
+				
+				
+					February 19, 2008
+					By 
+Rob Lybarger
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+And now the client:
+</TEXT>
+<CODE orderid="1" >
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.Socket;
+
+public class TimeClient {
+  public static void main(String[] args) {
+    try {
+      Socket socket = new Socket(InetAddress.getLocalHost(), 9999);
+      InputStreamReader reader =
+          new InputStreamReader(socket.getInputStream());
+      BufferedReader bufferedReader = new BufferedReader(reader);
+      String line = bufferedReader.readLine();
+      System.out.println(line);
+      socket.close();
+    }
+    catch (IOException ie) {
+      System.err.println(&quot;Exception: &quot;+ie);
+      System.exit(1);
+    }
+
+    System.out.println(&quot;\nThat&apos;s all, folks.&quot;);
+    System.exit(0);
+  }
+}
+</CODE>
+<TEXT orderid="2" >
+This is a completely straightforward, no-frills TCP network server and client application. The important point to note is the hard-coded port, 9999, in both the server and the client, and the hard-coded server address (that for the localhost, in this case) in the client. Although these values can be put into property or configuration files, they are still effectively static, fixed values. If the server, running on one machine, changes port numbers, but the client isn&apos;t aware of this, it will just look like the server is unavailable.
+
+But, with just a little addition using a few classes (that you can download and experiment with on your own), making things be completely dynamic is fairly simple. First is the new server code:
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+</TEXT>
+<CODE orderid="3" >
+public static void main(String[] args) {
+
+    ServerSocket serverSocket = null;
+    String SERVICE_NAME  = &quot;timeDemo&quot;;
+    String INSTANCE_NAME = &quot;Time_Server_1&quot;;
+    
+    try {
+      serverSocket = new ServerSocket();
+      serverSocket.bind(
+          new InetSocketAddress(InetAddress.getLocalHost(),
+          0));    /*bind to any available port number*/
+    }
+    catch (IOException ioe) {
+      System.err.println(
+          &quot;Could not bind a server socket to a free port: &quot;+ioe);
+      System.exit(1);
+    }
+    
+    /* Create a descriptor for the service you are providing. */
+    ServiceDescription descriptor = new ServiceDescription();
+    descriptor.setAddress(serverSocket.getInetAddress());
+    descriptor.setPort(serverSocket.getLocalPort());
+    descriptor.setInstanceName(INSTANCE_NAME);
+    System.out.println(&quot;Service details: &quot;+descriptor);
+
+    /* Read special note for code you should add here */
+
+    /*
+     * Set up a responder and give it the descriptor (above)
+     * we want to publish. Start the responder, which
+     * works in its own thread.
+     */
+    ServiceResponder responder =
+        new ServiceResponder(SERVICE_NAME);
+    responder.setDescriptor(descriptor);
+    responder.startResponder();
+
+    /* Back to the usual routine of servicing requests */
+    System.out.println(
+        &quot;Responder listening. Now taking connections...&quot;);
+    while (true) {
+      try {
+        Socket socket = serverSocket.accept();
+        System.out.println(
+            &quot;Connection from: &quot;+socket.getInetAddress());
+        OutputStreamWriter writer =
+            new OutputStreamWriter(socket.getOutputStream());
+        writer.write(new Date().toString()+&quot;\r\n&quot;);
+        writer.flush();
+        socket.close();
+      }
+      catch (IOException ie) {
+        System.err.println(&quot;Exception: &quot;+ie);
+      }
+    }
+</CODE>
+</result>

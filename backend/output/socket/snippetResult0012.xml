@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>14463</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-tips.org/java-me-tips/midp/how-to-use-http-connection-instead-of-a-stream-socket-2.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home    Java ME Tips               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					How to use HTTP connection instead of a stream socket									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;21
+
+
+PoorBest&#160;
+		
+				
+			
+				 This J2ME tips illustrates a method of using HHTP connection instead 
+of a stream socket. This code looks very similar to the socket code, 
+but there is a striking difference. The socket code first opened an 
+OutputStream and sent the request to the web server before trying 
+to read the response.
+</TEXT>
+<CODE orderid="1" >
+String&#160;url&#160;=&#160;&quot;http://www.java-tips.com/&quot;;
+
+
+
+conn&#160;=&#160;(HttpConnection)Connector.open(url,&#160;Connector.READ_WRITE);
+
+if&#160;(conn.getResponseCode(&#160;)&#160;==&#160;HttpConnection.HTTP_OK)&#160;{
+
+&#160;&#160;is&#160;=&#160;conn.openInputStream(&#160;);
+
+&#160;&#160;final&#160;int&#160;MAX_LENGTH&#160;=&#160;128;
+
+&#160;&#160;byte[]&#160;buf&#160;=&#160;new&#160;byte[MAX_LENGTH];
+
+&#160;&#160;int&#160;total&#160;=&#160;0;
+
+&#160;&#160;while&#160;(total&#160;&lt;&#160;MAX_LENGTH)&#160;{
+
+&#160;&#160;&#160;&#160;int&#160;count&#160;=&#160;is.read(buf,&#160;total,&#160;MAX_LENGTH&#160;-&#160;total);
+
+&#160;&#160;&#160;&#160;if&#160;(count&#160;&lt;&#160;0)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;break;
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;total&#160;+=&#160;count;
+
+&#160;&#160;}
+
+&#160;&#160;is.close(&#160;);
+
+&#160;&#160;String&#160;reply&#160;=&#160;new&#160;String(buf,&#160;0,&#160;total);
+
+}
+</CODE>
+<TEXT orderid="2" >
+&#160;Related Tips
+    
+
+
+
+
+    
+
+
+
+
+
+
+    Displaying Image from Servlet on J2ME device
+    How to use GET or POST to communicate with a Java servlet
+    Sending data to Servlet and getting the response
+    Playing MP3 files from your server on J2ME devices
+    How to use mobile as a network server
+    How to use GET and POST methods in HTTP from a MIDlet
+    How to send a datagram in a network aplication
+    How to receive datagrams in a mobile application
+    How to ping Network Connection on J2ME device
+    How to download an image from a web server
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+&#160;Related Tips 
+A Graphics MIDlet
+A method of using differnet fonts in Java ME
+A Midlet application for GIF Animation
+A MIDlet with Hello text and an Exit command
+A sample of graphics - commands and event handling
+A utility of startTimer
+A way to know when some changes are made in a list
+An example of MIDlet skeleton
+
+			
+		
+				
+
+		&#160;
+
+		
+
+			
+									
+						
+							&lt; Prev
+					
+										&#160;
+
+					
+										
+						
+							Next &gt;
+					
+								
+			
+			                
+
+
+
+
+
+
+
+ 
+Page 1 of 0 ( 0 comments )
+
+
+       You can share your information about this topic using the form below! 
+
+Please do not post your questions with this form! Thanks.
+
+ 
+
+  
+    
+      
+                
+          
+          
+
+          
+          Name (required)
+
+          
+          
+
+                    
+          
+
+          E-Mail (required)          
+                    
+
+          
+          
+          
+
+          Your email will not be displayed on the site - only to our administrator          
+          
+
+          Homepage(optional)
+
+
+
+
+
+
+
+          
+          
+
+          Comment          
+                    Enable HTML code :
+          
+          Yes
+          
+          No 
+
+          
+          
+          
+          
+
+          
+
+ 
+          
+
+          
+          
+        
+      
+    
+  
+
+
+
+
+
+&#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+      
+    
+    
+      
+        
+          &#160;
+          &#160;
+          &#160;
+        
+        
+          &#160;
+          
+              &#160;            
+          &#160;
+        
+        
+          &#160;
+          &#160;
+          &#160;
+        
+      
+    
+    
+      
+        
+            
+            
+            
+        
+      
+    
+	
+	
+
+
+		
+				
+			
+				
+			
+		
+		
+		
+
+
+
+
+
+
+
+
+Home
+
+
+-
+
+
+About Us
+
+
+-
+
+
+Privacy Policy
+
+
+
+
+
+
+Copyright 2005 - 2008 www.java-tips.org
+Java is a trademark of Sun Microsystems, Inc.
+</TEXT>
+</result>

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>795</docid>
+<orderid>9</orderid>
+<type>CODE</type>
+<url>http://java.sun.com/docs/books/tutorial/reflect/member/ctorInstance.html</url>
+</description>
+<CODE orderid="7" >
+Class.newInstance()
+</CODE>
+<TEXT orderid="8" >
+throws any exception thrown by the constructor, regardless of whether it is
+checked or unchecked.
+</TEXT>
+<CODE orderid="9" >
+InvocationTargetException.
+
+Class.newInstance()
+requires that the constructor be visible;
+Constructor.newInstance()
+may invoke private constructors under certain circumstances.
+
+
+ Sometimes it may be desirable to retrieve internal state from an object
+which is only set after construction.  Consider a scenario where it is
+necessary to obtain the internal character set used by
+java.io.Console.  (The Console character set is stored in an private field and is
+not necessarily the same as the Java virtual machine default character set
+returned by
+java.nio.charset.Charset.defaultCharset()).  The
+ConsoleCharset
+example shows how this might be achieved:
+
+
+
+import java.io.Console;
+import java.nio.charset.Charset;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import static java.lang.System.out;
+
+public class ConsoleCharset {
+    public static void main(String... args) {
+	Constructor[] ctors = Console.class.getDeclaredConstructors();
+	Constructor ctor = null;
+	for (int i = 0; i &lt; ctors.length; i++) {
+	    ctor = ctors[i];
+	    if (ctor.getGenericParameterTypes().length == 0)
+		break;
+	}
+
+	try {
+	    ctor.setAccessible(true);
+ 	    Console c = (Console)ctor.newInstance();
+	    Field f = c.getClass().getDeclaredField(&quot;cs&quot;);
+	    f.setAccessible(true);
+	    out.format(&quot;Console charset         :  %s%n&quot;, f.get(c));
+	    out.format(&quot;Charset.defaultCharset():  %s%n&quot;,
+		       Charset.defaultCharset());
+
+        // production code should handle these exceptions more gracefully
+	} catch (InstantiationException x) {
+	    x.printStackTrace();
+ 	} catch (InvocationTargetException x) {
+ 	    x.printStackTrace();
+	} catch (IllegalAccessException x) {
+	    x.printStackTrace();
+	} catch (NoSuchFieldException x) {
+	    x.printStackTrace();
+	}
+    }
+}
+
+
+Note:&#160;Class.newInstance()
+will only succeed if the constructor is has zero arguments and is already
+accessible.  Otherwise, it is necessary to use
+Constructor.newInstance()
+as in the above example.
+
+
+Example output for a Unix system:
+
+
+$ java ConsoleCharset
+Console charset          :  ISO-8859-1
+Charset.defaultCharset() :  ISO-8859-1
+
+
+Example output for a Windows system:
+
+
+C:\&gt; java ConsoleCharset
+Console charset          :  IBM437
+Charset.defaultCharset() :  windows-1252
+
+
+ Another common application of
+Constructor.newInstance()
+is to invoke constructors which take arguments.  The
+RestoreAliases
+example finds a specific single-argument constructor and invokes it:
+
+
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import static java.lang.System.out;
+
+class EmailAliases {
+    private Set&lt;String&gt; aliases;
+    private EmailAliases(HashMap&lt;String, String&gt; h) {
+	aliases = h.keySet();
+    }
+
+    public void printKeys() {
+	out.format(&quot;Mail keys:%n&quot;);
+	for (String k : aliases)
+	    out.format(&quot;  %s%n&quot;, k);
+    }
+}
+
+public class RestoreAliases {
+
+    private static Map&lt;String, String&gt; defaultAliases = new HashMap&lt;String, String&gt;();
+    static {
+	defaultAliases.put(&quot;Duke&quot;, &quot;duke@i-love-java&quot;);
+	defaultAliases.put(&quot;Fang&quot;, &quot;fang@evil-jealous-twin&quot;);
+    }
+
+    public static void main(String... args) {
+	try {
+	    Constructor ctor = EmailAliases.class.getDeclaredConstructor(HashMap.class);
+	    ctor.setAccessible(true);
+	    EmailAliases email = (EmailAliases)ctor.newInstance(defaultAliases);
+	    email.printKeys();
+
+        // production code should handle these exceptions more gracefully
+	} catch (InstantiationException x) {
+	    x.printStackTrace();
+	} catch (IllegalAccessException x) {
+	    x.printStackTrace();
+	} catch (InvocationTargetException x) {
+	    x.printStackTrace();
+	} catch (NoSuchMethodException x) {
+	    x.printStackTrace();
+	}
+    }
+}
+
+
+This example uses
+Class.getDeclaredConstructor()
+to find the constructor with a single argument of type
+java.util.HashMap.  Note that it is sufficient to pass HashMap.class since the
+parameter to any get*Constructor() method requires a class only
+for type purposes.  Due to
+type erasure, the following expression evaluates to true:
+
+
+HashMap.class == defaultAliases.getClass()
+
+
+The example then creates a new instance of the class using this constructor
+with
+Constructor.newInstance().
+
+
+$ java RestoreAliases
+Mail keys:
+  Duke
+  Fang
+
+        
+        
+            &#171; Previous
+            &#8226;
+            Trail
+            &#8226;
+            Next &#187;
+        
+    
+    
+
+
+    Problems with the examples? Try Compiling and Running
+        the Examples: FAQs.
+    
+
+    Complaints? Compliments? Suggestions? Give
+    us your feedback.
+ 
+
+
+Your use of this page (http://java.sun.com/docs/books/tutorial (Last Updated 1/12/2010))
+and all the material on pages under &quot;The Java Tutorials&quot; banner is
+subject to the Terms of Use.
+Additionally, (i) any example code contained in any of these Java
+Tutorials pages is also licensed under the
+Code
+Sample License, and (ii) the entire Java Tutorials content is available for
+download under the Java Tutorials Limited Non-Commercial License
+for limited, non-commercial individual and/or research and instructional use at
+Sun Download Center.
+
+
+
+    
+         
+	 
+            
+              
+              
+           
+          
+          
+
+          
+		About Sun | About This Site | Terms of Use | Trademarks&#160; 
+	 
+          
+		A Sun Developer Network Site
+
+      		Copyright 1995,2010 Oracle Corporation and/or is affiliates
+	 
+          
+
+
+    
+    
+        Previous page: Retrieving and Parsing Constructor Modifiers
+        
+Next page: Troubleshooting
+    
+
+    
+    Discuss
+    We welcome your participation in our community.  Please keep your comments
+    civil and on point.  You may optionally provide your email address to
+    be notified of replies &#8212; your information is not used for any other
+    purpose.  By submitting a comment, you agree to these
+    Terms of Use.
+</CODE>
+</result>

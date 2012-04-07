@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>2087</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://forum.codecall.net/java-tutorials/8674-tutorial-simple-digital-watch-next-thread.html</url>
+</description>
+<TEXT orderid="0" >
+Register
+			
+				Help
+				
+			
+				
+					
+						
+					
+					
+					
+						
+					
+				
+				
+					 Remember Me?
+				
+
+				
+				
+				
+				
+				
+			
+				
+			
+		
+	
+	
+		 
+		 
+	
+	
+	
+ 
+
+
+	
+		
+	Home
+ 
+		
+			Forum
+				
+					
+										
+										
+										
+										
+						Tutorials
+						
+							
+								C Tuts 
+							
+                                                       
+							
+								C Sharp Tuts 
+							
+							
+							
+								Java Tuts 
+							
+							
+									
+								Javascript Tuts 
+							
+							
+							
+								Photoshop Tuts 
+							
+							
+								
+								PHP Tuts 
+							
+						
+						
+								Python Tuts 
+							
+							
+								
+								Security Tuts 
+							
+							
+								
+								Game Design Tuts 
+							
+						
+				
+							
+								Visual Basic Tuts 
+							
+							
+							
+								Assembly Tuts 
+							
+							
+								
+								Linux Tuts 
+							
+							
+								
+								Video Tuts
+							
+						
+						
+						
+					
+
+
+						Software Development
+						
+							
+								C and C++ 
+							
+                                                       
+							
+								C# Programming 
+							
+							
+								Java Help 
+							
+						
+						
+								Visual Basic 
+							
+							
+							
+								Pascal / Delphi 
+							
+							
+							
+								Python 
+							
+							
+								
+								Assembly 
+							
+							
+							
+							
+								General Programming 
+							
+							
+							
+								Developer Tools 
+							
+			
+						
+						
+								Software Security
+							
+						
+						
+					
+
+	
+						Web Development
+						
+							
+								PHP 
+							
+                                                       
+							
+								ASP, ASP.NET &amp; Coldfusion 
+							
+							
+								Ruby 
+							
+						
+						
+								Database &amp; Database Programming 
+							
+							
+							
+								Javascript &amp; CSS 
+							
+							
+							
+								AJAX 
+							
+							
+							
+								HTML Programming 
+							
+							
+									
+								Website Design 
+							
+							
+									
+								Perl
+							
+						
+						
+					
+					
+						
+						Off Topic
+						
+							
+								The Lounge 
+							
+                                                       
+							
+								Introductions 
+							
+							
+								Technology Ramble 
+							
+						
+						
+								Forum Support
+							
+							
+							
+						
+						
+								
+						
+					
+						Community
+						
+							
+							
+								Groups
+							
+							
+								My Albums 
+							
+							
+							
+								Member List
+							
+							
+						
+					
+					
+					
+						Forum Actions
+						
+							
+								Mark Forums Read
+							
+                                                        
+						
+					
+		
+					
+						Quick Links
+						
+							
+							
+							
+		
+			View Codecall Staff Team
+		
+	
+							
+							
+							
+							
+							
+							
+						
+					
+					
+				
+
+			
+		
+		
+	Blogs
+ 
+		
+			Recent Activity
+		
+		Support CodecallYoutube Channel
+	
+
+	
+	
+		
+			
+			
+			
+			
+            
+			
+		
+		
+			Advanced Search
+		
+	
+	
+
+
+
+
+
+	
+		
+
+		
+	Forum
+ 
+	Software Development
+ 
+	Tutorials
+ 
+	Java Tutorials
+ 
+		
+	 Multithreading a ServerSocket accept() call.
+ 
+	
+	
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+	
+ 
+
+
+
+	
+		
+			+ Reply to Thread
+			
+		
+
+		
+		
+			
+				Results 1 to 1 of 1
+			
+		
+	
+
+	Thread: Multithreading a ServerSocket accept() call.
+
+	
+		
+		
+			
+			
+			
+				LinkBack
+				
+                                             
+					 LinkBack URL
+					 About LinkBacks
+					
+						&#160;
+                                                Bookmark &amp; Share
+                                                Digg this Thread!Add Thread to del.icio.usBookmark in TechnoratiFurl this Thread!
+					
+				
+			
+ 
+				Thread Tools
+				
+					Show Printable Version
+					Email this Page&#8230;
+					
+						
+							Subscribe to this Thread&#8230;
+											
+					
+					
+				
+			
+
+			
+
+			
+				
+					Search Thread
+					
+						
+							
+								
+								
+							
+							
+								Advanced Search
+							
+						
+						
+						
+						
+						
+						
+						
+
+					
+				
+			
+
+			
+
+			
+				
+					Display
+					
+						Linear Mode
+						 Switch to Hybrid Mode
+						 Switch to Threaded Mode
+					
+				
+			
+
+			
+		
+		
+	
+
+
+	
+
+	
+		
+			
+
+
+
+	
+		
+			
+				
+					07-16-2008&#160;10:07 PM
+				
+			
+			
+				
+					#1
+				
+				
+			
+		
+	
+	
+		
+			
+			
+				
+	Paradox
+	
+
+ 
+				
+
+ 
+			
+			
+			
+				Newbie
+			
+			
+				
+			
+			
+			
+				   
+			
+			 
+			
+				
+				
+					Join Date Jul 2008
+					
+					
+					Posts 17	
+					
+				
+				
+				
+				
+					    
+				
+			
+		
+		
+			
+				
+				
+				
+					Multithreading a ServerSocket accept() call.
+				
+				
+
+
+						
+							
+
+
+
+					
+						
+							In Java, a ServerSocket is the server end of a Socket connection that involves a client and a server. The client creates a Socket to the specified host, and the host running the ServerSocket generates that Socket with an accept() call in the ServerSocket class.
+
+To accept clients, all you have to do is call ServerSocket.accept(), and when a client attempts to connect, you can accept that connection. However, if you have a very large server, a simple loop of the accept() call may not be enough to get all of your clients online fast enough, therefore, we must thread the accept() call.
+
+
+
+
+	Code:
+</TEXT>
+<CODE orderid="1" >
+import java.netSocket;
+import java.net.ServerSocket;
+import java.io.IOException;
+
+public class Server {
+
+	private final int LISTENER_THREADS = 5;
+
+	public static void main(String[] args) {
+		try {
+			ServerSocket serverSocket = new ServerSocket(PORT);
+			Acceptor acceptor = new Acceptor();
+			for(int i = 0; i &lt; LISTENER_THREADS; i++) {
+				new Thread(acceptor).start();
+			}
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
+
+	private class Acceptor implements Runnable {
+
+		public void run() {
+			try {
+				Socket s = serverSocket.accept();
+			} catch(IOException ioe) {
+				ioe.printStackTrace();
+			}
+		}
+
+	}
+
+}
+</CODE>
+<TEXT orderid="2" >
+Using an inbound class object that implements the interface Runnable, we can create a thread from that object, and in the run() method, we will accept new Sockets from clients. Now, with the for loop, we will have 5 loops accepting connections instead of 1. I have made a variable that can be easily changed to change the amount of Socket acceptor threads that are running. The Acceptor class uses the ServerSocket variable in Server class named &quot;serverSocket&quot;. If you do not wish to use inbound classes, you must use the constructor of the Acceptor class to pass along the ServerSocket variable.
+
+
+
+Multi-threading is a powerful feature in the Java programming language, but threads are not easy on your computer, so I recommend you keep your thread count relatively low.
+						
+					
+
+					
+				
+			
+			
+			
+		
+	
+		
+			
+			
+				
+					
+					
+
+					
+					
+						 Reply With Quote 
+					&#160;
+					
+					
+				
+				
+					
+						
+					
+
+					
+					
+					
+
+					
+					
+
+					
+					
+					
+					
+					
+				
+			
+			
+		
+	
+
+  
+		
+                
+		
+			
+		
+
+	
+
+
+
+
+	
+		+ Reply to Thread
+	
+	
+	
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+	&#171;
+	Previous Thread
+	|
+	Next Thread
+	&#187;
+
+
+
+
+	
+	Thread Information
+	
+		
+			Users Browsing this Thread
+			
+				There are currently 1 users browsing this thread. (0 members and 1 guests)
+				
+					&#160;
+				
+			
+		
+	
+	
+	
+	
+		Similar Threads
+		
+			
+			
+  
+    help in Assembly languge
+    
+       By samara in forum General Programming
+    
+  
+  
+    Replies: 3
+      
+        Last Post: 06-06-2008, 04:33 PM
+      
+  
+ 
+			
+		
+	
+
+ 
+	
+	
+	
+		
+		
+			Bookmarks
+			
+				Bookmarks
+				
+				
+	
+		
+	
+	Digg
+ 
+	
+		
+	
+	del.icio.us
+ 
+	
+		
+	
+	StumbleUpon
+ 
+	
+		
+	
+	Google
+ 
+			
+		
+		
+		
+			
+				
+				Posting Permissions
+			
+			
+				
+
+	
+		You may not post new threads
+		You may not post replies
+		You may not post attachments
+		You may not edit your posts
+	
+	
+		
+			BB code is On
+			Smilies are On
+			[IMG] code is On
+			HTML code is Off
+Trackbacks are On
+Pingbacks are On
+Refbacks are On
+		
+	
+	Forum Rules
+
+ 
+			
+		
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+			
+		
+		
+		
+			
+				
+					
+				-- English (US) 
+			
+		
+	
+
+	
+		Contact Us
+		Programming Forum
+		
+		
+		Archive
+		
+		
+		
+		Top
+	
+	
+	
+	
+	
+	
+All times are GMT -5. The time now is 06:42 AM.
+
+&#160;
+    
+      vBulletin v4.0.2 &#169;2010, Jelsoft Enterprises Ltd.
+      &#160;
+      &#160;
+      
+      
+      Copyright 2005-2010
+    
+  
+
+
+
+	
+	
+	
+	
+
+
+ 
+
+
+
+The #1 Programming Forum, join the largest programming community by registering for free,&#160;  click here to register! 		&quot;;
+
+for(var vi=0;vi0){location.replace(&apos;http://forum.codecall.net/showthread.php?p=&apos;+cpostno);};} }
+
+if(typeof window.orig_onload == &quot;function&quot;) window.orig_onload();
+}
+
+//]]&gt;
+</TEXT>
+</result>

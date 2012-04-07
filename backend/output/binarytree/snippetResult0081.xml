@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>76699</docid>
+<orderid>16</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/javacertification/scjp5/primitivewrapperclasses.shtml</url>
+</description>
+<TEXT orderid="14" >
+Casting conversions:
+</TEXT>
+<CODE orderid="15" >
+Integer iRef = (Integer) 2;     // Boxing followed by identity cast
+int i = (int) iRef;             // Unboxing followed by identity cast
+// Long lRef = 2;               // WRONG ! Type mismatch: cannot convert from int to Long
+// Long lRef = (Long) 2;        // WRONG ! int not convertible to Long
+Long lRef_1 = (long) 2;         // OK ! explicit cast to long
+Long lRef_2 = 2L;               // OK ! long literal
+</CODE>
+<TEXT orderid="16" >
+Numeric promotion: unary and binary:
+</TEXT>
+<CODE orderid="17" >
+Integer iRef = 2;
+long l1 = 2000L + iRef;     // binary numeric promotion
+int i = -iRef;              // unary numeric promotion
+</CODE>
+<TEXT orderid="18" >
+In the if statement, condition 
+					can be Boolean:
+</TEXT>
+</result>

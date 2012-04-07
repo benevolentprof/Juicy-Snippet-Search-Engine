@@ -1,0 +1,491 @@
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Getting Started with Java | Java Beginner^0.0^0.0^0.0^0.0^0.0^0.024390243902439025^6.0^0.16666666666666666^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.5^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.5^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^1.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^1.3333333333333333^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^3.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^3.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^2.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^3.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.333333333333333^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^9.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^10.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^12.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^13.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^14.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^15.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^11.333333333333334^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+  ^11.333333333333334^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^17.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^15.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^17.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^18.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^19.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^19.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^12.666666666666666^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^18.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^12.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^19.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^19.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^19.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^17.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^15.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^10.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^17.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^17.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^11.333333333333334^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^17.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^17.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^17.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^17.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^10.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^14.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^13.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^12.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.333333333333333^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^9.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^10.666666666666666^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+JDBC Tutorial^0.0^0.0^0.5^0.0^0.0^0.0^2.0^0.0^text
+ ^6.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+|^0.0^0.0^0.0^0.0^0.0^1.0^0.0^0.0^text
+ ^6.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Interview Questions^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^6.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+|^0.0^0.0^0.0^0.0^0.0^1.0^0.0^0.0^text
+ ^6.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Advanced^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^6.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+|^0.0^0.0^0.0^0.0^0.0^1.0^0.0^0.0^text
+ ^6.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Other Tech Tutorials^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.3333333333333333^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^5.333333333333333^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^5.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^2.6666666666666665^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^3.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^3.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^10.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Beginner Home^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Table of Contents^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.3333333333333333^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Introduction to Java^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.3333333333333333^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Getting Started with Java^0.0^0.0^0.0^0.0^0.0^0.0^4.0^0.25^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Basic Language Elements^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Operators^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Control Statements^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^9.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Access Modifiers^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^3.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Classes and Objects^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.3333333333333333^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Constructors^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Object Serialization^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Class Inheritance^0.0^0.0^0.0^0.3333333333333333^0.0^0.0^3.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Object Type Casting^0.0^0.0^0.0^0.0^0.0^0.0^4.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Abstract class and Interface^0.0^0.0^0.0^0.75^0.0^0.0^4.0^0.25^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Method Overiding^0.0^0.0^0.3333333333333333^0.0^0.0^0.0^3.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java toString Method^0.0^0.0^0.3333333333333333^0.0^0.0^0.0^3.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java String Class^0.0^0.0^0.0^0.3333333333333333^0.0^0.0^3.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+  ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+  ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java String Comparison^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java StringBuffer^0.0^0.0^0.5^0.0^0.0^0.0^2.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Exceptions^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Singleton Pattern^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Threads Tutorial^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Collections Framework^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Date Util^0.0^0.0^0.3333333333333333^0.0^0.0^0.0^3.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Swing Tutorial^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^3.25^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Download Java Software^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.333333333333333^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Advertise^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Feedback^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java books ^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^1.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^5.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^5.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^1.6666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^9.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^20.4^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Getting Started with Java^0.0^0.0^0.0^0.0^0.0^0.0^4.0^0.25^text
+ ^14.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Getting Java Basics ^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+quickly has become easy with ^0.0^0.0^0.0^0.0^0.0^0.0^5.0^0.6^text
+Javabeginner.com. ^0.0^0.0^0.5^0.0^0.0^0.0^2.0^0.0^text
+ This site is for the java programmers who want to use the Java programming language to create applications using the Java basics. This site is for absolute beginners to advanced java programmers who do not require any prerequisite Java knowledge. For getting started with Java you’ll have to have some basic understanding of the concepts of programming.^1.0^0.0^0.0^0.10344827586206896^0.0^0.0^58.0^0.3620689655172414^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+After going through all the tutorials in this site, you would have learnt the essential concepts and features of the Java Programming Language which include exceptions, Swing GUI programming, Collections framework etc. A lot of code examples are used through out tutorial to make you understand the language better.^0.0^0.0^0.02040816326530612^0.02040816326530612^0.0^0.0^49.0^0.42857142857142855^text
+ All the listings and programs in the website are compiled and run using the JDK 1.5.^0.0^0.0^0.13333333333333333^0.0^0.0^0.0^15.0^0.5333333333333333^text
+ Download : ^0.0^0.0^0.0^0.0^0.0^0.07692307692307693^1.0^0.0^text
+JDK and JRE 1.5^0.0^0.0^0.6666666666666666^0.0^0.0^0.0^3.0^0.3333333333333333^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Architecture^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+The Java environment is composed of a number of system components. You use these components at compile time to create the Java program and at run time to execute the program. Java achieves its independence by creating programs designed to run on the Java Virtual Machine rather than any specific computer system.^0.0^0.0^0.0^0.0^0.0^0.0^52.0^0.4423076923076923^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+After you write a Java program, you use a compiler that reads the statements in the program and translates them into a machine independent format called bytecode.^0.0^0.0^0.037037037037037035^0.0^0.0^0.0^27.0^0.48148148148148145^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.5^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Bytecode files, which are very compact, are easily transported through a distributed system like the Internet.^0.0^0.0^0.0625^0.0^0.0^0.0^16.0^0.4375^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+The compiled Java code (resulting byte code) will be executed at run time.^0.0^0.0^0.0^0.07692307692307693^0.025^0.0^13.0^0.3076923076923077^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java programs can be written and executed in two ways:^0.0^0.0^0.0^0.0^0.0^0.018518518518518517^10.0^0.5^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Stand-alone application (A Java Swing Application)^0.0^0.0^0.0^0.0^0.04^0.0^7.0^0.2857142857142857^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Applet which runs on a web browser (Example: Internet Explorer)^0.0^0.0^0.1^0.0^0.028985507246376812^0.014492753623188406^10.0^0.3^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java source code^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+A Java program is a collection of one or more java classes. A Java source file can contain more than one class definition and has a .java extension. Each class definition in a source file is compiled into a separate class file. The name of this compiled file is comprised of the name of the class with .class as an extension. Before we proceed further in this section, I would recommend you to go through the ^0.0^0.0^0.0^0.09210526315789473^0.0^0.0^76.0^0.5657894736842105^text
+?Basic Language Elements’.^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Below is a java sample code for the traditional Hello World program. Basically, the idea behind this Hello World program is to learn how to create a program, compile and run it. To create your java source code you can use any editor( Text pad/Edit plus are my favorites) or you can use an IDE like Eclipse.^0.0^0.0^0.0^0.034482758620689655^0.006535947712418301^0.0032679738562091504^58.0^0.41379310344827586^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+public class HelloWorld { public static void main(String[] args) { System.out.println("Hello World"); }//End of main }//End of HelloWorld Class^6.4^2.0^0.19047619047619047^0.2857142857142857^0.07482993197278912^0.0^21.0^0.09523809523809523^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ Output^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+ Hello World^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ABOUT THE PROGRAM^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.6666666666666666^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+I created a class named “HelloWorld” containing a simple main function within it. The keyword class specifies that we are defining a class. The name of a public class is spelled exactly as the name of the file (Case Sensitive). All java programs begin execution with the method named main(). main method that gets executed has the following signature : public static void main(String args[]).Declaring this method as public means that it is accessible from outside the class so that the JVM can find it when it looks for the program to start it. It is necessary that the method is declared with return type void (i.e. no arguments are returned from the method). The main method contains a String argument array that can contain the command line arguments. The brackets { and } mark the beginning and ending of the class. The program contains a line ‘System.out.println(”Hello World”);’ that tells the computer to print out on one line of text namely ‘Hello World’. The semi-colon ‘;’ ends the line of code. The double slashes ‘//’ are used for comments that can be used to describe what a source code is doing. Everything to the right of the slashes on the same line does not get compiled, as they are simply the comments in a program.^0.0^1.0^0.01834862385321101^0.08256880733944955^0.012955465587044534^8.097165991902834E-4^218.0^0.46788990825688076^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Main method Declarations^0.0^0.0^0.0^0.0^0.0^0.0^4.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+class MainExample1 {public static void main(String[] args) {}}^0.0^0.0^0.25^0.5^0.12903225806451613^0.0^8.0^0.0^text
+ class MainExample2 {public static void main(String []args) {}}^0.0^0.0^0.25^0.5^0.125^0.0^8.0^0.0^text
+ class MainExample3 {public static void main(String args[]) {}}^0.0^0.0^0.25^0.5^0.125^0.0^8.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+All the 3 valid main method’s shown above accepts a single String array argument. ^0.0^0.0^0.0^0.0^0.0^0.0^14.0^0.2857142857142857^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Compiling and Running an Application^0.0^0.0^0.0^0.0^0.0^0.0^5.0^0.4^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+To compile and run the program you need the JDK distributed by Sun Microsystems. The JDK contains documentation, examples, installation instructions, class libraries and packages, and tools. Download an editor like Textpad/EditPlus to type your code. You must save your source code with a .java extension. The name of the file must be the name of the public class contained in the file.^0.0^0.0^0.0625^0.046875^0.0^0.0025906735751295338^64.0^0.453125^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Steps for Saving, compiling and Running a Java^0.0^0.0^0.0^0.125^0.0^0.0^8.0^0.25^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Step 1:Save the program With .java Extension.^0.0^0.0^0.0^0.0^0.0^0.022222222222222223^7.0^0.2857142857142857^text
+ Step 2:Compile the file from DOS prompt by typing javac <filename>.^0.0^0.0^0.09090909090909091^0.0^0.0^0.04^11.0^0.2727272727272727^text
+ Step 3:Successful Compilation, results in creation of .class containing byte code^0.0^0.0^0.0^0.18181818181818182^0.0^0.011904761904761904^11.0^0.18181818181818182^text
+ Step 4:Execute the file by typing java <filename without extension>^0.0^0.0^0.0^0.0^0.0^0.043478260869565216^10.0^0.3^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Development Kit^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+The Java Developer’s Kit is distributed by Sun Microsystems. The JDK contains documentation, examples, installation instructions, class libraries and packages, and tools^0.0^0.0^0.043478260869565216^0.043478260869565216^0.0^0.0^23.0^0.2608695652173913^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+javadoc^0.0^0.0^1.0^0.0^0.0^0.0^1.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+The javadoc tool provided by Sun is used to produce documentation for an application or program,^0.0^0.0^0.0625^0.0625^0.0^0.0^16.0^0.375^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Jar Files^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+A jar file is used to group together related class files into a single file for more compact storage, distribution, and transmission.^0.0^0.0^0.0^0.09090909090909091^0.0^0.0^22.0^0.36363636363636365^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+PATH and CLASSPATH^0.0^0.0^0.3333333333333333^0.0^0.0^0.0^3.0^0.3333333333333333^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+The following are the ^0.0^0.0^0.0^0.0^0.0^0.0^4.0^0.75^text
+general programming errors^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+, which I think every beginning java programmer would come across. Here is a solution on how to solve the problems when running on a Microsoft Windows Machine.^0.0^0.0^0.0^0.0^0.0^0.0^27.0^0.5185185185185185^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+1. ‘javac’ is not recognized as an internal or external command, operable program or batch file^0.0^0.0^0.06666666666666667^0.0^0.0^0.0^15.0^0.4^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+When you get this error, you should conclude that your operating system cannot find the compiler (javac). To solve this error you need to set the PATH variable.^0.0^0.0^0.03571428571428571^0.07142857142857142^0.0125^0.0^28.0^0.5^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+How to set the PATH Variable?^0.0^0.0^0.0^0.0^0.0^0.03333333333333333^6.0^0.5^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Firstly the PATH variable is set so that we can compile and execute programs from any directory without having to type the full path of the command. To set the PATH of jdk on your system (Windows XP), add the full path of the jdk<version>\bin directory to the PATH variable. Set the PATH as follows on a Windows machine:^0.0^0.0^0.03278688524590164^0.0^0.00625^0.009375^61.0^0.4918032786885246^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+a. Click Start > Right Click “My Computer” and click on “Properties”^0.0^0.0^0.0^0.0^0.0^0.014492753623188406^11.0^0.45454545454545453^text
+ b. Click Advanced > Environment Variables.^0.0^0.0^0.0^0.0^0.0^0.022222222222222223^5.0^0.0^text
+ c. Add the location of bin folder of JDK installation for PATH in User Variables and System Variables. A typical value for PATH is:^0.0^0.0^0.041666666666666664^0.08333333333333333^0.0^0.007518796992481203^24.0^0.2916666666666667^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+C:\jdk<version>\bin (jdk<version is nothing but the name of the directory where jdk is installed)^0.0^0.0^0.16666666666666666^0.0^0.02040816326530612^0.04081632653061224^18.0^0.5^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+If there are already some entries in the PATH variable then you must add a semicolon and then add the above value (Version being replaced with the version of JDK). The new path takes effect in each new command prompt window you open after setting the PATH variable.^0.0^0.0^0.020833333333333332^0.0625^0.007547169811320755^0.0^48.0^0.5^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+2. Exception in thread “main” java.lang.NoClassDefFoundError: HelloWorld^0.0^0.0^0.25^0.0^0.0^0.0136986301369863^8.0^0.125^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+If you receive this error, java cannot find your compiled byte code file, HelloWorld.class.If both your class files and source code are in the same working directory and if you try running your program from the current working directory than, your program must get executed without any problems as, java tries to find your .class file is your current directory. If your class files are present in some other directory other than that of the java files we must set the CLASSPATH pointing to the directory that contain your compiled class files.CLASSPATH can be set as follows on a Windows machine:^0.0^0.0^0.028846153846153848^0.11538461538461539^0.0^0.0016778523489932886^104.0^0.4807692307692308^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+a. Click Start > Right Click “My Computer” and click on “Properties”^0.0^0.0^0.0^0.0^0.0^0.014492753623188406^11.0^0.45454545454545453^text
+ b. Click Advanced > Environment Variables.^0.0^0.0^0.0^0.0^0.0^0.022727272727272728^5.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Add the location of classes? folder containing all your java classes in User Variables.^0.0^0.0^0.0^0.0^0.0^0.0^14.0^0.35714285714285715^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+If there are already some entries in the CLASSPATH variable then you must add a semicolon and then add the new value . The new class path takes effect in each new command prompt window you open after setting the CLASSPATH variable.^0.0^0.0^0.04878048780487805^0.12195121951219512^0.0^0.0^41.0^0.4634146341463415^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java 1.5^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+The Java 1.5 released in September 2004.^0.0^0.0^0.0^0.0^0.0^0.0^5.0^0.4^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Goals^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Less code complexity^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.3333333333333333^text
+ Better readability^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ More compile-time type safety^0.0^0.0^0.0^0.0^0.0^0.0^5.0^0.2^text
+ Some new functionality (generics, scanner)^0.0^0.0^0.0^0.2^0.045454545454545456^0.0^5.0^0.2^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+New Features^0.0^0.0^0.0^0.5^0.0^0.0^2.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Enhanced for loop^0.0^0.0^0.0^0.3333333333333333^0.0^0.0^3.0^0.0^text
+ Enumerated types^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ Autoboxing & unboxing^0.0^0.0^1.0^0.0^0.0^0.043478260869565216^2.0^0.0^text
+ Generic types^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ Scanner^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+ Variable number of arguments (varargs)^0.0^0.0^0.2^0.0^0.05^0.0^5.0^0.2^text
+ Static imports^0.0^0.0^0.0^0.5^0.0^0.0^2.0^0.0^text
+ Annotations^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^13.333333333333334^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^12.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^12.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^5.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^3.5^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^3.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^3.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^2.6666666666666665^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^5.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^5.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^3.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^3.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^5.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^4.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^2.6666666666666665^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^5.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+    Java is a trademark of ^0.0^0.0^0.0^0.0^0.0^0.0^5.0^0.6^text
+Sun Microsystems, Inc.^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.3333333333333333^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^16.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^9.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^6.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Beginner Home^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+ ^6.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+|^0.0^0.0^0.0^0.0^0.0^1.0^0.0^0.0^text
+ ^10.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Terms of Use ^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.3333333333333333^text
+ ^10.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+|^0.0^0.0^0.0^0.0^0.0^1.0^0.0^0.0^text
+ ^10.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Contact ^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+ ^10.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+|^0.0^0.0^0.0^0.0^0.0^1.0^0.0^0.0^text
+ ^6.666666666666667^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Disclaimer^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+ ^6.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^8.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+© Copyright 2007-08 ^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+javabeginner.com^0.0^0.0^0.5^0.0^0.0^0.0^2.0^0.0^text
+ ^7.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^5.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^2.6666666666666665^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^3.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.6666666666666666^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+

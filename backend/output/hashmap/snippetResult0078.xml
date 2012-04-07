@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>6740</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/article.php/3719336/Getting-Test-Doubles-in-Place.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					
+				
+				
+					Read More in Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Getting Test Doubles in Place
+			
+			
+				
+				
+					January 3, 2008
+					By 
+Jeff Langr
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+I&apos;m building a portfolio manager, something that will track my stock purchases. My current need is that it calculate the total value of its contained holdings. A holding is a stock symbol and the number of associated shares. The portfolio value is the sum of the current price of each symbol times the corresponding number of shares. An external service, perhaps supplied by NASDAQ, provides the ability to look up a stock&apos;s value.
+
+Were I to build Portfolio without considering the need to unit test it, the implementation might look like Listing 1.
+
+Listing 1: Portfolio.
+</TEXT>
+<CODE orderid="1" >
+import java.util.*;
+
+public class Portfolio {
+   private Map&lt;String,Integer&gt; holdings =
+      new HashMap&lt;String,Integer&gt;();
+
+   public int value() {
+      int total = 0;
+      for (Map.Entry&lt;String,Integer&gt;
+          entry: holdings.entrySet()) {
+         String symbol = entry.getKey();
+         int shares = entry.getValue();
+         total += new NASDAQLookupService().currentValue(symbol)
+               * shares;
+      }
+      return total;
+   }
+
+   public void purchase(String symbol, int shares) {
+      holdings.put(symbol, shares);
+   }
+}
+</CODE>
+<TEXT orderid="2" >
+Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		I code using test-driven development, so my primary interest is in ensuring that there&apos;s an easy way to drive and verify each line of code in the value method. The problem is that NASDAQ keeps returning a different value each time I send it a request for a symbol&apos;s price. The solution is to provide what&apos;s known as a &quot;test double&quot; for the NASDAQLookupService object. This test double will emulate the NASDAQLookupService behavior, but fix it for purposes of testing. (Other similar terms for test doubles are fakes, stubs, and mocks.)
+
+When using test doubles, I have two primary concerns: first, what does the test double look like, and second, how do I incorporate it into the production code? With regard to the first concern, the test double is a simple implementation of the same interface used by the real object. For my Portfolio class, I create a fake StockLookupService that implements an interface named StockLookupService. NASDAQLookupService, too, implements this interface.
+
+Now that I have a fake lookup service, how do I get it into the the class that I&apos;m testing (the target class)? The usual solution is to pass the fake into the target via a constructor or setter. This technique is most common, and demonstrated by most introductory articles on mocking. I&apos;ll present this rudimentary injection technique, and then focus on a couple additional ways to inject the test double.
+
+Constructor/Setter Injection
+
+In Listing 2, I present an altered Portfolio class. The constructor provides the ability for a client to pass in a reference to a StockLookupService. This reference can of course point to either a NASDAQLookupService or to a fake lookup service.
+
+Listing 2: An injectable Portfolio.
+</TEXT>
+<CODE orderid="3" >
+import java.util.*;
+
+public class Portfolio {
+   private StockLookupService service;
+   private Map&lt;String,Integer&gt; holdings =
+      new HashMap&lt;String,Integer&gt;();
+
+   public Portfolio(StockLookupService service) {
+      this.service = service;
+   }
+
+   public int value() {
+      int total = 0;
+      for (Map.Entry&lt;String,Integer&gt;
+         entry: holdings.entrySet()) {
+         String symbol = entry.getKey();
+         int shares = entry.getValue();
+         total += service.currentValue(symbol) * shares;
+      }
+      return total;
+   }
+
+   public void purchase(String symbol, int shares) {
+      holdings.put(symbol, shares);
+   }
+}
+</CODE>
+</result>

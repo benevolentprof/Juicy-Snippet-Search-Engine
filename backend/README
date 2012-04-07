@@ -1,0 +1,6 @@
+This is back-end component of Java Code Snippet Search Engine project.
+
+This components are separated into parts:
+ - crawler
+ - indexer
+ - searcher

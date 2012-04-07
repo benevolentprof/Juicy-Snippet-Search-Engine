@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>77742</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=666</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            Verifying a Signed JAR File example
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+To verify a signed JAR file, that is, to verify that the signature is valid and
+the JAR file has not been tampered with, use a command such as the following:
+    jarsigner -verify sbundle.jar 
+
+If the verification is successful,
+    jar verified.
+
+is displayed. Otherwise, an error message appears.
+You can get more information if you use the -verbose option. A
+sample use of jarsigner with the -verbose option is shown
+below, along with sample output:
+    jarsigner -verify -verbose sbundle.jar
+
+           198 Fri Sep 26 16:14:06 PDT 1997 META-INF/MANIFEST.MF
+           199 Fri Sep 26 16:22:10 PDT 1997 META-INF/JANE.SF
+          1013 Fri Sep 26 16:22:10 PDT 1997 META-INF/JANE.DSA
+    smk   2752 Fri Sep 26 16:12:30 PDT 1997 AclEx.class
+    smk    849 Fri Sep 26 16:12:46 PDT 1997 test.class
+
+      s = signature was verified
+      m = entry is listed in manifest
+      k = at least one certificate was found in keystore
+
+    jar verified.
+
+Verification with Certificate Information
+If you specify the -certs option when verifying, along with the -verify
+and -verbose options, the output includes certificate information
+for each signer of the JAR file, including the certificate type, the signer
+distinguished name information (iff it&apos;s an X.509 certificate), and, in
+parentheses, the keystore alias for the signer if the public key certificate in
+the JAR file matches that in a keystore entry. For example,
+    jarsigner -keystore /working/mystore -verify -verbose -certs myTest.jar
+
+           198 Fri Sep 26 16:14:06 PDT 1997 META-INF/MANIFEST.MF
+           199 Fri Sep 26 16:22:10 PDT 1997 META-INF/JANE.SF
+          1013 Fri Sep 26 16:22:10 PDT 1997 META-INF/JANE.DSA
+           208 Fri Sep 26 16:23:30 PDT 1997 META-INF/JAVATEST.SF
+          1087 Fri Sep 26 16:23:30 PDT 1997 META-INF/JAVATEST.DSA
+    smk   2752 Fri Sep 26 16:12:30 PDT 1997 Tst.class
+
+      X.509, CN=Test Group, OU=Java Software, O=Sun Microsystems, L=CUP, S=CA, C=US (javatest)
+      X.509, CN=Jane Smith, OU=Java Software, O=Sun, L=cup, S=ca, C=us (jane)
+
+      s = signature was verified
+      m = entry is listed in manifest
+      k = at least one certificate was found in keystore
+
+    jar verified.
+
+If the certificate for a signer is not an X.509 certificate, there is no
+distinguished name information. In that case, just the certificate type and the
+alias are shown. For example, if the certificate is a PGP certificate, and the
+alias is &quot;bob&quot;, you&apos;d get
+</TEXT>
+<CODE orderid="1" >
+PGP, (bob)
+</CODE>
+<TEXT orderid="2" >
+Verification of a JAR File that Includes Identity Database Signers
+If a JAR file has been signed using the JDK 1.1 javakey tool, and thus
+the signer is an alias in an identity database, the verification output includes
+an &quot;i&quot; symbol. If the JAR file has been signed by both an alias in an
+identity database and an alias in a keystore, both &quot;k&quot; and &quot;i&quot;
+appear.
+When the -certs option is used, any identity database aliases
+are shown in square brackets rather than the parentheses used for keystore
+aliases. For example:
+    jarsigner -keystore /working/mystore -verify -verbose -certs writeFile.jar
+
+           198 Fri Sep 26 16:14:06 PDT 1997 META-INF/MANIFEST.MF
+           199 Fri Sep 26 16:22:10 PDT 1997 META-INF/JANE.SF
+          1013 Fri Sep 26 16:22:10 PDT 1997 META-INF/JANE.DSA
+           199 Fri Sep 27 12:22:30 PDT 1997 META-INF/DUKE.SF
+          1013 Fri Sep 27 12:22:30 PDT 1997 META-INF/DUKE.DSA
+   smki   2752 Fri Sep 26 16:12:30 PDT 1997 writeFile.html
+
+      X.509, CN=Jane Smith, OU=Java Software, O=Sun, L=cup, S=ca, C=us (jane)
+      X.509, CN=Duke, OU=Java Software, O=Sun, L=cup, S=ca, C=us [duke]
+
+      s = signature was verified
+      m = entry is listed in manifest
+      k = at least one certificate was found in keystore
+      i = at least one certificate was found in identity scope
+
+    jar verified.
+
+Note that the alias &quot;duke&quot; is in brackets to denote that it is an
+identity database alias, not a keystore alias.
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</TEXT>
+</result>

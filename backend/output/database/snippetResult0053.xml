@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>19039</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-tips.org/java-me-tips/midp/reading-modifying-native-database-of-mobile-device-4.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home    Java ME Tips               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					Reading/Modifying Native database of mobile device									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;4
+
+
+PoorBest&#160;
+		
+				
+			
+				
+
+PIM api is an optional J2ME package that gives supports for accessing and 
+modifying the PIM database that may exist in MIDP device. Three main database 
+of PIM are Contact list, Event list and To-Do list.
+
+Illustration below create an Event.
+</TEXT>
+<CODE orderid="1" >
+EventList&#160;events&#160;=&#160;null;
+
+try&#160;{
+
+&#160;&#160;&#160;&#160;events&#160;=&#160;(EventList)&#160;PIM.getInstance().openPIMList(PIM.EVENT_LIST,&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;PIM.READ_WRITE);
+
+}&#160;
+
+catch&#160;(SecurityException&#160;e)&#160;{}&#160;
+
+catch&#160;(PIMException&#160;e)&#160;{}
+
+
+
+Event&#160;event&#160;=&#160;events.createEvent();
+
+try&#160;{
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;if&#160;(events.isSupportedField(Event.LOCATION))
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;event.addString(Event.LOCATION,&#160;PIMItem.ATTR_NONE,&#160;&quot;Office&quot;);
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;if&#160;(events.isSupportedField(Event.SUMMARY))
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;event.addString(Event.SUMMARY,&#160;PIMItem.ATTR_NONE,&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&quot;Please&#160;call&#160;Mr.John&quot;);
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;if&#160;(events.isSupportedField(Event.START))
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;event.addDate(Event.START,&#160;PIMItem.ATTR_NONE,&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(new&#160;Date()).getTime()&#160;+&#160;60000);
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;if&#160;(events.isSupportedField(Event.END))
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;event.addDate(Event.END,&#160;PIMItem.ATTR_NONE,&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(new&#160;Date()).getTime()&#160;+&#160;60000&#160;*&#160;5));
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;if&#160;(events.isSupportedField(Event.ALARM))
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;event.addInt(Event.ALARM,&#160;PIMItem.ATTR_NONE,&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(new&#160;Date()).getTime()&#160;+&#160;60000&#160;*&#160;1));
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;if&#160;(events.isSupportedField(Event.NOTE))
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;event.addString(Event.NOTE,&#160;PIMItem.ATTR_NONE,&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&quot;Please&#160;call&#160;Mr.John&quot;);
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;if&#160;(events.maxCategories()&#160;!=&#160;0&#160;&amp;&amp;&#160;events.isCategory(&quot;Reminder&quot;))
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;event.addToCategory(&quot;Reminder&quot;);
+
+}&#160;catch&#160;(PIMException&#160;e)&#160;{
+
+}
+
+
+
+try&#160;{
+
+&#160;&#160;&#160;&#160;event.commit();
+
+}&#160;
+
+catch&#160;(SecurityException&#160;e)&#160;{}&#160;
+
+catch&#160;(PIMException&#160;e)&#160;{}
+
+
+
+try&#160;{
+
+&#160;&#160;&#160;&#160;events.close();
+
+}&#160;catch&#160;(PIMException&#160;e)&#160;{}
+</CODE>
+<TEXT orderid="2" >
+Illustration below imports Contact from vcard.
+</TEXT>
+</result>

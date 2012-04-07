@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>100026</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.javapractices.com/topic/Topic129.cjp</url>
+</description>
+<TEXT orderid="0" >
+Home |
+  Poll |
+   
+  Wiki |
+  Source Code |
+
+  WEB4J |
+
+   Links
+   
+  
+   
+   
+  
+ 
+
+
+
+
+
+  
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+ 
+
+
+
+
+
+ 
+   
+
+ 
+
+
+
+
+Checked versus unchecked exceptions
+
+
+ 
+
+
+Unchecked exceptions :
+
+
+represent defects in the program (bugs) - often invalid arguments passed to a non-private method.
+To quote from The Java Programming Language, by Gosling, 
+Arnold, and Holmes : &quot;Unchecked runtime exceptions represent conditions that, 
+generally speaking, reflect errors in your program&apos;s logic and cannot be reasonably 
+recovered from at run time.&quot;
+
+
+
+are subclasses of RuntimeException,
+and are usually implemented using 
+IllegalArgumentException, 
+NullPointerException,
+or IllegalStateException
+
+
+a method is not obliged to establish a policy for the unchecked
+exceptions thrown by its implementation (and they almost always do not do so)
+
+
+Checked exceptions :
+
+
+represent invalid conditions in areas outside the immediate control
+of the program (invalid user input, database problems, network outages,
+absent files)
+
+
+are subclasses of Exception
+
+
+a method is obliged to establish a policy for all checked exceptions
+thrown by its implementation (either pass the checked exception further
+up the stack, or handle it somehow)
+
+
+
+It is somewhat confusing, but note as well that RuntimeException
+(unchecked) is itself a subclass of Exception
+(checked).
+Example 1
+Model Objects are the data-centric classes
+used to represent items in a particular domain. Model Object constructors
+need to handle both arbitrary user input, and input from underlying database
+ResultSets.
+Model Object constructors should throw checked exceptions :
+
+
+the program may have no direct control over user input. This is particularly
+true in web applications. It seems safest for a Model Object to treat user
+input as having arbitrary, unvalidated content.
+
+
+it is not safe for an application to make any assumptions about the state
+of the database. The database is an independent entity, and its data may
+be changed by various means, outside of any particular application. For
+example, data load tools are commonly used to create an initial state for
+a new database. Such data can easily violate the constraints built into
+a calling application. Thus, the safest assumption is to treat database
+ResultSets
+as having arbitrary, unvalidated content.
+
+Here is an example Model Object, taken from the WEB4J
+example application. Its constructor throws ModelCtorException
+(a checked exception) :
+</TEXT>
+<CODE orderid="1" >
+package hirondelle.fish.main.resto;
+
+import hirondelle.web4j.model.ModelCtorException;
+import hirondelle.web4j.model.ModelUtil;
+import hirondelle.web4j.model.Id;
+import hirondelle.web4j.security.SafeText;
+import hirondelle.web4j.model.Decimal;
+import static hirondelle.web4j.model.Decimal.ZERO;
+import hirondelle.web4j.model.Check;
+import hirondelle.web4j.model.Validator;
+import static hirondelle.web4j.util.Consts.FAILS;
+
+/** Model Object for a Restaurant. */
+public final class Resto {
+
+  /**
+   Full constructor.
+    
+   @param aId underlying database internal identifier (optional) 1..50 characters
+   @param aName of the restaurant (required), 2..50 characters
+   @param aLocation street address of the restaurant (optional), 2..50 characters
+   @param aPrice of the fish and chips meal (optional) $0.00..$100.00
+   @param aComment on the restaurant in general (optional) 2..50 characters
+  */
+  public Resto(
+    Id aId, SafeText aName, SafeText aLocation, Decimal aPrice, SafeText aComment
+  ) throws ModelCtorException {
+    fId = aId;
+    fName = aName;
+    fLocation = aLocation;
+    fPrice = aPrice;
+    fComment = aComment;
+    validateState();
+  }
+  
+  public Id getId() { return fId; }
+  public SafeText getName() {  return fName; }
+  public SafeText getLocation() {  return fLocation;  }
+  public Decimal getPrice() { return fPrice; }
+  public SafeText getComment() {  return fComment; }
+
+  @Override public String toString(){
+    return ModelUtil.toStringFor(this);
+  }
+  
+  @Override public  boolean equals(Object aThat){
+    Boolean result = ModelUtil.quickEquals(this, aThat);
+    if ( result ==  null ) {
+      Resto that = (Resto) aThat;
+      result = ModelUtil.equalsFor(
+        this.getSignificantFields(), that.getSignificantFields()
+      );
+    }
+    return result;
+  }
+  
+  @Override public int hashCode(){
+    if ( fHashCode == 0 ){
+      fHashCode = ModelUtil.hashCodeFor(getSignificantFields());
+    }
+    return fHashCode;
+  }
+  
+  // PRIVATE //
+  private final Id fId;
+  private final SafeText fName;
+  private final SafeText fLocation;
+  private final Decimal fPrice;
+  private final SafeText fComment;
+  private int fHashCode;
+  
+  private static final Decimal HUNDRED = Decimal.from(&quot;100&quot;);
+
+  private void validateState() throws ModelCtorException {
+    ModelCtorException ex = new ModelCtorException();
+    if ( FAILS == Check.optional(fId, Check.range(1,50)) ) {
+      ex.add(&quot;Id is optional, 1..50 chars.&quot;);
+    }
+    if ( FAILS == Check.required(fName, Check.range(2,50)) ) {
+      ex.add(&quot;Restaurant Name is required, 2..50 chars.&quot;);
+    }
+    if ( FAILS == Check.optional(fLocation, Check.range(2,50)) ) {
+      ex.add(&quot;Location is optional, 2..50 chars.&quot;);
+    }
+    Validator[] priceChecks = {Check.range(ZERO, HUNDRED), Check.numDecimalsAlways(2)};
+    if ( FAILS == Check.optional(fPrice, priceChecks)) {
+      ex.add(&quot;Price is optional, 0.00 to 100.00.&quot;);
+    }
+    if ( FAILS == Check.optional(fComment, Check.range(2,50))) {
+      ex.add(&quot;Comment is optional, 2..50 chars.&quot;);
+    }
+    if ( ! ex.isEmpty() ) throw ex;
+  }
+  
+  private Object[] getSignificantFields(){
+    return new Object[] {fName, fLocation, fPrice, fComment};
+  }
+}
+</CODE>
+<TEXT orderid="2" >
+Example 2
+Args is a convenient utility class. It performs common validations
+on method arguments. If a validation fails, then it throws an unchecked
+exception. It is suitable for checking the internal consistency of program,
+but not for checking arbitrary user input.
+</TEXT>
+</result>

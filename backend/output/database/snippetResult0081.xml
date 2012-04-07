@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>17426</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-tips.org/java-ee-tips/javaserver-pages/jstl-using-database-for-authentication-4.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home    Java EE Tips               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					JSTL - Using database for authentication									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;7
+
+
+PoorBest&#160;
+		
+				
+			
+				
+
+
+
+ Database behind JSP application is very convenient approach for managing user accounts and authenticating.
+ In this sample we use users table from a database source to store user account information (name, password).
+ The user supplies his username and password in the form fields. In JSP we use the &lt;sql:param&gt; tags fill
+ in the question marks with the supplied values. The query matches a row only if both the username and the password match.
+ This is how we handle authentication the process of forcing the users to prove that they are who they say they are.
+ Dependently on the login succeeds or not this page modifies request state before forwarding:
+</TEXT>
+<CODE orderid="1" >
+&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jstl/core&quot; %&gt;
+&lt;%@ taglib prefix=&quot;sql&quot; uri=&quot;http://java.sun.com/jstl/sql&quot; %&gt;
+
+&lt;sql:query var=&quot;result&quot;&gt;
+	select * from users where user=? and password=?
+	&lt;sql:param value=&quot;${param.user}&quot; /&gt;
+	&lt;sql:param value=&quot;${param.pw}&quot; /&gt;
+&lt;/sql:query&gt;
+
+&lt;c:choose&gt;
+	
+	&lt;c:when test=&quot;${result.rowCount &gt; 0}&quot;&gt;
+		&lt;c:set var=&quot;user&quot; scope=&quot;session&quot; value=&quot;${param.user}&quot; /&gt;
+		&lt;c:set var=&quot;rss&quot; scope=&quot;session&quot; 
+                    value=&quot;${result.rows[0].RSS}&quot; /&gt;
+	&lt;/c:when&gt;
+		
+	&lt;c:otherwise&gt;
+		&lt;c:set var=&quot;failedLogin&quot; scope=&quot;request&quot; value=&quot;true&quot;/&gt;
+	&lt;/c:otherwise&gt;
+&lt;/c:choose&gt;
+	
+&lt;jsp:forward page=&quot;main.jsp&quot; /&gt;
+</CODE>
+<TEXT orderid="2" >
+&#160;Related Tips 
+Accessing a Secure Enterprise Bean From a Java Client or Through Java Web Start Technology
+Accessing an EJB from an applet
+Accessing bean components from JSP
+Accessing EJB from a servlet within the same container
+An example of a simple JSP page
+Automated code generation
+Automated update of EJB deployment descriptor
+Bean with Indexed Properties and Accessing Indexed values through JSP Bean tags
+
+			
+		
+				
+
+		&#160;
+
+		
+
+			
+									
+						
+							&lt; Prev
+					
+										&#160;
+
+					
+										
+						
+							Next &gt;
+					
+								
+			
+			                
+
+
+
+
+
+
+
+ 
+Page 1 of 0 ( 0 comments )
+
+
+       You can share your information about this topic using the form below! 
+
+Please do not post your questions with this form! Thanks.
+
+ 
+
+  
+    
+      
+                
+          
+          
+
+          
+          Name (required)
+
+          
+          
+
+                    
+          
+
+          E-Mail (required)          
+                    
+
+          
+          
+          
+
+          Your email will not be displayed on the site - only to our administrator          
+          
+
+          Homepage(optional)
+
+
+
+
+
+
+
+          
+          
+
+          Comment          
+                    Enable HTML code :
+          
+          Yes
+          
+          No 
+
+          
+          
+          
+          
+
+          
+
+ 
+          
+
+          
+          
+        
+      
+    
+  
+
+
+
+
+
+&#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+      
+    
+    
+      
+        
+          &#160;
+          &#160;
+          &#160;
+        
+        
+          &#160;
+          
+              &#160;            
+          &#160;
+        
+        
+          &#160;
+          &#160;
+          &#160;
+        
+      
+    
+    
+      
+        
+            
+            
+            
+        
+      
+    
+	
+	
+
+
+		
+				
+			
+				
+			
+		
+		
+		
+
+
+
+
+
+
+
+
+Home
+
+
+-
+
+
+About Us
+
+
+-
+
+
+Privacy Policy
+
+
+
+
+
+
+Copyright 2005 - 2008 www.java-tips.org
+Java is a trademark of Sun Microsystems, Inc.
+</TEXT>
+</result>

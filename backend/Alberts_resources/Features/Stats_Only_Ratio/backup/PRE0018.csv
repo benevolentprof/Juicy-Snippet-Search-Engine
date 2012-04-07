@@ -1,0 +1,166 @@
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.4^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^1.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^1.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^1.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java: switch Statement - Overview^0.0^0.0^0.0^0.25^0.0^0.030303030303030304^4.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java Notes^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+switch Statement - Overview^0.0^0.0^0.0^0.3333333333333333^0.0^0.0^3.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Purpose of switch: select one of many possible statements to execute^0.0^0.0^0.0^0.09090909090909091^0.0^0.014705882352941176^11.0^0.45454545454545453^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+The ^0.0^0.0^0.0^0.0^0.0^0.0^1.0^1.0^text
+if^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ statement allows you to select one of two sections of code to execute based on a boolean value (only two possible values). The ^0.3333333333333333^0.0^0.0^0.043478260869565216^0.015267175572519083^0.0^23.0^0.5217391304347826^text
+switch^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ statement allows you to choose from many statements based on an integer (including ^0.5^0.0^0.0^0.0^0.011627906976744186^0.0^13.0^0.46153846153846156^text
+char^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+) or enum value.^0.0^0.0^0.3333333333333333^0.3333333333333333^0.0625^0.0^3.0^0.3333333333333333^text
+ ^0.3333333333333333^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Syntax example^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Syntax^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+switch^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ (^1.0^0.0^0.0^0.0^0.5^0.0^0.0^0.0^text
+expr^0.0^0.0^1.0^0.0^0.0^0.0^1.0^0.0^text
+) { ^1.0^0.0^0.0^0.0^0.2857142857142857^0.0^0.0^0.0^text
+case^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ c1: ^4.5^0.0^1.0^0.0^0.0^0.07142857142857142^1.0^0.0^text
+statements^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+ // do these if expr == c1 ^4.5^1.0^0.4^0.4^0.0^0.027777777777777776^5.0^0.2^text
+break^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+; ^1.0^0.0^0.0^0.0^0.2^0.0^0.0^0.0^text
+case^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ c2: ^4.5^0.0^1.0^0.0^0.0^0.06666666666666667^1.0^0.0^text
+statements^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+ // do these if expr == c2 ^4.5^1.0^0.4^0.4^0.0^0.027777777777777776^5.0^0.2^text
+break^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+; ^1.0^0.0^0.0^0.0^0.2^0.0^0.0^0.0^text
+case^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ c2: ^1.5^0.0^1.0^0.0^0.0^0.125^1.0^0.0^text
+case^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ c3: ^1.5^0.0^0.0^0.0^0.0^0.125^1.0^0.0^text
+case^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ c4: // Cases can simply fall thru. ^4.5^1.0^0.16666666666666666^0.0^0.0^0.018518518518518517^6.0^0.3333333333333333^text
+statements^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+ // do these if expr == any of c's ^4.5^1.0^0.14285714285714285^0.2857142857142857^0.0^0.022222222222222223^7.0^0.42857142857142855^text
+break^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+; . . . ^1.3333333333333333^0.0^0.0^0.0^0.07142857142857142^0.0^0.0^0.0^text
+default^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+: ^4.0^0.0^0.0^0.0^0.0^0.09090909090909091^0.0^0.0^text
+statements^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+ // do these if expr != any above }^0.5^1.0^0.16666666666666666^0.3333333333333333^0.027777777777777776^0.027777777777777776^6.0^0.5^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Switch keywords^0.0^0.0^0.0^0.5^0.0^0.0^2.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+switch^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ ^2.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+The ^0.0^0.0^0.0^0.0^0.0^0.0^1.0^1.0^text
+switch^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ keyword is followed by a parenthesized integer expression, which is followed by the ^4.5^0.0^0.07692307692307693^0.0^0.0^0.0^13.0^0.5384615384615384^text
+cases^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+, all enclosed in braces.. The switch statement executes the case corresponding to the value of the expression. Normally the code in a case clause ends with a ^5.333333333333333^0.0^0.0^0.1111111111111111^0.0^0.0^27.0^0.48148148148148145^text
+break^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ statement, which exits the switch statement and continues with the statement following the switch. If there is no corresponding case value, the ^6.25^0.0^0.0^0.18181818181818182^0.0^0.0^22.0^0.45454545454545453^text
+default^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ clause is executed. If no case matched and there is no default clause, execution continues after the end of the switch statement.^4.5^0.0^0.0^0.18181818181818182^0.0^0.0^22.0^0.45454545454545453^text
+ ^1.3333333333333333^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+case^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ ^2.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+The case keyword is followed by an integer constant and a colon. This begins the statements that are executed when the switch expression has that case value. ^4.0^0.0^0.0^0.14814814814814814^0.0^0.0^27.0^0.48148148148148145^text
+ ^1.3333333333333333^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+default^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ ^2.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+If no case value matches the switch expression value, execution continues at the default clause. This is the equivalent of the "else" for the switch statement. It is written after the last case be convention, and typically isn't followed by ^3.0^0.0^0.0^0.225^0.0^0.0^40.0^0.45^text
+break^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ because execution just continues out the bottom of switch if this is the last clause. ^3.0^0.0^0.0^0.2^0.0^0.0^15.0^0.4666666666666667^text
+ ^1.3333333333333333^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+break^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ ^2.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+The ^0.0^0.0^0.0^0.0^0.0^0.0^1.0^1.0^text
+break^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ statement causes execution to exit to the statement after the end of the switch. If there is no break, execution flows thru into the next case. Flowing directly into the next case is almost always an error. ^5.25^0.0^0.0^0.13513513513513514^0.0^0.0^37.0^0.5675675675675675^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Example - Random comment^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+String comment; // The generated insult. int which = (int)(Math.random() * 3); // Result is 0, 1, or 2. switch (which) { case 0: comment = "You look so much better than usual."; break; case 1: comment = "Your work is up to its usual standards."; break; case 2: comment = "You're quite competent for so little experience."; break; default: comment = "Oops -- something is wrong with this code."; }^4.583333333333333^2.0^0.0^0.21818181818181817^0.04042553191489362^0.02127659574468085^55.0^0.34545454545454546^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Equivalent if statement^0.0^0.0^0.0^0.3333333333333333^0.0^0.0^3.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+A ^0.0^0.0^0.0^0.0^0.0^0.0^1.0^1.0^text
+switch^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ statement can often be rewritten as an ^1.0^0.0^0.0^0.0^0.0^0.0^7.0^0.7142857142857143^text
+if^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ statement in a straightforward manner. For example, the preceding ^0.0^0.0^0.0^0.1111111111111111^0.0^0.0^9.0^0.3333333333333333^text
+switch^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ statement could be written as follows. When one of a number of blocks of code is selected based on a single value, the ^0.3333333333333333^0.0^0.0^0.0^0.0^0.0^23.0^0.5652173913043478^text
+switch^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ statement is generally easier to read. The choice of ^0.5^0.0^0.0^0.0^0.0^0.0^9.0^0.4444444444444444^text
+if^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ or ^1.0^0.0^0.0^0.0^0.0^0.0^1.0^1.0^text
+switch^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ should be based on which is more readable. ^0.3333333333333333^0.0^0.0^0.0^0.0^0.0^8.0^0.75^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+String comment; // The generated insult. int which = (int)(Math.random() * 3); // Result is 0, 1, or 2. if (which == 0) { comment = "You look so much better than usual."; } else if (which == 1) { comment = "Your work is up to its usual standards."; } else if (which == 2) { comment = "You're quite competent for so little experience."; } else { comment = "Oops -- something is wrong with this code."; }^1.3333333333333333^2.0^0.0^0.18181818181818182^0.059907834101382486^0.020737327188940093^55.0^0.38181818181818183^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Defensive programming^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Always include a ^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.6666666666666666^text
+default^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ clause in your switch statement as a general policy of ^0.5^0.0^0.0^0.1^0.0^0.0^10.0^0.5^text
+defensive programming^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ - assume there will be bugs in your code and make sure they are caught. ^0.3333333333333333^0.0^0.0^0.0^0.0^0.0^14.0^0.5714285714285714^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Where to use switch?^0.0^0.0^0.0^0.25^0.0^0.05^4.0^0.5^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+The ability of ^0.0^0.0^0.0^0.0^0.0^0.0^3.0^0.6666666666666666^text
+switch^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ to choose between many sections of code seems to make it more powerful than ^0.5^0.0^0.0^0.0^0.0^0.0^14.0^0.6428571428571429^text
+if^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+. However, selecting sections of code depending on specific integer values turns out not to be very common. If you are handling specific coded values (eg, the number of the button that was clicked in a JOptionPane), or processing characters (whose codes are treated like numbers), you may find it useful. ^0.0^0.0^0.02^0.02^0.012698412698412698^0.0^50.0^0.48^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Efficiency?^0.0^0.0^0.0^0.0^0.0^0.09090909090909091^1.0^0.0^text
+ Some compilers can produce more efficient code for certain ^1.0^0.0^0.0^0.1111111111111111^0.0^0.0^9.0^0.3333333333333333^text
+switch^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ statements than for equivalent ^0.5^0.0^0.0^0.25^0.0^0.0^4.0^0.25^text
+if^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ statements. I haven't bothered to test the Java compiler because, if there is a speed difference, it would be extremely small and the choice between ^0.3333333333333333^0.0^0.0^0.04^0.0^0.0^25.0^0.52^text
+switch^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ and ^0.0^0.0^0.0^0.0^0.0^0.0^1.0^1.0^text
+if^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ should be based on readability. ^0.5^0.0^0.0^0.0^0.0^0.0^5.0^0.6^text
+ ^1.75^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Comments on switch^0.0^0.0^0.0^0.3333333333333333^0.0^0.0^3.0^0.3333333333333333^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Java's ^0.0^0.0^0.0^0.0^0.0^0.0^1.0^0.0^text
+switch^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ statement, which was taken directly from C++ to increase its attractiveness to C++ programmers, is not well loved. ^0.3333333333333333^0.0^0.0^0.0^0.0^0.01694915254237288^18.0^0.5^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+No ranges^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.5^text
+. It doesn't allow ranges, eg ^0.0^0.0^0.0^0.0^0.0^0.0^5.0^0.4^text
+case 90-100:^0.0^0.0^0.0^1.0^0.0^0.08333333333333333^1.0^0.0^text
+. Many other languages do.^0.0^0.0^0.0^0.25^0.0^0.0^4.0^0.5^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Integers only^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.5^text
+. It requires integers and doesn't allow useful types like String. Many other languages do.^0.0^0.0^0.0^0.07142857142857142^0.0^0.0^14.0^0.2857142857142857^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+Error-prone^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+. It is error-prone and a common source of bugs - forgetting ^0.0^0.0^0.0^0.0^0.0^0.0^11.0^0.45454545454545453^text
+break^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ or ^2.0^0.0^0.0^0.0^0.0^0.0^1.0^1.0^text
+default^0.0^0.0^0.0^1.0^0.0^0.0^1.0^0.0^text
+ silently ignores errors. Some languages have eliminated these dangerous situations. ^2.5^0.0^0.0^0.0^0.0^0.0^10.0^0.3^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ Copyleft 2005 ^0.0^0.0^1.0^0.0^0.0^0.0^1.0^0.0^text
+Fred Swartz^0.0^0.0^0.5^0.0^0.0^0.0^2.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+MIT License^0.0^0.0^0.0^0.0^0.0^0.0^2.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+ ^0.0^0.0^0.0^0.0^0.0^0.0^0.0^0.0^text
+

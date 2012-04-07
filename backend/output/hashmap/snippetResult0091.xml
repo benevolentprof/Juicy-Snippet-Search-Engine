@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>9266</docid>
+<orderid>5</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/article.php/10922_3726041_1/Working-With-Design-Patterns-Adapter.htm</url>
+</description>
+<CODE orderid="3" >
+import static org.junit.Assert.*;
+import org.junit.*;
+
+public class PortfolioTest {
+   private static final String MICROSOFT = &quot;MSFT&quot;;
+   private static final int MICROSOFT_VALUE = 100;
+   private static final String IBM = &quot;IBM&quot;;
+   private static final int IBM_VALUE = 80;
+
+   private Portfolio portfolio;
+
+   @Before
+   public void initialize() {
+      StockLookupService service = new StockLookupService() {
+         @Override
+         public int currentPrice(String symbol) {
+            if (symbol.equals(MICROSOFT))
+               return MICROSOFT_VALUE;
+            if (symbol.equals(IBM))
+               return IBM_VALUE;
+            return 0;
+         }
+      };
+
+      portfolio = new Portfolio(service);
+   }
+
+   @Test
+   public void isEmptyOnCreation() {
+      assertSize(0);
+      assertEquals(0, portfolio.value());
+   }
+
+   @Test
+   public void storesSharesPerSymbol() {
+      portfolio.purchase(MICROSOFT, 2);
+      assertSize(1);
+      assertEquals(2, portfolio.shares(MICROSOFT));
+      assertEquals(2 * MICROSOFT_VALUE, portfolio.value());
+   }
+
+   @Test
+   public void sumsSharesPurchasedForSameSymbol() {
+      portfolio.purchase(MICROSOFT, 1);
+      portfolio.purchase(MICROSOFT, 2);
+      assertSize(1);
+      assertEquals(3, portfolio.shares(MICROSOFT));
+      assertEquals(3 * MICROSOFT_VALUE, portfolio.value());
+   }
+
+   @Test
+   public void segregatesPurchasesBySymbol() {
+      portfolio.purchase(MICROSOFT, 5);
+      portfolio.purchase(IBM, 10);
+      assertSize(2);
+      assertEquals(5, portfolio.shares(MICROSOFT));
+      assertEquals(10, portfolio.shares(IBM));
+      int expectedValue = 5 * MICROSOFT_VALUE + 10 * IBM_VALUE;
+      assertEquals(expectedValue, portfolio.value());
+   }
+
+   void assertSize(int expected) {
+      assertEquals(0 == expected, portfolio.isEmpty());
+      assertEquals(expected, portfolio.size());
+   }
+}
+</CODE>
+<TEXT orderid="4" >
+Listing 2: Portfolio.
+</TEXT>
+<CODE orderid="5" >
+import java.util.*;
+
+public class Portfolio {
+   private Map&lt;String, Integer&gt; symbols =
+      new HashMap&lt;String, Integer&gt;();
+   private StockLookupService service;
+
+   public Portfolio(StockLookupService service) {
+      this.service = service;
+   }
+
+   public boolean isEmpty() {
+      return 0 == size();
+   }
+
+   public int size() {
+      return symbols.size();
+   }
+
+   public void purchase(String symbol, int shares) {
+      symbols.put(symbol, shares(symbol) + shares);
+   }
+
+   public int shares(String symbol) {
+      if (!symbols.containsKey(symbol))
+         return 0;
+      return symbols.get(symbol);
+   }
+
+   public int value() {
+      int total = 0;
+      for (Map.Entry&lt;String, Integer&gt; holding:
+         symbols.entrySet()) {
+         String symbol = holding.getKey();
+         int shares = holding.getValue();
+         total += service.currentPrice(symbol) * shares;
+      }
+      return total;
+   }
+}
+</CODE>
+<TEXT orderid="6" >
+1 
+2 
+
+				
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 help help, ... :) &quot;game of life&quot;,
+ 2 JAVA Applet Help
+ 3 chatting Project
+ 4 BorderLayout and Graphics issue
+ 5 Mastermind java game (non object-oriented version)
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Converting from String to Date data type
+ 3 help help, ... :) &quot;game of life&quot;,
+ 4 Need code to close this game
+ 5 Newbie Help with Study Guide Question---NOT HOMEWORK
+
+
+						
+					
+					
+						
+
+ 1 help help, ... :) &quot;game of life&quot;,
+ 2 Need code to close this game
+ 3 Quick question about Blackjack
+ 4 Newbie Help with Study Guide Question---NOT HOMEWORK
+ 5 Add ScrollBars to JTextArea
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>7174</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/ent/article.php/10933_3684656_2/Guicing-Up-Your-Testing.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Enterprise Java
+					
+				
+				
+					Read More in Enterprise Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Guicing Up Your Testing
+			
+			
+				
+				
+					June 21, 2007
+					By 
+Dick Wall
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Simple Dependency Injection
+
+The simplest solution is to get rid of the reliance on that singleton. To test the invoice class, there is no reason you need a real database to back it (even if it is a fast one). Look at what you need out of the DbTaxRateManager. There are only two methods you need: setTaxRateForCustomer, and getTaxRateForCustomer. These take a customer ID and return a double. That sort of functionality can be supplied by a hashmap just as easily as a database, and it&apos;s faster and lighter too.
+
+Producing a class implemented like this that simulates the desired functionality from the database implementation is known as faking the object (rather than mocking the object, which is more akin to providing a script that the mock object is expecting to follow, and then following it). Either way, the point here is to test the Invoice class and its calculation of sales tax on a number of items rather than the TaxRateManager, so if you assume that the TaxRateManager just stores and retrieves sales tax percentages based on a customer ID, you end up with something like this:
+</TEXT>
+<CODE orderid="1" >
+public class FakeTaxRateManager implements TaxRateManager {
+
+   private Map&lt;Integer,BigDecimal&gt; taxRates;
+
+   public FakeTaxRateManager() {
+      taxRates = new HashMap&lt;Integer, BigDecimal&gt;();
+   }
+
+   public void setTaxRateForCustomer(int customerId, BigDecimal taxRate) {
+      taxRates.put(customerId, taxRate);
+   }
+
+   public void setTaxRateForCustomer(int customerId, double taxRate) {
+      this.setTaxRateForCustomer(customerId, new BigDecimal(taxRate));
+   }
+
+   public BigDecimal getTaxRateForCustomer(int customerId) {
+      BigDecimal taxRate = taxRates.get(customerId);
+      if (taxRate == null) taxRate = new BigDecimal(0;
+      return taxRate;
+   }
+}
+</CODE>
+<TEXT orderid="2" >
+There are a couple of things to note here. First, this is a really simple class. More importantly, it stores everything in memory, never going near a database, so it is going to be really fast to use in a unit test (of course, nothing will be stored across tests, but you can set up everything you need in the unit test and in fact you should&#8212;unit tests should not rely on assumed state from some other test or run because that state can always be wrong).
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		The second thing to notice is that your new FakeTaxRateManager implements an interface called TaxRateManager. For your dependency injection to work, you need to create an interface that the Invoice class uses, rather than a specific implementation. The interface can be refactored out by most modern IDEs with just a few clicks, and should look something like this:
+</TEXT>
+</result>

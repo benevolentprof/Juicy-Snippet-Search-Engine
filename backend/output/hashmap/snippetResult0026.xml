@@ -1,0 +1,952 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>3694</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/ejb/article.php/2208201/Building-Reusable-Components-Using-a-StateChangeListener-Pattern.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					EJB/Components
+					
+				
+				
+					Read More in EJB/Components &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Building Reusable Components Using a StateChangeListener Pattern
+			
+			
+				
+				
+					May 16, 2003
+					By 
+R.  Venkatavaradan 
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Introduction
+
+Today, server-side Java development has become simpler because of component models using EJBs. The fundamental concept behind these component models is to allow components to do only business logic and let the application server manage the non-functional features such as threading, performance and so forth. However, these components still do logging, billing, and other functionalities, which vary based on the deployment scenarios. If a framework or an application server could either provide these functionalities or allow plugging of components providing these functionalities, the reuse of these components would attain a much higher level. This article talks about obtaining such a reuse of components using the StateChangeListener design pattern, which is an extension of the Observer-Observable pattern.
+
+Scenario Illustrated
+
+Consider a Java component that does some useful business logic: It may talk to a database, interface with EAI like SAP, and so forth. The component owner inserts log statements into his component for varying purposes such as debugging, auditing, billing, and the like. The &quot;debugging&quot; reason is valid to be owned by the component owner because it helps him fix bugs in the component. However, the other aspects such as auditing, billing, and so forth, the component owner cannot decide by himself. Rather, it depends upon the situation/environment where the component is deployed. For example, some scenarios may require audit logs to directly go into their ERP system, whereas for some other scenarios, it may have to be logged in a database. Though logging packages such as log4j allow a flexible configuration for file formats, storage (file or database) into a file or database as well as allowing custom appenders, it may not cover all the unforeseen circumstances that would arise during application deployment. So, instead of a component doing audit logging and billing by itself, it can express its intention by raising events about it.
+
+Why Express State Change
+
+Typically, a component does audit logging or generates billing information when there is a change in the component&apos;s state. If it raises an event about its state change, it allows listeners to be plugged to take care of these events. These listeners can be pre-built and could be provided by the Application Server itself as pre-packaged listeners. This allows custom handling of state change events and hence gives full flexibility during deployment. This also removes the burden on the component developers from doing audit logging and billing, and allows them to concentrate on business logic alone.
+
+Illustrated with Example
+
+The following code snippets throw light on possibility of development of frameworks based on StateChangeListener pattern. Note that the intention of the code snippets is to make the readers understand the requirement of such frameworks and is not, by any means, the only way of achieving the requirements.
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+</TEXT>
+<CODE orderid="1" >
+//AbstractComponent.java
+
+package statechangepattern;
+import java.util.Vector;
+public abstract class AbstractComponent
+{
+  private Vector listeners = new Vector(0,1);
+  public void addListener(StateChangeListener listener)
+  {
+    listeners.add(listener);
+  }
+  public void removeListener(StateChangeListener listener)
+  {
+    listeners.remove(listener);
+  }
+  public void stateChanged(StateChangeEvent x)
+  {
+    int size = listeners.size();
+    for(int i=0;i&lt;size;i++)
+    {
+      ((StateChangeListener)listeners.elementAt(i)).
+        stateChanged(x);
+    }
+  }
+  public abstract void doBusinessLogic();
+
+}
+
+//StateChangeListener.java
+package statechangepattern;
+public interface StateChangeListener
+{
+  public void stateChanged(StateChangeEvent x);
+
+}
+
+//StateChangeEvent.java
+
+package statechangepattern;
+import java.util.HashMap;
+public interface StateChangeEvent
+{
+  public String getFromState();
+  public String getToState();
+  public HashMap getCurrentStateParams();
+}
+
+//SampleStateChangeEvent,java
+package statechangepattern;
+import java.util.HashMap;
+public class SampleStateChangeEvent implements StateChangeEvent
+{
+  private String fromState,toState;
+  private HashMap params;
+  public SampleStateChangeEvent(String fromState, String toState,
+                                HashMap params)
+  {
+    this.fromState = fromState;
+    this.toState = toState;
+    this.params = params;
+  }
+  public String getFromState()
+  {
+    return fromState;
+  }
+  public String getToState()
+  {
+    return toState;
+  }
+  public HashMap getCurrentStateParams()
+  {
+    return params;
+  }
+}
+//SampleStateChangeListener
+package statechangepattern;
+public class SampleStateChangeListener
+       implements StateChangeListener
+{
+  String lName;
+  boolean ignore;
+  public SampleStateChangeListener(String listenerName,
+                                   boolean ignore)
+  {
+      this.lName = listenerName;
+      this.ignore = ignore;
+   }
+  public void stateChanged(StateChangeEvent x)
+  {
+      System.out.println(&quot;Listener Name:&quot;+lName);
+      if(ignore)
+      {
+          System.out.println(lName+&quot;:Ignoring event..&quot;);
+      }
+      else
+      {
+        System.out.println(&quot;State Changed from:&quot;+x.getFromState()+&quot;
+                            to &quot;+x.getToState());
+        System.out.println(&quot;State Params are:&quot;+
+                            x.getCurrentStateParams());
+     }
+  }
+
+}
+
+
+//SampleComponent.java
+package statechangepattern;
+import java.util.Vector;
+import java.util.HashMap;
+public class SampleComponent extends AbstractComponent
+{
+
+  public void doBusinessLogic()
+  {
+    System.out.println(&quot;I am here..&quot;);
+    String fromState=&quot;Before DB&quot;;
+    String toState=&quot;After DB&quot;;
+    HashMap params = new HashMap();
+    params.put(&quot;Result&quot;,&quot;DB Result&quot;);
+    SampleStateChangeEvent x =
+          new SampleStateChangeEvent(fromState,toState,params);
+    stateChanged(x);
+
+  }
+
+}
+//SampleTest.java
+package statechangepattern;
+public class SampleTest
+{
+
+  public static void main(String [] args)
+  {
+    AbstractComponent x    = new SampleComponent();
+    StateChangeListener l1 = new SampleStateChangeListener(
+                             &quot;First Listener&quot;,true);
+    StateChangeListener l2 = new SampleStateChangeListener(
+                             &quot;Second Listener&quot;,false);
+    x.addListener(l1);
+    x.addListener(l2);
+    x.doBusinessLogic();
+
+
+  }
+
+}
+</CODE>
+<TEXT orderid="2" >
+Author&apos;s Profile
+
+Mr. R. Venkatavaradan has been working as a Technical Consultant for Hewlett-Packard. He has a Masters Degree from the School of Automation, Indian Institute of Science, Bangalore. He has about 13 years of industry experience. The field of his work ranges from signal processing to Web services, J2EE, Enterprise Application Integration, and so forth. He has extensively worked on Web service technologies such as WSDL, SOAP, and UDDI and has provided technical consultancy to various projects in the field of mobile, telecom, and EAI, which have been architected based on Web service concepts.
+			
+			
+			
+			
+				
+1 
+
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

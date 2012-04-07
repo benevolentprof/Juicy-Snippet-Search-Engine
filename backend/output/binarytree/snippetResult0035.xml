@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75711</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/example/java/swing/JTreeTraverse.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Traverse JTree  Example
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this section, you will read about traversal of a  tree and its node .Teaches, displaying the node and its path on the command prompt.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Traverse JTree&#160; Example
+
+
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+In this
+section, you will read about traversal of a&#160; tree and its node .Teaches,
+displaying the node and its path on the command prompt. The Javax.swing.JTree
+class is a powerful swing component to display data in a tree structure.&#160;
+Program Description:
+This program creates a tree with root and child nodes on
+the frame. The TreeModel is a simple tree data model that uses
+TreeNodes. The TreeSelectionListener&#160;
+class performs an action when you click the node of tree. This uses getSelectionPath() method
+for getting the first path in the selection of node in a tree. Finally, this
+program performs the selection of a node of the tree to be displayed like the name of
+tree and its path.
+getSelectionPath():&#160;
+
+  This is the method that returns the first path of
+the selected tree.
+Here is the code of this program:
+</TEXT>
+<CODE orderid="1" >
+import&#160;javax.swing.*;
+
+import&#160;javax.swing.event.*;
+
+import&#160;javax.swing.tree.*;
+
+import&#160;java.awt.*;
+
+
+
+public&#160;class&#160;JTreeTraverse&#160;{
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String&#160;args[])&#160;{
+
+&#160;&#160;&#160;&#160;JFrame&#160;fm&#160;=&#160;new&#160;JFrame(&quot;JTree&#160;Traverse&#160;frame&quot;);
+
+&#160;&#160;&#160;&#160;String&#160;object[]&#160;=&#160;{&#160;&quot;Cricket&quot;,&#160;&quot;Hokey&quot;,&#160;&quot;Football&quot;&#160;};
+
+&#160;&#160;&#160;&#160;JTree&#160;tree&#160;=&#160;new&#160;JTree(object);
+
+&#160;&#160;&#160;&#160;tree.setRootVisible(true);
+
+&#160;&#160;&#160;&#160;TreeModel&#160;treemodel&#160;=&#160;tree.getModel();
+
+&#160;&#160;&#160;&#160;Object&#160;TraverseObject&#160;=&#160;treemodel.getRoot();
+
+&#160;&#160;&#160;&#160;if&#160;((TraverseObject&#160;!=&#160;null)&#160;&amp;&amp;&#160;(TraverseObject&#160;instanceof&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+DefaultMutableTreeNode))&#160;{
+
+&#160;&#160;&#160;&#160;TreeSelectionListener&#160;treeListener&#160;=&#160;new&#160;TreeSelectionListener()&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;public&#160;void&#160;valueChanged(TreeSelectionEvent&#160;treeSelectionEvent)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;JTree&#160;tree&#160;=&#160;(JTree)&#160;treeSelectionEvent.getSource();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;TreePath&#160;object&#160;=&#160;tree.getSelectionPath();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(object);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(object.getPath());
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;};
+
+&#160;&#160;&#160;&#160;tree.addTreeSelectionListener(treeListener);
+
+&#160;&#160;&#160;&#160;JScrollPane&#160;scroll&#160;=&#160;new&#160;JScrollPane(tree);
+
+&#160;&#160;&#160;&#160;fm.getContentPane().add(scroll,&#160;BorderLayout.CENTER);
+
+&#160;&#160;&#160;&#160;fm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+&#160;&#160;&#160;&#160;fm.setSize(200,&#160;200);
+
+&#160;&#160;&#160;&#160;fm.setVisible(true);
+
+&#160;&#160;}
+
+&#160;&#160;}
+
+}
+
+&#160;&#160;&#160;
+    
+   
+  
+   
+
+
+
+Download this program.
+</CODE>
+<TEXT orderid="2" >
+Output of this program:
+</TEXT>
+</result>

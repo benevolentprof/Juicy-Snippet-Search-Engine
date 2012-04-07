@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>10489</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.javaworld.com/javaworld/jw-09-2006/jw-0904-threads.html</url>
+</description>
+<TEXT orderid="0" >
+InfoWorld: Modernizing IT
+
+
+JavaWorld: Solutions for Java Developers
+
+
+               
+                 
+
+
+
+  
+  
+    
+    
+    Advanced search
+  
+
+  
+
+
+            
+            
+               
+            
+         
+         
+
+
+            
+      
+      
+
+
+ 
+
+
+
+
+
+
+Research Centers
+			+ Core JavaClient-side JavaDesign PatternsJava LanguageJava Platform APIsJava Programming ConceptsSwing/GUI ProgrammingThreads/Concurrency
+			+ Enterprise JavaAjax/RIA/Web 2.0Architecture &amp; ScalabilityEnterprise Best PracticesJava &amp; XMLJava Web DevelopmentWeb Services &amp; SOAs
+			+ Mobile Java
+			+ Tools &amp; MethodsApplication ServersData Management/RDBMSEnterprise MiddlewareJava IDEsJava SecurityOpen Source ToolsScripting/Other LanguagesSoftware Development LifecycleSoftware Development MethodologiesTesting &amp; DebuggingWeb Application Frameworks
+			+ JavaWorld ArchivesDesign TechniquesHow-to JavaJava 101Java Design PatternsJava Q&amp;AJava TipsJava TrapsServer-side JavaUnder the Hood
+ 
+    
+      Site Resources
+      Featured Articles
+      News &amp; Views
+      Community
+      Java Q&amp;A
+      JW Blogs
+	  Podcasts
+	  Site Map
+    
+    
+	
+	
+      Careers
+	  Newsletters
+      Whitepapers
+      RSS Feeds
+    
+   
+   
+	
+		 About JavaWorld
+         Advertise
+         Write for JW
+	
+	
+	
+
+	
+		
+            
+               
+               
+                  
+                     Development Tools
+                  
+               
+               
+            
+            
+               
+            
+            
+               
+                  
+                     
+	
+		
+		JW&apos;s Most Read
+		
+		
+	
+	
+		 Recent:
+
+   Java Tips:&#160;The Serialization algorithm revealed
+   Know your Oracle application server
+   SwingX, JRuby: Survivors?
+   Cloud-ready, multicore-friendly apps, Part 2
+   Lean service architectures with Java EE 6
+
+Archives:
+
+   Hello, OSGi:&#160;Bundles for beginners (2008)
+   
+   Sockets programming in Java:&#160;A tutorial (1996)
+   
+   Understanding JPA, Part 1 (2008)
+   
+   Smartly load your properties (2003)
+   
+   REST for Java developers, Part 1 (2008)
+   
+
+	
+	
+		 
+	
+
+
+
+                        
+
+
+            
+      
+      
+
+
+ 
+
+
+
+
+
+                     
+                     Featured White PapersFree Trial Download: Build Professional Java Installers with InstallAnywhere
+                             
+	
+	
+          
+            Newsletter sign-up  View all newsletters
+			Sign up for our Enterprise Java Newsletter 
+            
+              
+                
+                Enterprise Java
+              
+		    
+            
+			
+			
+            
+          
+        
+        
+       
+    
+        Sponsored Links
+    
+  
+		
+			Slow Apps? Overloaded DBMS? - FREE Download
+			
+            FREE Download Feb 14 - March 7th Eliminate bottlenecks &amp; maximize performance ScaleOut StateServer&#174; 
+	
+   
+  
+	
+
+
+	
+
+
+
+                     
+                     
+                  
+                  JavaWorld.com
+                     &gt; Java Development Tools &gt;
+
+                  
+                     
+                     
+                     
+                     
+                     Book excerpt: Executing tasks in threads
+                     When creating threads to perform tasks, look to the Executor framework
+                     By&#160;Brian Goetz,&#160;Tim Peierls,&#160;Joshua Bloch,&#160;Joseph Bowbeer,&#160;David Holmes&#160;and&#160;Doug Lea,&#160;JavaWorld.com,&#160;09/04/06
+                     
+    
+        
+            Print
+            Email
+            Feedback
+            Resources
+            Discuss
+            
+    
+    
+        Digg
+        Reddit
+        SlashDot
+        Stumble
+        del.icio.us
+        Technorati
+        dzone
+          
+
+                     
+                     
+                     
+
+
+
+                     
+                     Most concurrent applications are organized around the execution of tasks: abstract, discrete units of work. Dividing the work of an application into tasks simplifies program organization, facilitates
+                        error recovery by providing natural transaction boundaries, and promotes concurrency by providing a natural structure for
+                        parallelizing work.
+                     
+                     The first step in organizing a program around task execution is identifying sensible task boundaries. Ideally, tasks are independent activities: work that doesn&apos;t depend on the state, result, or side effects of other tasks. Independence facilitates concurrency,
+                        as independent tasks can be executed in parallel if there are adequate processing resources. For greater flexibility in scheduling
+                        and load balancing tasks, each task should also represent a small fraction of your application&apos;s processing capacity.
+                     
+                     Server applications should exhibit both good throughput and good responsiveness under normal load. Application providers want applications to support as many users as possible, so as to reduce provisioning
+                        costs per user; users want to get their response quickly. Further, applications should exhibit graceful degradation as they become overloaded, rather than simply falling over under heavy load. Choosing good task boundaries, coupled with
+                        a sensible task execution policy, can help achieve these goals.
+                     
+                     Most server applications offer a natural choice of task boundary: individual client requests. Web servers, mail servers, file
+                        servers, EJB (Enterprise JavaBeans) containers, and database servers all accept requests via network connections from remote
+                        clients. Using individual requests as task boundaries usually offers both independence and appropriate task sizing. For example,
+                        the result of submitting a message to a mail server is not affected by the other messages being processed at the same time,
+                        and handling a single message usually requires a very small percentage of the server&apos;s total capacity.
+                     
+                     Executing tasks sequentially
+                     There are a number of possible policies for scheduling tasks within an application, some of which exploit the potential for
+                        concurrency better than others. The simplest is to execute tasks sequentially in a single thread. SingleThreadWebServer in Listing 1 processes its tasks&#65533;HTTP requests arriving on port 80&#65533; sequentially. The details of the request processing aren&apos;t
+                        important; we&apos;re interested in characterizing the concurrency of various scheduling policies.
+                     
+                     Listing 1. Sequential Web server
+</TEXT>
+<CODE orderid="1" >
+class SingleThreadWebServer {
+   public static void main(String[] args) throws IOException {
+      ServerSocket socket = new ServerSocket(80);
+      while (true) {
+         Socket connection = socket.accept();
+         handleRequest(connection);
+      }
+   }
+}
+</CODE>
+<TEXT orderid="2" >
+The SingleThreadedWebServer is simple and theoretically correct, but would perform poorly in production because it can handle only one request at a time.
+                        The main thread alternates between accepting connections and processing the associated request. While the server is handling
+                        a request, new connections must wait until it finishes the current request and calls accept again. This might work if request processing were so fast that handleRequest effectively returned immediately, but this doesn&apos;t describe any Web server in the real world.
+                        
+                     
+
+
+
+
+
+									 
+									 	 12345Next&#160;&gt;
+									 
+                     
+                     
+                     
+                     
+                     
+                     
+    
+        
+            Print
+            Email
+            Feedback
+            Resources 
+            
+    
+    
+        Digg
+        Reddit
+        SlashDot
+        Stumble
+        del.icio.us
+        Technorati
+        dzone
+          
+
+                     CommentWelcome,  LogoutLog in | Register    
+    
+        
+            Login
+                
+                    
+                        Username
+                        
+                                                
+                            
+                        
+                    
+                    
+                        Password
+                        
+                                                
+                            
+                        
+                    
+                
+            
+            
+                            
+                            
+                Forgot your account info?
+            
+        
+    
+    
+    
+
+    Add comment
+        
+        Screen Name            
+        
+        Anonymous comments subject to approval. Register here for member benefits.  
+        
+        
+        Subject            
+                   
+        Comment (required)
+        
+        
+        
+         
+         
+        
+        
+        Have a JavaWorld account? Log in here. Register now for a free account.
+        
+        
+    
+
+ 
+ 
+                     
+                        
+                     
+                     
+
+ Archived Discussions (Read only)
+
+
+
+
+
+Subject
+
+ 
+
+
+
+
+
+
+
+
+Forum migration complete By Athen
+
+
+
+
+
+
+
+
+
+Forum migration update By Athen
+
+
+
+
+
+
+
+
+
+Book excerpt: Executing tasks in threads By JavaWorld
+
+
+
+
+
+
+
+
+
+
+
+
+
+                     Resources
+
+                           
+                              
+                                 This article is an excerpt from Java Concurrency in Practice by Brian Goetz, Tim Peierls, Joshua Bloch, Joseph Bowbeer, David Holmes, and Doug Lea (Addison Wesley Professional, May 2006;
+                                    ISBN0321349601)
+ http://www.awprofessional.com/bookstore/product.asp?isbn=0321349601&amp;rl=1
+                                 For more articles on threads, browse the Thread Programming section of JavaWorld&apos;s Topical Index
+ http://www.javaworld.com/channel_content/jw-threads-index.shtml
+                              
+                           
+                        
+
+                     
+
+                  
+               
+               
+		
+
+
+
+
+ 
+
+               
+                  
+               
+               
+
+
+            
+      
+      
+
+
+ 
+
+
+
+
+
+               
+
+    
+        Sponsored Links
+    
+    &#160;
+
+   
+      
+         
+            
+               XpoLog Center Correlate application logs with server metrics
+               - XpoLog
+            &#160;
+      
+   
+
+    
+
+
+               
+                  
+               
+               RESEARCH CENTERS: 
+Java Standard Edition | 
+Java Enterprise Edition | 
+Java Micro Edition  | 
+Development Tools
+
+About Us | Advertise | Contact Us | Terms of Service/Privacy 
+Copyright, 2006-2008 Network World, Inc. All rights reserved.
+
+            
+            
+    
+        
+            RESEARCH CENTERS
+            Core Java
+            Enterprise Java
+            Mobile Java
+            Tools &amp; Methods
+            JavaWorld Archives
+        
+        IDG Network
+            CIO Computerworld
+            CSO
+            Demo GamePro
+        
+        
+            Games.net
+            IDGconnect.com
+            IDG World Expo
+            InfoWorld
+            ITworld
+            LinuxWorld.com
+        
+        
+            MacUser 
+            Macworld
+            NetworkWorld.com
+            PC World
+            Playlistmag.com
+        
+    
+
+About Us | Advertise | Contact Us | Terms of Service/Privacy
+Copyright, 2006-2010 Infoworld, Inc. All rights reserved.
+</TEXT>
+</result>

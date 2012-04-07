@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>2837</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/article.php/10922_3837316_2/Non-Blocking-IO-Made-Possible-in-Java.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					
+				
+				
+					Read More in Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Non-Blocking I/O Made Possible in Java
+			
+			
+				
+				
+					September 16, 2009
+					By 
+Thribhuvan S Thakur
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+SelectionKey
+When a Channel is registered with a Selector, a
+SelectionKey object is created to represent the
+registration, which includes the channel, the operational
+sets and the Selector that was provided during the
+registration process.
+SelectionKey carries the event information necessary for
+event handler to process the event. As mentioned before, a
+Selector decouples event arrival from event handling, for
+example when a channel is ready to perform an I/O operation
+the Selector records the necessary information related to
+the event and it&apos;s bindings (channel, it&apos;s most recent
+interest set, ready-set etc.) in the SelectionKey and makes
+it available in the selection-set. The actual handling of
+the event starts when a SelectionKey is processed based on
+the caller&apos;s interest and ready sets.
+Let&apos;s look at some important operations of a
+SelectionKey.
+cancel() cancels the registration of this
+key&apos;s channel with its selector. It synchronizes on the
+selector&apos;s cancelled-key set, and therefore may block
+briefly if invoked concurrently with a cancellation or
+selection operation involving the same selector.
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		isValid() checks if the key is valid. A key
+is invalid if it is cancelled, its channel is closed, or its
+selector is closed
+isReadable() / isWritable() /
+isConnectable() / isAcceptable()
+Each of the operations test the readiness of the channel.
+Call these methods (based on the type of operation you are
+interested in) soon after the selection process is
+completed. You could also bit-mask a specific type against
+the ready-set. For example, you could use the following
+expression similar to isConnectable().
+</TEXT>
+<CODE orderid="1" >
+key.readyOps() &amp; SelectionKey.OP_CONNECT != 0
+</CODE>
+<TEXT orderid="2" >
+Operational Sets
+A SelectionKey contains two operational sets (interest
+and ready), each represented as an integer bit-map. Each bit
+of an operation set denotes a category of selectable
+operations that are supported by the key&apos;s channel:
+
+  reading - OP_READ
+  writing - OP_WRITE
+  socket-accept - OP_ACCEPT
+  socket-connect - OP_CONNECT
+
+The interest set identifies the operations for which the
+key&apos;s channel is monitored for by the Selector. This can be
+changed after the registration process using
+</TEXT>
+<CODE orderid="3" >
+interestOps(int)
+</CODE>
+<TEXT orderid="4" >
+.
+The ready-set identifies the operations the channel is
+ready to perform.
+The current operational sets are available using
+interestOps() / readyOps().
+Implementing Scalable Servers using Selectors
+Here is a common way of implementing Servers using
+Selectors to manage I/O.
+1. Create the ServerSocketChannel and the associated
+Selector
+</TEXT>
+</result>

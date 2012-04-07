@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>4735</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/ent/article.php/964131/Genetic-Algorithms-Simulating-Evolution-on-the-Computer-Part-1.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Enterprise Java
+					
+				
+				
+					Read More in Enterprise Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Genetic Algorithms: Simulating Evolution on the Computer, Part 1
+			
+			
+				
+				
+					January 29, 2002
+					By 
+Jeff Smith
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Biological Evolution
+
+In the natural world, an organism&apos;s &quot;fitness&quot; can be measured by its ability to successfully reproduce. A fit organism must survive long enough in its environment, by finding food and avoiding being killed by another organism, so it can find a mate and reproduce. Sexual reproduction ensures that its genes will survive in the species&apos; gene pool for at least one more generation. Over time, this process of natural selection increases the number of &quot;fit&quot; genes in the gene pool while &quot;unfit&quot; genes become scarce. 
+
+Sexual reproduction combines, or crosses over, half of the genes from each parent to form a complete set of genes in the new offspring. Sometimes this crossover results in an offspring, which is even fitter than its parents, increasing its own chance of reproducing. During this crossover, errors or mutations occur that introduce new gene sequences to the population. In the rare case when such a mutation is beneficial, the lucky offspring becomes fitter and thus more likely to pass this mutation on to future generations and, ultimately, the entire population&apos;s gene pool. 
+
+Evolution&apos;s creations are miraculous. One look at the myriad of specialized life forms living along a coral reef, a hydrothermal vent, or a tropical rain forest illustrates the amazing abilities species have evolved to adapt to diverse and sometimes harsh environments. Consider the use of sonar by dolphins and bats, the engineering triumph of binocular vision, or even the hardy single-celled creatures that survive miles below the surface of the earth under hellish pressure and heat. Only through the positive feedback of evolution, occurring over millions of years, have these masterpieces developed. 
+
+Simulating Evolution on the Computer
+
+Evolutionary computing techniques, such as genetic algorithms (GAs), attempt to simulate this biological process on the computer in order to solve difficult problems. Pioneered by John Holland [1] in the 1970s, GAs have yet to create a better eye or a bat that can sing. But programmers have employed them for such diverse tasks as optimizing networks, calculating neural network weights, maximizing mathematical functions, scheduling resources more efficiently, minimizing costs in architectural designs while still meeting design constraints, and designing proteins in the pursuit of new drugs. 
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		Instead of a biological conundrum such as &quot;How do I evolve to thrive in this highly competitive coral reef community?&quot;, GA programmers are more likely to ask something like &quot;How do I rearrange this scheduling sequence to minimize the resources required?&quot;. And instead of using actual chromosomes comprised of DNA, you might model chromosomes as character strings (e.g., &quot;AFGEHKI&quot;) where each letter (a gene) represents a resource to be scheduled. 
+
+Starting with an initial population of random chromosomes (each of which represents a candidate solution to your problem) and a fitness function to calculate the fitness of a given chromosome, you can start your simulated evolution. In the case of optimizing a scheduling sequence, your fitness function would calculate the resource &quot;cost&quot; of a given schedule sequence. The lower the cost required by a given sequence (chromosome), the higher the corresponding fitness value will be. For example, schedule &quot;ABCDE&quot; might have a lower cost than schedule &quot;BCADE&quot;.
+
+Since the initial pool of chromosome &quot;candidate solutions&quot; is randomly generated, they are probably terrible solutions. Despite this, some of the solutions will be slightly better than others. Over time, you hope that good solutions or even an ideal solution will evolve in your chromosome pool. 
+
+After creating your initial pool of random chromosomes, simulated evolution in the form of an iterated loop commences. Your loop will: 
+
+
+Create a random population of N chromosomes (candidate solutions for the problem). 
+Evaluate the fitness f(x)  of each chromosome x in the population. 
+Generate a new population by repeating the following steps until the new population reaches population N:
+Select two parent chromosomes from the population, giving preference to highly fit chromosomes (high f(x)  values). Automatically copy the fittest chromosome to the next generation -- this is called elitism.
+With a given crossover probability, cross over the parent chromosomes to form two new offspring. If no crossover was performed, offspring is an exact copy of parents. 
+With a given mutation probability, randomly swap two genes in the offspring. 
+Copy the new offspring into a new population. 
+
+Copy the newly generated population over the previous (existing) population. 
+If the loop termination condition is satisfied, then stop and return the best solution in current population. 
+Otherwise, go to Step 2. 
+
+You generally let this process go on for a predetermined number of generations or until the standard deviation among the fitness levels converges toward zero (when the standard deviation converges, the chromosomes are generally not getting any fitter, so you&apos;ve arrived at the best solution you are going to find). Assuming that your initial population was large enough and your fitness function well defined, you will have arrived at a good solution. Note that I say &quot;good solution&quot;. GAs do not always find the best or ideal solution. But if you run your simulated evolution many times, you will tend to find a very good solution, if not the perfect one (by the way, my GA library has an option to do multiple runs for you automatically). 
+
+So how does this process evolve fitter genes? Some of the evolutionary spiral towards fitness comes from random mutations that introduce new gene sequences to the population. But the majority of GAs success comes from crossover. By combining portions of fit chromosomes in new ways through random crossover, GAs, over time, will evolve even fitter chromosomes [2]. 
+ 
+So how do you mate chromosomes in your Java code? First, you take two parent chromosomes and crossover portions (genes) from each in the creation of two new chromosomes. There are three common types of crossover: one point, two point, and uniform [3]. With one point crossover, you split a parent chromosome into two parts at some randomly selected gene and then copy the left half of one parent chromosome and the right half of another to form an offspring chromosome. You flip-flop the process to create the second offspring. With two-point crossover, you do basically the same thing, except you split a chromosome into three parts (using two randomly selected genes) to create the offspring chromosomes. And finally, with uniform crossover, you randomly crossover genes from each parent into the offspring chromosomes. 
+
+Figure 1. One-point, two-point, and uniform crossover.  
+
+
+
+
+
+My Java GA Class Library
+
+So how did I model this evolutionary process in Java? I created an abstract chromosome class (called Chromosome) which stores the genes and an abstract genetic algorithm class (called GA) that contains chromosome objects as instance variables and implements the basic methods for doing genetic mating with crossover, mutations, and iterating through the simulated evolution. Thus, I was able to implement most of my code in this GA ancestor class whose methods operate on abstract chromosomes. I also declared a few chromosome &quot;type&quot; specific methods (such as doOnePtCrossover() and doRandomMutation()) as abstract, so that they could be implemented in the appropriate subclasses. 
+
+I extended the abstract Chromosome class with ChromString (which stores genetic codes in the form of strings) and ChromFloat (which stores genetic codes in an array of doubles). This gives my class library great flexibility in the way it models genes. Since my population size remains constant, I decided to store my chromosomes in a simple array rather than one of the collection classes that support dynamic resizing. And all of the GA classes implement the Runnable interface, making it easy to run each GA in a separate thread. 
+
+I extended my abstract GA class with three abstract subclasses: GAString which works with ChromString, GAFloat which works with ChromFloat, and GASequenceList which works with ChromString and contains additional methods for sorting sequences and preventing duplicate genes. These three classes are also abstract because they do not implement the getFitness() function which is specific to a particular GA problem. 
+
+So how do you use this class library to write your own GAs? Basically, you just extend one of these three classes and override the getFitness() function as well as the constructor (so you can pass in your custom GA parameters). For example, if you decide that you want to model your genes as floating point numbers, you should extend the GAFloat class to create a new class that looks something like:
+</TEXT>
+<CODE orderid="1" >
+public class MyGA extends GAFloat
+{
+  public MyGA()  {  //calls super() with params }
+  double getFitness(int iChromIndex)  { ... }
+  public static void main(String[] args)  { ... }
+}
+</CODE>
+<TEXT orderid="2" >
+In your constructor, you will need to pass several parameters to super(). Among these parameters are the size of your chromosomes (how many genes they have), the population size, the crossover probability (the fraction of reproducing chromosomes undergoing crossover), the number of generations to evolve, the number of preliminary runs/generations (to build good breeding stock for the main evolution run), the mutation probability, the decimal point precision (for genes stored as floating-point numbers), the gene space (possible gene values), and the crossover type. The example GA source code will give you ideas on what values to assign to each of these parameters. 
+
+Figure 2. Diagram of the class hierarchy in UML notation. 
+
+
+
+
+A Simple Binary Number Example
+
+Let&apos;s start with a simple example: writing a GA to determine the largest binary number possible. In this case, we could extend the GAString class that will store our binary numbers as strings (such as &quot;0101101011&quot;). If we specify a chromosome dimension of 10 in our constructor, we&apos;re hoping the GA will figure out that the largest binary number (chromosome) is &quot;1111111111&quot;. 
+
+Of course, this answer is trivial and obvious to us, but the GA doesn&apos;t know this and will have to go through the evolutionary process, genetically mate chromosomes, and eventually evolve chromosomes with a genetic code of &quot;1111111111&quot;. Besides passing the required parameters to the GAString constructor (like the chromosome dimension and the crossover technique we want to use), we need to write our getFitness() function. In this simple example, our fitness function will simply convert the binary chromosome string into its floating-point equivalent. Thus a chromosome of  &quot;0000000010&quot; would have its fitness evaluated as 2. Our function would look something like this:
+</TEXT>
+<CODE orderid="3" >
+protected double getFitness(int iChromIndex)
+  {
+    String s;
+    s = chromosomes[iChromIndex].getGenesAsStr();
+    return(getChromValAsDouble(s));
+  }
+</CODE>
+<TEXT orderid="4" >
+Defined in the GAString class, the getChromValAsDouble() method automatically detects and converts binary chromosomes, integer chromosomes, or floating-point chromosomes to their corresponding double value. Finally, we can write a main() method to instantiate our GA. Since the abstract GA class implements the Runnable interface, we can execute our GA within the context of a thread.
+</TEXT>
+</result>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>5463</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/other/article.php/3735441/The-Google-Collections-Library.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			The Google Collections Library
+			
+			
+				
+				
+					March 20, 2008
+					By 
+Dick Wall
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Introduction
+
+One of the things that first attracted me to Java many years ago was the inclusion of a standard collections library in the platform. At the time, in the C++ world, the STL (Standard Template Library) had yet to catch on, and developers were either left to find a collections library that they could buy and use (Rogue Wave became very popular), or more often write their own. I have lost count of how many times I implemented a linked list of something&#8212;different primitives or objects for different purposes. Then, there were the more complex collections, self-balancing binary trees, and hash tables. Although it might have been good for staying in touch with the software engineering basics, it was not so good for productivity.
+
+Java changed all that. Even the 1.0 and 1.1 collection classes were a huge improvement, but the introduction of the Java Collections Framework with Java 1.2 was a quantum leap forwards in productivity. Since then, the standard collections have been regularly enhanced and improved, and with the addition of Generics in Java 5, the collections were updated to take advantage of those to give (at least compile-time) type checking. Doug Lea&apos;s concurrent collections (part of java.util.concurrent since Java 5) is a welcome addition as well, giving us collections like Queue and ConcurrentMap, which are ideal for use in concurrent systems.
+
+Despite all of this, there are holes in the standard collections, items that are often re-implemented by developers, sometimes in a less-than-optimal way. There are pain points too. The cost/benefit analysis of Generics (or at least their implementation in Java) is an ongoing discussion, but whether you like them or not, they are very verbose; for example, looking back at collections in 2003 you would have seen something like:
+</TEXT>
+<CODE orderid="1" >
+Map mapOfLists = new HashMap();
+</CODE>
+<TEXT orderid="2" >
+Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		Now, a map of things to a list of things might look more like this:
+</TEXT>
+<CODE orderid="3" >
+Map&lt;String, List&lt;String&gt;&gt; mapOfLists =
+   new HashMap&lt;String, List&lt;String&gt;&gt;();
+</CODE>
+</result>

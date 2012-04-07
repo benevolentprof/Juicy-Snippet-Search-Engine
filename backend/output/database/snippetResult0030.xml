@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>100032</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.javapractices.com/topic/Topic189.cjp</url>
+</description>
+<TEXT orderid="0" >
+Home |
+  Poll |
+   
+  Wiki |
+  Source Code |
+
+  WEB4J |
+
+   Links
+   
+  
+   
+   
+  
+ 
+
+
+
+
+
+  
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+ 
+
+
+
+
+
+ 
+   
+
+ 
+
+
+
+
+Use template for transactions
+
+
+ 
+
+Code related to transactions is bulky, and has significant logic attached
+to it. Such code should not be repeated every time a transaction is required.
+Instead, define a template method which handles
+most of the processing of the transaction.
+
+Example
+Tx is a generic interface which can be applied to both
+
+
+local transactions - attached to a single JDBC connection
+
+
+distributed transactions 
+(UserTransaction) - not attached to a
+single connection, or even to a single database
+
+
+
+
+
+package hirondelle.web4j.database;
+
+/**
+ Execute a database transaction.
+
+ &lt;P&gt;Should be applied only to operations involving more than one SQL statement.
+*/
+public interface Tx {
+
+  /**
+   Execute a database transaction, and return the number of edited records.
+  */
+  int executeTx() throws DAOException;
+  
+}
+ 
+
+
+
+
+TxTemplate is an implementation of Tx for local transactions.
+(An implementation for distributed transactions would be similar). It is an Abstract Base Class, and uses
+the template method design pattern.
+To implement a transaction, callers subclass TxTemplate, and provide a concrete implementation of 
+executeMultipleSqls(Connection).
+</TEXT>
+<CODE orderid="1" >
+import java.sql.*;
+import java.util.logging.*;
+
+import hirondelle.web4j.BuildImpl;
+import hirondelle.web4j.util.Util;
+import hirondelle.web4j.util.Consts;
+
+/** 
+* Template for executing a local, non-distributed transaction versus a single database,  
+* using a single connection.
+*
+* &lt;P&gt;This abstract base class implements the template method design pattern.  
+*/
+public abstract class TxTemplate implements Tx {
+  
+  //..elided
+  
+  /**
+  * &lt;b&gt;Template&lt;/b&gt; method calls the abstract method {@link #executeMultipleSqls}.
+  * &lt;P&gt;Returns the same value as &lt;tt&gt;executeMultipleSqls&lt;/tt&gt;.
+  *
+  * &lt;P&gt;A &lt;tt&gt;rollback&lt;/tt&gt; is performed if &lt;tt&gt;executeMultipleSqls&lt;/tt&gt; throws 
+  * a {@link SQLException} or
+  * {@link DAOException}, or if {@link #executeMultipleSqls(Connection)} returns 
+  * {@link #BUSINESS_RULE_FAILURE}.  
+  */
+  public final int executeTx() throws DAOException {
+    int result = 0;
+    fLogger.fine(
+      &quot;Editing within a local transaction, with isolation level : &quot; + fTxIsolationLevel
+    );
+    ConnectionSource connSource = BuildImpl.forConnectionSource();
+    if(Util.textHasContent(fDatabaseName)){
+      fConnection = connSource.getConnection(fDatabaseName);
+    }
+    else {
+      fConnection = connSource.getConnection();
+    }
+    
+    try {
+      TxIsolationLevel.set(fTxIsolationLevel, fConnection);
+      startTx();
+      result = executeMultipleSqls(fConnection);
+      endTx(result);
+    }
+    catch(SQLException rootCause){
+      fLogger.fine(&quot;Transaction throws SQLException.&quot;);
+      rollbackTx();
+      String message = 
+        &quot;Cannot execute edit. ErrorId code : &quot; +  rootCause.getErrorCode() + 
+        Consts.SPACE + rootCause
+      ;
+      if (rootCause.getErrorCode() == DbConfig.getErrorCodeForDuplicateKey().intValue()){
+        throw new DuplicateException(message, rootCause);
+      }
+      throw new DAOException(message, rootCause);
+    }
+    catch (DAOException ex){
+      fLogger.fine(&quot;Transaction throws DAOException.&quot;);
+      rollbackTx();
+      throw ex;
+    }
+    finally {
+      DbUtil.logWarnings(fConnection);
+      DbUtil.close(fConnection);
+    }
+    fLogger.fine(&quot;Total number of edited records: &quot; + result);
+    return result;
+  }
+
+  /**
+  * Execute multiple SQL operations in a single local transaction.
+  *
+  * &lt;P&gt;This method returns the number of records edited. If a business rule 
+  * determines that a 
+  * rollback should be performed, then it is recommended that the special value
+  * {@link #BUSINESS_RULE_FAILURE} be returned by the implementation. This will
+  *  signal to 
+  * {@link #executeTx()} that a rollback must be performed. (Another option for 
+  * signalling that a rollback is desired is to throw a checked exception.)  
+  *
+  * &lt;P&gt;&lt;em&gt;Design Note&lt;/em&gt;: allowing &lt;tt&gt;SQLException&lt;/tt&gt; in the &lt;tt&gt;throws&lt;/tt&gt; 
+  * clause simplifies the implementor significantly, since no &lt;tt&gt;try-catch&lt;/tt&gt; 
+  * blocks are needed. Thus, the caller has simple, &quot;straight-line&quot; code.
+  *
+  * @param aConnection must be used by all SQL statements participating in this 
+  * transaction
+  * @return number of records edited by this operation. Implementations may return
+  * {@link #BUSINESS_RULE_FAILURE} if there is a business rule failure. 
+  */
+  public abstract int executeMultipleSqls(
+    Connection aConnection
+  ) throws SQLException, DAOException;
+  
+  /**
+  * Value {@value}. Special value returned by 
+  * {@link #executeMultipleSqls(Connection)} to indicate that  
+  * a business rule has been violated. Such a return value indicates to this class
+  * that a rollback must be performed.
+  */
+  public static final int BUSINESS_RULE_FAILURE = -1;
+  
+  // PRIVATE //
+  
+  /**
+  * The connection through which all SQL statements attached to this 
+  * transaction are executed. This connection may be for the default 
+  * database, or any other defined database. See {@link #fDatabaseName}.
+  */
+  private Connection fConnection;
+  
+  /** 
+  * Identifier for a non-default database. The connection taken from the default
+  * database only if this item has no content. 
+  */
+  private String fDatabaseName;
+  
+  /**
+  * The transaction isolation level, defaults to level configured in 
+  * &lt;tt&gt;web.xml&lt;/tt&gt;.
+  */
+  private final TxIsolationLevel fTxIsolationLevel;
+  
+  private static final boolean fOFF = false;
+  private static final boolean fON = true;
+  
+  private static final Logger fLogger = Util.getLogger(TxTemplate.class);  
+
+  private void startTx() throws SQLException {
+    fConnection.setAutoCommit(fOFF);
+  }
+  
+  private void endTx(int aNumEdits) throws SQLException, DAOException {
+    if ( BUSINESS_RULE_FAILURE == aNumEdits ) {
+      fLogger.severe(&quot;Business rule failure occured. Cannot commit transaction.&quot;);
+      rollbackTx();
+    }
+    else {
+      fLogger.fine(&quot;Commiting transaction.&quot;);
+      fConnection.commit();
+      fConnection.setAutoCommit(fON);
+    }
+  }
+  
+  private void rollbackTx() throws DAOException {
+    fLogger.severe(&quot;ROLLING BACK TRANSACTION.&quot;);
+    try {
+      fConnection.rollback();
+    }
+    catch(SQLException ex){
+      throw new DAOException(&quot;Cannot rollback transaction&quot;, ex);
+    }
+  }
+}
+</CODE>
+<TEXT orderid="2" >
+Here is a concrete implementation named RoleDAO. It has a change method which updates the roles attached to a user.
+The roles are stored in a cross-reference table. In this case, an update is implemented as 
+&apos;delete all old, then add all new&apos;.
+Note the lack of try..catch blocks in this class.
+</TEXT>
+</result>

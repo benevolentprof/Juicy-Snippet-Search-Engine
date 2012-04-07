@@ -1,0 +1,1049 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>6888</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/web/article.php/3320271</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Web-based Java
+					
+				
+				
+					Read More in Web-based Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Enlisting Java in the War Against Email Viruses
+			
+			
+				
+				
+					March 2, 2004
+					By 
+Richard G. Baldwin
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Java Programming Notes # 2180
+
+   Preview
+  Operational Discussion
+
+  
+  Program Code
+   Run the Programs
+   Summary
+   What&apos;s Next?
+   Complete Program
+Listing
+
+
+
+ 
+Preview
+
+A common scenario
+
+
+
+Consider the following scenario.&#160; To use the common jargon, you
+decide that it is time &quot;check your email.&quot;&#160; This produces
+a list of about twenty messages on the screen in your favorite email
+client program.&#160; By quickly scanning the list, you conclude that
+about half are SPAM and the other half are important messages from
+business associates.
+
+
+
+The good news
+
+
+
+You also notice that there is a message from an old friend that you
+haven&apos;t heard from in awhile, so you decide to open and read that
+message before getting down to the business of the day.
+
+
+
+The bad news
+
+
+
+You double click on message from your friend.&#160; However, before it
+becomes readable, your virus program pops up a dialog box telling you
+in effect that it has found a virus in the message and that it was
+unable
+to clean the file.&#160; Therefore, it has quarantined the file, making
+it
+inaccessible.
+
+
+
+Shucks, you say to yourself, making a mental note to call your
+friend later in the day to tell him that he sent you a message
+containing a virus.
+
+
+
+Why did your friend send you a virus?
+
+
+
+Your friend probably didn&apos;t purposely send you a virus.&#160; Rather,
+your
+friend&apos;s computer has probably become contaminated with a virus that is
+replicating itself by sending virus messages to everyone in your
+friend&apos;s email address book.&#160; Even messages from trusted
+friends can&apos;t be
+trusted.
+
+
+
+Now for the really bad news
+
+
+
+When you attempt to open and read one of the important business
+messages that you have just received, you discover that it is also
+inaccessible.&#160; You quickly discover that every message in your
+inbox, including the important business messages, has become
+inaccessible. 
+
+
+
+How can this happen?&#160; 
+
+
+
+Only one message contained a virus.&#160; Why did all of the messages
+in your inbox suddenly become inaccessible?
+
+
+
+The answer is simple once you understand it
+
+
+
+Many email clients present you with a display that looks much like the
+display of folders containing files on your disk.&#160; The email
+client allows you to organize your messages by storing them in folders,
+one of which is often named inbox.&#160; The visual suggestion
+is that each message is a separate file, where groups of related files
+are contained in folders or directories on the disk.
+
+
+
+Looks can be misleading
+
+
+
+However, with many email clients, looks can be misleading.&#160; Many
+email client programs combine groups of related messages into a single
+file.&#160; With Netscape Communicator, for example, there really is no
+folder on the disk named inbox.&#160; Rather, there is a
+single file named inbox, and all the messages in your inbox are
+concatenated into that single file.
+
+(If you are interested in detailed format information
+for files of the type used by Netscape Communicator, go here.)
+
+
+Many messages in each file
+
+
+
+Netscape Communicator concatenates all of the messages that you store
+in each mail folder into a single file whose name matches the name of
+the folder.&#160; Then they create another file with a similar name
+that provides an index into the file containing the messages.&#160;
+They
+put these files into an actual disk folder deep inside the directory
+tree that contains lots of Netscape material.
+
+(The organization is actually somewhat more complicated
+than this,
+but hopefully you get the idea.&#160; Individual messages are not in
+individual files with Netscape Communicator.) 
+
+
+Other email clients behave similarly
+
+
+
+Although I don&apos;t have any personal experience to confirm this, I&apos;ve
+been told that other popular email clients group messages into files on
+an even larger scale, possibly causing multiple mail folders and their
+messages to be included in a single file.
+
+
+
+Virus checker configuration
+
+
+
+When I configure &quot;File System Realtime Protection&quot; for my virus
+checker, I have the following options:
+
+
+
+Primary Action when a virus is detected:
+
+
+  Clean virus from file
+  Quarantine infected file
+  Delete infected file
+  Leave alone (log only)
+
+If Primary Action fails:
+
+
+  Quarantine infected file
+  Delete infected file
+  Leave alone (log only)
+
+My configuration
+
+
+
+I have my virus checker set to the first choice in both cases, (which
+is the default configuration).&#160; Therefore, if my virus checker
+is unable to clean a virus from my inbox file, it is well
+within its rights to quarantine the entire file.&#160; Unfortunately,
+that causes all the messages currently in the inbox to become
+inaccessible.
+
+(The only good news at this point is that you can still
+identify the senders.&#160; You can send a message to those parties
+asking them to send you another copy of the message.)
+
+
+An even worse scenario
+
+
+
+At worst, the above scenario will cause you to lose a few email
+messages,
+most of which are probably recoverable by requesting another copy from
+the sender.
+
+
+
+Now consider another scenario that can potentially cause you to lose
+vast amounts of critical business information, unrelated to email
+messages.
+
+
+
+You avoided quarantine
+
+
+
+Assume that somehow you managed to keep the virus checker from putting
+your inbox file into quarantine when you received a message
+containing a virus.&#160; (Perhaps you had it
+turned off at the time).
+
+
+
+You have learned not to open email attachments that you weren&apos;t
+expecting.&#160; While reviewing the subjects of the messages in the
+inbox, you noticed the suspicious message carrying the virus, and you
+simply
+deleted the message containing the virus without opening it.
+
+
+
+Another surprise may be in store
+
+
+
+At least for users of Netscape Communicator (and probably other
+products as well), when you &quot;delete&quot; a message, it really
+doesn&apos;t get deleted from the system.&#160; Rather, it simply gets moved
+into another folder (file), typically named Trash.
+
+
+
+Always do your backups
+
+
+
+Before leaving work that day, without &quot;emptying the Trash&quot; in
+your email client, you dutifully perform an incremental backup, which
+saves all the material on your disk that has changed since the last
+incremental backup.&#160; Guess what?&#160; The Trash file has
+changed. You saved it.&#160; It contains a virus, and you have just
+created an incremental backup file containing a virus.
+
+
+
+You may catch it the next time you scan
+
+
+
+If you leave a copy of the incremental backup file on your disk, the
+next time you do a full virus scan on the disk, you will be notified
+that the incremental backup file contains a virus.&#160; Depending on
+several factors, that incremental backup file may or may not have been
+rendered
+worthless for restoration purposes.&#160; When an incremental backup
+file is rendered worthless, the entire backup scheme is rendered
+worthless.
+
+
+
+You are lucky if it turns out this way.&#160; The solution is to empty
+the trash in your email client and start a new backup series beginning
+with a full backup.
+
+
+
+You may not be so lucky
+
+
+
+Even worse, you may not have left a copy of the incremental backup file
+on the disk, and the first time you learn that it contains a virus may
+be when you try to use it later to restore your data after a disk
+crash.&#160; That is a very bad time to learn that an email virus has
+rendered your backup scheme worthless for restoration purposes.
+
+
+
+With this scenario, a simple email virus can cause you to lose vast
+amounts of critical business information.
+
+
+
+And worst of all
+
+
+
+And perhaps worst of all is the case where you accidentally allow an
+email-borne virus to get lose inside your computer.&#160; When this
+happens, the virus can begin replicating itself on every computer on
+your in-house network, not to mention sending itself to all of your
+customers whose email addresses are contained in your address book.
+
+
+
+Why am I telling you this?
+
+
+
+I am telling you this to drive home the point that email-borne viruses
+can be
+far more serious than just being a nuisance.&#160; Not only can they
+cause you to lose important business email messages, they can also
+cause you to lose a wide-ranging variety of business information in the
+event of a need to restore business data from backup files.
+
+(Because of this possibility, I no longer do incremental
+backups, even though they are much faster to do.&#160; I&apos;m not certain
+of the correct name for this procedure, but each time I do a
+backup, I save every file that has changed since the full backup that
+began the series.&#160; Thus, only the first and last backup files are
+required to completely restore the system.
+
+  
+
+In addition, I regularly scan my backup files
+for viruses.&#160; If I find that my latest backup file contains a
+virus, I can delete the virus from the disk and do another backup on
+everything that has changed since the full backup.&#160; That gives me
+a way to recover without having to start over.)
+
+
+No virus messages allowed
+
+
+
+As illustrated above, it is extremely important that you don&apos;t allow
+messages with viruses to
+get into your email data structure.&#160; The purpose of this article
+is to show you one way to accomplish that goal.
+
+
+
+A simple and inexpensive scheme
+
+
+
+The scheme that I will describe is very simple and also very
+inexpensive.&#160; The resources required consist of three computer
+programs and two email accounts, one public and one private.
+
+(By private, I mean a secret email account known only to
+you.&#160; You must not divulge the email address on the account to
+anyone, including your best
+friends.&#160; It is extremely important that your secret email address
+never exist in the email address book on any computer anywhere in the
+world.&#160; This is particularly true for address books belonging to
+trusted friends whose email messages you are most likely to read.)
+
+
+A second email account
+
+
+
+A second email account may cost you two or three dollars per month, if
+it costs you anything at all.&#160; Many ISPs provide you with several
+email accounts at no extra charge.
+
+
+
+Two of the programs are free
+
+
+
+Two of the required programs are free, because I am going to publish
+them in this article.&#160; The third required computer program is a
+good virus checker program, which you should already have anyway.
+
+
+
+The operational scheme
+
+
+
+The operational scheme is very simple.&#160; For now, let&apos;s call the
+two programs that I will provide program A and program B.
+
+
+
+You never use your email client program to download
+email messages
+from your public email account.&#160; Rather, you run program A to
+download the messages for you.
+
+
+
+A separate file for each message
+
+
+
+When you run program A, it will download all of the messages on the
+server and write each of those messages into a separate file in a
+specified folder on your disk.&#160; It is important to note that at
+this point, the messages are still separated from one another.&#160; A
+virus in one message cannot corrupt another message.
+
+(On my system with a cable modem, I can download one
+hundred messages in just a few seconds, so this process is very fast.)
+
+
+Scan the message files for viruses
+
+
+
+Next you use your virus checker program to scan all of the message
+files in that folder, either cleaning or removing any that contain a
+virus.
+
+
+(My advice would be to totally remove the contaminated
+file to avoid any
+possibility of creating an invalid message format in the file. )
+
+
+On my system, which is relatively slow, only a few seconds are required
+to scan one hundred messages.
+
+
+
+Now forward the remaining clean messages
+
+
+
+The next step is to run program B, which forwards the remaining
+messages to your secret email account.&#160; If you did the virus check
+(and you keep your virus checker program up to date), all of
+these messages should be free of viruses.
+
+
+
+This process takes a little longer than the other two.&#160; My system,
+running through a
+cable modem, requires about three or four seconds to forward each
+message.&#160; Thus, one hundred messages require five or six minutes
+to forward.
+
+
+
+No need to wait
+
+
+
+However, you don&apos;t have to wait until the third step described
+above is complete to view your messages.&#160; Simply open your email
+client program and start downloading and reading messages from your
+secret email account.
+
+
+
+As soon as the first message has been forwarded to the secret email
+account, it is available for downloading and reading.&#160; For the
+next few minutes,
+messages will be forwarded to your secret email account much faster
+than you can possibly read them.
+
+
+
+Worth the extra time and effort
+
+
+
+Unless you have a very large number of messages, a very slow computer,
+or a very slow Internet service, the steps required before you can
+start reading your messages should take less than a minute to
+complete.&#160; This is a small price to pay for assurance that your
+email data structure is free of viruses.
+
+
+
+Viewing tip
+ 
+You may find it useful to open another copy of this lesson in a
+separate browser window.&#160; That will make it easier for you to
+scroll back and forth among the different listings and figures while
+you are reading about them. 
+Supplementary material 
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		I recommend that you also study the other lessons in my extensive
+collection of online Java tutorials.&#160; You will find those lessons
+published at Gamelan.com.&#160;
+However, as of the date of this writing, Gamelan doesn&apos;t maintain a
+consolidated index of my Java tutorial lessons, and sometimes
+they are difficult to locate there.&#160; You will find a consolidated
+index at  www.DickBaldwin.com.
+Operational
+Discussion
+
+
+The operation of each of the two programs is very simple.&#160; The
+names of the two programs are VirPro01a and VirPro01b,
+corresponding respectively to program A and program B in the
+hypothetical case discussed above.
+
+
+
+Starting the program named VirPro01a
+
+
+
+Once you have a compiled version of VirPro01a on your system,
+and you have created a working directory, you start the program running
+by entering the following at the command line (for convenience, I
+use a batch file with a shortcut on the desktop to accomplish this):
+
+
+
+java VirPro01a pubServer userName
+password
+
+
+
+The command line parameters identify your public email server, your
+user name, and your password on that email server.&#160; (This is
+the same information that you normally provide when setting up an email
+client program.)
+
+
+
+This information makes it possible for the program to connect to your
+public email server and to download the messages currently stored there.
+
+(If you are uncomfortable with this handling of the
+password, you could modify the program to elicit the password at
+runtime.&#160; See JPasswordField in the Java documentation.)
+
+
+The user interface for VirPro01a
+
+
+
+Figure 1 shows the user interface for VirPro01a.&#160; This
+simple interface consists of a button and a text area.
+
+
+
+
+
+
+
+Figure 1 VirPro01a user interface
+
+
+
+
+You start the download by pressing the Start button.&#160;
+Information is displayed in the text area as the program
+executes.&#160;
+Figure 1 shows that the program has downloaded fifty messages, (with
+corresponding message numbers), from the public email server.
+
+
+
+The working folder named Messages
+
+
+
+As you will see when we examine the code for VirPro01a, with my
+setup, these messages are stored in a folder named Messages.&#160;
+However, you can modify the program to store them anywhere you choose.
+
+(Note that no messages are deleted from the email server
+by the program named VirPro01a.)
+
+
+Run the virus checker
+
+
+
+After VirPro01a finishes downloading the messages and storing
+them in individual files, the next step is to run your virus checker on
+all the files in the working folder, removing any that contain a virus.
+
+
+
+Starting the program named VirPro01b
+
+
+
+Once you have a compiled version of VirPro01b on your system,
+and you have created an archive directory in addition to the working
+directory, you start the program named VirPro01b by
+entering the following at the command line (with no line breaks):
+
+
+
+java VirPro01b pubServer userName password secretServer smtpServer
+
+
+
+In this case, the command line parameters identify:
+
+
+  Your public email server
+  Your user name on the public server
+  Your password on the public server
+  Your secret email address
+  The SMTP server on which you are authorized to send email
+messages.
+
+Once again, this is the information that you typically enter when
+setting up a standard email client program.
+
+
+
+What is this information used for?
+
+
+
+This information makes it possible for the program to:
+
+
+  Forward the clean email messages from the working folder (named
+    Messages in my case) to your secret email account.
+  Delete the corresponding messages from the public email server
+once they have been forwarded to the secret email account.
+
+When messages are deleted from the public email server, the
+corresponding message files are automatically moved from the working
+folder to the archive folder.
+
+(You will probably want to delete the message files from
+the archive folder periodically to free up disk space.)
+
+
+Why have an archive folder?
+
+
+
+With my setup, I tag the subject line of each forwarded message with
+the sequential message numbers from the public email server.&#160; (You
+can modify the program to substitute any tag that you choose, including
+no tag at all.)&#160; Tagging with message numbers makes it easy
+for me to confirm that every message arrived safely at the secret email
+account.
+
+
+
+If a message doesn&apos;t show up ...
+
+
+
+In the unlikely event that a message fails to be successfully forwarded
+to the secret email account, there is a backup copy in the archive
+folder.&#160; You can view the backup copy with an ordinary text editor.
+
+
+
+If the message was composed in plain text, you will be able to read it
+in its entirety using a text editor.
+
+
+
+If the message was composed using HTML text, you will be able to read
+it using a text editor, but you will have to ignore the HTML tags.
+
+
+
+SPAM messages
+
+
+
+If the message is a SPAM message, it is not likely that you will be
+able to make much sense out of it with a text editor.&#160; It will
+probably contain fairly complex HTML code with hundreds of random
+words, phrases, and sentences inserted to thwart automatic spam
+blocking software.&#160; In addition, the HTML will probably contain
+links to various web sites where most of the substance of the SPAM
+message is presented.&#160; If you really want to read it, however, you
+can probably copy the HTML, paste it into an empty HTML file, and open
+it in your browser.
+
+
+
+Base64 encoding
+
+
+
+If the message was composed in non English characters using Base64
+encoding, you won&apos;t be able to read it at all without running it
+through a Base64 decode program.
+
+(I have published other tutorials that explain how to do
+Base64 decoding using the sun.misc.BASE64Decoder class.&#160; You can
+also search for information about Base64 decoding on Google.)
+
+
+Keeping a backup copy of the message
+
+
+
+In any event, I consider it a good idea to keep a backup copy of the
+message files for a couple of days after forwarding them to the secret
+email account, just in case I need them for some reason.
+
+
+
+The user interface for VirPro01b
+
+
+
+Figure 2 shows the simple user interface for VirPro01b.
+
+
+
+
+
+
+
+Figure 2 User interface for VirPro01b
+
+
+
+
+The user presses the Start button to cause the
+message forwarding process to begin.
+
+
+
+The screen shot in Figure 2 was captured at the point where seven of
+the fifty messages from Figure 1 had been forwarded to the secret email
+account.
+
+
+
+Once all of the messages in the working directory have been forwarded
+to the secret email account, the Delete button is
+enabled.&#160; This makes it possible for the user to delete the
+messages
+from the server, and to cause the corresponding message files to be
+moved from the working folder to the archive folder.
+
+
+
+Another safety feature
+
+
+
+If the communication portion of the program detects any problems (throws
+any exceptions) in
+forwarding a message, that message will not be included on the list of
+messages to be deleted from the server and moved from the working
+folder to
+the archive folder.&#160; Thus, when the deletion operation is
+complete, those message files will still be on the server and will
+still be in the working folder.
+
+
+
+You can rerun VirPro01b
+in another attempt to forward the remaining messages.&#160; Depending
+on the nature of the problem (such as a timeout due to network
+congestion), the second attempt to forward a message may or may not
+be successful.
+
+(I have found this to occur occasionally under very poor
+network conditions.)
+
+
+Program Code
+Program VirPro01a
+
+
+
+I will begin by
+explaining the program code for the program named VirPro01a.&#160;
+Portions of this discussion will be very brief because I have
+previously explained similar code in a lesson entitled Enlisting
+Java in the War Against SPAM, Part 1, The Communications Module.
+
+
+
+The VirPro01a program is designed to be used
+with a POP3 email
+server as the public email server.
+
+(The server for the secret
+email account can be of any type for which you can obtain a message
+viewer.&#160; For example, it could be a typical WebMail server.)
+
+
+For technical information on the POP3 message transfer protocol, see
+RFC 1725 at
+
+http://www.cis.ohio-state.edu/htbin/rfc/rfc1725.html.
+
+
+
+This program was tested using SDK 1.4.2 under WinXP.
+
+
+
+Will discuss in fragments
+
+
+
+As is my custom, I will discuss the program in fragments.&#160; A
+complete listing of the program is provided in Listing 40 near the end
+of the lesson.
+
+
+
+Instance variables
+
+
+
+The beginning of the VirPro01a class, and a list of instance
+variables are shown
+in Listing 1.
+</TEXT>
+<CODE orderid="1" >
+class VirPro01a extends Frame{
+  String dataPath = &quot;./Messages/&quot;;
+
+  int numberMsgs = 0;
+  int msgCounter = 0;
+  int msgNumber;
+  String uidl = &quot;&quot;;//unique POP3 msg ID
+  BufferedReader inputStream;
+  PrintWriter outputStream;
+  Socket socket;
+  String pathFileName;
+
+Listing 1
+</CODE>
+<TEXT orderid="2" >
+The variable named dataPath contains a reference to the local
+working folder where messages are stored awaiting virus scanning and
+forwarding to the secret email account.
+
+
+
+You might want to use a different folder for this purpose. If so,
+simply
+provide the path and folder name as a String.&#160; As you can
+see, my
+working folder, named Messages is specified relative to the
+folder that contains the class files for the program.&#160; You could
+use an absolute path rather than a relative path if you choose.
+
+
+
+The remaining instance variables in Listing 1 are simply working
+variables used by the program for various purposes.
+
+
+
+The main method
+
+
+
+The main method, shown in Listing 2, confirms the correct
+number of command line parameters, and uses those parameters to
+instantiate an object of the VirPro01a class.
+</TEXT>
+<CODE orderid="3" >
+public static void main(String[] args){
+    if(args.length != 3){
+      System.out.println(&quot;Usage: java VirPro01a &quot;
+                + &quot;pubServer userName password&quot;);
+      System.exit(0);
+    }//end if
+
+    new VirPro01a(args[0],args[1],args[2]);
+  }//end main
+
+Listing 2
+</CODE>
+</result>

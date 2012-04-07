@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>10607</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.javaworld.com/javaworld/jw-03-2000/jw-03-ssj-patterns.html</url>
+</description>
+<TEXT orderid="0" >
+InfoWorld: Modernizing IT
+
+
+JavaWorld: Solutions for Java Developers
+
+
+               
+                 
+
+
+
+  
+  
+    
+    
+    Advanced search
+  
+
+  
+
+
+            
+            
+               
+            
+         
+         
+
+
+            
+      
+      
+
+
+ 
+
+
+
+
+
+
+Research Centers
+			+ Core JavaClient-side JavaDesign PatternsJava LanguageJava Platform APIsJava Programming ConceptsSwing/GUI ProgrammingThreads/Concurrency
+			+ Enterprise JavaAjax/RIA/Web 2.0Architecture &amp; ScalabilityEnterprise Best PracticesJava &amp; XMLJava Web DevelopmentWeb Services &amp; SOAs
+			+ Mobile Java
+			+ Tools &amp; MethodsApplication ServersData Management/RDBMSEnterprise MiddlewareJava IDEsJava SecurityOpen Source ToolsScripting/Other LanguagesSoftware Development LifecycleSoftware Development MethodologiesTesting &amp; DebuggingWeb Application Frameworks
+			+ JavaWorld ArchivesDesign TechniquesHow-to JavaJava 101Java Design PatternsJava Q&amp;AJava TipsJava TrapsServer-side JavaUnder the Hood
+ 
+    
+      Site Resources
+      Featured Articles
+      News &amp; Views
+      Community
+      Java Q&amp;A
+      JW Blogs
+	  Podcasts
+	  Site Map
+    
+    
+	
+	
+      Careers
+	  Newsletters
+      Whitepapers
+      RSS Feeds
+    
+   
+   
+	
+		 About JavaWorld
+         Advertise
+         Write for JW
+	
+	
+	
+
+	
+		
+            
+               
+               
+                  
+                     Java Enterprise Edition
+                  
+               
+               
+            
+            
+               
+            
+            
+               
+                  
+                     
+	
+		
+		JW&apos;s Most Read
+		
+		
+	
+	
+		 Recent:
+
+   Java Tips:&#160;The Serialization algorithm revealed
+   Know your Oracle application server
+   SwingX, JRuby: Survivors?
+   Cloud-ready, multicore-friendly apps, Part 2
+   Lean service architectures with Java EE 6
+
+Archives:
+
+   Hello, OSGi:&#160;Bundles for beginners (2008)
+   
+   Sockets programming in Java:&#160;A tutorial (1996)
+   
+   Understanding JPA, Part 1 (2008)
+   
+   Smartly load your properties (2003)
+   
+   REST for Java developers, Part 1 (2008)
+   
+
+	
+	
+		 
+	
+
+
+
+                        
+
+
+            
+      
+      
+
+
+ 
+
+
+
+
+
+                     
+                     Featured White PapersFree Trial Download: Build Professional Java Installers with InstallAnywhere
+                             
+	
+	
+          
+            Newsletter sign-up  View all newsletters
+			Sign up for our Enterprise Java Newsletter 
+            
+              
+                
+                Enterprise Java
+              
+		    
+            
+			
+			
+            
+          
+        
+        
+       
+    
+        Sponsored Links
+    
+  
+		
+			Slow Apps? Overloaded DBMS? - FREE Download
+			
+            FREE Download Feb 14 - March 7th Eliminate bottlenecks &amp; maximize performance ScaleOut StateServer&#174; 
+	
+   
+  
+	
+
+
+	
+
+
+
+                     
+                     
+                  
+                  JavaWorld.com
+                     &gt; Java Enterprise Edition &gt;
+                  
+                     
+                     
+                     
+                     
+                     Server-side Java: Patterns for flexible initialization, Part 1
+                     A reflective approach to initializing your server-side system
+                     By&#160;Lennart Jorelid,&#160;JavaWorld.com,&#160;03/01/00
+                     
+    
+        
+            Print
+            Email
+            Feedback
+            Resources
+            Discuss
+            
+    
+    
+        Digg
+        Reddit
+        SlashDot
+        Stumble
+        del.icio.us
+        Technorati
+        dzone
+          
+
+                     
+                     
+                     
+
+
+
+                     Your Java server is almost complete: you&apos;ve tested the code thoroughly, and everything seems to be running smoothly. It&apos;s
+                        time to wrap up your project and take care of the small details required to ship the code. Usually, one of those small details
+                        is creating and utilizing an application configuration file to store all the data relevant to the system setup. The code has
+                        to ship within an hour, so you hack something together that reads the configuration file and interprets its settings. A year
+                        later when you look back at the code, the sound of silent weeping starts to emanate from the depths of your professional programming
+                        soul.
+                     
+                     Creating a simple but reusable process for reading and interpreting configuration information requires some thought. While
+                        preserving Java&apos;s simplicity, the process must be specialized enough to handle most steps in the application setup. Briefly,
+                        the setup/startup process can be described as the creation of at least one object of a class given in the configuration file,
+                        with constructor parameter values provided within the file.
+                      
+                     Figure 1. The setup process flow
+                     The two process steps, illustrated with the green arrows in Figure 1, are what you must implement to instantiate the startup
+                        object from the parameters in the configuration file. Thus, you need to implement the two process steps in a general fashion.
+                        Your goal is to be able to retain the setup process or pattern in future releases of your application software. Simply create
+                        a class (or upgrade an existing one) that should be used as the application initialization class. Such a class has only one
+                        purpose: to set up the application and to launch any side processes required to set the application server in standard operating
+                        mode.
+                      
+                     Figure 2. The setup process flow and components
+                     The most general entity in Java tends to be the interface, which can be implemented in a variety of ways without breaking
+                        the initial system design. Striving for generality in software components, the ConfigFileParser and ObjectFactory steps shown in Figure 2 could be Java interfaces and therefore implemented in myriad ways. Of course, this design would allow
+                        the setup subapplication to be as general as possible; if you suddenly feel an urge to change the format of the configuration
+                        file (say, to XML, CHTML, or some equally buzzword-compliant form of notation), just create a new ConfigFileParser implementation and plug it in to the application.
+                     
+                     Now that the main setup tasks are defined, let&apos;s take a look at one possible system design. The overall design could, of course,
+                        be enhanced to accommodate powerful features. But for the purposes of this article, it&apos;s important to study the process as
+                        a whole, as well as study the collaboration between the ConfigFileParser and the ObjectFactory. Let&apos;s take a look at the entire subsystem illustrated in Figure 3, since it is fairly small:
+                      
+                     Figure 3. The partial class diagram of the setup system
+                     Systems that perform behind-the-scenes setup tasks should hide as much of the underlying structure as possible from the ultimate
+                        caller. By encapsulating most of the structure, few limitations need to be imposed on the final (and evolving) setup system.
+                        Thus, the only method that must be called to initialize the entire system is the doSetup() method of the Startup class. The process described above is then executed in the doSetup() method, as shown in Figure 4:
+                      
+                     Figure 4. The doSetup() sequence diagram
+                     The parseConfigFile() method is essentially a small parser whose algorithm could be exchanged at any point to handle different configuration file
+                        types and structures. By delegating the task of interpreting the information in the configuration file to another class, the
+                        system as a whole becomes more robust and may better withstand changes in its environment (the configuration file).
+                     
+                     Let&apos;s take a look at a simple ConfigFileParser that handles old-style Java property configuration files:
+                     
+                     Listing 1. SimpleConfigParser.java
+</TEXT>
+<CODE orderid="1" >
+// Copyright (c) 2000 jguru.com
+// All rights reserved.
+package com.jguru.initHandler;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collections;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.BufferedReader;
+/**
+ * Implementation of the ConfigFileParser interface that reads and parses
+ * old-style Java Properties files.
+ *
+ * @author Lennart J&#246;relid, jGuru Europe
+ * @version $Id$
+ * @since January 2000
+ */
+public class PropertyConfigParser implements ConfigFileParser
+{
+  /**
+    * Parses an old-style Java configuration file, constructed of
+    * key=value pairs. The result is packaged in a map.
+    *
+    * Lines starting with &quot;#&quot; or &quot; &quot; (white space) characters are
+considered
+    * comments, and are disregarded by this parser method.
+    *
+    * @param absFilePath The absolute file path of the config file.
+    * @return All parameters in the config file in a parsed format.
+    */
+   public Map parseConfigFile(String absFilePath) throws StartupException
+   {
+       // Check sanity
+       File configFile = new File(absFilePath);(!configFile.exists() || !configFile.canRead())
+       throw new StartupException(&quot;[parseConfigFile]: Config file &apos;
+&quot; + absFilePath
+         + &quot;&apos; nonexistent or unreadable.&quot;);
+       // Open a Reader to the config file
+       BufferedReader in = null;
+       try
+       {
+          in = new BufferedReader(new FileReader(configFile));       catch(FileNotFoundException ex)
+       {
+          // We should never end up here, since
+          // we already checked that the readable config file existed...
+          throw new StartupException(&quot;[parseConfigFile]: Guru
+meditation; Config file &apos;&quot;
+                        + absFilePath + &quot;&apos; maybe not found.&quot;);
+       }
+       // Create the resulting map and populate it
+       // with the entries in the configuration file.
+       Map aMap = Collections.synchronizedMap(new HashMap());
+       // Read all lines in the config file
+       while(true)           try
+           {
+              String aLine = in.readLine();
+              if (aLine == null) break;
+              // Disregard comments that reside on lines starting
+              // with white space or a pound sign.
+              if(! aLine.startsWith(&quot;#&quot;) || ! aLine.startsWith
+(&quot; &quot;))
+              {
+                  // This is a config directive -- not a comment.
+                  // Split the line/string at the index of the &quot;
+=&quot;.
+                  int divisor = aLine.indexOf(&quot;=&quot;);
+                  if (divisor != -1)
+                  {
+                      // Create a new entry in the return map
+                      aMap.put(
+                           aLine.substring(0, divisor),                 //
+The key
+                           aLine.substring(divisor + 1, aLine.length()) //
+The value
+                           );
+                  }
+              }
+           }
+           catch(IOException ex)
+           {
+              throw new StartupException(&quot;[parseConfigFile]: &quot; +
+ex);
+           }
+       }
+       return aMap;
+   }
+}
+</CODE>
+<TEXT orderid="2" >
+The above listing is a very simple parser method; it simply reads through all the lines in the configuration file, discarding
+                        the lines starting with &quot;#&quot; or &quot;&#160;&quot; (white space) and treating all other lines as configuration directives. The results are
+                        returned in the form of a map, which the ObjectFactory can use to automate the creation of the startup objects.
+                     
+                     Of course, the ConfigFileParser implementation is written for one particular configuration file syntax. Note that the sample configuration file below has
+                        a very rudimentary syntax in which the system root class is com.jguru.initHandler.TestClass and all the arguments to that class&apos;s constructor are provided as a pair of two keys: the constructor parameter [argX] and
+                        its corresponding type [typeX].
+                     
+                     Listing 2. Sample configuration file
+                     
+                        ############################################
+#                                          #
+# jGuru Sample Configuration file          #
+#                                          #
+############################################
+startupClass=com.jguru.initHandler.TestClass
+arg0=A custom config string
+type0=java.lang.String
+arg1=42
+type1=java.lang.Integer
+
+                     
+                     Thus, the equivalent Java statement that you should extract from the configuration file above is
+</TEXT>
+<CODE orderid="3" >
+new com.jguru.initHandler.TestClass(&quot;A custom config string&quot;, 42);
+</CODE>
+</result>

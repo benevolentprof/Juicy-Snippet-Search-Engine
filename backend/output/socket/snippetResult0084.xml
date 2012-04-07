@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>2430</docid>
+<orderid>3</orderid>
+<type>CODE</type>
+<url>http://www.dickbaldwin.com/java/Java640.htm</url>
+</description>
+<CODE orderid="1" >
+/*File Corba07.idl
+See Corba07Server.java for information on this program.
+**********************************************************/
+module TheDateApp{
+  interface TheDateInterface{
+    string getTheDateMethod();
+  };//end interface TheDateInterface
+};//end module TheDateApp
+
+
+
+.
+</CODE>
+<TEXT orderid="2" >
+rem File Corba07.bat
+echo off
+rem See Corba07Server.java for description of program
+rem This program does not use a name service. Instead it
+rem  uses stringified reference.
+
+echo off
+
+echo Convert the idl file to the required set of java files
+idltojava -fno-cpp -p junk Corba07.idl
+
+echo Compile all of the java files
+javac Corba07*.java
+
+echo Start the server as a new process. 
+start java Corba07Server
+
+echo Start the client manually to avoid race condition
+
+
+
+.
+</TEXT>
+<CODE orderid="3" >
+/*File Corba07Server.java
+Revised 10/31/98
+
+This is a Java/CORBA server that illustrates the use 
+of stringified object references stored in a file on
+a server that is different from the machine on which
+either the CORBA server or the CORBA client are located.
+
+An abbreviated, unreliable, non-robust version of an FTP 
+client is used by the server and the client to store the 
+stringified object reference on an FTP server and retrieve
+that reference from the FTP server.
+
+Note that the FTP client has no error handling capability
+and basically assumes that everything works as planned.  
+If any problem arises in the FTP process, the program
+won&apos;t work properly.  This program is provided simply to
+get you started in programming your own version.  You will
+need to study the FTP protocol that can be obtained from
+sources on the WWW, and upgrade your version of the 
+program to make it reliable and robust.
+
+This server provides a servant object that returns the
+date and time as a string. 
+
+Tested using JDK 1.2beta4 under Win95.
+**********************************************************/
+import junk.TheDateApp.*;
+import org.omg.CORBA.*;
+import java.util.Date;
+import java.io.*;
+import java.net.*;
+ 
+class TheDateInterfaceServant 
+                         extends _TheDateInterfaceImplBase{
+  public String getTheDateMethod(){
+    return new Date().toString();
+  }//end getTheDateMethod()
+}//end TheDateInterfaceservant class
+//=======================================================//
+ 
+public class Corba07Server   {
+	static String stringifiedObjectReference;
+	static Corba07Server thisObj = new Corba07Server();
+ 
+  public static void main(String args[]){
+    try{      
+      //Create and initialize the ORB
+      ORB orb = ORB.init(args, null);
+ 
+      //Create servant and register it with the ORB
+      TheDateInterfaceServant theObjectReference = 
+                             new TheDateInterfaceServant();
+      orb.connect(theObjectReference);
+
+      //Convert the object reference to a string and store
+      // it in a common file for access by the client.
+      setStringifiedObjectRef(
+                 orb.object_to_string(theObjectReference));
+
+      System.out.println(&quot;Server is running&quot;);
+ 
+      // wait for invocations from clients
+      java.lang.Object sync = new java.lang.Object();
+      synchronized (sync) {
+        sync.wait();
+      }//end synchronized block
+ 
+    }catch (Exception e) {
+       System.err.println(&quot;ERROR: &quot; + e);
+       e.printStackTrace(System.out);
+    }//end catch block
+  }//end main()
+  //-----------------------------------------------------//
+  
+  static void setStringifiedObjectRef(String stringObjRef){
+  	stringifiedObjectReference = stringObjRef;
+  	
+    //Write the stringified object ref to a file named
+    // junk.txt on a specific FTP server. You will need to
+    // change this to your FTP server in your version of
+    // the program.
+    String server = &quot;www2.austin.cc.tx.us&quot;;
+    int port = 21; //ftp port
+    
+    try{
+      //Establish a server to support the data connection
+      // with the site for sending a one-line file. Do it
+      // early to make certain that it is ready when
+      // needed later.
+      SendFileServer sendFileServerThread = 
+                              thisObj.new SendFileServer();
+    	
+      //Get a socket, connected to the specified FTP server
+      // on the specified port.
+      Socket socket = new Socket(server,port);
+      
+      //Get an input stream from the socket.  This stream
+      // is used for receiving status information from the
+      // FTP server.
+      BufferedReader inputStream = 
+                 new BufferedReader(new InputStreamReader(
+                                 socket.getInputStream()));
+
+      //Get  an output stream to the socket.  This stream
+      // is used for sending commands to the FTP server.
+      //  Note that this stream will autoflush.
+      PrintWriter outputStream = 
+                   new PrintWriter(new OutputStreamWriter(
+                           socket.getOutputStream()),true);
+
+      //Flush header received from text from FTP site.
+      // This code is very specific to a particular site
+      // that sends 7 lines of header text.  Your FTP site
+      // will probably be different.
+      for(int cnt = 0; cnt &lt; 7; cnt++){
+        System.out.println(inputStream.readLine());
+      }//end for loop
+
+      //Notify the FTP site of the user.
+      outputStream.println(&quot;USER baldwin&quot;);
+      //Get a line of text from FTP site and display it.
+      System.out.println(inputStream.readLine());
+
+      //Get password from user.  
+      //CAUTION:  This code does not hide the password.
+      StringBuffer password = new StringBuffer();
+      int ch1 = &apos;0&apos;;
+      System.out.println(
+                  &quot;Enter password, terminate with Ctrl-z&quot;);
+      while( (ch1 = System.in.read() ) != -1){
+        password.append((char)ch1);
+      }//end while loop
+      String passWord = new String(password);
+
+      //Send password to FTP site
+      outputStream.println(&quot;PASS &quot; + passWord);
+      System.out.println(inputStream.readLine());
+
+      //Change to correct directory.  This is very
+      // specific to my site.  Yours will be different.
+      outputStream.println(&quot;CWD public_html&quot;);
+      System.out.println(inputStream.readLine());
+
+      //Establish IP adr of localhost for getting
+      // and sending file data      
+      String address = 
+                     InetAddress.getLocalHost().toString();
+      //Remove the name from the string
+      int temp = address.indexOf(&apos;/&apos;);
+      address = address.substring(temp+1);
+      //Replace periods by commas
+      StringBuffer mutableAdr = new StringBuffer(address);
+      for(int cnt = 0; cnt &lt; mutableAdr.length();cnt++){
+        if(mutableAdr.charAt(cnt) == &apos;.&apos;){
+          mutableAdr.setCharAt(cnt,&apos;,&apos;);
+        }//end if
+      }//end for loop
+      //Convert it back to a String object
+      address = new String(mutableAdr);
+
+      //Choose your port for data transfer.
+      String sendPort = &quot;,16,1&quot;;//4097
+
+      //Tell FTP server IP address and port for sending
+      outputStream.println(&quot;PORT &quot; + address + sendPort);
+      System.out.println(inputStream.readLine());
+      
+      //Send a store command to the FTP server to store
+      // a file there.
+      outputStream.println(&quot;STOR junk.txt&quot;);
+      System.out.println(inputStream.readLine());
+      System.out.println(inputStream.readLine());     
+
+      //Send a quit command to the FTP server
+      outputStream.println(&quot;QUIT&quot;);
+      System.out.println(inputStream.readLine());
+        
+      //Close the socket
+      socket.close();
+    }//end try
+    catch(UnknownHostException e){
+      System.out.println(e);
+      System.out.println(
+                       &quot;Must be online to run properly.&quot;);
+    }//end catch UnknownHostException
+    catch(Exception e){System.out.println(e);}
+    
+  }//end setStringifiedObjectRef()
+  //=====================================================//
+  //The following are inner classes
+  
+  //This class is used to instantiate a server thread that
+  // listens on port 4097 to send a one-line file.
+  class SendFileServer extends Thread{
+   
+    SendFileServer(){//constructor
+      start();//start thread and invoke the run() method
+    }//end constructor
+    //---------------------------------------------------//
+   
+    public void run(){
+      boolean done = false;
+      try{
+      //Instantiate a serverSocket on port 4097
+      ServerSocket serverSocket = new ServerSocket(4097);
+      System.out.println(
+                  &quot;SendFileServer Listening on port 4097&quot;);
+      //Loop and listen to port 4097.  If a call is
+      // received, spawn a SendFileConnection thread to
+      // send one line of text data.
+      while(!done){
+        //This statement blocks on the accept() method
+        // and returns a socket if a call is received.
+        // The socket is passed as a parameter to the
+        // new thread that is spawned.
+        new SendFileConnection(serverSocket.accept());
+        done = true;//this is a one-shot server
+      }//end while
+      }catch(IOException e){System.out.println(e);}
+    }//end run
+   
+  }//end class SendFileServer
+  //=====================================================//
+
+  //This inner class is used to spawn a thread to deal with
+  // a call that is received on port 4097
+  class SendFileConnection extends Thread{
+    Socket socket;
+
+    SendFileConnection(Socket socket){//constructor
+      System.out.println(
+            &quot;Received a SendFileServer call on port 4097&quot;);
+      this.socket = socket;
+      //Operate at a priority that is below the threads
+      // listening on the ports.
+      setPriority( NORM_PRIORITY-1 );
+      start();//start this thread and invoke the run method
+    }//end constructor
+    //---------------------------------------------------//
+   
+    public void run(){
+      System.out.println(
+                  &quot;Running SendFile thread for port 4097&quot;);
+      PrintWriter outputStream = null;
+     
+      try{
+        //Get  an output stream to the socket.  Note
+        // that this stream will autoflush.
+        outputStream = 
+                    new PrintWriter(new OutputStreamWriter(
+                           socket.getOutputStream()),true);
+
+        //Send one line of text data for the one-line file
+        outputStream.println(stringifiedObjectReference);
+        socket.close();
+      }//end 
+      catch( IOException e)
+        {System.out.println( &quot;I/O error &quot; + e );}
+    }//end run method
+  }//end class SendFileConnection
+  //=====================================================//
+  	
+}//end Corba07Server class
+
+
+
+. 
+
+
+/*File Corba07Client.java
+See Corba07Server.java for information on this program.
+**********************************************************/
+import junk.TheDateApp.*;
+import org.omg.CORBA.*;
+import java.io.*;
+import java.net.*;
+
+public class Corba07Client{
+	static String stringifiedObjectReference;
+	static Corba07Client thisObj = new Corba07Client();
+	
+  public static void main(String args[]){
+    try{
+      // create and initialize the ORB
+      ORB orb = ORB.init(args, null);
+      
+      //Get and convert the stringified object reference 
+      // to a generic CORBA object reference
+      org.omg.CORBA.Object theGenericObjRef = 
+              orb.string_to_object(getStringifiedObjRef());
+
+      //Cast, or narrow the generic object reference to a 
+      // true object reference.
+      TheDateInterface theRemoteObjRef = 
+           TheDateInterfaceHelper.narrow(theGenericObjRef);
+ 
+      //Call the TheDateInterface server object and 
+      // print results
+      String theDate = 
+              theRemoteObjRef.getTheDateMethod();
+      System.out.println(theDate);
+      
+      //Delay program termination so that the console
+      // won&apos;t disappear from the screen when running
+      // under control of a batch file.
+      int ch1 = &apos;0&apos;;
+      System.out.println(&quot;Press Ctrl-z to terminate&quot;);
+      while( (ch1 = System.in.read() ) != -1);      
+    }catch (Exception e) {
+      System.out.println(&quot;ERROR : &quot; + e) ;
+      e.printStackTrace(System.out);
+    }//end catch block
+  }//end main() method
+  //-----------------------------------------------------//
+  
+  //See the program named Corba07Server for explanatory
+  // comments about how the following code works.
+  //This method gets a stringified object reference 
+  // provided by the server according to a specific
+  // agreement as to how the reference will be delivered.
+  static String getStringifiedObjRef(){
+    String server = &quot;www2.austin.cc.tx.us&quot;;
+    int port = 21; //ftp port
+    
+    try{
+      GetFileServer getFileServerThread = 
+                               thisObj.new GetFileServer();
+      Socket socket = new Socket(server,port);
+      BufferedReader inputStream = 
+                 new BufferedReader(new InputStreamReader(
+                                 socket.getInputStream()));
+      PrintWriter outputStream = 
+                   new PrintWriter(new OutputStreamWriter(
+                           socket.getOutputStream()),true);
+      for(int cnt = 0; cnt &lt; 7; cnt++){
+        System.out.println(inputStream.readLine());
+      }//end for loop
+      outputStream.println(&quot;USER baldwin&quot;);
+      System.out.println(inputStream.readLine());
+
+      //CAUTION:  This code does not hide the password.
+      StringBuffer password = new StringBuffer();
+      int ch1 = &apos;0&apos;;
+      System.out.println(
+                  &quot;Enter password, terminate with Ctrl-z&quot;);
+      while( (ch1 = System.in.read() ) != -1){
+        password.append((char)ch1);
+      }//end while loop
+      String passWord = new String(password);
+
+      outputStream.println(&quot;PASS &quot; + passWord);
+      System.out.println(inputStream.readLine());
+
+      outputStream.println(&quot;CWD public_html&quot;);
+      System.out.println(inputStream.readLine());
+
+      String address = 
+                     InetAddress.getLocalHost().toString();
+      int temp = address.indexOf(&apos;/&apos;);
+      address = address.substring(temp+1);
+      StringBuffer mutableAdr = new StringBuffer(address);
+      for(int cnt = 0; cnt &lt; mutableAdr.length();cnt++){
+        if(mutableAdr.charAt(cnt) == &apos;.&apos;){
+          mutableAdr.setCharAt(cnt,&apos;,&apos;);
+        }//end if
+      }//end for loop
+      address = new String(mutableAdr);
+
+      String rcvrPort = &quot;,16,0&quot;;//4096
+
+      outputStream.println(&quot;PORT &quot; + address + rcvrPort);
+      System.out.println(inputStream.readLine());
+
+      outputStream.println(&quot;RETR junk.txt&quot;);//retrieve file
+      System.out.println(inputStream.readLine());
+      System.out.println(inputStream.readLine());     
+
+      outputStream.println(&quot;QUIT&quot;);
+      System.out.println(inputStream.readLine());
+        
+      socket.close();
+    }//end try
+    catch(UnknownHostException e){
+      System.out.println(e);
+      System.out.println(
+                        &quot;Must be online to run properly.&quot;);
+    }//end catch UnknownHostException
+    catch(Exception e){System.out.println(e);}
+
+    return stringifiedObjectReference;
+  }//end getStringifiedObjRef()
+  //=====================================================//
+  // The following are inner classes.
+  class GetFileServer extends Thread{
+    GetFileServer(){//constructor
+      start(); //start thread and invoke the run() method
+    }//end constructor
+    //---------------------------------------------------//
+   
+    public void run(){
+      boolean done = false;
+      try{
+      ServerSocket serverSocket = new ServerSocket(4096);
+      System.out.println(
+                   &quot;GetFileServer Listening on port 4096&quot;);
+      while(!done){
+       new GetFileConnection(serverSocket.accept());
+       done = true;//this is a one-shot server
+     }//end while
+
+     }catch(IOException e){System.out.println(e);}
+   }//end run
+   
+  }//end class GetFileServer
+  //=====================================================//
+
+  class GetFileConnection extends Thread{
+    Socket socket;
+
+    GetFileConnection(Socket socket){//constructor
+      System.out.println(
+             &quot;Received a GetFileServer call on port 4096&quot;);
+      this.socket = socket;
+      setPriority( NORM_PRIORITY-1 );
+      start();//start  thread and invoke the run method
+    }//end constructor
+    //---------------------------------------------------//
+   
+    public void run(){
+      System.out.println(
+                   &quot;Running GetFile thread for port 4096&quot;);
+      BufferedReader inputStream = null;
+     
+      try{
+        inputStream = 
+                  new BufferedReader(new InputStreamReader(
+                                 socket.getInputStream()));
+        String input = inputStream.readLine();
+        System.out.println(&quot;Got Input: &quot;+ input);
+        stringifiedObjectReference = input;
+        socket.close();
+      }//end 
+      catch( IOException e)
+        {System.out.println( &quot;I/O error &quot; + e );}
+    }//end run method
+  }//end class GetFileConnection
+  //=====================================================//
+
+}//end Corba07Client class
+
+
+
+-end-
+</CODE>
+</result>

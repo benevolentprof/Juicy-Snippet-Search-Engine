@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75702</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/example/java/swing/displayingjtreedata-in-java.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Displaying Hierarchical data in JTree
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this section, you will learn to display the hierarchical data in JTree . When you select the hierarchical data it is also displayed on the command prompt.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Displaying Hierarchical data in JTree&#160;
+
+
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+In this section, you
+will learn to display the hierarchical data in JTree . When you select
+the hierarchical data it is also displayed on the command prompt.
+Program Description:
+The following program constructs a tree that displays
+the hierarchical data. Here CellRenderer class extends JLabel
+and implements TreeCellRenderer.&#160; It displays the tree node like: File,
+Subfile and SubNode. The getTreeCellRendererComponent() method
+sets the value of the current tree cells. If your selection is &apos;true&apos; (if any
+node is selected ), the cell is expanded and the selected node is displayed . The StringBuffer class implements a mutable
+sequence of characters. The TreeSectionListener listens to any change
+needed for the TreeSeclectionModel. The  TreeSectionEvent 
+handles the changes to be made&#160; in the current
+selection.&#160;
+Finally, you get a tree that displays
+hierarchical data . This tree is displayed on the JFrame.
+Here is the code of this program:
+</TEXT>
+<CODE orderid="1" >
+import&#160;javax.swing.*;
+
+import&#160;javax.swing.event.*;
+
+import&#160;javax.swing.tree.*;
+
+import&#160;java.awt.*;
+
+
+
+public&#160;class&#160;DisplayingJTreeData&#160;{
+
+&#160;&#160;class&#160;CellRenderer&#160;extends&#160;JLabel&#160;implements&#160;TreeCellRenderer&#160;{
+
+&#160;&#160;&#160;&#160;CellRenderer(){}
+
+&#160;&#160;&#160;&#160;public&#160;Component&#160;getTreeCellRendererComponent(JTree&#160;tree,&#160;Object&#160;value,boolean&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; selected,&#160;boolean&#160;expanded,&#160;boolean&#160;file,&#160;int&#160;row,boolean&#160;hasFocus){&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;StringBuffer&#160;buffer&#160;=&#160;new&#160;StringBuffer();
+
+&#160;&#160;&#160;&#160;&#160;&#160;if&#160;(expanded)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;buffer.append(&quot;File:&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;if&#160;(file)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;buffer.append(&quot;Subfile:&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;if&#160;(hasFocus)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;buffer.append(&quot;SubNode:&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;buffer.append(row&#160;+&#160;&quot;-&gt;&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;buffer.append(value.toString());
+
+&#160;&#160;&#160;&#160;&#160;&#160;setForeground(selected&#160;?&#160;Color.RED&#160;:&#160;Color.RED);
+
+&#160;&#160;&#160;&#160;&#160;&#160;setText(buffer.toString());
+
+&#160;&#160;&#160;&#160;&#160;&#160;return&#160;this;
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;}
+
+&#160;&#160;public&#160;DisplayingJTreeData()&#160;{
+
+&#160;&#160;&#160;&#160;JFrame&#160;frame&#160;=&#160;new&#160;JFrame(&quot;Displaying&#160;Data&#160;Tree&#160;frame&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;DefaultMutableTreeNode&#160;javaBook&#160;=&#160;new&#160;DefaultMutableTreeNode(&quot;JavaBook&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;DefaultMutableTreeNode&#160;javaDeveloper&#160;=&#160;new&#160;DefaultMutableTreeNode(&quot;JavaDevelopers&quot;);
+
+&#160;&#160;&#160;&#160;DefaultMutableTreeNode&#160;java&#160;=&#160;new&#160;DefaultMutableTreeNode(&quot;Java&quot;);
+
+&#160;&#160;&#160;&#160;DefaultMutableTreeNode&#160;javaTeamName=new&#160;DefaultMutableTreeNode(&quot;JavaTeamName&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;javaBook.add(javaDeveloper);
+
+&#160;&#160;&#160;&#160;javaBook.add(javaTeamName);
+
+&#160;&#160;&#160;&#160;&#160;&#160;String&#160;javaTeams[]&#160;=&#160;{&#160;&quot;Programmer&quot;,&#160;&quot;Coding&quot;,&#160;&quot;Tester&quot;,&#160;&quot;ProjectDesigner&#160;&#160;&quot;,
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &quot;ProjectDeveloper&quot;,&#160;&quot;ProjectManager&quot;,&#160;&quot;SinearProgramer&quot;,&#160;&quot;JuniarProgramer&quot;};
+
+&#160;&#160;&#160;&#160;&#160;&#160;for&#160;(int&#160;i&#160;=&#160;0,&#160;n&#160;=&#160;javaTeams.length;&#160;i&#160;&lt;&#160;n;&#160;i++)
+
+&#160;&#160;&#160;&#160;&#160;&#160;javaDeveloper.add(new&#160;DefaultMutableTreeNode(javaTeams[i]));
+
+&#160;&#160;&#160;&#160;String&#160;teamNames[]={&quot;Amar&quot;,&quot;Vinod&quot;,&quot;Chandan&quot;,&quot;Sushil&quot;,&quot;Rajesh&quot;,&quot;Amit&quot;,&quot;Suman&quot;,&quot;Santosh&quot;};
+
+&#160;&#160;&#160;&#160;for&#160;(int&#160;i&#160;=&#160;0,&#160;n&#160;=&#160;teamNames.length;&#160;i&#160;&lt;&#160;n;&#160;i++)
+
+&#160;&#160;&#160;&#160;&#160;&#160;javaTeamName.add(new&#160;DefaultMutableTreeNode(teamNames[i]));
+
+&#160;&#160;&#160;&#160;javaBook.add(java);
+
+&#160;&#160;&#160;&#160;&#160;&#160;String&#160;bookLabels[]&#160;=&#160;{&#160;&quot;JavaTutorial&quot;,&#160;&quot;JavaProgram&quot;,&#160;&quot;JavaNews&quot;,&#160;&quot;Java&quot;,&quot;project&quot;,
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&quot;JavaDevelopment&quot;};
+
+&#160;&#160;&#160;&#160;for&#160;(int&#160;i&#160;=&#160;0,&#160;n&#160;=&#160;bookLabels.length;&#160;i&#160;&lt;&#160;n;&#160;i++)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;java.add(new&#160;DefaultMutableTreeNode(bookLabels[i]));
+
+&#160;&#160;&#160;&#160;&#160;&#160;JTree&#160;tree&#160;=&#160;new&#160;JTree(javaBook);
+
+&#160;&#160;&#160;&#160;&#160;&#160;tree.addTreeSelectionListener(new&#160;TreeSelectionListener()&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;public&#160;void&#160;valueChanged(TreeSelectionEvent&#160;e)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;TreePath&#160;treepath&#160;=&#160;e.getPath();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;Java:&#160;&quot;&#160;+&#160;treepath.getLastPathComponent());
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Object&#160;elements[]&#160;=&#160;treepath.getPath();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;for&#160;(int&#160;i&#160;=&#160;0,&#160;n&#160;=&#160;elements.length;&#160;i&#160;&lt;&#160;n;&#160;i++)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print(&quot;-&gt;&quot;&#160;+&#160;elements[i]);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println();
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;});
+
+&#160;&#160;&#160;&#160;DefaultMutableTreeNode&#160;file&#160;=&#160;javaBook.getLastLeaf();
+
+&#160;&#160;&#160;&#160;TreePath&#160;path&#160;=&#160;new&#160;TreePath(file.getPath());
+
+&#160;&#160;&#160;&#160;tree.setSelectionPath(path);
+
+&#160;&#160;&#160;&#160;tree.setCellRenderer(new&#160;CellRenderer());
+
+&#160;&#160;&#160;&#160;JScrollPane&#160;scroll&#160;=&#160;new&#160;JScrollPane(tree);
+
+&#160;&#160;&#160;&#160;Container&#160;c&#160;=&#160;frame.getContentPane();
+
+&#160;&#160;&#160;&#160;c.add(scroll,&#160;BorderLayout.CENTER);
+
+&#160;&#160;&#160;&#160;frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+&#160;&#160;&#160;&#160;frame.setSize(350,&#160;300);
+
+&#160;&#160;&#160;&#160;frame.setVisible(true);
+
+&#160;&#160;}
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String&#160;args[]){
+
+&#160;&#160;&#160;&#160;try&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;UIManager.setLookAndFeel(&quot;com.sun.java.swing.plaf.windows.WindowsLookAndFeel&quot;);
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;catch&#160;(Exception&#160;evt)&#160;{}
+
+&#160;&#160;&#160;&#160;new&#160;DisplayingJTreeData();&#160;
+
+&#160;&#160;}
+
+}
+    
+   
+  
+   
+
+
+Download this program.
+</CODE>
+<TEXT orderid="2" >
+Output of the program:
+
+After clicking tree node the message is displayed
+on the command prompt.
+
+  
+    C:\javaswing&gt;javac DisplayingJTreeData.java
+
+      
+
+      C:\javaswing&gt;java DisplayingJTreeData
+
+      Java: JavaDevelopment
+
+      -&gt;JavaBook-&gt;Java-&gt;JavaDevelopment
+
+      Java: Vinod
+
+      -&gt;JavaBook-&gt;JavaTeamName-&gt;Vinod
+
+      Java: Amit
+
+      -&gt;JavaBook-&gt;JavaTeamName-&gt;Amit
+
+      Java: JavaProgram
+
+      -&gt;JavaBook-&gt;Java-&gt;JavaProgram
+
+      
+  
+
+&#160;
+
+
+		
+		
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+      
+
+      
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java Swing Tutorials ...  251936 viewsShow Scaling property of class AffineTransform ...  252273 viewsShow Shearing property of class AffineTransform ...  252275 viewsOutlining the font ...  252276 viewsShow Translation property of class AffineTransform ...  252280 viewsShow Different Strokes ...  252282 viewsShow Rotation property of class AffineTransform ...  252292 viewsIcon Changes at runtime ...  252294 viewsShow String in Oval ...  252297 viewsAnother Example of Gradient Paint ...  252299 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+io
+colors
+color
+ip
+change
+int
+line
+this
+ai
+tar
+rad
+create
+like
+start
+show
+if
+poi
+ie
+long
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+0 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Running First Hibernate 3.0 Example
+										Displaying Hierarchical data in JTree
+										Java Bitwise XOR &quot;^&quot; Operator
+										Struts Resources
+										Designing Database
+										Login and User Registration Application
+										Java Captcha in Struts 2 Application
+										Struts 2 RequiredString validator
+										Struts1 vs Struts2
+										Login/Logout With Session
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

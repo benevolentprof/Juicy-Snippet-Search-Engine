@@ -1,0 +1,888 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>3293</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/ent/article.php/3787701/Message-Authentication-Unlocking-the-Secrets-of-the-Java-Cryptography-Extensions.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Enterprise Java
+					
+				
+				
+					Read More in Enterprise Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Message Authentication: Unlocking the Secrets of the Java Cryptography Extensions
+			
+			
+				
+				
+					December 1, 2008
+					By 
+David Thurmond
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+In my article &quot;Unlocking the Secrets of Java Cryptography Extensions: The Basics,&quot; I introduced you to the Java Cryptography Extension and the theory of encrypting and decrypting data. But, how can you be sure of the integrity of your encrypted data? Encryption and decryption are only part of the picture. Here, you will learn about message authentication codes (MAC), and how to verify that the message you received is really what was sent.
+
+What Is Message Authentication?
+
+Message authentication is an algorithm for checking the integrity of a secret message upon receipt and decryption. To authenticate a deciphered message, the recipient applies a mathematical function called a cryptographic hash function to the decrypted plaintext, and checks the final value against an identically computed value that was also received from the message sender. If the values computed agree, the message is legitimate; if not, it is likely that the message was intercepted and changed before reaching the recipient.
+
+Ideally, the hash value from the message sender comes to the recipient separately from the message. This adds an extra layer of security to the exchange because anyone intercepting the message must also intercept the hash code, and must know how to recompute the hash code for their new, different message.
+
+Although this sounds pretty secure, it is certainly not foolproof. Listing 1 shows an absurdly simple example of a &quot;cryptographic&quot; hash function that computes a hash value based on a simple numeric value being assigned to the characters in the message.
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		Listing 1: SimpleCryptoHash.java
+</TEXT>
+<CODE orderid="1" >
+package com.dlt.developer.mac;
+
+import java.io.*;
+import java.util.HashMap;
+
+public class SimpleCryptoHash {
+   private HashMap codeMap;
+
+   public SimpleCryptoHash() {
+      codeMap = new HashMap();
+      StringBuffer sb = new
+         StringBuffer(&quot; ABCDEFGHIJKLMNOPQRSTUVWXYZ.,?!&quot;);
+      for (int value = 0; value &lt; sb.length(); value++) {
+         String key = String.valueOf(sb.charAt(value));
+         Integer val = new Integer(value);
+         codeMap.put(key, value);
+      }    // for value
+   }       // SimpleCryptoHash()
+
+   public String getPlainText() {
+      System.out.print(&quot;Enter plaintext:&quot;);
+      String plaintext = &quot;&quot;;
+      BufferedReader br =
+         new BufferedReader(new InputStreamReader(System.in)); 
+      try {
+         plaintext = br.readLine();
+      } catch (IOException ioe) {
+         System.out.println(&quot;IO error trying to read plaintext!&quot;);
+         System.exit(1);
+      }    // catch
+      return plaintext;
+   }       // getPlainText()
+
+   public int getHashCode(String plaintext)
+      throws IllegalArgumentException {
+      int hashCode = 0;
+      StringBuffer sb = new StringBuffer(plaintext.toUpperCase());
+      for (int i = 0; i &lt; sb.length(); i++) {
+         String key = String.valueOf(sb.charAt(i));
+         Integer val = (Integer)codeMap.get(key);
+         if (val == null) {
+            throw new IllegalArgumentException(&quot;The character &quot; +
+               key + &quot; is not in the code map.&quot;);
+         }    // if
+         hashCode = hashCode + val.intValue();
+      }       // for i
+      return hashCode;
+   }          // getHashCode()
+
+   public static void main(String[] args) {
+      System.out.println(&quot;This program generates a simple hashcode
+                          for the plaintext you enter.&quot;);
+      SimpleCryptoHash theHash = new SimpleCryptoHash();
+      String plaintext = theHash.getPlainText();
+      int hashCode = theHash.getHashCode(plaintext);
+      System.out.println(&quot;The hashcode for the plaintext \&apos;&quot; +
+                         plaintext + &quot;\&apos; is &quot; + hashCode);
+   }    // main()
+
+}    // SimpleCryptoHash
+</CODE>
+<TEXT orderid="2" >
+Following is sample output from running this program:
+
+
+
+
+This program generates a simple hashcode for the plaintext
+   you enter.
+Enter plaintext:Attack at dawn!
+The hashcode for the plaintext &apos;Attack at dawn!&apos; is 149
+
+
+Running the program a second time shows the fatal flaw in my cryptographic hash function:
+
+
+
+
+This program generates a simple hashcode for the plaintext
+   you enter.
+Enter plaintext:Surrender.
+The hashcode for the plaintext &apos;Surrender.&apos; is 149
+			
+			
+			
+			
+				
+1 
+2 
+3 
+4 
+
+				
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

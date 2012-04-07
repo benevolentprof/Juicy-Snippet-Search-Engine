@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>6151</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/other/article.php/721091/Formatting-Messages-in-Java-to-Communicate-with-Legacy-Systems-Part-1.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Formatting Messages in Java to Communicate with Legacy Systems, Part 1
+			
+			
+				
+				
+					March 22, 2001
+					By 
+Sharath Sahadevan
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Introduction
+
+A lot of new applications are being written today in Java. Companies also have a vested 
+interest in maintaining their legacy systems. So there is a need for Java applications to 
+communicate with legacy systems through messages that those systems can interpret properly.
+
+This article discusses some of the issues involved in formatting messages to be sent 
+to a legacy system. The legacy system usually expects its messages in a rigid format. 
+We will illustrate how such a message can be built in Java. And we
+will also show how to construct a byte stream in EBCDIC (Extended Binary Coded Decimal 
+Interchange Code) format in a Java application.
+
+I work on a Java application that uses sockets to communicate with the legacy system.  
+Two threads exist, one to write to the legacy system and another to read messages from it.
+ This document is not intended to discuss the architecture. The focus is on building the 
+message that needs to be sent.
+
+The message format:
+
+Here is a sample message format that we will use in this document. Note that this is 
+just a hypothetical message and the goal here is to study how to construct the message.
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		
+
+Bitmap (16 bytes) : 11110000 00000000
+
+Data Item 1 : 6 digit integer
+Data Item 2 : ....
+....
+....
+Data Item 15 : .....
+Data Item 16 : .....
+
+
+
+Each bit in the bitmap will indicate whether the data item exists in the message or not. 
+In the above example the bitmap indicates that data items 1, 2, 3, 4 exist, while 
+5, 6, 7, 8 ... 15, 16 do not exist. If our message only has data item 1, then the bitmap 
+should be 10000000 00000000. 
+
+This message format is very flexible and does not require all the different data items 
+to be present in every message. The bitmap identifies the data values that are present in 
+the message.
+
+Building the message:
+
+The following classes were used to build the message.
+
+
+BuildMsg
+InputData
+DiDefine
+
+
+These classes are explained in detail in separate sections to follow. An InputData object 
+is set up for every new message. This object will have all the input data for a particular 
+message. The InputData object has separate set methods for every data item. The 
+processRequest method of the BuildMsg class is called to construct the message in the 
+required format, as shown in Listing 1.
+
+Listing 1.
+</TEXT>
+<CODE orderid="1" >
+InputData inpDat = new InputData();
+inpDat.setDi1 = &quot;112868&quot; ; // Set Data Item 1
+... // Set Other Data Items
+BuildMsg msgClass = new BuildMsg() ;
+msgClass.processRequest(inpDat) ;
+</CODE>
+<TEXT orderid="2" >
+After the call to processRequest, our message is built and ready to be sent to the 
+legacy system.
+
+Writing the Message to the Legacy System
+
+The application uses sockets to communicate with the legacy system. A socket connection 
+is established. 
+
+Details of establishing a connection with the legacy system are skipped for the 
+sake of brevity. The following line will write the message to the sockets outputStream.
+</TEXT>
+<CODE orderid="3" >
+socketWriter.write(msgClass.getMsg() ) ;
+</CODE>
+<TEXT orderid="4" >
+SocketWriter is a BufferedOutputStream. The write method of the BufferedOutputStream 
+requires a byte array as input. msgClass is an instance of the BuildMsg class. The 
+previous call to the processRequest method of this class built the message. Its getMsg 
+method returns the message as a byte array. This provides a simple way to write the 
+message to the legacy system.
+
+At this point, you should have a high-level view of how the message is 
+constructed and sent to the legacy system. To understand the details, look at the 
+information about the classes and their methods in the sections that follow.
+
+InputData class:
+
+The InputData class holds all the input values required for a message. It is passed as 
+a parameter to the processRequest method of the BuildMsg class.
+
+The InputData class has a String for all the items needed to form the message. The 
+String di1 is for Data Item 1. There are get and set 
+methods for each data item, as shown in Listing 2.
+
+Listing 2.
+</TEXT>
+</result>

@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>16814</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-tips.org/java-me-tips/midp/how-to-send-binary-sms-message-on-mobile-device.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home    Java ME Tips               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					How to send binary SMS message on mobile device									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;36
+
+
+PoorBest&#160;
+		
+				
+			
+				
+This J2ME tip demostrates a method of sending binary messages such 
+as PNG images, sound files etc. In the program BinaryMessage interface 
+represents a binary message. The setPayloadData() method sets the 
+value of the payload in the data container without checking 
+whether the value is valid or not.
+</TEXT>
+<CODE orderid="1" >
+void&#160;sendSMS(byte&#160;data[])&#160;{
+
+
+
+&#160;&#160;&#160;&#160;try&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;destAddress&#160;=&#160;&quot;sms://9590528892:5001&quot;;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;MessageConnection&#160;smsConnection&#160;=
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(MessageConnection)Connector.open(destAddress);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//Create&#160;binary&#160;message
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;BinaryMessage&#160;binaryMSG&#160;=&#160;(BinaryMessage)smsConnection.newMessage(
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;MessageConnection.BINARY_MESSAGE);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//Setting&#160;destination&#160;add
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;binaryMSG.setAddress(destAddress);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//Add&#160;payload&#160;data
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;binaryMSG.setPayloadData(data);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//Now&#160;send&#160;the&#160;message
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;smsConnection.send(binaryMSG);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;smsConnection.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;}&#160;catch(Exception&#160;e)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;e=&quot;+e);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;frm.append(&quot;e=&quot;+e);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+&#160;Related Tips
+    
+
+
+
+
+    
+
+
+
+
+
+
+    Sending/Receiving SMS on J2ME device
+    Send/Recieve SMS from computer
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+&#160;Related Tips 
+A Graphics MIDlet
+A method of using differnet fonts in Java ME
+A Midlet application for GIF Animation
+A MIDlet with Hello text and an Exit command
+A sample of graphics - commands and event handling
+A utility of startTimer
+A way to know when some changes are made in a list
+An example of MIDlet skeleton
+
+			
+		
+				
+
+		&#160;
+
+		
+
+			
+									
+						
+							&lt; Prev
+					
+										&#160;
+
+					
+										
+						
+							Next &gt;
+					
+								
+			
+			                
+
+
+
+
+
+
+
+ 
+Page 1 of 0 ( 0 comments )
+
+
+       You can share your information about this topic using the form below! 
+
+Please do not post your questions with this form! Thanks.
+
+ 
+
+  
+    
+      
+                
+          
+          
+
+          
+          Name (required)
+
+          
+          
+
+                    
+          
+
+          E-Mail (required)          
+                    
+
+          
+          
+          
+
+          Your email will not be displayed on the site - only to our administrator          
+          
+
+          Homepage(optional)
+
+
+
+
+
+
+
+          
+          
+
+          Comment          
+                    Enable HTML code :
+          
+          Yes
+          
+          No 
+
+          
+          
+          
+          
+
+          
+
+ 
+          
+
+          
+          
+        
+      
+    
+  
+
+
+
+
+
+&#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+      
+    
+    
+      
+        
+          &#160;
+          &#160;
+          &#160;
+        
+        
+          &#160;
+          
+              &#160;            
+          &#160;
+        
+        
+          &#160;
+          &#160;
+          &#160;
+        
+      
+    
+    
+      
+        
+            
+            
+            
+        
+      
+    
+	
+	
+
+
+		
+				
+			
+				
+			
+		
+		
+		
+
+
+
+
+
+
+
+
+Home
+
+
+-
+
+
+About Us
+
+
+-
+
+
+Privacy Policy
+
+
+
+
+
+
+Copyright 2005 - 2008 www.java-tips.org
+Java is a trademark of Sun Microsystems, Inc.
+</TEXT>
+</result>

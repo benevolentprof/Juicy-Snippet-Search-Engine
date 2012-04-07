@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>9395</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.javabeginner.com/java-collections/java-hashtable</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+                                  
+                              
+                                  
+                                    
+                                      
+                                      
+                                      
+                                    
+
+                                    
+                                      
+                                      
+                                      
+                                  
+                              
+                              
+                                  
+                                  
+
+                                  
+                                  
+                                  
+                                  
+                                  
+                              
+                            
+                          
+                        
+
+                      
+                  
+                
+                
+				
+
+                  
+
+                    JDBC Tutorial
+
+                    |
+
+                    Interview Questions
+
+                    |
+
+                    Java Advanced
+
+                    |
+
+                    Other Tech Tutorials
+
+                  
+
+                
+              
+          
+
+        
+      
+      
+                  
+
+            
+              
+            
+            
+
+              &#160;&#160;&#160;&#160;Java Beginner Home
+            
+            
+              &#160;&#160;&#160;&#160;Table of Contents
+            
+
+            
+              &#160;&#160;&#160;&#160;Introduction to Java
+
+            
+            
+              &#160;&#160;&#160;&#160;Getting Started with Java
+            
+            
+              &#160;&#160;&#160;&#160;Basic Language Elements
+            
+            
+
+              &#160;&#160;&#160;&#160;Java Operators
+            
+            
+              &#160;&#160;&#160;&#160;Java Control Statements
+            
+            
+              
+                  
+
+                  
+              &#160;&#160;&#160;&#160;Java Access Modifiers
+            
+
+
+            
+
+              &#160;&#160;&#160;&#160;Classes and Objects
+            
+            
+              &#160;&#160;&#160;&#160;Java Constructors
+            
+            
+              &#160;&#160;&#160;&#160;Object Serialization
+
+            
+            
+              &#160;&#160;&#160;&#160;Java Class Inheritance
+            
+            
+              &#160;&#160;&#160;&#160;Java Object Type Casting
+            
+            
+
+              &#160;&#160;&#160;&#160;Abstract class and Interface
+            
+            
+              &#160;&#160;&#160;&#160;Java Method Overiding
+            
+            
+              &#160;&#160;&#160;&#160;Java toString Method
+
+            
+            
+              &#160;&#160;&#160;&#160;Java String Class
+            
+
+	    
+              &#160;&#160;&#160;&#160;Java String Comparison
+            
+            
+              &#160;&#160;&#160;&#160;Java StringBuffer
+            
+            
+              &#160;&#160;&#160;&#160;Java Exceptions
+
+            
+            
+              &#160;&#160;&#160;&#160;Singleton Pattern
+            
+            
+              &#160;&#160;&#160;&#160;Java Threads Tutorial
+            
+            
+
+              &#160;&#160;&#160;&#160;Java Collections Framework
+            
+            
+              &#160;&#160;&#160;&#160;Java Date Util
+            
+
+            
+              &#160;&#160;&#160;&#160;Swing Tutorial
+
+            
+
+
+             
+              &#160;&#160;&#160;&#160;Download Java Software
+            
+
+             
+              &#160;&#160;&#160;&#160;Advertise
+            
+            
+              &#160;&#160;&#160;&#160;Feedback
+            
+            
+
+              &#160;&#160;&#160;&#160;Java books 
+            
+            
+              
+            
+            
+              
+            
+
+            
+               
+            
+          
+          
+
+
+
+
+          
+            
+              
+
+            
+            
+              
+                
+                  
+                
+								
+
+                      Java HashTable
+					  
+
+
+
+
+
+
+
+	  
+
+	  
+	  
+
+	  
+ HashTable is synchronized.
+Iterator in the HashMap is fail-safe while the enumerator for the Hashtable isn&#8217;t.
+Hashtable doesn&#226;&#128;&#153;t allow nulls
+
+Below is a HashTable Example showing how collections are manipulated using a HashTable
+  Please Note that It must be Compiled in Java 1.4.
+</TEXT>
+<CODE orderid="1" >
+// Demonstrates the Hashtable class of the java.util package.
+
+public class HashTableDemo extends JFrame {
+
+	public HashTableDemo() {
+		super(&quot; Hashtable Sourcecode Example&quot;);
+		final JLabel jlbStatus = new JLabel();
+		final Hashtable hashTable = new Hashtable();
+		final JTextArea display = new JTextArea(4, 20);
+		display.setEditable(false);
+		JPanel jplNorth = new JPanel();
+		jplNorth.setLayout(new BorderLayout());
+		JPanel jplNorthSub = new JPanel();
+		jplNorthSub.add(new JLabel(&quot;Name (Key)&quot;));
+		final JTextField jtfFirstName = new JTextField(8);
+		jplNorthSub.add(jtfFirstName);
+		jplNorthSub.add(new JLabel(&quot;Phone No&quot;));
+		final JTextField jtfPhone = new JTextField(8);
+		jplNorthSub.add(jtfPhone);
+		jplNorth.add(jplNorthSub, BorderLayout.NORTH);
+		jplNorth.add(jlbStatus, BorderLayout.SOUTH);
+		JPanel jplSouth = new JPanel();
+		jplSouth.setLayout(new GridLayout(2, 5));
+		JButton jbnAdd = new JButton(&quot;Add&quot;);
+
+		jbnAdd.addActionListener(new ActionListener() {
+
+		public void actionPerformed(ActionEvent e) {
+				String strNum = jtfPhone.getText().trim();
+				String strName = jtfFirstName.getText().trim();
+				if ((strNum != null &amp;&amp; strNum.equals(&quot;&quot;))
+						|| (strName != null &amp;&amp; strName.equals(&quot;&quot;))) {
+					JOptionPane.showMessageDialog(HashTableDemo.this,
+							&quot;Please enter both Name and Phone No&quot;);
+					return;
+				}
+				int num = 0;
+				try {
+					num = Integer.parseInt(strNum);
+				} catch (NumberFormatException ne) {
+					ne.printStackTrace();
+				}
+				EmployeeDetails emp = new EmployeeDetails(strName, num);
+				Object val = hashTable.put(strName, emp);
+				if (val == null)
+					jlbStatus.setText(&quot;Added: &quot; + emp.toString());
+				else
+					jlbStatus.setText(&quot;Added: &quot; + emp.toString()
+							+ &quot;; Replaced: &quot; + val.toString());
+			}
+		});
+		jplSouth.add(jbnAdd);
+		JButton jbnGet = new JButton(&quot;Get&quot;);
+		jbnGet.addActionListener(new ActionListener() {
+
+		public void actionPerformed(ActionEvent e) {
+				Object val = hashTable.get(jtfFirstName.getText().trim());
+				if (val != null)
+					jlbStatus.setText(&quot;Get: &quot; + val.toString());
+				else
+					jlbStatus.setText(&quot;Get: &quot; + jtfFirstName.getText()+
+										&quot; not in table&quot;);
+			}
+		});
+		jplSouth.add(jbnGet);
+		JButton jbnRemove = new JButton(&quot;Remove Name&quot;);
+		jbnRemove.addActionListener(new ActionListener() {
+
+		public void actionPerformed(ActionEvent e) {
+				Object val = hashTable.remove(jtfFirstName.getText()
+						.trim());
+				if (val != null)
+					jlbStatus.setText(&quot;Remove: &quot; + val.toString());
+				else
+					jlbStatus.setText(&quot;Remove: &quot; + jtfFirstName.getText()+
+										&quot; not in table&quot;);
+			}
+		});
+		jplSouth.add(jbnRemove);
+		JButton jbnIsEmpty = new JButton(&quot;Empty ?&quot;);
+		jbnIsEmpty.addActionListener(new ActionListener() {
+
+		public void actionPerformed(ActionEvent e) {
+				jlbStatus.setText(&quot;Empty: &quot; + hashTable.isEmpty());
+			}
+		});
+		jplSouth.add(jbnIsEmpty);
+		JButton jbnContains = new JButton(&quot;Contains key&quot;);
+		jbnContains.addActionListener(new ActionListener() {
+
+		public void actionPerformed(ActionEvent e) {
+				jlbStatus.setText(&quot;Contains key: &quot;+
+					hashTable.containsKey(jtfFirstName.getText().trim()));
+			}
+		});
+		jplSouth.add(jbnContains);
+		JButton jbnClear = new JButton(&quot;Clear table&quot;);
+		jbnClear.addActionListener(new ActionListener() {
+
+		public void actionPerformed(ActionEvent e) {
+				hashTable.clear();
+				jlbStatus.setText(&quot;HashTable Emptied&quot;);
+			}
+		});
+		jplSouth.add(jbnClear);
+		JButton jbnDisplay = new JButton(&quot;List objects&quot;);
+		jbnDisplay.addActionListener(new ActionListener() {
+
+		public void actionPerformed(ActionEvent e) {
+				StringBuffer buf = new StringBuffer();
+				for (Enumeration enum = hashTable.elements();
+									enum.hasMoreElements();)
+					buf.append(enum.nextElement()).append(&apos;\n&apos;);
+				display.setText(buf.toString());
+			}
+		});
+		jplSouth.add(jbnDisplay);
+		JButton jbnKeys = new JButton(&quot;List keys&quot;);
+		jbnKeys.addActionListener(new ActionListener() {
+
+		public void actionPerformed(ActionEvent e) {
+				StringBuffer buf = new StringBuffer();
+				for (Enumeration enum = hashTable.keys(); enum.hasMoreElements();)
+					buf.append(enum.nextElement()).append(&apos;\n&apos;);
+				JOptionPane.showMessageDialog(null, buf.toString(),
+					&quot;Display Keys of HashTable &quot;,JOptionPane.PLAIN_MESSAGE);
+			}
+		});
+		jplSouth.add(jbnKeys);
+		Container c = getContentPane();
+		c.add(jplNorth, BorderLayout.NORTH);
+		c.add(new JScrollPane(display), BorderLayout.CENTER);
+		c.add(jplSouth, BorderLayout.SOUTH);
+		setSize(540, 300);
+		setVisible(true);
+	}
+
+	public static void main(String args[]) {
+		HashTableDemo hashTableDemo = new HashTableDemo();
+		hashTableDemo.addWindowListener(new WindowAdapter() {
+
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+	}
+}
+
+class EmployeeDetails {
+
+	private String name;
+	private int phoneNp;
+	public EmployeeDetails(String fName, int phNo) {
+		name = fName;
+		phoneNp = phNo;
+	}
+	public String toString() {
+		return name + &quot; &quot; + phoneNp;
+	}
+}
+</CODE>
+<TEXT orderid="2" >
+Output
+
+Download HashTableDemo.java
+
+		
+		
+
+					
+		
+	
+			
+
+			
+			
+			
+		
+		
+	
+
+                
+
+              
+            
+            
+              
+            
+          
+       
+      
+      
+
+        
+          &#160;
+          
+        
+      
+      
+        
+          &#160;
+        
+
+        
+          
+              
+                &#160;&#160;&#160;&#160;Java is a trademark of Sun Microsystems, Inc.
+                
+				
+                  
+                    Java Beginner Home
+
+                    |
+                    Terms of Use 
+                    |
+                    Contact  
+                    |
+                    Disclaimer
+
+                  
+                
+                &#169;  Copyright 2007-08 javabeginner.com
+</TEXT>
+</result>

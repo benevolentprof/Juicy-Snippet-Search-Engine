@@ -1,0 +1,858 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75949</docid>
+<orderid>5</orderid>
+<type>CODE</type>
+<url>http://www.roseindia.net/javatutorials/memorycounter_for_java_1_4.shtml</url>
+</description>
+<CODE orderid="3" >
+import java.lang.reflect.*;
+import java.util.*;
+
+/**
+ * This class can estimate how much memory an Object uses.  It is
+ * fairly accurate for JDK 1.4.2.  It is based on the newsletter #29.
+ */
+public final class MemoryCounter {
+  private static final MemorySizes sizes = new MemorySizes();
+  private final Map visited = new IdentityHashMap();
+  private final Stack stack = new Stack();
+
+  public synchronized long estimate(Object obj) {
+    assert visited.isEmpty();
+    assert stack.isEmpty();
+    long result = _estimate(obj);
+    while (!stack.isEmpty()) {
+      result += _estimate(stack.pop());
+    }
+    visited.clear();
+    return result;
+  }
+
+  private boolean skipObject(Object obj) {
+    if (obj instanceof String) {
+      // this will not cause a memory leak since
+      // unused interned Strings will be thrown away
+      if (obj == ((String) obj).intern()) {
+        return true;
+      }
+    }
+    return (obj == null)
+        || visited.containsKey(obj);
+  }
+
+  private long _estimate(Object obj) {
+    if (skipObject(obj)) return 0;
+    visited.put(obj, null);
+    long result = 0;
+    Class clazz = obj.getClass();
+    if (clazz.isArray()) {
+      return _estimateArray(obj);
+    }
+    while (clazz != null) {
+      Field[] fields = clazz.getDeclaredFields();
+      for (int i = 0; i &lt; fields.length; i++) {
+        if (!Modifier.isStatic(fields[i].getModifiers())) {
+          if (fields[i].getType().isPrimitive()) {
+            result += sizes.getPrimitiveFieldSize(
+                fields[i].getType());
+          } else {
+            result += sizes.getPointerSize();
+            fields[i].setAccessible(true);
+            try {
+              Object toBeDone = fields[i].get(obj);
+              if (toBeDone != null) {
+                stack.add(toBeDone);
+              }
+            } catch (IllegalAccessException ex) { assert false; }
+          }
+        }
+      }
+      clazz = clazz.getSuperclass();
+    }
+    result += sizes.getClassSize();
+    return roundUpToNearestEightBytes(result);
+  }
+
+  private long roundUpToNearestEightBytes(long result) {
+    if ((result % 8) != 0) {
+      result += 8 - (result % 8);
+    }
+    return result;
+  }
+
+  protected long _estimateArray(Object obj) {
+    long result = 16;
+    int length = Array.getLength(obj);
+    if (length != 0) {
+      Class arrayElementClazz = obj.getClass().getComponentType();
+      if (arrayElementClazz.isPrimitive()) {
+        result += length *
+            sizes.getPrimitiveArrayElementSize(arrayElementClazz);
+      } else {
+        for (int i = 0; i &lt; length; i++) {
+          result += sizes.getPointerSize() +
+              _estimate(Array.get(obj, i));
+        }
+      }
+    }
+    return result;
+  }
+}
+</CODE>
+<TEXT orderid="4" >
+I recently changed this code significantly to include the
+    new IdentityHashMap and to add support for interned Strings.
+    This would not have been possible without a good suite of
+    unit tests.  I normally do not include my unit tests in the
+    newsletters, since they do use a lot of space.  However,
+    I would like to hear from you if you have a JDK 1.4.x
+    where the results are different.  The unit tests pass on my
+    machine, using JDK 1.4.2, build 1.4.2-b28.
+</TEXT>
+<CODE orderid="5" >
+import java.util.*;
+import junit.framework.TestCase;
+import junit.swingui.TestRunner;
+
+public class MemoryCounterTest extends TestCase {
+  public static void main(String[] args) {
+    TestRunner.run(MemoryCounterTest.class);
+  }
+
+  private static final MemoryCounter mc = new MemoryCounter();
+
+  public MemoryCounterTest(String name) {
+    super(name);
+  }
+
+  public void testString() {
+    assertEquals(64, mc.estimate(new String(&quot;Hello World!&quot;)));
+  }
+
+  public void testIntegerToString() {
+    for (int i=0; i&lt;1; i++) {
+      assertEquals(72, mc.estimate(&quot;&quot; + i));
+    }
+  }
+
+  static class Entry implements Map.Entry {
+    final Object key;
+    Object value;
+    final int hash;
+    Entry next;
+
+    Entry(int h, Object k, Object v, Entry n) {
+      value = v;
+      next = n;
+      key = k;
+      hash = h;
+    }
+
+    public Object getKey() {
+      return key;
+    }
+
+    public Object getValue() {
+      return value;
+    }
+
+    public Object setValue(Object value) {
+      return value;
+    }
+  }
+
+  public void testHashMap() {
+    assertEquals(120, mc.estimate(new HashMap()));
+
+    Byte[] all = new Byte[256];
+    for (int i = -128; i &lt; 128; i++) {
+      all[i + 128] = new Byte((byte) i);
+    }
+    assertEquals(5136, mc.estimate(all));
+
+    HashMap hm = new HashMap();
+    for (int i = -128; i &lt; 128; i++) {
+      hm.put(&quot;&quot; + i, new Byte((byte) i));
+    }
+    assertEquals(30776, mc.estimate(hm));
+  }
+
+  public void testVector() {
+    assertEquals(80, mc.estimate(new Vector(10)));
+  }
+
+  public void testObject() {
+    assertEquals(8, mc.estimate(new Object()));
+  }
+
+  public void testInteger() {
+    assertEquals(16, mc.estimate(new Integer(1)));
+  }
+
+  public void testCharArray() {
+    assertEquals(40, mc.estimate(&quot;Hello World!&quot;.toCharArray()));
+  }
+
+  public void testByte() {
+    assertEquals(16, mc.estimate(new Byte((byte) 10)));
+  }
+
+  public void testThreeBytes() {
+    assertEquals(16, mc.estimate(new ThreeBytes()));
+  }
+
+  public void testSixtyFourBooleans() {
+    assertEquals(72, mc.estimate(new SixtyFourBooleans()));
+  }
+
+  public void testThousandBooleansObjects() {
+    Boolean[] booleans = new Boolean[1000];
+
+    for (int i = 0; i &lt; booleans.length; i++)
+      booleans[i] = new Boolean(true);
+
+    assertEquals(20016, mc.estimate(booleans));
+  }
+
+  public void testThousandBytes() {
+    assertEquals(1016, mc.estimate(new byte[1000]));
+  }
+
+  public void testEmptyArrayList() {
+    assertEquals(80, mc.estimate(new ArrayList()));
+  }
+
+  public void testFullArrayList() {
+    ArrayList arrayList = new ArrayList(10000);
+
+    for (int i = 0; i &lt; 10000; i++) {
+      arrayList.add(new Object());
+    }
+
+    assertEquals(120040, mc.estimate(arrayList));
+  }
+
+  public void testFullLinkedList() {
+    LinkedList linkedList = new LinkedList();
+
+    for (int i = 0; i &lt; 10000; i++) {
+      linkedList.add(new Object());
+    }
+
+    assertEquals(320048, mc.estimate(linkedList));
+  }
+
+  public void testComplexClass() {
+    assertEquals(48, mc.estimate(new ComplexClass()));
+  }
+
+  public void testBooleanArray() {
+    assertEquals(27, mc.estimate(new boolean[11]));
+  }
+
+  public void testShortArray() {
+    assertEquals(38, mc.estimate(new short[11]));
+  }
+
+  public void testIntArray() {
+    assertEquals(60, mc.estimate(new int[11]));
+  }
+
+  public void testFloatArray() {
+    assertEquals(60, mc.estimate(new float[11]));
+  }
+
+  public void testLongArray() {
+    assertEquals(104, mc.estimate(new long[11]));
+  }
+
+  public void testDoubleArray() {
+    assertEquals(104, mc.estimate(new double[11]));
+  }
+
+  static class ThreeBytes {
+    byte b0;
+    byte b1;
+    byte b2;
+  }
+
+  private static class ComplexClass {
+    ComplexClass cc = this;
+    boolean z;
+    byte b;
+    char c;
+    double d;
+    float f;
+    int i;
+    long l;
+    short s;
+  }
+
+  private static class SixtyFourBooleans {
+    boolean a0;
+    boolean a1;
+    boolean a2;
+    boolean a3;
+    boolean a4;
+    boolean a5;
+    boolean a6;
+    boolean a7;
+    boolean b0;
+    boolean b1;
+    boolean b2;
+    boolean b3;
+    boolean b4;
+    boolean b5;
+    boolean b6;
+    boolean b7;
+    boolean c0;
+    boolean c1;
+    boolean c2;
+    boolean c3;
+    boolean c4;
+    boolean c5;
+    boolean c6;
+    boolean c7;
+    boolean d0;
+    boolean d1;
+    boolean d2;
+    boolean d3;
+    boolean d4;
+    boolean d5;
+    boolean d6;
+    boolean d7;
+    boolean e0;
+    boolean e1;
+    boolean e2;
+    boolean e3;
+    boolean e4;
+    boolean e5;
+    boolean e6;
+    boolean e7;
+    boolean f0;
+    boolean f1;
+    boolean f2;
+    boolean f3;
+    boolean f4;
+    boolean f5;
+    boolean f6;
+    boolean f7;
+    boolean g0;
+    boolean g1;
+    boolean g2;
+    boolean g3;
+    boolean g4;
+    boolean g5;
+    boolean g6;
+    boolean g7;
+    boolean h0;
+    boolean h1;
+    boolean h2;
+    boolean h3;
+    boolean h4;
+    boolean h5;
+    boolean h6;
+    boolean h7;
+  }
+}
+</CODE>
+<TEXT orderid="6" >
+I would be happy to hear from you if this newsletter is useful
+    to you.  Just pop me a quick email telling me how this can help
+    you.
+  
+  
+    Kind regards
+  
+  
+    Heinz
+  
+
+  
+    P.S. My original code has loads of comments.  I stripped them out
+    for the newsletter to save space.
+  
+
+This material from The Java(tm)
+Specialists&apos; Newsletter by Maximum Solutions (South Africa). Please contact Maximum
+Solutions for more information.
+
+  
+  
+    
+      
+      
+        &#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+      
+    
+  
+  
+
+
+
+      
+    
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+				
+
+					
+					
+							Useful Links
+					
+					
+
+					
+					
+						
+
+						
+						&#160;&#160;JDO Tutorials
+
+
+						&#160;&#160;EAI Articles
+
+
+						&#160;&#160;Struts Tutorials
+
+
+						&#160;&#160;Java Tutorials
+
+
+						&#160;&#160;Java Certification
+						
+		
+					
+					
+
+  
+    
+
+
+					
+
+
+
+
+
+
+
+
+
+
+Enter your search terms
+
+
+
+
+
+
+
+
+Web
+
+
+www.roseindia.net
+
+
+Submit search form
+
+
+
+
+
+
+
+
+
+
+
+
+				
+					
+
+
+	
+
+	
+				
+				
+
+
+
+					 
+					 
+					 Tell A Friend
+					   Your Friend Name
+					 
+					
+					
+
+					
+					
+					
+					
+					
+					
+
+
+				
+				
+
+					
+					
+					
+
+					  Search Tutorials
+
+						  
+								
+					 
+					  
+					
+
+					
+					
+
+				
+
+					
+					
+
+
+					
+					
+
+					
+
+
+
+					
+					
+
+
+					
+					
+						
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+
+      
+        
+
+			
+        
+
+
+						
+	 
+			&#160;
+     
+	
+
+  
+    
+
+		
+		
+		  
+			
+			  
+				
+				  
+					
+					  
+						Browse all Java Tutorials 
+					  
+					  
+						
+						  
+							Java
+		                      
+								New to Java?
+								Learn Java In A Day
+								Learn Java Quickly                         
+								
+				 
+								  Java Tools
+								Beginners Java Tutorial
+								Master Java Tutorial (TOC)
+								Java IO Package Examples
+								 Java AWT Package Examples
+								Swing Example
+								Java util Examples
+		                        
+							JSP
+							Introduction to JSP
+							  JSP Architecture
+							  Introduction to the JSP tags
+							  Features of JSP 2.1
+							   JSP Fundamentals
+
+										
+							
+							Struts
+							Introduction to the Apache Struts
+							  Struts Architecture
+							  Introduction to the Struts Controller
+							  
+							  Introduction to Struts 2
+							  Struts 2 Features
+							  Struts 2 History
+							
+							Servlets
+							History of  Web application
+							  Introduction to Web Server  
+							  What is servlet?
+							   Methods of Servlet
+							   Advantages of Java Servlets
+							  
+							Hibernate
+							Introduction to Hibernate 3.0
+							  Hibernate Architecture
+							  Hibernate Update Query
+							  Hibernate Count Query
+							  Hibernate Projections
+							
+							XML
+							
+							XML : An Introduction
+							XML: An Introduction - Brief History
+							XML:Validation
+							Introduction to DTD
+							DTD:Document Type Definition
+							
+						  
+						  
+
+						  
+							Ajax
+							
+							What is Ajax?
+							Ajax Code Libraries and Tools
+							Ajax Login Example
+							
+							JDBC
+							What is JDBC? 
+							  JDBC Driver and Its Types
+							  Features of JDBC 3.0
+							
+							EJB
+							Introduction to Application Server
+							  Features of EJB 3.0
+							  Message Driven Beans
+							
+							MySQL
+							
+							Introduction to MySQL
+							Installing MySQL on Windows
+							MySQL Configuration
+							
+							JavaScript
+							
+							What is JavaScript?
+							Statements In JavaScript
+							Functions in JavaScript
+							
+							JSF
+							Introduction To JSF
+							  JSF Releases
+							  JSF Features
+							
+						  
+						 
+						  
+							Maven2 Tutorial
+							
+							An introduction to Maven 2
+							Maven 2: Features
+							Maven 2 Eclipse Plug-in
+							
+							JEE5 Tutorial
+							
+							Understanding JEE technologies
+							JEE 5 API
+							Deploying Application
+							
+							Java Threading Tutorial
+							
+							Overview of Thread
+							Thread Creation
+							Daemon Thread
+							
+							Photoshop Tutorials
+							How to design a express realization mode
+							  How to design a table lamp
+							
+							Linux
+							
+							Linux Tutorials
+							Linux CDs
+							 Linux Distributions
+							Free Linux CDs
+							
+							Technology
+							
+							  GPS
+							  WiMAX
+							  VoIP
+							  WiFi
+							  HSDPA
+							  Tech. What is?
+							
+						  
+						  
+						  
+							Technology Revolutions
+							  Rich Internet Application
+								Web 2.0
+								Web 3.0
+								JavaFX
+							  
+							Eclipse
+							
+							About IDE
+							Creating a Project
+							
+							Spring Tutorial
+							Introduction to the Spring Framework
+							Bioinformatics Tutorials
+							
+							  History of Bioinformatics
+							
+							Tools
+							Junit
+							  Jmeter
+							  DBUnit
+							
+							SQL
+							SQL: A brief Introduction
+							  Create a database
+							
+						  
+						
+					  
+					
+				  
+				  
+					&#160;
+				  
+				
+			  
+			
+		  
+		
+
+	 
+  
+
+    
+          
+
+                      
+                        Home 
+
+                      | JSP
+                      | EJB 
+                      | JDBC
+                      | Java Servlets 
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine 
+                      | News Archive
+                      | Jboss 3.0 tutorial 
+                      | Free Linux CD&apos;s  
+                      | Forum
+					  
+					  | Blogs
+
+					   
+
+                      
+                      About Us | 
+					  Advertising On RoseIndia.net
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+				  
+				  
+
+				  
+				
+
+          
+		  
+
+
+
+      
+    
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+
+
+    
+      
+        Copyright &#169; 2007. All rights reserved.
+      
+    
+    
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+</TEXT>
+</result>

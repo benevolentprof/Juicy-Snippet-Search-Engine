@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>4924</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/ent/article.php/630021/Interacting-with-Databases-in-Java-without-SQL.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Enterprise Java
+					
+				
+				
+					Read More in Enterprise Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Interacting with Databases in Java without SQL
+			
+			
+				
+				
+					October 4, 2000
+					By 
+Vikash Varma
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+
+With the development of the Web browser as the universal client and the Internet as the global networking infrastructure, the HTML-to-servlet-to-database model is becoming the new architecture for deploying enterprisewide applications.  In this model, we have HTML pages rich in presentation layer, Java servlets as the heart of the application, and databases rich in information. As Java is rich in programming language capabilities, it misses the simplicity of, say, SQL, which allows easy manipulation of databases. With Java, you can embed SQL inside a program and connect to the database, but this means you have to know SQL. So Web programmers have been demanding Java classes that can transparently store and retrieve data.  In this article, I&apos;ll try to illustrate how to interact with database tables with Java&apos;s object model without knowledge of SQL. This model will extend Java&apos;s database access capability for interacting with databases purely for the purpose of storage.  Simple Approach 
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		Here is the simplest approach to interacting with database tables. In the class hierarchy model, we will have the DBTable class define the database connection details and SQL methods. This class is an abstract class that will provide a template for the tables in the database. For illustration purposes, let us assume we have an Address table in the database in which we would like to perform SQL statements. The DBTableAddress class will extend the DBTable and overwrite the SQL methods for performing SQL statements in the Address table.  
+Figure 1. The simple approach to database access: One class of each table.
+
+
+This model works well conceptually, but in practice this may not be a feasible solution for large applications. Imagine working with hundreds or thousands of tables; you would spend months creating the classes for the tables. Even if you happen to be very smart and generate templates for these classes, you will still face issues of deployment and maintenance. I started thinking more and more about the class model and realized that I was missing one important property of the tables replicated in all the subclasses that violates the class hierarchy rule: the rows and columns in the tables.  Advanced Approach Let us explore how this helps us in designing a class that can potentially perform select, insert, update, and delete on any table in the database. Though different tables have columns of variable length, a row in a table can still be viewed as a pair of a column and a value associated with the column. This is the same analogy we use in a hashtable, which is viewed as a combination of a hash key and the value associated with the key. If we treat a hashtable as a row in the table, then we can construct a class that can perform SQL operations on any database table. In this analogy, the hash key is analogous to the column in the table and the key value corresponds to the column value of the row. The other limiting factor in the simple approach is the static SQL statements embedded in the methods of the child classes of DBTable to perform the data manipulation on the individual table. In this advanced approach, we can use the information provided by the hashtable to construct dynamic SQL to perform the data manipulation on any table.  
+Figure 2. A refined approach to database access.
+
+
+Let&apos;s see what the sample code looks like.
+</TEXT>
+<CODE orderid="1" >
+DBTables.java
+package Learning;
+import java.util.*;
+import java.sql.*;
+import java.io.*;
+public class DBTable {
+    String dbURL = &quot;jdbc:odbc:DBNAME&quot;;
+    String dbDriver = &quot;sun.jdbc.odbc.JdbcOdbcDriver&quot;;
+    Connection dbCon;
+    Hashtable paramTable;
+    String DBTableName;
+    public DBTable(String TableName, Hashtable myhash) {
+        this.paramTable = myhash;
+        this.DBTableName = TableName;
+    }
+    public void doInsert() throws ClassNotFoundException, SQLException {
+      Class.forName(dbDriver);
+      dbCon = DriverManager.getConnection(dbURL);
+      Statement s = dbCon.createStatement();
+      String sql = &quot;INSERT INTO &quot;+DBTableName+&quot;(&quot;;
+      Enumeration e = paramTable.keys();
+      String key = (String)e.nextElement();
+      String sql_val = &quot;&apos;&quot; + (String)paramTable.get(key) + &quot;&apos;&quot;;
+      sql = sql + key;
+      while (e.hasMoreElements()) {
+          key = (String)e.nextElement();
+          sql = sql + &quot;,&quot; + key;
+          sql_val = sql_val + &quot;,&apos;&quot; + (String)paramTable.get(key) + &quot;&apos;&quot;;
+      }
+      sql = sql + &quot;) VALUES (&quot; +sql_val + &quot;);&quot;;
+      System.out.println(sql);
+      int insertResult = s.executeUpdate(sql);
+      dbCon.close();
+   }
+}
+</CODE>
+<TEXT orderid="2" >
+Once we have a DBTable class available, we can create the hashtable and perform SQL operations on any table within the database. The basic steps are:   Create the hashtable object Fill the hashtable Create the DBTable object Perform SQL by calling DBTable object methods.  Again, let&apos;s see what the sample code looks like:
+</TEXT>
+</result>

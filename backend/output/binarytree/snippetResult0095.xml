@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75713</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/example/java/swing/retrieving-jtree-structure-from.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Retrieving JTree structure from database
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				This example shows how to retrieving data from the database and how to add the data in to JTree.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Retrieving JTree structure from database
+
+
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+This example shows how to retrieving data from the
+database and how to add the data in to JTree.
+
+JTree : JTree is
+used for viewing data in a list. Lists are good for displaying simple lists of
+information from which the user can make single or multiple selections. In list
+You can hide different&#160; levels of data in the tree, including the root,
+allowing the display to collapse and expand various parts of the tree.
+In this program we&#160; are using stu_info
+table. The table can be created by the query as below:
+
+
+  
+    CREATE TABLE `stu_info` (&#160;
+
+            `ID` int(11) NOT NULL auto_increment,&#160;
+
+            `Name` varchar(20) default NULL,&#160;
+
+            `Address` varchar(20) default NULL,&#160;
+
+            `Phone` varchar(15) default NULL,&#160;
+
+            PRIMARY KEY  (`ID`)&#160;
+
+          )
+  
+
+Now populate the table with the data as show below.
+
+
+
+Now in the program below, access the database and
+retrieve the data from the table. This data can be used to populate the data for
+the node of the tree. Now nodes can be added to the tree. The program below &quot;JTreeStructure&quot;
+demonstrates all the steps required to create tree retrieving the data from the
+database.
+
+Here is the full code for &quot;JTreeStructure.java&quot;:
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.awt.*;
+
+import&#160;java.sql.*;
+
+import&#160;java.util.*;
+
+
+
+import&#160;javax.swing.*;
+
+import&#160;javax.swing.tree.*;
+
+
+
+    
+public&#160;class&#160;JTreeStructure&#160;extends&#160;JFrame&#160;{
+
+
+
+&#160;&#160;Connection&#160;con&#160;=&#160;null;
+
+&#160;&#160;Statement&#160;st&#160;=&#160;null;
+
+&#160;&#160;ResultSet&#160;rs&#160;=&#160;null;
+
+
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String&#160;args[])&#160;throws&#160;Exception&#160;{
+
+&#160;&#160;&#160;&#160;new&#160;JTreeStructure();
+
+&#160;&#160;}
+
+
+
+&#160;&#160;public&#160;JTreeStructure()&#160;throws&#160;Exception&#160;{
+
+
+
+&#160;&#160;&#160;&#160;super(&quot;Retrieving&#160;data&#160;from&#160;database&#160;&quot;);
+
+
+
+&#160;&#160;&#160;&#160;String&#160;driver&#160;=&#160;&quot;com.mysql.jdbc.Driver&quot;;
+
+&#160;&#160;&#160;&#160;String&#160;url&#160;=&#160;&quot;jdbc:mysql://192.168.10.59:3306/&quot;;
+
+&#160;&#160;&#160;&#160;String&#160;db&#160;=&#160;&quot;Student&quot;;
+
+
+
+&#160;&#160;&#160;&#160;ArrayList&#160;list&#160;=&#160;new&#160;ArrayList();
+
+&#160;&#160;&#160;&#160;list.add(&quot;Roll&#160;Numbers&quot;);
+
+
+
+&#160;&#160;&#160;&#160;Class.forName(driver);
+
+&#160;&#160;&#160;&#160;con&#160;=&#160;DriverManager.getConnection(url&#160;+&#160;db,&#160;&quot;root&quot;,&#160;&quot;root&quot;);
+
+
+
+&#160;&#160;&#160;&#160;try&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;String&#160;sql&#160;=&#160;&quot;Select&#160;*&#160;from&#160;stu_info&quot;;
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;st&#160;=&#160;con.createStatement();
+
+&#160;&#160;&#160;&#160;&#160;&#160;rs&#160;=&#160;st.executeQuery(sql);
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;while&#160;(rs.next())&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Object&#160;value[]&#160;=&#160;{&#160;rs.getString(1),&#160;rs.getString(2),
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;rs.getString(3),&#160;rs.getString(4)&#160;};
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;list.add(value);
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;}&#160;catch&#160;(Exception&#160;e)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(e);
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;rs.close();
+
+&#160;&#160;&#160;&#160;st.close();
+
+&#160;&#160;&#160;&#160;con.close();
+
+
+
+&#160;&#160;&#160;&#160;Object&#160;hierarchy[]&#160;=&#160;list.toArray();
+
+
+
+&#160;&#160;&#160;&#160;JFrame&#160;frame&#160;=&#160;new&#160;JFrame();
+
+&#160;&#160;&#160;&#160;frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+&#160;&#160;&#160;&#160;Container&#160;content&#160;=&#160;getContentPane();
+
+
+
+&#160;&#160;&#160;&#160;DefaultMutableTreeNode&#160;root&#160;=&#160;processHierarchy(hierarchy);
+
+&#160;&#160;&#160;&#160;JTree&#160;tree&#160;=&#160;new&#160;JTree(root);
+
+&#160;&#160;&#160;&#160;content.add(new&#160;JScrollPane(tree),&#160;BorderLayout.CENTER);
+
+&#160;&#160;&#160;&#160;setSize(275,&#160;300);
+
+&#160;&#160;&#160;&#160;setLocation(300,&#160;100);
+
+&#160;&#160;&#160;&#160;setVisible(true);
+
+&#160;&#160;}
+
+
+
+&#160;&#160;private&#160;DefaultMutableTreeNode&#160;processHierarchy(Object[]&#160;hierarchy)&#160;{
+
+&#160;&#160;&#160;&#160;DefaultMutableTreeNode&#160;node&#160;=&#160;new&#160;DefaultMutableTreeNode(hierarchy[0]);
+
+&#160;&#160;&#160;&#160;DefaultMutableTreeNode&#160;child;
+
+&#160;&#160;&#160;&#160;for&#160;(int&#160;i&#160;=&#160;1;&#160;i&#160;&lt;&#160;hierarchy.length;&#160;i++)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;Object&#160;nodeSpecifier&#160;=&#160;hierarchy[i];
+
+&#160;&#160;&#160;&#160;&#160;&#160;if&#160;(nodeSpecifier&#160;instanceof&#160;Object[])&#160;//&#160;Ie&#160;node&#160;with&#160;children
+
+&#160;&#160;&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;child&#160;=&#160;processHierarchy((Object[])&#160;nodeSpecifier);
+
+&#160;&#160;&#160;&#160;&#160;&#160;}&#160;else&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;child&#160;=&#160;new&#160;DefaultMutableTreeNode(nodeSpecifier);&#160;//&#160;Ie&#160;Leaf
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;node.add(child);
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;return&#160;(node);
+
+&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+Running the above program displays the output as below:
+Output :
+
+Download Source Code
+
+
+		
+		
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+      
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java Swing Tutorials ...  251936 viewsShow Scaling property of class AffineTransform ...  252273 viewsShow Shearing property of class AffineTransform ...  252275 viewsOutlining the font ...  252276 viewsShow Translation property of class AffineTransform ...  252280 viewsShow Different Strokes ...  252282 viewsShow Rotation property of class AffineTransform ...  252292 viewsIcon Changes at runtime ...  252294 viewsShow String in Oval ...  252297 viewsAnother Example of Gradient Paint ...  252299 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+io
+colors
+color
+ip
+change
+int
+line
+this
+ai
+tar
+rad
+create
+like
+start
+show
+if
+poi
+ie
+long
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+0 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Retrieving JTree structure from database
+										Mysql Time Zone Conversion
+										jQuery to Image Changes With Fading Effect
+										Tree Root Hide in Java
+										JDBC Driver and Its Types
+										Collection Iterate Example
+										Posing
+										Rounding off in Java - Round two decimal places
+										Jigloo SWT/Swing GUI Builder
+										Round two decimal places
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

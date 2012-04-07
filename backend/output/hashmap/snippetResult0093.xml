@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>7867</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/other/article.php/10936_3691986_2/Design-Pattern-Proxy.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Design Pattern: Proxy
+			
+			
+				
+				
+					August 1, 2007
+					By 
+Jeff Langr
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+With the interface in place, I can start building the proxy. For now, I keep it simple, and define the proxy only to delegate to the real Portfolio.
+</TEXT>
+<CODE orderid="1" >
+import static org.junit.Assert.*;
+import java.util.*;
+import org.junit.*;
+
+public class PortfolioGuardTest {
+   private Map&lt;String, Integer&gt; purchases;
+
+   Portfolio target = new Portfolio() {
+      @Override
+      public int numberOfHoldings() {
+         return 1;
+      }
+
+      @Override
+      public void purchase(String symbol, int shares) {
+         purchases.put(symbol, shares);
+      }
+
+      @Override
+      public int sharesOf(String symbol) {
+         if (symbol.equals(&quot;symbol&quot;)) return 1;
+         return 0;
+      }
+   };
+
+   @Before
+   public void initialize() {
+      purchases = new HashMap&lt;String, Integer&gt;();
+   }
+
+   @Test
+   public void delegatesAllMethods() {
+      boolean canUpdate = true;
+
+      Portfolio portfolio = new PortfolioGuard(canUpdate, target);
+      portfolio.purchase(&quot;symbol&quot;, 1);
+      assertEquals(1, purchases.size());
+      assertEquals(1, purchases.get(&quot;symbol&quot;));
+      assertEquals(1, portfolio.numberOfHoldings());
+      assertEquals(1, portfolio.sharesOf(&quot;symbol&quot;));
+   }
+}
+</CODE>
+<TEXT orderid="2" >
+Rather than use PortfolioImpl, I define a stub implementation of the Portfolio interface in PortfolioGuardTest. This implementation exists solely to track whether or not appropriate methods were called, as part of the delegatesAllMethods test.
+
+The constructor of PortfolioGuard takes two arguments: a target instance of Portfolio, and a boolean indicating whether or not updates are allowed. For now, this flag is set to true. Here&apos;s the implementation of PortfolioGuard:
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+</TEXT>
+<CODE orderid="3" >
+public class PortfolioGuard implements Portfolio {
+   private final Portfolio target;
+   private final boolean canUpdate;
+
+   public PortfolioGuard(boolean canUpdate, Portfolio target) {
+      this.canUpdate = canUpdate;
+      this.target = target;
+   }
+
+   @Override
+   public int numberOfHoldings() {
+      return target.numberOfHoldings();
+   }
+
+   @Override
+   public void purchase(String symbol, int shares) {
+      target.purchase(symbol, shares);
+   }
+
+   @Override
+   public int sharesOf(String symbol) {
+      return target.sharesOf(symbol);
+   }
+}
+</CODE>
+</result>

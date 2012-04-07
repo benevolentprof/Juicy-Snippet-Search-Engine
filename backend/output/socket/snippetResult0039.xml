@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>5985</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/other/article.php/960501/User-Code-Java-One-to-Many-Chat.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			User Code: Java One-to-Many Chat
+			
+			
+				
+				
+					January 23, 2002
+					By 
+S. Balasubramanian
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Client Setting
+ 
+
+/*
+ 
+        Net Meeting.
+   ______________ 
+ 
+*/
+ 
+/* Tips to run this :
+    __________________
+ 
+ (After compiling chatkaro12mserver.java)
+ 
+ Step1: Open another prompt and run java chatkaro12mclient  127.0.0.1.
+          ___________________________________   
+ 
+   
+*/ 
+
+ 
+Server Setting
+ 
+
+/*
+ 
+          ** Net Meeting **
+   __________________
+ 
+*/
+ 
+/* Tips to run this:
+    __________________
+ 
+  
+ Step1: Open command prompt and run java chatkaro12mserver.
+          ______________________   
+ 
+ Step2: Continue with client program.
+ 
+   
+*/ 
+
+
+
+ 
+Code: chatkaro12mserver.java
+</TEXT>
+<CODE orderid="1" >
+//  Program Starts...
+
+
+import java.io.*;
+import java.net.*;
+import java.util.Vector;
+import java.util.Enumeration;
+public class chatkaro12mServer
+{
+	//static String k=socket.getInetAddress().getHostName();
+	private int port=5001;
+	private boolean li=true;
+	private Vector clients=new Vector();
+	public static void main(String a[])
+	{
+		System.out.println(&quot; Press ctrl-c to Quit.&quot;);
+		new chatkaro12mServer().server();
+	}
+	 void server()
+	{
+		ServerSocket serverSock=null;
+		try 
+		{
+			InetAddress serverAddr=InetAddress.getByName(null);
+			System.out.println(&quot;Waiting for&quot;+serverAddr.getHostName()+&quot;on port&quot;+port);
+			serverSock=new ServerSocket(port,50);
+		}
+		catch(IOException e)
+		{
+			System.out.println(e.getMessage()+&quot;:Failed&quot;);
+			return;
+		}
+		while(li)
+		{
+			try
+			{
+				Socket socket=serverSock.accept();
+				System.out.println(&quot;Accept &quot;+socket.getInetAddress().getHostName());
+				DataOutputStream remoteOut= new DataOutputStream(socket.getOutputStream());
+				clients.addElement(remoteOut);
+				new ServerHelper(socket,remoteOut,this).start();
+			}
+			catch(IOException e)
+			{
+				System.out.println(e.getMessage()+&quot;:Failed&quot;);
+			}
+		}
+		if(serverSock !=null)
+		{
+			try
+			{
+				serverSock.close();
+			}
+			catch(IOException x)
+			{
+			}
+		}
+	}
+	synchronized Vector getClients()
+	{
+		return clients;
+	}
+	synchronized void removeFromClients(DataOutputStream remoteOut)
+	{	
+		clients.removeElement(remoteOut);
+	}
+}
+class ServerHelper extends Thread
+{
+	private Socket sock;
+	private DataOutputStream remoteOut;
+	private chatkaro12mServer server;
+	private boolean li=true;
+	private DataInputStream remoteIn;
+	ServerHelper(Socket sock,DataOutputStream remoteOut,chatkaro12mServer server) throws IOException
+	{
+		this.sock=sock;
+		this.remoteOut=remoteOut;
+		this.server=server;
+		remoteIn=new DataInputStream(sock.getInputStream());
+	}
+	public synchronized void run()
+	{
+		String s;
+		try
+		{
+			while(li)
+			{
+				s=remoteIn.readUTF();
+				broadcast(s);
+			}
+		}
+		catch(IOException e)
+		{	
+			System.out.println(e.getMessage()+&quot;connection lost&quot;);
+		}
+		finally
+		{
+			try
+			{
+				cleanUp();
+			}
+			catch (IOException x)
+			{
+			}
+		}
+	}
+	private void broadcast(String s)
+	{	
+		Vector clients=server.getClients();
+		DataOutputStream dataOut=null;
+		for(Enumeration e=clients.elements();
+		e.hasMoreElements(); )
+		{
+		dataOut=(DataOutputStream)(e.nextElement());
+		if(!dataOut.equals(remoteOut))
+		{
+		try
+		{
+		dataOut.writeUTF(s);
+		}
+		catch(IOException x)
+		{
+		System.out.println(x.getMessage()+&quot;Failed&quot;);
+		server.removeFromClients(dataOut);
+	}
+
+}
+}
+}
+
+private void cleanUp() throws IOException
+{
+	if(remoteOut!=null)
+	{
+		server.removeFromClients(remoteOut);
+		remoteOut.close();
+		remoteOut=null;
+	}
+
+	if(remoteIn!=null)
+	{
+		remoteIn.close();
+		remoteIn=null;
+	}
+
+	if(sock!=null)
+	{
+		sock.close();
+		sock=null;
+	}
+}
+protected void finalize() throws Throwable
+{
+	try
+	{
+		cleanUp();
+	}
+	catch(IOException x)
+	{
+	}
+	super.finalize();
+}
+}
+</CODE>
+<TEXT orderid="2" >
+Code: chatkaro12mclient.java
+
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+</TEXT>
+<CODE orderid="3" >
+//  Program Starts...
+
+import java.io.*;
+import javax.swing.*;
+import java.net.*;
+import java.awt.*;
+import java.awt.event.*;
+public class chatkaro12mClient extends Panel
+{
+TextArea receivedText;
+Socket sock;
+private GridBagConstraints c;
+private GridBagLayout gridBag;
+private Frame frame;
+private Label label;
+JButton send;
+JButton exit;
+private int port=5001;
+private TextArea sendText;
+private String hostname;
+private String username;
+private DataOutputStream remoteOut;
+ImageIcon i1,i2;
+public static void main(String args[])
+{
+if(args.length != 2)
+{
+System.out.println(&quot;Format is : java chatkaro12mClient  &quot;);
+return;
+}
+Frame f1=new Frame(&quot;Welcome Protocol&quot;);
+f1.resize(800,600);
+f1.show();
+JOptionPane.showMessageDialog(f1,&quot;Welcome &quot;+args[0]+&quot;.. Have a nice Session.&quot;,&quot;Welcome&quot;,0);
+Frame f= new Frame(&quot;Connecting to Mr. &quot;+args[0]);
+chatkaro12mClient chat=new chatkaro12mClient(f,args[0],args[1]);
+f.add(&quot;Center&quot;,chat);
+f.setSize(800,600);
+f.show();
+chat.client();
+}
+public chatkaro12mClient(Frame f,String user,String host)
+{
+frame=f;
+frame.addWindowListener(new WindowExitHandler());
+username=user;
+hostname=host;
+//Insets insets=new Insets(10,20,5,10);
+//gridBag=new GridBagLayout();
+//setLayout(gridBag);
+/*c=new GridBagConstraints();
+c.insets=insets;
+c.gridy=0;
+c.gridx=0;*/
+label=new Label(&quot;Text to send :&quot;);
+add(label);
+/*gridBag.setConstraints(label,c);
+
+c.gridx=1;*/
+sendText=new TextArea(15,30);
+/*sendText.addActionListener(new TextActionHandler());
+gridBag.setConstraints(sendText,c);*/
+add(sendText);
+//c.gridy=1;
+//c.gridx=0;
+label= new Label(&quot;Text received :&quot;);
+//gridBag.setConstraints(label,c);
+add(label);
+//c.gridx=1;
+receivedText=new TextArea(15,30);
+//gridBag.setConstraints(receivedText,c);
+add(receivedText);
+ImageIcon i1=new ImageIcon(&quot;click.gif&quot;);
+ImageIcon i2=new ImageIcon(&quot;doorin2.gif&quot;);
+send=new JButton(i1);
+exit=new JButton(i2);
+add(send);
+add(exit);
+send.addActionListener(new TextActionHandler());
+exit.addActionListener(new EXIT());
+}
+
+void client()
+{
+try
+{
+	if(hostname.equals(&quot;local&quot;))
+		hostname=null;
+	InetAddress serverAddr= InetAddress.getByName(hostname);
+	sock=new Socket(serverAddr.getHostName(),port);
+	remoteOut=new DataOutputStream(sock.getOutputStream());
+	System.out.println(&quot;Connected to server &quot; + serverAddr.getHostName() + &quot; on port &quot; + sock.getPort());
+	new chatkaro12mClientReceive(this).start();
+}
+catch(IOException e)
+	{
+	System.out.println(e.getMessage() + &quot; : Failed to connect to server.&quot;);
+	}
+}
+protected void finalize() throws Throwable
+{
+try
+{
+	if(remoteOut != null)
+		remoteOut.close();
+	if(sock != null)
+		sock.close();
+}
+catch(IOException x)
+	{}
+super.finalize();
+}
+class WindowExitHandler extends WindowAdapter
+{
+public void windowClosing(WindowEvent e)
+{
+Window w=e.getWindow();
+w.setVisible(false);
+w.dispose();
+System.exit(0);
+}
+}
+
+class EXIT implements ActionListener
+ {
+   public void actionPerformed(ActionEvent e)
+  {
+   if((JOptionPane.showConfirmDialog(new Frame(),&quot;Are You Sure to close the Session?&quot;))==JOptionPane.YES_OPTION)              
+	{
+	      JOptionPane.showMessageDialog(new Frame(),&quot;Thank U. Visit Again. &quot;,&quot;Good Bye&quot;,0);	
+              System.exit(0);
+	}
+    	
+  }
+ }
+class TextActionHandler implements ActionListener
+{
+public void actionPerformed(ActionEvent e)
+{
+try
+{
+remoteOut.writeUTF(sendText.getText());
+JOptionPane.showMessageDialog(new Frame(),&quot;Your msg has been sent &quot;,&quot;Confirmation&quot;,0);
+sendText.setText(&quot;&quot;);
+}
+catch(IOException x)
+{
+System.out.println(x.getMessage() + &quot; : connection to peer lost.&quot;);
+}
+}
+}
+}
+class chatkaro12mClientReceive extends Thread 
+{
+private chatkaro12mClient chat;
+chatkaro12mClientReceive(chatkaro12mClient chat)
+{
+this.chat=chat;
+}
+public synchronized void run()
+{
+String s;
+DataInputStream remoteIn=null;
+try
+{
+	remoteIn= new DataInputStream(chat.sock.getInputStream());
+while(true)
+	{
+	s=remoteIn.readUTF();
+	chat.receivedText.setText(s);
+	}
+}
+catch(IOException e)
+{
+System.out.println(e.getMessage() + &quot; : connection to peer lost.&quot;);
+}
+finally
+{
+try
+{
+if(remoteIn !=null)
+	remoteIn.close();
+}
+catch(IOException x)
+{}
+}
+}
+}
+</CODE>
+</result>

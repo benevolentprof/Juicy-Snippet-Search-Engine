@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>6425</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/other/article.php/630621/An-Introduction-to-SecurityManager-and-Permissions-in-JDK.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			An Introduction to SecurityManager and Permissions in JDK
+			
+			
+				
+				
+					November 16, 2000
+					By 
+Thomas Gutschmidt
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+
+			SecurityManager is a class that helps maintain the Java sandbox restrictions. It is an abstract class and can allow applications to run within an implemented security policy. SecurityManager performs runtime permission checking of sensitive operations, which include opening network sockets, reading or writing local files, or creating new SecurityManagers.  SecurityManager&apos;s job is to throw security exceptions if an application or applet tries to access something outside of the sandbox without permission. All applets and applications in Java must be granted explicit permissions to access local system resources, apart from read access to the directory and its subdirectories where the program is invoked (or the browser in a typical applet).  In Java, this allows a programmer to establish a customized security policy for a Java application or applet and give the application access or permissions outside of the usual Java sandbox. For instance, applets cannot read or write to the client file system, but SecurityManager can allow such operations after they are given permission.  
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		Whenever a Java application needs to operate a possibly restricted command, it checks with SecurityManager to see if the operation is allowed or denied. If the permissions have been set up correctly, the operation continues, otherwise a runtime SecurityException is thrown.  The current or active security manager is set by the setSecurityManager method. The default manager,  java.lang.SecurityManager, has been set with no express permissions. To allow permissions outside of the applet sandbox security, you would normally create a subclass of security manager, and then override the permissions that you wished to use. Another option is to create a null security manger and then build in the security with exceptions. The following code sets the current security manger to CustomSecurityManager:
+</TEXT>
+<CODE orderid="1" >
+System.setSecurityManager(new CustomSecurityManager());
+</CODE>
+<TEXT orderid="2" >
+The setSecurityManger method will first call the existing SecuirtyManager&apos;s checkPermission method to make sure that it is allowed to replace the existing SecurityManger. If it is permissible, CustomSecurityManager will become the current SecurityManager.  Methods In order to write a custom SecurityManager, you need to need to know which software methods are prevented in Java. There are specific permissions to access the AWT, clipboard, specific files, system properties, network, socket factory, or threads. A comprehensive list can be found at  Class java.lang.SecurityManager at Sun.  The checkPermission(java.security.Permission) method determines whether a request should be granted or an exception thrown. The default implementation of each check method in SecurityManager is to call the SecuirtyManager checkPermission method, which determines whether or not the calling thread has the required permission. The method checkPermission executes within the existing thread, although there are other commands provided in JDK 1.2 that work outside of the current thread.  SecurityManager&apos;s permissions are managed by several classes. The classes java.io.FilePermission and java.net.SocketPermission are subclasses of java.security.Permission and are usually given a specific path name or directory when implanted, granting access to a specific file or socket. Other permission classes (java.net.Netpermssions, java.util.Propertypermission, etc.) are subclasses of java.security.BasicPermission.  Many of SecuirtyManager&apos;s methods have names that begin with the word check (checkAccess, checkConnect) and are called by the methods in the Java class libraries. These checks are normally implemented within a try block. The following code checks to see if SecurityManager has permissions to write to a local temp file, and then throws the SecurityException exception if the permission is denied:
+</TEXT>
+<CODE orderid="3" >
+If (CustomSecurityManager !=null)
+	{
+	try	
+		{
+		CustomSecurityManagercheckpermission(java.io.FilePermission(&quot;c:\\temp&quot;, &quot;write&quot;));
+		} catch (SecurityException exception)
+</CODE>
+<TEXT orderid="4" >
+Browser&apos;s have custom class loaders, so applets in browsers cannot install their own class loaders or their own SecurityManager. JDK1.1 has its own subclass of SecurityManager for applets called AppletSecurityManager. AppletSecuirtyManager changed to AppletSecurity in JDK1.2 and is also the subclass of SecurityManager adopted for use by Netscape Navigator. Internet Explorer also has its own subclass, called StandardSecurityManager.  New Security Feature in JDK 1.2: Permissions When running an applet in a browser, Java looks for the user and system policy files to find any permission an applet would need to access local system resources. This makes it possible for a local administrator to set up specific rules for specific users or hosts. These permissions are set up in a policy file or user policy.  Policy files have a name, a target, and can contain a list of specific actions that are granted. User policies can be set up in the user&apos;s home directory. The following line allows  java.io.FilePermisions read access to text1.txt in the temp directory:
+</TEXT>
+</result>

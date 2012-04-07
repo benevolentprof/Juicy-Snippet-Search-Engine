@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>12741</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.java-tips.org/java-se-tips/java.util/how-to-create-a-hash-table.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home  Java SE Tips  java.util    How to create a Hash Table               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					How to create a Hash Table									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;84
+
+
+PoorBest&#160;
+		
+				
+			
+				
+
+This Java tip illustrates a method of creating a Hash Table. Hash table
+is generally used in searching applications. Hash table increases the 
+search efficiency by creating a key corresponding to the values in the table.
+</TEXT>
+<CODE orderid="1" >
+&#160;&#160;&#160;&#160;//&#160;Create&#160;a&#160;hash&#160;table
+
+&#160;&#160;&#160;&#160;Map&#160;map&#160;=&#160;new&#160;HashMap();&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;map&#160;=&#160;new&#160;TreeMap();&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//&#160;sorted&#160;map
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;//&#160;Add&#160;key/value&#160;pairs&#160;to&#160;the&#160;map
+
+&#160;&#160;&#160;&#160;map.put(&quot;x&quot;,&#160;new&#160;Integer(1));
+
+&#160;&#160;&#160;&#160;map.put(&quot;y&quot;,&#160;new&#160;Integer(2));
+
+&#160;&#160;&#160;&#160;map.put(&quot;z&quot;,&#160;new&#160;Integer(3));
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;//&#160;Get&#160;number&#160;of&#160;entries&#160;in&#160;map
+
+&#160;&#160;&#160;&#160;int&#160;size&#160;=&#160;map.size();&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//&#160;2
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;//&#160;Adding&#160;an&#160;entry&#160;whose&#160;key&#160;exists&#160;in&#160;the&#160;map&#160;causes
+
+&#160;&#160;&#160;&#160;//&#160;the&#160;new&#160;value&#160;to&#160;replace&#160;the&#160;old&#160;value
+
+&#160;&#160;&#160;&#160;Object&#160;oldValue&#160;=&#160;map.put(&quot;x&quot;,&#160;new&#160;Integer(9));&#160;&#160;//&#160;1
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;//&#160;Remove&#160;an&#160;entry&#160;from&#160;the&#160;map&#160;and&#160;
+
+&#160;&#160;&#160;&#160;//&#160;return&#160;the&#160;value&#160;of&#160;the&#160;removed&#160;entry
+
+&#160;&#160;&#160;&#160;oldValue&#160;=&#160;map.remove(&quot;c&quot;);&#160;&#160;//&#160;3
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;//&#160;Iterate&#160;over&#160;all&#160;keys&#160;in&#160;the&#160;table&#160;
+
+&#160;&#160;&#160;&#160;Iterator&#160;it&#160;=&#160;map.keySet().iterator();
+
+&#160;&#160;&#160;&#160;while&#160;(it.hasNext())&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//&#160;Retrieve&#160;key
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Object&#160;key&#160;=&#160;it.next();
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;//&#160;Iterate&#160;over&#160;all&#160;values&#160;in&#160;table&#160;
+
+&#160;&#160;&#160;&#160;it&#160;=&#160;map.values().iterator();
+
+&#160;&#160;&#160;&#160;while&#160;(it.hasNext())&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//&#160;Get&#160;value
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Object&#160;value&#160;=&#160;it.next();
+
+&#160;&#160;&#160;&#160;}
+</CODE>
+<TEXT orderid="2" >
+&#160;Related Tips 
+A custom combobox editor for use with the EditableComboBox class
+A demonstration of Java2D transformations
+A game of Tic-Tac-Toe that can be played between two client applets
+A Label that uses inline HTML to format its text
+A program to print limits of the primitive types
+A sample of inline DTD definition
+A sample of linked DTD definition
+A sample XML file
+
+			
+		
+				
+
+		&#160;
+
+		
+
+			
+									
+						
+							&lt; Prev
+					
+										&#160;
+
+					
+										
+						
+							Next &gt;
+					
+								
+			
+			                		
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+      
+    
+    
+      
+        
+          &#160;
+          &#160;
+          &#160;
+        
+        
+          &#160;
+          
+              &#160;            
+          &#160;
+        
+        
+          &#160;
+          &#160;
+          &#160;
+        
+      
+    
+    
+      
+        
+            
+            
+            
+        
+      
+    
+	
+	
+
+
+		
+				
+			
+				
+			
+		
+		
+		
+
+
+
+
+
+
+
+
+Home
+
+
+-
+
+
+About Us
+
+
+-
+
+
+Privacy Policy
+
+
+
+
+
+
+Copyright 2005 - 2008 www.java-tips.org
+Java is a trademark of Sun Microsystems, Inc.
+</TEXT>
+</result>

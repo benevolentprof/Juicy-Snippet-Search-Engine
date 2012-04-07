@@ -1,0 +1,160 @@
+body {position:absolute;
+	   left:100px;
+	   padding-bottom: 20px;}
+
+.normaltext {font-family:arial, helvetica; 
+					font-size:12px; 
+					font-weight:normal;
+					text-decoration: none;}
+.advanceSearchBox {	width: 375px;
+					background-color: #EFEFEF;
+					padding:10px;
+					border:0px ;
+					margin:0px;
+					font-family:arial, helvetica; 
+					font-size:12px; 
+					font-weight:normal;
+					text-decoration: none;}
+
+.resultBox {width:700px;
+			padding:10px;
+			border:5px solid #CFCFCF;
+			margin:10px;}
+.resultHeader {font-family:arial, helvetica; 
+			color:blue; font-size:18px;font-weight:bold;
+			text-decoration: none;
+			margin: 0;}
+.urlLink {font-family:arial, helvetica; 
+			color:grey; 
+			font-style: italic;
+			font-size:10px; 
+			font-weight:normal;
+			text-decoration: none;}
+			
+.textStyle {font-family:arial, helvetica; 
+			color:black; 
+			background-color:#EFFFEF;
+			font-size:12px; 
+			font-weight:normal;
+			text-decoration: none;
+			text-align:justify;
+			padding: 0;
+			margin: 5;
+			height: expression( this.scrollHeight > 45 ? "45px" : "auto" ); /* sets max-height for IE */
+       		max-height: 45px; /* sets max-height value for all standards-compliant browsers */
+       		overflow:auto;}
+.codeStyle {font-family:arial, helvetica; 
+			color:black; 
+			background-color:#FFEFEF;
+			font-size:12px; 
+			font-weight:normal;
+			text-decoration: none;
+			padding: 0;
+			margin: 5;
+			height: expression( this.scrollHeight > 90 ? "90px" : "auto" ); /* sets max-height for IE */
+       		max-height: 90px; /* sets max-height value for all standards-compliant browsers */
+       		overflow:auto;}
+
+.highlight { background:#F6FF00; }
+
+.lightbox{
+    background-color:#000;
+    opacity: 0.7;
+    position:fixed;
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    z-index:100;
+}
+
+.databox{
+    position:fixed;
+    top:-500px;
+    left:20%;
+    right:20%;
+    background-color:#fff;
+    color:#7F7F7F;
+    padding:20px;
+    border:2px solid #ccc;
+    -moz-border-radius: 20px;
+    -webkit-border-radius:20px;
+    -khtml-border-radius:20px;
+    -moz-box-shadow: 0 1px 5px #333;
+    -webkit-box-shadow: 0 1px 5px #333;
+    z-index:101;
+    height: auto;
+}
+a.closebox{
+    float:right;
+    width:26px;
+    height:26px;
+    background:transparent url(cancel.png) no-repeat top left;
+    position:relative;
+    top: -15px;
+    right: -15px;
+    margin-top: 0px;
+    margin-right: 0px;
+    cursor:pointer;
+}
+.databoxHeader{
+    border-bottom: 1px dashed #7F7F7F;
+    margin:-20px -20px 0px -20px;
+    padding:10px;
+    background-color:#FFEFEF;
+    color:#EF7777;
+    -moz-border-radius:20px 20px 0px 0px;
+    -webkit-border-top-left-radius: 20px;
+    -webkit-border-top-right-radius: 20px;
+    -khtml-border-top-left-radius: 20px;
+    -khtml-border-top-right-radius: 20px;
+}
+
+.databox pre{
+		font-family:arial, helvetica; 
+		color:black; 
+		background-color:#fff;
+		padding: 0px;
+		margin:10px -10px 10px -10px;
+		border-style: none;
+		border-width: 0px;
+		
+		height: expression( this.scrollHeight > 300 ? "300px" : "auto" ); /* sets max-height for IE */
+    	max-height: 300px; /* sets max-height value for all standards-compliant browsers */
+	    overflow:auto;
+}
+	
+.copyCodeButton {
+	height: 25px;
+	margin-top: 0px;
+	margin-bottom: -15px;
+	float:right;
+}
+a.urlLinkBigScreen {
+	float:left;
+	margin-top:5px;
+	margin-bottom: -20px;
+	font-family:arial, helvetica; 
+	color:blue; 
+	font-style: italic;
+	font-size:14px; 
+	font-weight:normal;
+	text-decoration: none;
+}
+
+.databoxHeaderTitle {
+			font-family:arial, helvetica; 
+			color:#EF7777; 
+			font-size:22px;
+			font-weight:bold;
+			text-decoration: none;
+			margin: 0;}
+			
+.databoxHeaderTitle2 {
+			font-family:arial, helvetica; 
+			color:#EF7777; 
+			font-size:18px;
+			font-style: italic;
+			font-weight:bold;
+			text-decoration: none;
+			margin: 0;}

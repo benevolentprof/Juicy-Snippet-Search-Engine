@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>10674</docid>
+<orderid>3</orderid>
+<type>CODE</type>
+<url>http://www.javaworld.com/javaworld/jw-04-2002/jw-0412-aspect3.html</url>
+</description>
+<CODE orderid="1" >
+System.out.println()
+</CODE>
+<TEXT orderid="2" >
+instead of the logging aspect to keep the focus from the main problem to the logging concern.
+                     
+                     This article looks at examples from several categories: resource-pool management, policy enforcement, characteristics-based
+                        behavior, and flexible access control. I wrap up the article (and the series) by presenting several other ways to use AspectJ
+                        in your work.
+                     
+                     Note: You can download this article&apos;s source code from Resources.
+                     
+                     Example 1: Resource-pool management modularization
+                     One common way to optimize resource usage recycles previously created resources such as threads and database connections.
+                     A typical OOP approach to introducing resource pooling requires you to make a few up-front decisions. To wit, the design must
+                        specify when and how to obtain resources from the pool and how to put them back. Since profiling the system necessitates many
+                        optimizations, designing up-front resource pooling proves difficult. However, introducing such support afterwards requires
+                        you to modify many source files. (See Part 1&apos;s &quot;Architecture&apos;s Dilemma&quot; section for more details.) Further, the conventional approach lacks agility; it is not easy to
+                        turn on, off, or tune such optimizations.
+                     
+                     Let&apos;s see how AOP and AspectJ help implement resource-pool management in a modularized fashion.
+                     First, let&apos;s implement a simple TCP/IP service for converting requested strings to uppercase. The server creates a new thread
+                        each time a new connection request arrives. Once a thread completes serving a connection, it terminates naturally. The implementation
+                        below is simple Java without any AspectJ constructs:
+</TEXT>
+<CODE orderid="3" >
+// UppercaseServer.java
+import java.io.*;
+import java.net.*;
+public class UppercaseServer {
+    public static void main(String[] args) throws Exception {
+      if (args.length != 1) {
+          System.out.println(&quot;Usage: java UppercaseServer &lt;portNum&gt;&quot;);
+          System.exit(1);
+      }
+      int portNum = Integer.parseInt(args[0]);
+      ServerSocket serverSocket = new ServerSocket(portNum);
+        
+        while(true) {
+            Socket requestSocket = serverSocket.accept();
+            Thread serverThread 
+                = new Thread(new UppercaseWorker(requestSocket));
+            serverThread.start();
+        }
+    }
+}
+class UppercaseWorker implements Runnable {
+    private Socket _requestSocket;
+    public UppercaseWorker(Socket requestSocket) throws IOException {
+        System.out.println(&quot;Creating new worker&quot;);
+        _requestSocket = requestSocket;
+    }
+    public void run() {
+        BufferedReader requestReader = null;
+        Writer responseWriter = null;
+        try {
+            requestReader
+                = new BufferedReader(
+                      new InputStreamReader(_requestSocket.getInputStream()));
+            responseWriter
+                = new OutputStreamWriter(_requestSocket.getOutputStream());
+            while(true) {
+                String requestString = requestReader.readLine();
+                if (requestString == null) {
+                    break;
+                }
+                System.out.println(&quot;Got request: &quot; + requestString);
+                responseWriter.write(requestString.toUpperCase() + &quot;\n&quot;);
+                responseWriter.flush();
+            }
+        } catch(IOException ex) {
+        } finally {
+            try {
+                if (responseWriter != null) {
+                    responseWriter.close();
+                }
+                if (requestReader != null) {
+                    requestReader.close();
+                }
+                _requestSocket.close();
+            } catch (IOException ex2) {
+            }
+        }
+        System.out.println(&quot;Ending the session&quot;);
+    }
+}
+</CODE>
+<TEXT orderid="4" >
+Next, let&apos;s see how AspectJ can add a thread-pooling crosscutting concern. First, write a simple ThreadPool class that acts as a stack for available threads. The get() method extracts a thread from the stack, whereas the put() method pushes one in. The put() method also contains the DelegatingThread class that delegates the run() method to the _delegatee worker object:
+</TEXT>
+<CODE orderid="5" >
+// ThreadPool.java
+import java.util.*;
+public class ThreadPool {
+    List _waitingThread = new Vector();
+    public void put(DelegatingThread thread) {
+        System.out.println(&quot;Putting back: &quot; + thread);
+        _waitingThread.add(thread);
+    }
+    public DelegatingThread get() {
+        if (_waitingThread.size() != 0) {
+            DelegatingThread availableThread 
+                = (DelegatingThread)_waitingThread.remove(0);
+            System.out.println(&quot;Providing for work: &quot; + availableThread);
+            return availableThread;
+        }
+        return null;
+    }
+    static class DelegatingThread extends Thread {
+        private Runnable _delegatee;
+        
+        public void setDelegatee(Runnable delegatee) {
+            _delegatee = delegatee;
+        }
+        
+        public void run() {
+            _delegatee.run();
+        }
+    }
+}
+</CODE>
+</result>

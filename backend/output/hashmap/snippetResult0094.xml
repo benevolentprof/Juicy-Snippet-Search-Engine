@@ -1,0 +1,1000 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>3018</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/web/article.php/10935_3846491_2/An-Introduction-to-Java-Enterprise-Portals-and-Portlet-Development.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Web-based Java
+					
+				
+				
+					Read More in Web-based Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			An Introduction to Java Enterprise Portals and Portlet Development
+			
+			
+				
+				
+					November 2, 2009
+					By 
+Vlad  Kofman
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Developing a Portlet
+To begin, create a standard Java project. The first step in making it a portlet project is to create a portlet.xml file, which is a deployment descriptor that specifies what portlets are available for the container and which class should be used to instantiate them. However, the specification does not define how a portal registers and recognizes portlets. 
+
+Author&apos;s Note: For the examples in this article, I used the Java Spring framework, which provides some helpful utilities and container beans, to simplify some of the Portlet API plumbing. I also used the Eclipse IDE to set up the portlet project. However, any portlet developed according to the JSR 168 or JSR 286 specifications should be able to run on any compliant container, so you don&apos;t have to use the same technology to code and build the examples.
+
+
+Figure 5 shows the structure for the sample portlet project.
+
+
+
+Figure 5. Portlet Project Structure: The figure shows the structure of the sample portlet project.
+
+
+The portlet.xml file for the sample project defines a single portlet:
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;portlet-app xmlns=
+  &quot;http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=
+    &quot;http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd&quot;
+    version=&quot;1.0&quot;&gt;
+    &lt;portlet&gt;
+      &lt;portlet-name&gt;QuickSearch&lt;/portlet-name&gt;
+      &lt;portlet-class&gt;
+        org.springframework.web.portlet.DispatcherPortlet
+      &lt;/portlet-class&gt;
+      &lt;init-param&gt;
+        &lt;name&gt;contextConfigLocation&lt;/name&gt;
+        &lt;value&gt;/WEB-INF/context/portlet/QuickSearchDefinition.xml&lt;/value&gt;
+      &lt;/init-param&gt;
+      &lt;supports&gt;
+        &lt;mime-type&gt;text/html&lt;/mime-type&gt;
+        &lt;portlet-mode&gt;view&lt;/portlet-mode&gt;
+      &lt;/supports&gt;
+      &lt;portlet-info&gt;
+        &lt;title&gt;Quick Search&lt;/title&gt;
+      &lt;/portlet-info&gt;      
+    &lt;/portlet&gt;    
+&lt;/portlet-app&gt;
+
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		The preceding portlet.xml file specifies the contextConfigLocation as an initial parameter for the Spring class.
+Listing 1 shows the sample Spring contextConfigLocation file:
+The next step is to write some Java source to act as a controller, view, and handler for the portlet. The view is a JSP page, while the controller and handler are Java classes. For samples of these artifacts, please see the downloadable source, which contains a portlet skeleton project for this article.
+The controller, with the handler class&apos;s help, fetches data from some data source, such as a web service, database, or feed. You can implement the mechanism to pass this data to the view via the command pattern, where commandObject is the carrier of information throughout the user portlet session.
+For example, the following code is a skeleton that illustrates Portlet API methods to get data and return it to the view layer:
+</TEXT>
+<CODE orderid="1" >
+@Override
+protected ModelAndView handleRenderRequestInternal(
+   RenderRequest request, RenderResponse response) throws Exception 
+{      
+   logger.info (&quot;Inside Controller handleRenderRequestInternal&quot;);      
+   Map&lt;String, CommandObject&gt; model = new 
+     HashMap&lt;String, CommandObject&gt;();   
+   CommandObject commandObject = 
+     (CommandObject)request.getPortletSession().getAttribute(
+     CommandObject.COMMAND_NAME,PortletSession.APPLICATION_SCOPE);
+   if (commandObject == null){
+      commandObject = new CommandObject();
+   }
+            
+   // logic to get the data and put it in the commandObject 
+   // should be here...
+            
+   String view = getFormView();
+   model.put(&quot;commandObject&quot;, commandObject);
+   ModelAndView mav = new ModelAndView(view, model);
+   return mav;  
+}
+@Override
+public void onSubmitAction (final ActionRequest request, 
+  final ActionResponse response, final Object command,
+  final BindException bindException) throws Exception 
+{
+   logger.info (&quot;Inside onSubmitAction&quot;);
+   // Set the form bean into session so that it will be available 
+   CommandObject commandObject = (CommandObject)command;
+   logger.info(&quot;Command Object :&quot;+ToStringBuilder.reflectionToString(
+      commandObject));
+   request.getPortletSession ().setAttribute (&quot;command_obj&quot;, 
+      command,PortletSession.APPLICATION_SCOPE);
+}
+</CODE>
+<TEXT orderid="2" >
+From the JSP, you can retrieve the data as follows:
+&lt;form:form action=&quot;${formAction}&quot; name=&quot;quickProcess&quot; 
+   method=&quot;post&quot; commandName=&quot;commandObject&quot;&gt;    
+  &lt;form:hidden path=&quot;p&quot; id=&quot;p&quot; /&gt;
+  &lt;c:if test=&quot;${commandObject.someList != null}&quot;&gt;
+    &lt;c:forEach items=&quot;${commandObject.someList}&quot; 
+      var=&quot;listItem&quot; varStatus=&quot;loop&quot;&gt;              
+      &lt;c:out value=&quot;${listItem.name}&quot;/&gt;&lt;br&gt;            
+    &lt;/c:forEach&gt;
+  &lt;/c:if&gt;
+&lt;/form:form&gt;
+
+
+
+Figure 6. Adding a Portlet in Vignette: In Vignette Portal Server, you can list portlets to add them.
+
+
+Note that the portlet does not specify how it should be laid out on the screen, whether it can be resized, or what width and height it should have. The portlet container controls all these external properties.
+To make the Portlet project work, you need to build and deploy it. In the build step, create a standard java war file (typically using Ant or Maven). In the deploy step place the war file on the application server that also hosts the portlet container application. When the portlet is configured and registered in the portlet container, the portlet.xml file is used to discover what portlets are available and what they are called. For example, in Vignette Portal server you can create a new portlet by searching for it and adding it to the site (see Figure 6 and Figure 7).
+
+
+
+Figure 7. Searching for Portlets in Vignette: You can also search for portlets you want to add to a site.
+
+
+
+Figure 8. Setting Portlet Layout in Vignette: Here&apos;s an administrative page that lets you configure portlet layout in Vignette.
+
+After adding the portlets are to portlet container, you can (depending on the platform) set up their placement, layout, and properties. For instance, you can set a default width and location, and specify that the portlet cannot be minimized or moved, etc.
+Figure 8 shows a Vignette example page with three configured portlets. When a user logs into the portal this is the default placement that will be used. 
+
+
+Figure 9 shows a few default layouts you can choose in the eXo JBoss portlet container. Of course, you are not required to use these, but it&apos;s convenient to have out-of-the-box page grid layouts that you can assign with just a few mouse clicks.
+
+
+Figure 9. Default Layouts: The eXo JBoss portlet container provides several default layouts that you can select.
+
+
+
+The latest portlet containers make it easy to change the look and feel of a portal site by changing the layout, skins, or UI scheme of the portlets&#151;all from a convenient administrative dashboard.
+At this point, you&apos;ve seen the rudiments of how web portals and portlet containers work as well as an example of developing a portlet using the latest Java specification and deployment techniques. The creation of the concrete specification facilitated proliferation of the portlet containers in the web development area, from both open source and commercial vendors. This in turn, made it easy for Java web developers to reuse portlet code, concentrate on business logic, and provide robust out or the box features for the end-users without writing much portal code. It will be interesting to see what new developments will appear in the Java portal space in coming years. To follow up, you may find these reference links useful:
+References:
+JSR 168
+JSR 286
+Open Source Java Portals and Portlet Servers
+Apache JetSpeed and User&apos;s Guide
+eXo and Jboss
+Apache Pluto
+GateIn Portal Project
+Vignette Portal
+WebSphere Portal
+IBM Portlet API
+Sun Liferay Portal&#151;an open source portal
+Sun OpenPortal (source and more information here)
+Oracle Portal
+
+
+Listing 1. QuickSearchDefinition.xml: This is the Spring contextConfigLocation file.
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+  xsi:schemaLocation=&quot;
+   http://www.springframework.org/schema/beans 
+   http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+   http://www.springframework.org/schema/aop 
+   http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+   
+  &lt;bean id=&quot;quickEntitySearchController&quot; 
+    class=&quot;com.portlet.controller.QuickSearchController&quot; 
+    parent=&quot;basePageController&quot;&gt; 
+    &lt;property name=&quot;sessionForm&quot;&gt;&lt;value&gt;true&lt;/value&gt;&lt;/property&gt; 
+
+    &lt;!-- Keep command object throughout session --&gt;
+    &lt;property name=&quot;commandName&quot; value=&quot;commandObject&quot;/&gt;
+    &lt;property name=&quot;commandClass&quot; 
+      value=&quot;com.portlet.command.commandObject&quot;/&gt;
+    &lt;property name=&quot;formView&quot;&gt;&lt;value&gt;quick.search&lt;/value&gt;&lt;/property&gt;
+    &lt;property name=&quot;successView&quot;&gt;&lt;value&gt;quick.search&lt;/value&gt;&lt;/property&gt;
+    &lt;property name=&quot;bindOnNewForm&quot;&gt;&lt;value&gt;true&lt;/value&gt;&lt;/property&gt;     
+    &lt;property name=&quot;quickServiceClient&quot; ref=&quot;quickServiceClient&quot;/&gt;
+  &lt;/bean&gt;   
+   
+  &lt;bean id=&quot;portletModeParameterHandlerMapping&quot; class=&quot;
+    org.springframework.web.portlet.handler.
+    PortletModeParameterHandlerMapping&quot;&gt;
+    &lt;property name=&quot;order&quot; value=&quot;10&quot;/&gt;
+    &lt;property name=&quot;interceptors&quot;&gt;
+      &lt;list&gt;
+        &lt;ref bean=&quot;parameterMappingInterceptor&quot; /&gt;
+      &lt;/list&gt;
+    &lt;/property&gt;
+
+    &lt;property name=&quot;portletModeParameterMap&quot;&gt;
+      &lt;map&gt;
+        &lt;entry key=&quot;view&quot;&gt;
+          &lt;map&gt;
+            &lt;entry key=&quot;basePageAction&quot;&gt;
+              &lt;ref bean=&quot;quickSearchController&quot;/&gt;
+            &lt;/entry&gt;
+          &lt;/map&gt;
+        &lt;/entry&gt;
+      &lt;/map&gt;
+    &lt;/property&gt;
+  &lt;/bean&gt;
+   
+  &lt;bean id=&quot;portletModeHandlerMapping&quot; class=
+    &quot;org.springframework.web.portlet.handler.PortletModeHandlerMapping&quot;&gt;
+    &lt;property name=&quot;interceptors&quot;&gt;
+      &lt;list&gt;
+        &lt;ref bean=&quot;parameterMappingInterceptor&quot; /&gt;
+      &lt;/list&gt;
+    &lt;/property&gt;
+    &lt;property name=&quot;portletModeMap&quot;&gt;
+      &lt;map&gt;
+        &lt;entry key=&quot;view&quot;&gt;&lt;ref bean=&quot;quickSearchController&quot;/&gt;&lt;/entry&gt;
+      &lt;/map&gt;
+    &lt;/property&gt;
+  &lt;/bean&gt;
+&lt;/beans&gt;
+
+
+About the Author 
+Vlad Kofman is currently working on enterprise-scale projects for major Wall Street firms. He has also worked on defense contracts for the U.S. government. His main interests are web-related programming methodologies, UI patterns, and SOA.
+			
+			
+			
+			
+				
+				
+1 
+2 
+
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>13603</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-tips.org/other-api-tips/jdbc/how-to-insert-data-into-database-tables-with-the-help-of.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home  Other API Tips  JDBC    How to insert data into database tables with the help of JDBC               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					How to insert data into database tables with the help of JDBC									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;20
+
+
+PoorBest&#160;
+		
+				
+			
+				
+
+JDBC technology is an API that provides cross-DBMS connectivity to a wide range of SQL databases and access to other tabular data sources, such as spreadsheets or flat files. With a JDBC technology-enabled driver, you can connect all corporate data even in a heterogeneous environment.
+
+At times there is need of inserting row data in tables at runtime.
+JDBC provides facility of insertion of data by support of INSERT statement.
+
+The example below inserts data into an SQL server&apos;s database tables.
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.sql.*;
+
+
+
+public&#160;class&#160;insertTableData
+
+{
+
+&#160;&#160;&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;
+
+&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DB&#160;db&#160;=&#160;new&#160;DB();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Connection&#160;conn=db.dbConnect(
+
+&#160;&#160;&#160;&#160;&quot;jdbc:jtds:sqlserver://localhost:1433/tempdb&quot;,&quot;sa&quot;,&quot;&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;db.insertData(conn);
+
+&#160;&#160;&#160;&#160;}
+
+}
+
+
+
+class&#160;DB
+
+{
+
+&#160;&#160;&#160;&#160;public&#160;DB()&#160;{}
+
+
+
+&#160;&#160;&#160;&#160;public&#160;Connection&#160;dbConnect(String&#160;db_connect_string,
+
+&#160;&#160;String&#160;db_userid,String&#160;db_password)
+
+&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;try
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Class.forName(&quot;net.sourceforge.jtds.jdbc.Driver&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Connection&#160;conn&#160;=&#160;DriverManager.getConnection(
+
+&#160;&#160;&#160;&#160;db_connect_string,db_userid,db_password);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;connected&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return&#160;conn;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;catch&#160;(Exception&#160;e)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;e.printStackTrace();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return&#160;null;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;}
+
+
+
+&#160;&#160;&#160;&#160;public&#160;void&#160;insertData(Connection&#160;conn)
+
+&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Statement&#160;stmt;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;try
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;stmt&#160;=&#160;conn.createStatement();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;stmt.executeUpdate(&quot;insert&#160;into&#160;cust_profile&#160;&quot;&#160;+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&quot;values(&apos;name1&apos;,&#160;&apos;add1&apos;,&apos;city1&apos;,&apos;state1&apos;,&apos;country1&apos;)&quot;);
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;stmt.executeUpdate(&quot;insert&#160;into&#160;cust_profile&#160;&quot;&#160;+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&quot;values(&apos;name2&apos;,&#160;&apos;add2&apos;,&apos;city2&apos;,&apos;state2&apos;,&apos;country2&apos;)&quot;);
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;stmt.executeUpdate(&quot;insert&#160;into&#160;cust_profile&#160;&quot;&#160;+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&quot;values(&apos;name3&apos;,&#160;&apos;add3&apos;,&apos;city3&apos;,&apos;state3&apos;,&apos;country3&apos;)&quot;);
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;stmt.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;conn.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;catch&#160;(Exception&#160;e)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;e.printStackTrace();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;}
+
+};
+</CODE>
+<TEXT orderid="2" >
+&#160;Related Tips 
+ I have written a module. Can I sell it?
+2D texture font - NeHe Tutorial JOGL Port
+3D Human Animation Applet
+3D lens flare with occlusion testing - NeHe Tutorial JOGL Port
+3D shapes - NeHe Tutorial JOGL Port
+A model with a light which is moved by a modeling transformation
+A Morph object to animate a shape between two key shapes
+A red sphere using the Sphere utility class
+
+			
+		
+				
+
+		&#160;
+
+		
+
+			
+									
+						
+							&lt; Prev
+					
+										&#160;
+
+					
+										
+						
+							Next &gt;
+					
+								
+			
+			                
+
+
+
+
+
+
+
+ 
+Page 1 of 0 ( 0 comments )
+
+
+       You can share your information about this topic using the form below! 
+
+Please do not post your questions with this form! Thanks.
+
+ 
+
+  
+    
+      
+                
+          
+          
+
+          
+          Name (required)
+
+          
+          
+
+                    
+          
+
+          E-Mail (required)          
+                    
+
+          
+          
+          
+
+          Your email will not be displayed on the site - only to our administrator          
+          
+
+          Homepage(optional)
+
+
+
+
+
+
+
+          
+          
+
+          Comment          
+                    Enable HTML code :
+          
+          Yes
+          
+          No 
+
+          
+          
+          
+          
+
+          
+
+ 
+          
+
+          
+          
+        
+      
+    
+  
+
+
+
+
+
+&#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+      
+    
+    
+      
+        
+          &#160;
+          &#160;
+          &#160;
+        
+        
+          &#160;
+          
+              &#160;            
+          &#160;
+        
+        
+          &#160;
+          &#160;
+          &#160;
+        
+      
+    
+    
+      
+        
+            
+            
+            
+        
+      
+    
+	
+	
+
+
+		
+				
+			
+				
+			
+		
+		
+		
+
+
+
+
+
+
+
+
+Home
+
+
+-
+
+
+About Us
+
+
+-
+
+
+Privacy Policy
+
+
+
+
+
+
+Copyright 2005 - 2008 www.java-tips.org
+Java is a trademark of Sun Microsystems, Inc.
+</TEXT>
+</result>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>7040</docid>
+<orderid>6</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/data/article.php/10932_1556041_2/The-Java-Database-Control-in-BEA-Weblogic.htm</url>
+</description>
+<TEXT orderid="4" >
+Before you can run the example, you must first create the tables and insert data. Listing 6.2 shows the Admin service that allows you to create the tables, insert data, and delete the tables. Again, the only reason for the Admin service is that there is no tool in WebLogic Workshop to manage the built-in database. In a production environment, you would do these kinds of operations using a database tool (or leave them up to the database administrator). In this case, the tool creates the necessary tables and populates them with data using the OrderStatusCtrl database control from Listing 6.1.
+
+Listing 6.2 Source Code for Admin.jws
+</TEXT>
+<CODE orderid="5" >
+import weblogic.jws.control.JwsContext;
+
+public class Admin
+{ 
+
+  /**
+   * @jws:control
+   */
+  private OrderStatusCtrl orderStatus;
+  /** @jws:context */ 
+  JwsContext context; 
+
+  /**
+   * @jws:operation
+   */
+  public void initializeTables()
+  {
+    orderStatus.createCustomerTable();
+    orderStatus.insertCustomer(
+      new Customer(1, &quot;Samco&quot;,
+        &quot;123 Main St.&quot;, &quot;Lithonia&quot;, &quot;GA&quot;, &quot;30038&quot;,
+        &quot;sammy&quot;, &quot;barbie&quot;));
+    orderStatus.insertCustomer(
+      new Customer(2, &quot;Katy World&quot;,
+        &quot;6 Reader Lane&quot;, &quot;Lithonia&quot;, &quot;GA&quot;, &quot;30038&quot;,
+        &quot;katy&quot;, &quot;katy&quot;));
+    
+    orderStatus.createOrderStatusTable();
+    orderStatus.insertOrderStatus(
+      new OrderStatus(1, 1, &quot;Shipped: 1 Box of 1024 Crayons&quot;,
+        OrderStatus.ORDER_SHIPPED));
+    orderStatus.insertOrderStatus(
+      new OrderStatus(2, 1, &quot;Backorder: 3 Reams Multi-color card stock&quot;,
+        OrderStatus.ORDER_BACKORDERED));
+    orderStatus.insertOrderStatus(
+      new OrderStatus(3, 2, &quot;Processing: 1 Copy Ozzie&apos;s World&quot;,
+        OrderStatus.ORDER_IN_PROCESS));
+    orderStatus.insertOrderStatus(
+      new OrderStatus(4, 2,
+        &quot;Partial: Shipped-Where The Wild Things Are; &quot;+
+        &quot;Backorder-Hop On Pop&quot;, OrderStatus.ORDER_PARTIAL_SHIPPED));
+  }
+
+  /**
+   * @jws:operation
+   */
+  public void removeTables()
+  {
+    orderStatus.dropOrderStatusTable();
+    orderStatus.dropCustomerTable();
+  }
+  
+  /**
+   * @jws:operation
+   */
+  public void removeOrderStatusTable()
+  {
+    orderStatus.dropOrderStatusTable();
+  }
+
+  /**
+   * @jws:operation
+   */
+  public void removeCustomerTable()
+  {
+    orderStatus.dropCustomerTable();
+  }
+}
+</CODE>
+<TEXT orderid="6" >
+To retrieve or insert data, you usually need to define classes to contain table data (if you don&apos;t use a HashMap). Listing 6.3 shows the class that represents a customer. You can compare this Customer class to the customer table defined by the createCustomerTable in the OrderStatusCtrl database control in Listing 6.1. Notice that there is a field in the Customer class for each column defined in the customer database.
+
+Listing 6.3 Source Code for Customer.java
+</TEXT>
+<CODE orderid="7" >
+public class Customer 
+{ 
+  public int customerId;
+  public String name;
+  public String address;
+  public String state;
+  public String city;
+  public String zip;
+  public String userName;
+  public String password;
+  
+  public Customer()
+  {
+  }
+  
+  public Customer(int aCustomerId, String aName, String anAddress,
+    String aState, String aCity, String aZip, String aUserName,
+    String aPassword)
+  {
+    customerId = aCustomerId;
+    name = aName;
+    address = anAddress;
+    state = aState;
+    city = aCity;
+    zip = aZip;
+    userName = aUserName;
+    password = aPassword;
+  }
+}
+</CODE>
+<TEXT orderid="8" >
+Listing 6.4 shows the class that represents an order status. You can compare this class to the orderStatus table defined in the createOrderStatusTable method in Listing 6.1. As with the Customer class, the OrderStatus class contains a field for each column in the orderStatus table. In addition, the class defines numeric constants (the public static final int fields) to represent the various order status codes that can be stored in the database.
+
+Listing 6.4 Source Code for OrderStatus.java
+</TEXT>
+</result>

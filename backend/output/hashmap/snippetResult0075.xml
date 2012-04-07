@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>3642</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/ejb/article.php/10931_3550616_4/Introducing-Betwixt.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					EJB/Components
+					
+				
+				
+					Read More in EJB/Components &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Introducing Betwixt
+			
+			
+				
+				
+					September 30, 2005
+					By 
+Vikram Goyal
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Working with multiple values
+To show how Betwixt works with collections and maps, consider listing 9. It shows the code for converting a Meal object to XML and vice versa. Note that the Meal class contains the ingredients as a HashMap.
+Listing 9. Converting a Meal object to XML and back
+</TEXT>
+<CODE orderid="1" >
+package com.manning.commons.chapter05;
+import java.io.File;
+import java.io.FileWriter;
+import org.apache.commons.betwixt.io.BeanReader;
+import org.apache.commons.betwixt.io.BeanWriter;
+public class MultipleValues {
+public static void main(String args[]) throws Exception {
+FileWriter fWriter = new FileWriter(&quot;output.xml&quot;);
+BeanWriter bWriter = new BeanWriter(fWriter);
+Meal meal = new Meal(1, 1, &quot;Potato Bake&quot;);
+Ingredient ingredient1 = new Ingredient(&quot;POT&quot;, &quot;Potato&quot;, &quot;None&quot;);
+Ingredient ingredient2 = new Ingredient(&quot;CRM&quot;, &quot;Cream&quot;, &quot;None&quot;);
+meal.addIngredient(ingredient1);
+meal.addIngredient(ingredient2);
+bWriter.enablePrettyPrint();
+bWriter.write(&quot;meal&quot;, meal);
+bWriter.flush();
+BeanReader reader = new BeanReader();
+reader.registerBeanClass(&quot;meal&quot;, Meal.class);
+Meal mealReadFromFile =
+(Meal)reader.parse(new File(&quot;output.xml&quot;));
+System.err.println(mealReadFromFile);
+}
+}
+
+Most of this code doesn&apos;t change from listing 4.The output.xml file created by running this code is shown in listing 10.
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		Listing 10. output.xml for multiple values represented as a HashMap
+</CODE>
+<TEXT orderid="2" >
+&lt;meal&gt;
+&lt;ingredients&gt;
+&lt;entry&gt;
+&lt;key&gt;POT&lt;/key&gt;
+&lt;value&gt;
+&lt;key&gt;POT&lt;/key&gt;
+&lt;name&gt;Potato&lt;/name&gt;
+&lt;alternate&gt;None&lt;/alternate&gt;
+&lt;/value&gt;
+&lt;/entry&gt;
+&lt;entry&gt;
+&lt;key&gt;CRM&lt;/key&gt;
+&lt;value&gt;
+&lt;key&gt;CRM&lt;/key&gt;
+&lt;name&gt;Cream&lt;/name&gt;
+&lt;alternate&gt;None&lt;/alternate&gt;
+&lt;/value&gt;
+&lt;/entry&gt;
+&lt;/ingredients&gt;
+&lt;mealName&gt;Potato Bake&lt;/mealName&gt;
+&lt;mealType&gt;1&lt;/mealType&gt;
+&lt;weekday&gt;1&lt;/weekday&gt;
+&lt;/meal&gt;
+
+As expected, the meal root element contains an ingredients element that represents the map. Each value in the map is entered in the XML as a separate entry element. Each entry element contains two elements: the key element, representing the key; and the value element, representing the value associated with that key (in this case, an Ingredient object with its own properties marked as elements). The rest of the meal properties are listed at the end.
+If, instead of a Map, we were dealing with a collection-based object, the output would be similar. But instead of the entry element, we&apos;d have the actual name of the object (); and, of course, there would be no key element.
+The reverse process relies on the presence of an addXXX method in the original object. Thus, the Meal object is faithfully re-created with the right ingredients, because Betwixt recognizes the presence of an addIngredient method in the Meal class. You can plug in your own method by specifying the update attribute in a .betwixt file, for the matching element. For example:&lt;element name=&quot;ingredients&quot; property=&quot;ingredients&quot;
+         updater=&quot;customAddMethod&quot; /&gt;
+
+You now know how to read and write multiple values using Betwixt. In the next section, we&apos;ll consider the custom conversion process, which lest you specify specially built patterns for String --&gt; Object and Object --&gt; String conversions.
+Custom conversions
+Betwixt uses the ConvertUtils component of Commons BeanUtils for converting Objects to Strings and vice versa. However, at times, this default behavior may not be what you want. For example, you may want the dates in your output to be printed in a particular format (the default format prints the date as EEE MMM dd HH:mm:ss zzz yyyy, using the UK as its locale). You can do this by using a custom implementation of the ObjectStringConverter class and installing it as the default on the BindingConfiguration class.
+Listing 11 shows an implementation of the ObjectStringConverter class for converting dates in a format that is different from the default implementation. Note that this class only extends the objectToString method, which enables bean --&gt; XML conversion, and not the stringToObject method, which you would have to override for XML --&gt; bean conversion.
+Listing 11. Converting dates in a special format
+</TEXT>
+</result>

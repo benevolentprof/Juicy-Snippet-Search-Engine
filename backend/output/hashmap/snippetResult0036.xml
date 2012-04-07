@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>10333</docid>
+<orderid>11</orderid>
+<type>CODE</type>
+<url>http://www.javaworld.com/community/node/2821</url>
+</description>
+<CODE orderid="9" >
+this.cacheService.flushXXXMap(
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; DataBlockConstants.GLOBAL_REGION, null);
+this.cacheService.getXXXMap(
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; DataBlockConstants.GLOBAL_REGION, null);
+this.cacheService.flushXXXMapRC(
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; DataBlockConstants.GLOBAL_REGION, null);
+this.cacheService.getXXXMapRC(
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; DataBlockConstants.GLOBAL_REGION, null);
+</CODE>
+<TEXT orderid="10" >
+Finally, in extended declarative caching, you need a mechanism for synching the reload and serving caches. This is illustrated in Listing 8.
+
+Listing 8. Synching the declarative and serving caches
+</TEXT>
+<CODE orderid="11" >
+NamedCache XXXReloadCache = CacheFactory
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; .getCache(&quot;repl-XXXCacheRC&quot;);
+NamedCache XXXServingCache = CacheFactory
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; .getCache(&quot;repl-XXXCache&quot;);
+Map XXXServingCacheBuffer = new HashMap();
+for (Iterator _i = XXXServingCache.keySet().iterator(); _i
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; .hasNext();) {
+&#160;&#160;&#160;&#160;&#160;&#160;&#160; Object _key = _i.next();
+&#160;&#160;&#160;&#160;&#160;&#160;&#160; Object _value = XXXServingCache.get(_key);
+&#160;&#160;&#160;&#160;&#160;&#160;&#160; XXXServingCacheBuffer.put(_key, _value);
+}
+
+// System.out.println(&quot;XXXServingCacheBuffer=&quot;
+// + XXXServingCacheBuffer);
+Map XXXReloadCacheBuffer = new HashMap();
+for (Iterator _i = XXXReloadCache.keySet().iterator(); _i
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; .hasNext();) {
+&#160;&#160;&#160;&#160;&#160;&#160;&#160; Object _key = _i.next();
+&#160;&#160;&#160;&#160;&#160;&#160;&#160; Object _value = XXXReloadCache.get(_key);
+&#160;&#160;&#160;&#160;&#160;&#160;&#160; XXXReloadCacheBuffer.put(_key, _value);
+}
+// System.out.println(&quot;XXXReloadCacheBuffer=&quot;
+// + XXXReloadCacheBuffer);
+XXXServingCache.clear();
+XXXServingCache.putAll(XXXReloadCacheBuffer);
+</CODE>
+<TEXT orderid="12" >
+The above steps help to implement the design approach. The client&apos;s only interface is with the serving cache, which does not depend on the I/O operations to finish. This gives the perception that the cache is available at all times.
+
+Conclusion
+
+Declarative caching services for Spring are a non-intrusive approach that addresses the caching aspect in enterprise applications. The design outlined in this tip attempts to provide a practical, real-world solution to problems that emerge with this caching approach as applications scale in cache size, leaving the underlying caching concepts as is. It definitely opens up a door for improvements in the next version of Spring Modules around ideas of cache refresh.
+
+About the author
+
+Sameer Padwal has a background as a system and software architect, with more than 13 years of experience in the finance services, banking, and insurance industries. Sameer holds several Sun Java Certifications, as well as an M.S. in computer science from the Stevens Institute of Technology.
+
+Resources
+
+
+Read &quot;Declarative caching services for Spring&quot; (Alex Ruiz, Oracle Technical Network, May 2006).
+
+Check out the Spring Modules home page.
+
+Take a look at these cache systems:
+
+EHCache
+JBoss Cache
+Java Caching System (JCS)
+OSCache
+Tangosol Coherence
+
+
+
+
+
+The above steps help to implement the design approach. The client&apos;s only interface is with the serving cache, which does not depend on the I/O operations to finish. This gives the perception that the cache is available at all times.
+
+Conclusion
+
+Declarative caching services for Spring are a non-intrusive approach that addresses the caching aspect in enterprise applications. The design outlined in this tip attempts to provide a practical, real-world solution to problems that emerge with this caching approach as applications scale in cache size, leaving the underlying caching concepts as is. It definitely opens up a door for improvements in the next version of Spring Modules around ideas of cache refresh.
+
+About the author
+
+Sameer Padwal has a background as a system and software architect, with more than 13 years of experience in the finance services, banking, and insurance industries. Sameer holds several Sun Java Certifications, as well as an M.S. in computer science from the Stevens Institute of Technology.
+
+Resources
+
+
+Read &quot;Declarative caching services for Spring&quot; (Alex Ruiz, Oracle Technical Network, May 2006).
+
+Check out the Spring Modules home page.
+
+Take a look at these cache systems:
+
+EHCache
+JBoss Cache
+Java Caching System (JCS)
+OSCache
+Tangosol Coherence
+
+
+
+
+
+    javatips&apos;s blog
+E-mail page
+Printer-friendly
+
+
+
+
+
+
+  
+  
+    Considering that parallel    Submitted by Anonymous (not verified) on Wed, 09/16/2009 - 01:21.
+    Considering that parallel threads of execution quite often have to rely on shared/mutual state, and that locking is used as the predominant means of preventing destructive updates, it is not surprising that deadlocks are an issue that multi-threaded application developers have to contend with at some point or another.
+
+management degree AND mechanical engineering degree
+
+    &#187; reply
+
+  
+
+  
+    One problem scenario arises    Submitted by online games (not verified) on Sun, 09/27/2009 - 01:46.
+    One problem scenario arises on application startup, and immediately afterwards. At startup, there is often a need to load reference and lookup data into a cache. This typically involves multiple back-to-back I/O operations to retrieve different datasets. Each I/O operation results in a cache event.
+
+    &#187; reply
+
+  
+
+  
+    it is holding, and both need    Submitted by Anonymous (not verified) on Wed, 09/16/2009 - 01:20.
+    it is holding, and both need each other&#8217;s resource to continue, they both become engaged in a deadly embrace and cannot proceed any further.
+
+ME degree AND Accounting degree AND Advertising degree
+
+    &#187; reply
+
+  
+
+  
+    Comment viewing options    
+
+ Flat list - collapsedFlat list - expandedThreaded list - collapsedThreaded list - expanded
+
+
+ Date - newest firstDate - oldest first
+
+
+ 10 comments per page30 comments per page50 comments per page70 comments per page90 comments per page150 comments per page200 comments per page250 comments per page300 comments per page
+
+
+Select your preferred way to display the comments and click &quot;Save settings&quot; to activate your changes.
+ 
+
+
+
+  
+    Post new comment    
+
+ Subject: 
+ 
+
+
+ Comment: *
+ 
+
+Web page addresses and e-mail addresses turn into links automatically.Allowed HTML tags: &lt;p&gt; &lt;a&gt; &lt;em&gt; &lt;strong&gt; &lt;cite&gt; &lt;code&gt; &lt;ul&gt; &lt;ol&gt; &lt;li&gt; &lt;dl&gt; &lt;dt&gt; &lt;dd&gt; &lt;br /&gt; &lt;br&gt; &lt;strike&gt;Lines and paragraphs break automatically.Use &lt;!--pagebreak--&gt; to create page breaks.You may post code using &lt;code&gt;...&lt;/code&gt; (generic) or &lt;?php ... ?&gt; (highlighted PHP) tags.More information about formatting options
+CAPTCHAJust checking to see if you&apos;re an actual person rather than a spammer. Sorry for the inconvenience.
+ 
+ 
+
+  		
+  		
+	
+
+
+
+
+
+
+
+ 
+
+        
+        
+                                  
+                  
+                  
+               
+               
+                  
+               
+               
+
+    
+        Sponsored Links
+    
+    &#160;
+
+   
+      
+         
+            
+               XpoLog Center Correlate application logs with server metrics
+               - XpoLog
+            &#160;
+      
+   
+
+    
+
+               
+                  
+               
+            
+            
+    
+        
+            RESEARCH CENTERS
+            Core Java
+            Enterprise Java
+            Mobile Java
+            Tools &amp; Methods
+            JavaWorld Archives
+        
+        IDG Network
+            CIO Computerworld
+            CSO
+            Demo GamePro
+        
+        
+            Games.net
+            IDGconnect.com
+            IDG World Expo
+            InfoWorld
+            ITworld
+            LinuxWorld.com
+        
+        
+            MacUser 
+            Macworld
+            NetworkWorld.com
+            PC World
+            Playlistmag.com
+        
+    
+
+About Us | Advertise | Contact Us | Terms of Service/Privacy
+Copyright, 2006-2010 Infoworld, Inc. All rights reserved.
+</TEXT>
+</result>

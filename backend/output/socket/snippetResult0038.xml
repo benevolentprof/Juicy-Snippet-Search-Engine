@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>79848</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=1071</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            Chat Server in VB.net
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+
+A chat server program is one which listens to the connection request from clients and broadcasts the msg to all clients that are connected to it at that instant.
+
+
+
+The VB.NET Multithreaded Chat Server Program has two sections.
+
+  Chat Server
+  Chat Client
+
+Chat server keeps listening to PORT 8888 for any request from clients, once a request is received it adds the name of the client into a client list maintained (in this code it is a Hash table) and then creates a new thread for communication with server. When the Server gets a message from a client, it selects all the Clients from clientsList and sends the message to all Clients (ie we can say Broadcast) in the clientsList. So each Client can see the message each other and they can communicate through Chat Server.
+The client list we implemented here in a HashTable. The clientsList stores the Client Name (ie the first message from Client) and an instance of the Client Socket.
+When a Chat Client connected to Server, the Server creates a new Thread for communication. Here we implement a Class handleClient for handling Client as a separate Thread. The Class handleClient has a function doChat () is handling the communication between the Server side Client Socket and the incoming Client Socket.
+When Server gets a message from any of the currently connected Chat Client, the Server Broadcast the message to all Clients using broadcast method for sending messages to all Clients.
+
+
+Create a new VB.NET Console based application and put the following source code into the Project..
+</TEXT>
+<CODE orderid="1" >
+Imports System.Net.Sockets
+Imports System.Text
+Module Module1
+    Dim clientsList As New Hashtable
+    Sub Main()
+        Dim serverSocket As New TcpListener(8888)
+        Dim clientSocket As TcpClient
+        Dim counter As Integer
+
+        serverSocket.Start()
+        msg(&quot;Chat Server Started ....&quot;)
+        counter = 0
+
+        While (True)
+            counter += 1
+            clientSocket = serverSocket.AcceptTcpClient()
+
+            Dim bytesFrom(10024) As Byte
+            Dim dataFromClient As String
+
+            Dim networkStream As NetworkStream = _
+            clientSocket.GetStream()
+networkStream.Read(bytesFrom, 0, CInt(clientSocket.ReceiveBufferSize))
+dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom)
+            dataFromClient = _
+            dataFromClient.Substring(0, dataFromClient.IndexOf(&quot;$&quot;))
+
+            clientsList(dataFromClient) = clientSocket
+
+            broadcast(dataFromClient + &quot; Joined &quot;, dataFromClient, False)
+
+            msg(dataFromClient + &quot; Joined chat room &quot;)
+            Dim client As New handleClinet
+            client.startClient(clientSocket, dataFromClient, clientsList)
+        End While
+
+        clientSocket.Close()
+        serverSocket.Stop()
+        msg(&quot;exit&quot;)
+        Console.ReadLine()
+    End Sub
+
+    Sub msg(ByVal mesg As String)
+        mesg.Trim()
+        Console.WriteLine(&quot; &gt;&gt; &quot; + mesg)
+    End Sub
+    Private Sub broadcast(ByVal msg As String, _
+    ByVal uName As String, ByVal flag As Boolean)
+        Dim Item As DictionaryEntry
+        For Each Item In clientsList
+            Dim broadcastSocket As TcpClient
+            broadcastSocket = CType(Item.Value, TcpClient)
+            Dim broadcastStream As NetworkStream = _
+                    broadcastSocket.GetStream()
+            Dim broadcastBytes As [Byte]()
+
+If flag = True Then
+broadcastBytes = Encoding.ASCII.GetBytes(uName + &quot; says : &quot; + msg)
+Else
+broadcastBytes = Encoding.ASCII.GetBytes(msg)
+End If
+
+        broadcastStream.Write(broadcastBytes, 0, broadcastBytes.Length)
+            broadcastStream.Flush()
+        Next
+    End Sub
+
+    Public Class handleClinet
+        Dim clientSocket As TcpClient
+        Dim clNo As String
+        Dim clientsList As Hashtable
+
+        Public Sub startClient(ByVal inClientSocket As TcpClient, _
+        ByVal clineNo As String, ByVal cList As Hashtable)
+            Me.clientSocket = inClientSocket
+            Me.clNo = clineNo
+            Me.clientsList = cList
+Dim ctThread As Threading.Thread = New Threading.Thread(AddressOf doChat)
+            ctThread.Start()
+        End Sub
+
+        Private Sub doChat()
+            &apos;Dim infiniteCounter As Integer
+            Dim requestCount As Integer
+            Dim bytesFrom(10024) As Byte
+            Dim dataFromClient As String
+            Dim sendBytes As [Byte]()
+            Dim serverResponse As String
+            Dim rCount As String
+            requestCount = 0
+
+            While (True)
+                Try
+                    requestCount = requestCount + 1
+                    Dim networkStream As NetworkStream = _
+                            clientSocket.GetStream()
+networkStream.Read(bytesFrom, 0, CInt(clientSocket.ReceiveBufferSize))
+dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom)
+                    dataFromClient = _
+            dataFromClient.Substring(0, dataFromClient.IndexOf(&quot;$&quot;))
+        msg(&quot;From client - &quot; + clNo + &quot; : &quot; + dataFromClient)
+                    rCount = Convert.ToString(requestCount)
+
+                    broadcast(dataFromClient, clNo, True)
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                End Try
+            End While
+        End Sub
+
+    End Class
+End Module
+</CODE>
+<TEXT orderid="2" >
+&#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</TEXT>
+</result>

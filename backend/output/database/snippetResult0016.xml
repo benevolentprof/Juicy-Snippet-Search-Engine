@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>79601</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=9</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            Using JDBC to connect to MySQL from Java Program
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+
+This sample Java program connects to MySQL database using JDBC, executes a
+query and retrieves and prints the value of the database field.
+This same sample code can be used to connect to any type of database, all you
+need to do is change the connection url (dbUrl in the sample). For this code to
+work properly, you will need to download the mysql driver for JDBC in other
+words Java Connectors from mysql.com site.
+If after downloading the URL it still doesn&apos;t work then it is probably due to
+the classpath. You will have to add the driver jar file in the classpath.
+</TEXT>
+<CODE orderid="1" >
+import java.sql.*;
+import javax.sql.*;
+
+public class jdbcdemo{
+
+public static void main(String args[]){
+String dbtime;
+String dbUrl = &quot;jdbc:mysql://your.database.domain/yourDBname&quot;;
+String dbClass = &quot;com.mysql.jdbc.Driver&quot;;
+String query = &quot;Select * FROM users&quot;;
+
+try {
+
+Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+Connection con = DriverManager.getConnection (dbUrl);
+Statement stmt = con.createStatement();
+ResultSet rs = stmt.executeQuery(query);
+
+while (rs.next()) {
+dbtime = rs.getString(1);
+System.out.println(dbtime);
+} //end while
+
+con.close();
+} //end try
+
+catch(ClassNotFoundException e) {
+e.printStackTrace();
+}
+
+catch(SQLException e) {
+e.printStackTrace();
+}
+
+}  //end main
+
+}  //end class
+</CODE>
+<TEXT orderid="2" >
+&#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</TEXT>
+</result>

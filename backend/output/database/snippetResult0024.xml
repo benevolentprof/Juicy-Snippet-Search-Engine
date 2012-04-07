@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>843</docid>
+<orderid>6</orderid>
+<type>TEXT</type>
+<url>http://java.sun.com/docs/books/tutorial/extra/generics/literals.html</url>
+</description>
+<TEXT orderid="4" >
+, and the type of
+</TEXT>
+<CODE orderid="5" >
+Serializable.class is
+Class&lt;Serializable&gt;
+</CODE>
+<TEXT orderid="6" >
+. This can be used to improve the type safety
+of your reflection code.
+
+In particular, since the newInstance() method in Class now 
+returns a T, you can get more precise types when creating objects
+reflectively.
+
+For example, suppose you need to write a utility method that
+performs a database query, given as a string of SQL, and returns a
+collection of objects in the database that match that query.
+
+One way is to  pass in a factory object explicitly, writing code 
+like:
+</TEXT>
+<CODE orderid="7" >
+interface Factory&lt;T&gt; { T make();} 
+
+public &lt;T&gt; Collection&lt;T&gt; select(Factory&lt;T&gt; factory, String statement) { 
+    Collection&lt;T&gt; result = new ArrayList&lt;T&gt;(); 
+    /* Run sql query using jdbc */  
+    for (/* Iterate over jdbc results. */) { 
+        T item = factory.make();
+        /* Use reflection and set all of item&apos;s fields from sql results. */ 
+        result.add(item); 
+    } 
+    return result; 
+}
+</CODE>
+<TEXT orderid="8" >
+You can call this either as
+</TEXT>
+</result>

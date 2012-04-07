@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>76716</docid>
+<orderid>29</orderid>
+<type>CODE</type>
+<url>http://www.roseindia.net/javacertification/scjp5/parameters_in_class_interface.shtml</url>
+</description>
+<CODE orderid="27" >
+interface List&lt;E&gt; {
+	void add(E x);
+	Iterator&lt;E&gt; iterator();
+}
+
+interface Iterator&lt;E&gt; {
+	E next();
+	boolean hasNext();
+}
+
+
+class LinkedList&lt;E&gt; implements List&lt;E&gt; {
+	// implementation   
+}
+</CODE>
+<TEXT orderid="28" >
+Here, E represents the type of elements contained in the collection. 
+					Think of E as a placeholder that will be replaced by a concrete type. 
+					For example, if you write LinkedList&lt;String&gt; then 
+					E will be replaced by String. 
+				
+                    
+					In some of your code you may need to invoke methods of the element type, such as 
+					Object&apos;s hashCode() and equals(). Here is 
+					an example that takes two type parameters:
+</TEXT>
+<CODE orderid="29" >
+class HashMap&lt;K, V&gt; extends AbstractMap&lt;K, V&gt; implements Map&lt;K, V&gt; {
+	...
+	public V get(Object k) {
+		...
+		int hash = k.hashCode();  
+		...
+	}
+}
+</CODE>
+<TEXT orderid="30" >
+The important thing to note is that you are required to replace the type variables 
+					K and V by concrete types that are 
+					subtypes of Object.
+					Generic methods
+				
+                    
+					Genericity is not limited to classes and interfaces, you can define generic methods. Static 
+					methods, nonstatic methods, and constructors can all be parameterized in almost the same way 
+					as for classes and interfaces, but the syntax is a bit different. Generic methods are also 
+					invoked in the same way as non-generic methods. 
+				
+                    
+					Before we see an example of a generics method, consider the following segment of code that prints out 
+					all the elements in a collection:
+</TEXT>
+<CODE orderid="31" >
+public void printCollection(Collection c) {
+	Iterator i = c.iterator();
+	for(int k = 0; k &lt; c.size() ; k++) {
+		out.printn(i.next());
+	}
+}
+</CODE>
+</result>

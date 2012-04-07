@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>76879</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://en.wikibooks.org/wiki/Java_Programming/Database_Programming</url>
+</description>
+<TEXT orderid="0" >
+Java Programming/Database Programming
+		
+			From Wikibooks, the open-content textbooks collection
+			&lt; Java ProgrammingCurrent revision (unreviewed)
+									Jump to: navigation, search			
+			
+
+Advanced Topics:
+
+Networking
+Database programming
+Reflection
+Design patterns
+Libraries, extensions and frameworks
+3D programming
+Threads
+Remote Method Invocation (RMI) and Internet Inter-Orb Protocol (IIOP)
+
+
+
+
+[edit] Connecting to MS Access databases
+The following is used to open an ODBC connection to an Access database. Note that the username (and password, if applicable) are given in the dsn rather than the getConnection call. This is a MS Windows-only example, due to the requirement for the Microsoft Access Driver.
+</TEXT>
+<CODE orderid="1" >
+Class.forName(&quot;sun.jdbc.odbc.JdbcOdbcDriver&quot;);
+String path = &quot;C:/example.mdb&quot;;
+String dsn = &quot;jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=&quot; + path + &quot;;UID=admin&quot;;
+accessConn = DriverManager.getConnection(dsn, &quot;&quot;, &quot;&quot;);
+</CODE>
+<TEXT orderid="2" >
+Retrieved from &quot;http://en.wikibooks.org/wiki/Java_Programming/Database_Programming&quot;
+			Category: Java Programming			
+						
+		
+	
+		
+		
+	
+		Views
+		
+			
+	
+				 Module
+				 Discussion
+				 Edit this page
+				 History			
+		
+	
+	
+		Personal tools
+		
+			
+				Try Beta
+				Log in / create account
+			
+		
+	
+	
+		
+	
+	
+		Navigation
+		
+			
+				Main Page
+				Help
+				Browse
+				Cookbook
+				Wikijunior
+				Featured books
+				Recent changes
+				Donations
+			
+		
+	
+	
+		Search
+		
+			
+				
+				
+				&#160;
+				
+			
+		
+	
+	
+		community
+		
+			
+				Reading room
+				Community portal
+				Bulletin Board
+				Help out!
+				Policies and guidelines
+				Contact us
+			
+		
+	
+	
+		Print/export
+		
+Create a bookDownload as PDFPrintable version		
+	
+	
+		Toolbox
+		
+			
+				What links here
+				Related changes
+Upload file
+Special pages
+				Permanent link			
+		
+	
+		
+			
+			
+				
+				
+			
+					 This page was last modified on 3 November 2009, at 06:59.
+					Text is available under the Creative Commons Attribution/Share-Alike License;
+additional terms may apply.
+See Terms of Use for details.
+					Privacy policy
+					About Wikibooks
+					Disclaimers
+</TEXT>
+</result>

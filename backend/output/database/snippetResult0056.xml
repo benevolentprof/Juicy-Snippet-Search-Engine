@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>5415</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/data/article.php/2172891</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Data &amp; Java
+					
+				
+				
+					Read More in Data &amp; Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Databases and Tomcat
+			
+			
+				
+				
+					March 31, 2003
+					By 
+Sams Publishing
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+
+This is Chapter 9: Databases and Tomcat  from the book Tomcat Kick Start (ISBN:0-672-32439-3) written by Martin Bond and Debbie Law, published by Sams Publishing. 
+
+&#169; Copyright Pearson Education. All rights reserved.
+
+
+
+Chapter 9: Databases and Tomcat
+In This Chapter
+
+Using JDBC and Data Sources
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		Direct JDBC Database Access
+Tomcat Data Sources
+Data Access Objects (DAOs)
+Security Considerations
+
+Most Web applications need to store information on a temporary or permanent basis. The most common repository for data storage is the ubiquitous relational database. In this chapter you will be using databases from within Tomcat Web applications using both direct JDBC access and the preferred approach of JNDI data sources. The Data Access Object (DAO) design pattern is shown as a method of encapsulating database access into a reusable component.
+Using JDBC and Data Sources
+Tomcat servlets and JSPs use JDBC in the same manner as any other Java program. In many Java programs, it is normal to ask the user to provide a username and password for database access. With Web applications, you would typically use a single database account for all users and encode the account name and password within either the servlet or JSP, or encapsulate database access using a data source (see the section &quot;Tomcat Data Sources&quot;) or a DAO (see the section &quot;Data Access Objects (DAOs)&quot;). You must then add the business logic of the application to enforce any user security authorization and ensure the data integrity of the database.
+The disadvantage to using JDBC from within a servlet is that the JDBC driver class, database connection string, user account name, and password are all hard-coded into the program. The hard-coded database details link the servlet to a specific database, complicating the move from a development environment (with test data) to a production environment (potentially using a different database supplier). Hard-coded details always reduce portability of code and should be avoided if at all possible.
+A common approach in reducing coupling of the servlet to the database is to provide the database connection parameters using servlet initialization parameters (see the &lt;init-params&gt; element discussion in Chapter 7, &quot;The Web Application Environment&quot;). If in the future you change database vendors, move the database to a new server, move the tables into a new database, change the username, or change the password, you can do so without modifying the Java servlet (or JSP). This is a good technique; but, as you will be shown, there are other performance problems that suggest you shouldn&apos;t use direct JDBC access from within a servlet.
+A connection pooling data source provides a solution to both the hard coding of database access details and the performance issues inherent in using direct database access. This chapter describes how to use Tomcat data sources after briefly discussing, and rejecting, using direct JDBC access from within a servlet.
+Before we describe direct JDBC access and data sources, you need a bit of background information about the database tables and sample data used for the examples.
+The Sample Database
+Continuing with the currency converter example application, the code examples in this chapter use a currency definition table called Currency and a database exchange rate table called Exchange. The Currency table has columns for the ISO 4217 currency name as well as the currency&apos;s ISO country name and ISO language. The Exchange table has columns that define the three-character ISO 4217 code for the currency to convert from (src) and to (dst). The rate column defines the appropriate exchange rate. The two tables can be created in any SQL database with the following SQL:
+</TEXT>
+<CODE orderid="1" >
+create table Currency(
+  language varchar(2),
+  country varchar(2),
+  name varchar(3)
+);
+create table Exchange(
+  src varchar(3),
+  dst varchar(3),
+  rate double
+);
+</CODE>
+<TEXT orderid="2" >
+You will need to create this table in your database and add some sample data in order to use the examples presented in this chapter. The following SQL will populate the table with suitable data:
+</TEXT>
+</result>

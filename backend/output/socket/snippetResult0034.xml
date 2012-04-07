@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>13053</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.java-tips.org/java-me-tips/midp/how-to-use-mobile-as-a-network-server.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home  Java ME Tips  MIDP    How to use mobile as a network server               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					How to use mobile as a network server									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;4
+
+
+PoorBest&#160;
+		
+				
+			
+				
+This Java ME tip explains use of handset (Mobile) as network 
+Server. This tip may be helpful for game developers who are coming 
+up with applications which work on more than one mobile device. 
+This may help them to make one handset controlling the activities 
+of the other.
+</TEXT>
+<CODE orderid="1" >
+String&#160;getResponse(String&#160;request)&#160;{
+
+&#160;&#160;&#160;&#160;String&#160;response=&quot;&quot;;
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;try{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//&#160;Open&#160;a&#160;socket&#160;connection
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//It&#160;is&#160;trying&#160;to&#160;connect&#160;to&#160;a&#160;server&#160;at&#160;port&#160;no&#160;8080
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;SocketConnection&#160;soc=Connector.open(&quot;socket://my.com:8080&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//Open&#160;input&#160;and&#160;output&#160;streams
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;InputStream&#160;is&#160;&#160;=&#160;soc.openInputStream();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;OutputStream&#160;os&#160;=&#160;soc.openOutputStream();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//Sending&#160;request&#160;to&#160;server
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;os.write(request.getBytes());
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//Now&#160;read&#160;response&#160;from&#160;server&#160;one&#160;byte&#160;at&#160;a&#160;time
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;ch&#160;=&#160;0;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;while(ch&#160;!=&#160;-1)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ch&#160;=&#160;is.read();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;response+=(char)ch;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//Close&#160;connection
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;is.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;os.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;soc.close();
+
+&#160;&#160;&#160;&#160;}catch(Exception&#160;e){}
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;return&#160;response;
+
+}
+
+
+
+
+
+void&#160;startServer()&#160;{
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;try&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//&#160;Open&#160;a&#160;server&#160;socket&#160;connection
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//&#160;It&#160;is&#160;trying&#160;start&#160;a&#160;server&#160;at&#160;port&#160;no&#160;8080
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ServerSocketConnection&#160;serv&#160;=&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(ServerSocketConnection)Connector.open(&quot;socket://:8080&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;while(true)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//&#160;Now&#160;server&#160;is&#160;passive&#160;open:waiting
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;SocketConnection&#160;soc&#160;=&#160;(SocketConnection)&#160;scn.acceptAndOpen();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//Open&#160;input&#160;and&#160;output&#160;streams
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;InputStream&#160;is&#160;&#160;=&#160;soc.openInputStream();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;OutputStream&#160;os&#160;=&#160;soc.openOutputStream();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//Reading&#160;request&#160;from&#160;client
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;ch&#160;=&#160;0;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;while(ch&#160;!=&#160;-1)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ch&#160;=&#160;is.read();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;request+=(char)ch;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//Send&#160;request&#160;to&#160;server
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;os.write(&quot;Hello&#160;from&#160;JJKK&quot;.getBytes());
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//Close&#160;connection
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;is.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;os.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;soc.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;}catch(Exception&#160;e){}
+
+&#160;&#160;&#160;&#160;
+
+}
+</CODE>
+<TEXT orderid="2" >
+&#160;Related Tips
+    
+
+
+
+
+    
+
+
+
+
+
+
+    Displaying Image from Servlet on J2ME device
+    How to use GET or POST to communicate with a Java servlet
+    Sending data to Servlet and getting the response
+    Playing MP3 files from your server on J2ME devices
+    How to use GET and POST methods in HTTP from a MIDlet
+    How to use HTTP connection instead of a stream socket
+    How to send a datagram in a network aplication
+    How to receive datagrams in a mobile application
+    How to ping Network Connection on J2ME device
+    How to download an image from a web server
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+&#160;Related Tips 
+A Graphics MIDlet
+A method of using differnet fonts in Java ME
+A Midlet application for GIF Animation
+A MIDlet with Hello text and an Exit command
+A sample of graphics - commands and event handling
+A utility of startTimer
+A way to know when some changes are made in a list
+An example of MIDlet skeleton
+
+			
+		
+				
+
+		&#160;
+
+		
+
+			
+									
+						
+							&lt; Prev
+					
+										&#160;
+
+					
+										
+						
+							Next &gt;
+					
+								
+			
+			                
+
+
+
+
+
+
+
+ 
+Page 1 of 0 ( 0 comments )
+
+
+       You can share your information about this topic using the form below! 
+
+Please do not post your questions with this form! Thanks.
+
+ 
+
+  
+    
+      
+                
+          
+          
+
+          
+          Name (required)
+
+          
+          
+
+                    
+          
+
+          E-Mail (required)          
+                    
+
+          
+          
+          
+
+          Your email will not be displayed on the site - only to our administrator          
+          
+
+          Homepage(optional)
+
+
+
+
+
+
+
+          
+          
+
+          Comment          
+                    Enable HTML code :
+          
+          Yes
+          
+          No 
+
+          
+          
+          
+          
+
+          
+
+ 
+          
+
+          
+          
+        
+      
+    
+  
+
+
+
+
+
+&#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+      
+    
+    
+      
+        
+          &#160;
+          &#160;
+          &#160;
+        
+        
+          &#160;
+          
+              &#160;            
+          &#160;
+        
+        
+          &#160;
+          &#160;
+          &#160;
+        
+      
+    
+    
+      
+        
+            
+            
+            
+        
+      
+    
+	
+	
+
+
+		
+				
+			
+				
+			
+		
+		
+		
+
+
+
+
+
+
+
+
+Home
+
+
+-
+
+
+About Us
+
+
+-
+
+
+Privacy Policy
+
+
+
+
+
+
+Copyright 2005 - 2008 www.java-tips.org
+Java is a trademark of Sun Microsystems, Inc.
+</TEXT>
+</result>

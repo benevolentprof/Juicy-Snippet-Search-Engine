@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>79898</docid>
+<orderid>0</orderid>
+<type>CODE</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=862</url>
+</description>
+<CODE orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            What is a Plug-in and how to use Java plug-ins with Struts?
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+ Any Java class that you want to initialize when Struts application starts up and
+destroy when the application shuts down is a Java Plug-in. You can create a Java
+Plug-in by creating a Java class that implements org.apache.struts.action.Plugin interface.
+Example:&#160;
+
+public interface PlugIn {
+
+public void init(ActionServlet servlet,
+
+ApplicationConfig config)
+
+throws ServletException;
+
+public void destroy();
+
+}
+Why you need a Plug-in?
+
+Before Struts 1.1 (in Struts 1.0), you had to subclass ActionServlet to initialize
+application resources at startup time. With plugin mechanism (in Struts 1.1), you
+create Plugin classes and configure them.
+Generic mechanism
+
+Struts framework itself uses plugin mechanism for supporting Validator and Tiles.
+The plug-in must be declared in struts-config.xml via &lt;plug-in&gt; element.
+example plug-in&apos;s in struts-example (sample application)
+
+
+&lt;plug-in className=&quot;org.apache.struts.plugins.ModuleConfigVerifier&quot;/&gt;
+
+&lt;plug-in className=&quot;org.apache.struts.webapp.example.memory.MemoryDatabasePlugIn&quot;&gt;
+
+&lt;set-property property=&quot;pathname&quot; value=&quot;/WEB-INF/database.xml&quot;/&gt;
+
+&lt;/plug-in&gt;
+&lt;plug-in className=&quot;org.apache.struts.validator.ValidatorPlugIn&quot;&gt;
+
+&lt;set-property property=&quot;pathnames&quot; value=&quot;/WEB-INF/validator-rules.xml,
+/WEB-INF/validation.xml&quot;/&gt;
+
+&lt;/plug-in&gt;
+
+
+
+How do Plug-in&apos;s get called? During startup of a Struts application, ActionServlet calls init() method of each
+Plug-in configured. Plug-ins are called in the order they are configured in struts-config.xml file.
+Here is a sample application that shows how init() of MemoryDatabasePlugin in struts-example sample application.
+public final class MemoryDatabasePlugIn implements PlugIn {
+
+...
+
+/**
+
+* Initialize and load our initial database from persistent storage.
+
+*
+
+* @param servlet The ActionServlet for this web application
+
+* @param config The ApplicationConfig for our owning module
+
+*
+
+* @exception ServletException if we cannot configure ourselves correctly
+
+*/
+
+public void init(ActionServlet servlet, ModuleConfig config)
+
+throws ServletException {
+
+log.info(&quot;Initializing memory database plug in from &apos;&quot; + pathname + &quot;&apos;&quot;);
+
+// Remember our associated configuration and servlet
+
+this.config = config;
+
+this.servlet = servlet;
+
+// Construct a new database and make it available
+
+database = new MemoryUserDatabase();
+
+try {
+
+String path = calculatePath();
+
+if (log.isDebugEnabled()) {
+
+log.debug(&quot; Loading database from &apos;&quot; + path + &quot;&apos;&quot;);
+
+}
+
+database.setPathname(path);
+
+database.open();
+
+} catch (Exception e) {
+
+log.error(&quot;Opening memory database&quot;, e);
+
+throw new ServletException(&quot;Cannot load database from &apos;&quot; + pathname + &quot;&apos;&quot;, e);
+
+}
+
+// Make the initialized database available
+
+servlet.getServletContext().setAttribute(Constants.DATABASE_KEY,
+
+database);
+
+// Setup and cache other required data
+
+setupCache(servlet, config);
+
+}
+//destroy() of MemoryDatabasePlugin in struts-example1 (sample code)
+
+public final class MemoryDatabasePlugIn implements PlugIn {
+
+...
+
+/**
+
+* Gracefully shut down this database, releasing any resources
+
+* that were allocated at initialization.
+
+*/
+
+public void destroy() {
+
+log.info(&quot;Finalizing memory database plug in&quot;);
+
+if (database != null) {
+
+try {
+
+database.close();
+
+} catch (Exception e) {
+
+log.error(&quot;Closing memory database&quot;, e);
+
+}
+
+}
+
+servlet.getServletContext().removeAttribute(Constants.DATABASE_KEY);
+
+database = null;
+
+servlet = null;
+
+database = null;
+
+config = null;
+
+}
+
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</CODE>
+</result>

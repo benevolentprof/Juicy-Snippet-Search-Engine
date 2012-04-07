@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>5021</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/ent/article.php/606971/A-simple-four-tier-solution-using-RMI-and-LiveConnect.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Enterprise Java
+					
+				
+				
+					Read More in Enterprise Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			A simple four-tier solution using RMI and LiveConnect
+			
+			
+				
+				
+					December 21, 1998
+					By 
+Jason Bloomberg
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+
+ Building a four-tier Web solution is not as difficult as it sounds. Two of today&apos;s Internet technologies make piecing together a scalable, robust Web interface to a database a simple matter of assembling small, customized elements. All the hard work goes on behind the scenes.  The two technologies I am talking about are Java&apos;s Remote Method Invocation (RMI), and Netscape&apos;s LiveConnect. RMI allows you to access the methods of objects on remote servers as though they were objects on your local machine. LiveConnect is the Java-to-JavaScript communication built into the Netscape Enterprise Server. (LiveConnect is also built into today&apos;s browsers, but I will be talking about server-side LiveConnect.)  What is a four-tier solution?  Before I get into the how-to, let&apos;s talk about what a four-tier solution is, and why you might need one. Two-tier solutions, known as client/server, are not scalable and require fat clients: each solution typically must have its own proprietary client, and each server can only handle so many clients.  Three-tier solutions put a Web server between the database and the client. Now the client is a Web browser -- a thin client -- which means that the client is free, and it&apos;s already on user&apos;s computers. However, this solution is still not scalable, because Web servers can only handle so many hits at a time. 
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		 Enter the four-tier solution. Put a piece of middleware, typically called an application server, between the Web server and the database. Now you can add additional Web servers as traffic grows, providing a scalable solution. In addition, the application server can talk to several sources of data, be they databases, mainframes, or other legacy systems.  There are now many commercial four-tier solutions on the market, which typically cost $50,000 and up, and also require a steep learning curve. However, it is not necessary to spend such money and time to set up a simple four-tier solution. Here&apos;s how to get started on creating your own custom four-tier solution.  How to build it My application server talks to an object called a DatabasePeer, which uses Java Database Connectivity (JDBC) to make requests of the database. When I perform a query on the database, I get back a result set that is simply one or more rows out of the database. I want to put these rows into a two-dimensional JavaScript Array on the Web server, so I have the DatabasePeer populate a Java object I call a Table. Think of a Table as a two-dimensional array of variable size (which in Java is actually a Vector of Vectors). Here&apos;s the framework for the Table object. The DatabasePeer populates the Table by calling its setElement method. My application server will then pass the Table to the Web server.  
+
+import java.util.*;
+
+public class Table extends Vector
+	{
+	// a table is a Vector of Vectors which will contain all the elements 
+	// in a ResultSet returned from the database, stored as Strings
+
+	public int getWidth ()
+		{
+		// returns how many fields are returned by the database query
+		}
+
+	public int getLength ()
+		{
+		// returns how many rows are returned by the database query
+		}
+
+	public String getElement (int i, int j)
+		{
+		// returns a particular element of the Table
+		}
+
+	public void setElement (int i, int j, String val)
+		{
+		// allows the DatabasePeer to set elements in the table
+		}
+
+	}
+
+ I use RMI to make my application server available remotely on the Web servers. The application server must extend the UnicastRemoteObject class and implement an interface that extends the Remote class. By incorporating these two classes included in the RMI package, I automatically build in all the code necessary to create the local (skeleton) and remote (stub) pieces of the application server, and to handle all the communication between them. You can see from the application server code that there is little more to this code than creating an instance of the Table class and calling one of the DatabasePeer&apos;s methods to populate data into the Table.
+</TEXT>
+<CODE orderid="1" >
+import java.rmi.*;
+import java.util.*;
+
+public interface AppServerInterface extends Remote
+	{
+	// required by RMI
+	public Table getTable (String arguments) throws RemoteException;
+	}
+
+import java.io.*;
+import java.util.*;
+import java.rmi.*;
+import java.rmi.server.*;
+
+public class AppServer extends UnicastRemoteObject implements AppServerInterface
+	{
+	static DatabasePeer peer;
+	// all you have to know about DatabasePeer here is its 
+	// fetch () method returns a Table
+
+	public synchronized Table getTable  (String arguments)
+		{
+		Table t = new Table ();
+		t = peer.fetch (arguments);
+		return t;
+		}
+	}
+</CODE>
+<TEXT orderid="2" >
+The Web server needs to have a class that can do two things: connect to the application server and get the Table. I call this class Query. Query&apos;s constructor looks up the remote application server in the RMI registry (all provided with the RMI code in Sun&apos;s Java JDK, or Java 2). Query&apos;s getTable method then gets the Table object from the application server and casts it back to an instance of the Table class. (Behind the scenes, RMI is serializing the Table so that it can send it as a stream of bytes from a socket on the application server machine to sockets on one or more Web server machines. Fortunately, all the low-level communications are handled automatically.)
+</TEXT>
+<CODE orderid="3" >
+import java.rmi.*;
+import java.rmi.server.*;
+import java.util.*;
+
+public class Query
+	{
+	AppServerInterface remoteAppServer = null;
+	Table t = new Table ();
+	String name = &quot;rmi://rmi.domain.com/AppServer&quot;;
+
+	public Query ()
+		{
+		// constructor handles RMI lookup
+		try
+			{
+			remoteAppServer = (AppServerInterface) Naming.lookup (name);
+			}
+
+		catch (RemoteException e)
+			{
+			System.err.println (e);
+			}
+		}
+
+	public synchronized Table getTable (String arguments)
+		{
+		try
+			{
+			t =  (Table) remoteAppServer.getTable (arguments);
+			}
+		catch (RemoteException e)
+			{
+			System.err.println (e);
+			}
+		}
+	}
+</CODE>
+<TEXT orderid="4" >
+The Web server uses Server-Side JavaScript (SSJS) to instantiate the class Query (thus calling its constructor code) and then places the reference to the Query in SSJS&apos;s project object. Here&apos;s a look at the SSJS code used to build a Web page. The project object is shared by all the clients of the SSJS application and can exist as long as the application is running. Once the instance of Query is stored in the project object, its methods can be called from SSJS. In particular, we can call Query&apos;s getTable method, which retrieves a Table from the application server.
+</TEXT>
+</result>

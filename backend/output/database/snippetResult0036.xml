@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>6990</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/data/article.php/10932_3329001_2/Converting-JDBC-Result-Sets-to-XML.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Data &amp; Java
+					
+				
+				
+					Read More in Data &amp; Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Converting JDBC Result Sets to XML
+			
+			
+				
+				
+					March 22, 2004
+					By 
+Jeff Ryan
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Sample Client
+
+To test our result-set-to-XML method, we need a sample client program. I&apos;ve created a simple class called CustomerDAO. DAO is a J2EE pattern that stands for &quot;Data Access Object.&quot; It is used to encapsulate a resource such as a customer database. When a CustomerDAO object is constructed, it connects to our Pointbase database. When it is finalized, it closes the connection.Its public API is a getCustomerList() method that is implemented as follows:
+</TEXT>
+<CODE orderid="1" >
+public Document getCustomerList()
+{
+   Document doc = null;
+
+   try
+   {
+      Statement stmt = conn.createStatement();
+      ResultSet rs = stmt.executeQuery(&quot;SELECT * from customer_tbl&quot;);
+
+      doc = JDBCUtil.toDocument(rs);
+
+      rs.close();
+      stmt.close();
+   }
+   catch (Exception e)
+   {
+      e.printStackTrace();
+   }
+
+   return doc;
+}
+
+
+This method executes a very simple query asking for all rows from the customer table. The result set returned from the query is converted to a Document by the JDBCUtil.toDocument() method.
+
+Here is a sample method for testing the CustomerDAO and JDBCUtil objects:
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		
+public static void main(String argv[]) throws Exception
+{
+   CustomerDAO dao = new CustomerDAO();
+
+   Document doc    = dao.getCustomerList();
+   System.out.println(JDBCUtil.serialize(doc));
+
+}
+</CODE>
+<TEXT orderid="2" >
+We simply construct a CustomerDAO, and ask it to return a customer list as a DOM. JDBCUtil.serialize() is another method in the utility class that serializes the DOM as a string.
+
+Here is sample output from our test:
+
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;&gt;
+&lt;Results&gt;
+   &lt;Row&gt;
+      &lt;CUSTOMER_NUM&gt;1&lt;/CUSTOMER_NUM&gt;
+      &lt;DISCOUNT_CODE&gt;N&lt;/DISCOUNT_CODE&gt;
+      &lt;ZIP&gt;33015&lt;/ZIP&gt;
+      &lt;NAME&gt;SuperCom&lt;/NAME&gt;
+      &lt;ADDR_LN1&gt;490 Rivera Drive&lt;/ADDR_LN1&gt;
+      &lt;ADDR_LN2&gt;Suite 678&lt;/ADDR_LN2&gt;
+      &lt;CITY&gt;Miami&lt;/CITY&gt;
+      &lt;STATE&gt;FL&lt;/STATE&gt;
+      &lt;PHONE&gt;305-777-4632&lt;/PHONE&gt;
+      &lt;FAX&gt;305-777-4635&lt;/FAX&gt;
+      &lt;EMAIL&gt;supercom@aol.com&lt;/EMAIL&gt;
+      &lt;CREDIT_LIMIT&gt;100000&lt;/CREDIT_LIMIT&gt;
+      &lt;LAST_SALE_DATE&gt;1998-01-02&lt;/LAST_SALE_DATE&gt;
+      &lt;LAST_SALE_TIME&gt;08:00:00&lt;/LAST_SALE_TIME&gt;
+   &lt;/Row&gt;
+   &lt;Row&gt;
+      &lt;CUSTOMER_NUM&gt;2&lt;/CUSTOMER_NUM&gt;
+      &lt;DISCOUNT_CODE&gt;M&lt;/DISCOUNT_CODE&gt;
+      &lt;ZIP&gt;33055&lt;/ZIP&gt;
+      &lt;NAME&gt;Livingston Enterprises&lt;/NAME&gt;
+      &lt;ADDR_LN1&gt;9754 Main Street&lt;/ADDR_LN1&gt;
+      &lt;ADDR_LN2&gt;P.O. Box 567&lt;/ADDR_LN2&gt;
+      &lt;CITY&gt;Miami&lt;/CITY&gt;
+      &lt;STATE&gt;FL&lt;/STATE&gt;
+      &lt;PHONE&gt;305-456-8888&lt;/PHONE&gt;
+      &lt;FAX&gt;305-456-8889&lt;/FAX&gt;
+      &lt;EMAIL&gt;www.tsoftt.com&lt;/EMAIL&gt;
+      &lt;CREDIT_LIMIT&gt;50000&lt;/CREDIT_LIMIT&gt;
+      &lt;LAST_SALE_DATE&gt;1998-01-02&lt;/LAST_SALE_DATE&gt;
+      &lt;LAST_SALE_TIME&gt;09:00:00&lt;/LAST_SALE_TIME&gt;
+   &lt;/Row&gt;
+   ...
+&lt;/Results&gt;
+
+
+Bonus Material!
+
+Click here for the sample JDBCUtil and CustomerDAO classes. You&apos;ll also notice some bonus material included in the archive not covered in the article. I was curious about the performance difference in returning an XML DOM versus an XML string. It turns out that returning a string is four to five times faster. The JDBCUtil.toXML(ResultSet) method performs this function. The CustomerDAOTester class uses a StopWatch object to compare String and DOM method invocations.
+
+Should you return a DOM or a String? It really depends on your situation. Often, you will need to merge the results from multiple result sets. You may need to transform the results via XSLT. If so, a DOM would be appropriate. In the situations where a String will do, be careful, because you will need to deal with encoding issues that the DOM API handles for you.
+
+Disclaimer
+
+Increasingly, relational databases are providing features for returning the results of queries as XML documents or strings. The features in these products would be more robust and optimized far beyond the simple example shown here. If you have such a database and have purchased this capability, I would encourage you to investigate it. If not, start with the example shown here and grow your own.
+
+Summary
+
+XML is a common data format for passing data between components on disparate platforms. Relational databases are the most common way of persisting operational data. How do you bridge the gap between the two standard structures? Your relational database may have such capability. If so, learn how to exploit this feature. If not, I&apos;ve shown how to use JDBC and DOM API to build your own capability. The rest is up to you!
+
+About the Author
+
+Jeff Ryan is an enterprise architect for Hartford Financial Services. He has twenty years experience designing, developing, and delivering automated solutions to business problems. His current focus is on Java, XML, and Service Oriented Architecture. He may be reached at jeffreyjryan@aol.com.
+
+
+
+    Other Articles Written by Jeff Ryan    
+
+
+    
+	
+	Where to Point Your View -- JSP or XSL
+
+Following the Rules-Based Approach to Stylesheet Development
+
+Optimizing Stylesheet Execution with the Java Transformation API for XML (TrAX)
+
+
+Building Modular Stylesheet Components
+
+Dynamic Screen Generation With XSL
+
+
+Code Generation With XSL
+
+
+Modeling One-To-Many Relationships With XML
+
+
+XML Glossary
+
+
+Transforming Flat Files To XML With SAX and XSLT
+
+Ten Lessons Learned From An XML Developer
+
+
+Understanding Business Services
+
+
+Managing Business Services
+
+
+Producing and Consuming Business Services
+
+Leveraging Host Applications
+
+XPath Rules!
+
+The Role of XML in Agile Enterprise Architecture
+
+
+
+
+	
+	
+	
+
+
+			
+			
+			
+			
+				
+				
+1 
+2 
+
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

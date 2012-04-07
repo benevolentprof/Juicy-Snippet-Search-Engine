@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75194</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/java-conversion/HexadecimalToBinaryAndLong.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Convert Hexadecimal into Binary and Long
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this section, you will learn to convert the hexadecimal data into the binary and long format.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Convert Hexadecimal into Binary and Long
+ 
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+In this section, you will learn to convert the hexadecimal
+data into the binary and long format. The java.lang
+package provides the functionality to convert a hexadecimal to binary and long
+type data.&#160;
+Code Description:
+This program helps you in converting the hexadecimal
+data into the binary and long. At run time this program asks for a&#160; a hexadecimal
+data and it then converts it into an integer type data. The toBinaryString()
+method converts an integer data into binary data. And the parseLong()
+method converts the hexadecimal data into a long type data.
+Here is the code of this program:
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.io.*;
+
+import&#160;java.lang.*;
+
+
+
+public&#160;class&#160;HexadecimalToBinaryAndLong{
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;throws&#160;IOException{
+
+&#160;&#160;&#160;&#160;BufferedReader&#160;bf&#160;=&#160;new&#160;BufferedReader(new&#160;InputStreamReader(System.in));
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Enter&#160;the&#160;hexa&#160;value!&quot;);
+
+&#160;&#160;&#160;&#160;String&#160;hex&#160;=&#160;bf.readLine();
+
+&#160;&#160;&#160;&#160;int&#160;i&#160;=&#160;Integer.parseInt(hex);
+
+&#160;&#160;&#160;&#160;String&#160;by&#160;=&#160;Integer.toBinaryString(i);
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;This&#160;is&#160;Binary:&#160;&quot;&#160;+&#160;by);
+
+&#160;&#160;&#160;&#160;long&#160;num&#160;=&#160;Long.parseLong(hex,16);
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;This&#160;is&#160;long:=&quot;&#160;+&#160;num);
+
+&#160;&#160;}
+
+}&#160;
+    
+   
+  
+   
+
+
+
+
+Download this program:
+</CODE>
+<TEXT orderid="2" >
+Output of this program.
+
+  
+    C:\vinod\convert&gt;javac HexadecimalToBinaryAndLong.java
+
+      
+
+      C:\vinod\convert&gt;java HexadecimalToBinaryAndLong
+
+      Enter the hexa value!
+
+      14
+
+      This is Binary: 1110
+
+      This is long:=20
+  
+
+
+
+		
+		
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+
+      
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java Conversion ...  182452 viewsConvert Carats To Grams ...  183101 viewsConvert Grams To Carat ...  183133 viewsConvert Grams To Ounce ...  183168 viewsImplementing Continue Statement In Java ...  183184 viewsThe Unary Operators ...  183240 viewsConvert One Unit to Another ...  183273 viewsJava Date Conversion ...  183299 viewsConvert Gallons To Liters ...  183300 viewsConvert Grams To Pounds ...  183317 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+convert
+io
+help
+this
+program
+to
+learn
+ram
+ear
+e
+il
+section
+in
+converting
+m
+ps
+pro
+s
+is
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+5 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+		int i = Integer.parseInt(hex,16);
+
+
+
+to include 0-F, not just 0-9
+
+		Posted by Sultan on Sunday, 12.14.08 @ 00:53am | #82730
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		Missing values A-F as input. 0-9 works just fine though.
+
+		Posted by Sultan on Sunday, 12.14.08 @ 00:41am | #82729
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		i want to learn more about java programming.
+
+		Posted by carlofano on Wednesday, 10.15.08 @ 10:12am | #81089
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		This program is good, but i have problem to convert long type data into hexadecimal, if anyone know please send me the information. Thanks
+
+		Posted by Supriyanto on Monday, 08.11.08 @ 06:24am | #72190
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		my problem is little bit different.My input system is 47:20:57:EF:EE:31
+
+and out put pattren is reverse of actual binary out put 11100010 ...................
+
+		Posted by Md.Rafiqul Islam on Tuesday, 08.7.07 @ 11:09am | #22834
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Java get yesterday&apos;s date
+										Java Get File Name
+										JSF validateLength Tag
+										Convert Hexadecimal into Binary and Long
+										Spring cglib2
+										Passing Parameters in jsp
+										Tutorials - Java Server Pages Technology
+										JSP ARCHITECTURE
+										Convert Hexadecimal number into Integer
+										Adding Horizontal lines to Group Nodes
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

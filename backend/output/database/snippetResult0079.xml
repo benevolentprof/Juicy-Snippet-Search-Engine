@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>684</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://java.sun.com/docs/books/tutorial/jdbc/basics/applet.html</url>
+</description>
+<TEXT orderid="0" >
+Download
+                                the JDK
+                            
+
+                            Search the
+                                Tutorials
+                            
+
+                            Hide the TOC
+                        
+                        
+    
+        Trail: JDBC(TM) Database Access
+        
+Lesson: JDBC Basics
+    
+
+    
+        
+            JDBC Basics
+Getting Started
+Setting Up a Database
+Establishing a Connection
+Setting Up Tables
+Retrieving Values from Result Sets
+Updating Tables
+Milestone: The Basics of JDBC
+Using Prepared Statements
+Using Joins
+Using Transactions
+Stored Procedures
+SQL Statements for Creating a Stored Procedure
+Creating Complete JDBC Applications 
+Running the Sample Applications
+Creating an Applet from an Application
+
+    
+    
+            
+                Home Page
+                &gt;
+                JDBC(TM) Database Access
+                &gt;
+                JDBC Basics
+            
+            
+                &#171;&#160;Previous&#160;&#8226;&#160;Trail&#160;&#8226;&#160;Next&#160;&#187;
+            
+            Creating an Applet from an Application
+            
+
+
+ 
+Suppose that the owner of The Coffee Break wants to display his current coffee prices in an applet on his web page. He can be sure of always displaying the most current price by having the applet get the price directly from his database. 
+
+
+ 
+In order to do this, he needs to create two files of code, one with applet code, and one with HTML code. The applet code contains the JDBC code that would appear in a regular application plus additional code for running the applet and displaying the results of the database query. In our example, the applet code is in the file 
+OutputApplet.java. To display our applet in an HTML page, the file 
+OutputApplet.html
+OutputApplet.html
+ tells the browser what to display and where to display it.
+
+
+ 
+The rest of this section will tell you about various elements found in applet code that are not present in standalone application code. Some of these elements involve advanced aspects of the Java programming language. We will give you some rationale and some basic explanation, but explaining them fully is beyond the scope of this tutorial. For purposes of this sample applet, you only need to grasp the general idea, so don&apos;t worry if you don&apos;t understand everything. You can use the applet code as a template, substituting your own queries for the one in the applet. 
+
+
+
+ 
+Writing Applet Code
+
+
+
+ 
+To begin with, applets will import classes not used by standalone applications. Our applet imports two classes that are special to applets: the class 
+Applet
+, which is part of the 
+java.applet
+ package, and the class 
+Graphics
+, which is part of the 
+java.awt
+</TEXT>
+<CODE orderid="1" >
+package. This applet also imports the general-purpose class
+</CODE>
+<TEXT orderid="2" >
+java.util.Vector
+ so that we have access to an array-like container whose size can be modified. This code uses 
+Vector
+ objects to store query results so that they can be displayed later.
+
+
+ 
+All applets extend the 
+Applet
+ class; that is, they are subclasses of 
+Applet
+. Therefore, every applet definition must contain the words 
+extends
+ 
+Applet
+, as shown here:
+</TEXT>
+</result>

@@ -1,0 +1,61 @@
+Our tags and keep:
+- title: title tag in the head
+- metainfo: meta tags in the head
+- heading (property 1-6 ): 
+- paragraph: all content inside p tag. Filter Delete tags. Keep a tag in body. Contents inside th. Contents inside li. Contents inside em. Contents inside span. contents inside table. contents inside td. 
+- sourcecode:
+
+Delete:
+- Any tags before html
+- Any xml comments. Check if the parser takes them. 
+- html tag
+- link tag in head
+- script tag in head
+- style tag in head
+- body tag
+- object tag in body
+- script tag in body
+- ul tag in body
+- ol tag in body
+- tr tag in body
+- tbody tag in body
+- if td has no text
+- div tag in body if has no information
+- ins tag in body
+- iframe tag in body
+- if a has no text delete
+- hr tag in body
+- br tag in body
+- noscript tag in body
+- externallinks tag in body
+- if it doesn't follow HTML format delete
+- dl tag in body
+
+Questions:
+- How do we identify that a table is a menu?
+- Is it possible to have text inside tr without td?
+- p tags that do not have a closing tab where do they end?
+- <em>
+<p align="center">Listing 1.0 - Account.java</em> </p>
+
+
+How to Recognize menu:
+- Either list or table
+- Links for every phrase
+- First few lines of the web site
+- Inside many script tags
+- Comments may say menu starts here.
+- Images with links
+- A lot of <div> tags
+
+How to Recognize Banner:
+- A lot of <div> tags
+- Images with links
+- Script inside
+
+Metadata:
+- While making meta data make a string of all meta data then when finished looking at the website put it all in one tag
+
+Another approach only look at 5 paragraph before and after:
+- Look first for siblings then father then siblings then father. We need to check sibling of teh father to see if he has any childern.
+- Take the first 5 only.

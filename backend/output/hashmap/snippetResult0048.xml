@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>76020</docid>
+<orderid>7</orderid>
+<type>CODE</type>
+<url>http://www.roseindia.net/javatutorials/insane_strings.shtml</url>
+</description>
+<CODE orderid="5" >
+public class StringEquals {
+public static void main(String[] args) {
+  System.out.println(&quot;hi there&quot;.equals(&quot;cheers !&quot;));
+}
+private static final String greeting = &quot;hi there&quot;;
+private static final Warper warper = new Warper();
+}
+</CODE>
+<TEXT orderid="6" >
+Running this against the Warper produces a result of true, which
+is really weird, and in my opinion, quite mind-bending.  Hey, you
+can SEE the values there right in front of you and they are
+clearly NOT equal!
+
+
+
+BTW, for simplicity, the Strings in my examples are exactly the
+same length, but you can change the length quite easily as well.
+
+
+
+Last example concerns the HashCode of String, which is now cached
+for performance reasons mentioned in &quot;Java Idiom and Performance
+Guide&quot;, ISBN 0130142603.  (Just for the record, I was never
+and am still not convinced that caching the String hash code in a
+wrapper object is a good idea, but caching it in String itself is
+almost acceptable, considering String literals.)
+</TEXT>
+<CODE orderid="7" >
+public class CachingHashcode {
+  public static void main(String[] args) {
+    java.util.Map map = new java.util.HashMap();
+    map.put(&quot;hi there&quot;, &quot;You found the value&quot;);
+    new Warper();
+    System.out.println(map.get(&quot;hi there&quot;));
+    System.out.println(map);
+  }
+  private static final String greeting = &quot;hi there&quot;;
+}
+</CODE>
+<TEXT orderid="8" >
+The output under JDK 1.3 is:
+
+
+
+You found the value
+{cheers !=You found the value}
+
+
+
+Under JDK 1.2 it is
+
+
+
+null
+{cheers !=You found the value}
+
+
+
+This is because in the JDK 1.3 SUN is caching the hash code so if
+it once calculated, it doesn&apos;t get recalculated, so if the value
+field changes, the hashcode stays the same.
+
+
+
+Imagine trying to debug this program where SOMEWHERE, one of your
+hackers has done a &quot;workaround&quot; by modifying a String literal.
+The thought scares me.
+
+
+
+[Heinz: Author&apos;s note: the comment below on using &quot;final&quot; to solve
+this problem is not correct.  Firstly, you cannot make arrays
+immutable, which is a design flaw in Java, so you could still
+change the content of the array even if the handle were final.
+Secondly, in JDK 1.5, you can set final fields using reflection.
+See Java 5 - &quot;final&quot; is not final anymore and for a similar contortion with autoboxing see
+Mangling Integers.]
+
+
+
+There is of course a small keyword that would have stopped this
+problem, namely &quot;final&quot;.  I got into the habit a few months ago
+to make all my data members final where possible, and it has paid
+off more than once.  Surprisingly, the char array in String is
+not final.
+
+
+
+Consider the following example code:
+</TEXT>
+<CODE orderid="9" >
+public class Bla {
+  private char[] c1 = &quot;hello&quot;.toCharArray();
+  private final char[] c2 = &quot;bye&quot;.toCharArray();
+  public String toString() {
+    return c1 + &quot;, &quot; + c2;
+  }
+}
+
+import java.lang.reflect.*;
+
+public class BlaTest {
+  private static Field c1;
+  private static Field c2;
+  static {
+    try {
+      c1 = Bla.class.getDeclaredField(&quot;c1&quot;);
+      c1.setAccessible(true);
+      c2 = Bla.class.getDeclaredField(&quot;c2&quot;);
+      c2.setAccessible(true);
+    } catch(NoSuchFieldException ex) { }
+  }
+  public static void main(String[] args) {
+    Bla bla = new Bla();
+    try {
+      c1.set(bla, &quot;mutatedc1&quot;.toCharArray());
+      c2.set(bla, &quot;mutatedc2&quot;.toCharArray());
+    } catch(IllegalAccessException ex) {
+      ex.printStackTrace();
+    }
+    System.out.println(bla);
+  }
+}
+</CODE>
+</result>

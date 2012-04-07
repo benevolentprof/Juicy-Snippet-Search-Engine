@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>1141</docid>
+<orderid>26</orderid>
+<type>TEXT</type>
+<url>http://learnola.com/category/java/</url>
+</description>
+<TEXT orderid="24" >
+Now call the method within your main method:
+</TEXT>
+<CODE orderid="25" >
+//array of sorted strings
+String[] sortedStrings = {&quot;aubergine&quot;, &quot;carrot&quot;, &quot;courgette&quot;,
+		&quot;leek&quot;, &quot;onion&quot;, &quot;potato&quot;, &quot;turnip&quot;};
+
+	//call the method - returns -1 if item not found
+int searchResult = binarySearch(sortedStrings, &quot;potato&quot;);
+
+System.out.println(&quot;found at index: &quot;+searchResult);
+</CODE>
+<TEXT orderid="26" >
+Experiment with the code by searching for different elements in the array &#8211; you can also check how many iterations of the loop are required each time by including a System.out.print statement within the while loop in your binarySearch method. It is generally a good practice to include such &#8216;trace statements&#8217; in your code, to check exactly what is happening at any stage in the program; it can be particularly helpful when debugging larger programs.
+Although many of Java&#8217;s built-in datatypes provide sorting and searching methods, it can help with the efficiency of your own programs to think about the algorithms involved. Also, when you come to define your own data types, you may need to implement such methods yourself. There are numerous approaches to sorting and searching in Java, the examples above being only an introduction.
+
+		   		Add comment   		January 7, 2009
+   		
+   		   		
+
+	
+
+
+
+	
+
+		Java Tutorial &#8211; Connect to MySQL&#160;Database
+
+		We also have some excellent Beginners Programming Java tutorials that use high quality narrated videos and practical working files to teach the fundamentals of programming in Java Beginners Java Training Videos &#8211; Programming
+.
+Java Tutorial &#8211; Database Programming
+This tutorial assumes knowledge of basic database concepts and MySQL.
+In this Java tutorial you will learn how to connect to a MySQL database.
+Connecting to a database will likely be a common task as your Java projects progress. In this JAVA tutorial, we will use the Java Database Connectivity API (Application Programming Interface) &#8211; JDBC to deliver our data.
+The JDBC libraries provide the means to connect your programs to a database and perform any operations upon the data that you require. To start using JDBC you need:
+
+the JDK (which you may already have installed)
+a JBDC driver, which depends on the Database Management System you are using for your data.
+
+Once you have installed a driver compatible with the DBMS for your data source, create a new Java project in your IDE. Enter the following import statement at the top of your Main Class:
+</TEXT>
+<CODE orderid="27" >
+//import required for database operations
+import java.sql.*;
+</CODE>
+<TEXT orderid="28" >
+Now enter your main method (this code is for MySQL databases, with notes where alterations are required for other systems):
+</TEXT>
+</result>

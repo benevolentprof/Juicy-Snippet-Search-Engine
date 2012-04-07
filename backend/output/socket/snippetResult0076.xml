@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>10122</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.javacoffeebreak.com/books/extracts/javanotesv3/c10/quiz-answers.html</url>
+</description>
+<TEXT orderid="0" >
+New to
+Java? We&apos;ll help you get started with our revised
+beginner&apos;s tutorial,
+or our free
+online textbook.
+
+  
+  
+	 
+    
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+      
+      
+      
+         
+
+
+        
+
+        Get the latest Java books
+
+
+      
+    
+    
+    
+      
+        
+          h t t p : / /w w w . j a v a c o f f e e b r e a k . c
+          o m /
+          
+            
+              
+                
+            
+          
+        
+      
+    
+  
+  
+
+
+
+Sample Quiz Answers
+
+    For Chapter 10
+
+
+
+THIS PAGE CONTAINS SAMPLE ANSWERS to the Quiz on
+Chapter 10 of this on-line
+Java textbook.  Note that in many cases, there are lots of correct
+answers to a given question.
+
+
+
+Question 1:
+In Java, input/output is done using streams.  Streams are an
+abstraction.  Explain what this means and why it is important.
+
+
+Answer:
+A stream represents a source from which data can be read or a
+destination to which data can be written.  A stream is an abstraction
+because it represents the abstract idea of a source or destination
+of data, as opposed to specific, concrete sources and destinations
+such as a particular file or network connection.  The stream abstraction
+is important because it allows programmers to do input/output using the
+same methods for a wide variety of data sources and destinations.
+It hides the details of working with files, networks, and the screen 
+and keyboard.
+
+
+
+
+
+
+Question 2:
+Java has two types of streams: character streams and byte streams.  Why?
+What is the difference between the two types of streams?
+
+
+Answer:
+Character streams are for working with data in human-readable format,
+that is, data expressed as sequences of characters.  Byte streams are
+for data expressed in the machine-readable format that is used
+internally in the computer to represent the data while a program is
+running.  It is very efficient for a computer to read and write
+data in machine format, since no translation of the data
+is necessary.  However, if a person must deal directly with the
+data, then character streams should be used so that the data is presented
+in human-readable form.
+
+
+
+
+
+
+Question 3:
+What is a file?  Why are files necessary?
+
+
+Answer:
+A file is a collection of data that has been given a
+name and stored on some permanent storage device such
+as a hard disk or floppy disk.  Files are necessary because
+data stored in the computer&apos;s RAM is lost whenever the 
+computer is turned off.  Data that is to be saved permanently
+must be stored in a file.  (Furthermore, RAM is very 
+expensive compared to space on a disk drive, so a computer&apos;s
+hard disk can typically store much more data than would fit
+in the computer&apos;s RAM, even if the computer were left turned
+on all the time.)
+
+
+
+
+
+
+Question 4:
+What is the point of the following statement?
+</TEXT>
+<CODE orderid="1" >
+out = new PrintWriter( new FileWriter(&quot;data.dat&quot;) );
+</CODE>
+<TEXT orderid="2" >
+Why would you need a statement that involves two different
+stream classes, PrintWriter and FileWriter?
+
+
+Answer:
+The PrintWriter class is being used as a &quot;wrapper&quot; for
+the FileWriter class.  A FileWriter is a stream
+object that knows how to send individual characters to a file.  By wrapping
+this in a PrintWriter, you get the ability to write
+other data types such as ints, doubles, and
+Strings to the file using the PrintWriter&apos;s
+print() and println() methods.
+Wrapping the FileWriter
+in a PrintWriter adds capabilities to the file output
+stream but still sends the data to the same destination.
+
+
+
+
+
+
+Question 5:
+The package java.io includes a class named URL.
+What does an object of type URL represent, and how
+is it used?
+
+
+Answer:
+A url is an address for a web page (or other information) on the
+Internet.  For example, &quot;http://math.hws.edu/javanotes/index.html&quot;
+is a url that refers to the main page of the current edition of this
+on-line textbook.  A URL object represents such an address.
+Once you have a URL object, you can call its getContent()
+method to access the information at the url address that it represents.
+
+
+
+
+
+
+Question 6:
+Explain what is meant by the client / server model of
+network communication.
+
+
+Answer:
+In the client/server model, a server program runs on a computer
+somewhere on the Internet and &quot;listens&quot; for connection requests
+from client programs.  The server makes some service available.  A client
+program connects to the server to access that service.  For example,
+a Web server has a collection of Web pages.  A Web browser acts as
+a client for the Web server.  It makes a connection to the server
+and sends a request for one of its pages.  The server responds by
+transmitting a copy of the requested page back to the client.
+
+
+
+
+
+
+Question 7:
+What is a socket?
+
+
+Answer:
+A socket represents one endpoint of a network connection.  A program
+uses a socket to communicate with another program over the network.
+Data written by a program to the socket at one end of the connection is
+transmitted to the socket on the other end of the connection, where it
+can be read by the program at that end.
+
+
+
+
+
+
+Question 8:
+What is a ServerSocket and how is it used?
+
+
+Answer:
+A SeverSocket is used by a server program to listen for
+connection requests from client programs.  If listener
+refers to an object that belongs to Java&apos;s ServerSocket
+class, then calling the function listener.accept() will wait
+for a connection request and will return a Socket object
+that can be used to communicate with the client that made the request.
+
+
+
+
+
+
+Question 9:
+Network server programs are often multithreaded.
+Explain what this means and why it is true.
+
+
+Answer:
+A multi-threaded server creates a new thread to handle each client
+connection that it accepts.
+A server program is generally designed to process connection
+requests from many clients.  It runs in an infinite loop in which
+it accepts a connection request and processes it.  If the processing
+takes a significant amount of time, it&apos;s not a good idea to make
+the other clients wait while the current client is processed.
+The solution is for the server to make a new thread to handle
+each client connection.  The server can continue to accept
+other client connections even while the first client is being
+serviced.
+
+
+
+
+
+
+Question 10:
+Write a complete program that will display the first ten
+lines from a text file.  The lines should be written to 
+standard output, System.out.  The file name is
+given as the command-line argument args[0].  You
+can assume that the file contains at least ten lines.
+Don&apos;t bother to make the program robust.
+
+
+Answer:
+My program uses the TextReader class from
+Section 1 to read the lines from 
+the file.  It does everything in one big try
+statement.  If anything goes wrong, an error message
+is printed in the catch clause of the try
+statement.  For example, if the program is run with
+no command-line argument, an IndexOutOfBoundsException
+will be generated when the program refers to args[0].
+If a file is specified, but it doesn&apos;t exist, then
+a FileNotFoundException will occur.
+If there are fewer than ten lines in the file, a 
+TextReader.Error will be generated when the program
+tries to read past the end of file.
+</TEXT>
+<CODE orderid="3" >
+public class TenLines {
+       
+          public static void main(String[] args) {
+             try {
+                TextReader in = new TextReader( new FileReader(args[0]) );
+                for (int lineCt = 0; lineCt &lt; 10; lineCt++)) {
+                   String line = in.getln();
+                   System.out.println(line);
+                }
+             }
+             catch (Exception e) {
+                System.out.println(&quot;Error: &quot; + e);
+             }
+          }
+          
+       }  // end clsss TenLines
+
+
+
+
+
+
+
+
+
+
+[ Chapter Index
+| Main Index
+]
+</CODE>
+</result>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>5034</docid>
+<orderid>4</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/other/article.php/10936_3603066_2/Understanding-the-Huffman-Data-Compression-Algorithm-in-Java.htm</url>
+</description>
+<TEXT orderid="2" >
+The decode method receives a Huffman-encoded message along with a data 
+structure containing particulars as to how the original message was encoded and 
+the length of the original message.&#160; It decodes the original message and 
+returns the decoded version as a String object.
+Listing 37 saves the incoming parameters in instance variables that were 
+declared in Listing 36.
+Create a decoding bit map
+Listing 38 invokes the buildDecodingBitMap method, which is essentially the reverse of the 
+encoding bit map that was used to encode the original message.
+</TEXT>
+<CODE orderid="3" >
+buildDecodingBitMap();
+
+Listing 38
+</CODE>
+<TEXT orderid="4" >
+The buildDecodingBitMap method
+The buildDecodingBitMap method can be viewed in its entirety in
+Listing 45.&#160; This method populates a lookup table 
+that relates eight bits represented as a String to eight actual bits for 
+all possible combinations of eight bits.
+This is essentially a reverse lookup table relative to the encodingBitMap 
+table that is used to encode the message.&#160; The only difference between the 
+two is a reversal of the key and the value in the Hashtable that contains the 
+table.
+Decode from binary to String
+Listing 39 invokes the decodeToBitsAsString method to decode the 
+encoded message from a binary representation to a String of 1 and 0 
+characters that represent the actual bits in the encoded message.
+</TEXT>
+<CODE orderid="5" >
+decodeToBitsAsString();
+
+Listing 39
+</CODE>
+<TEXT orderid="6" >
+The decodeToBitAsString method
+This method, which can be viewed in its entirety in 
+Listing 45 is very straightforward.&#160; Therefore no further discussion is 
+warranted.
+Build a decoding table
+Listing 40 invokes the buildHuffDecodingTable method to create a Huffman decoding 
+lookup table by swapping the keys and values from the Huffman encoding table received as an incoming parameter by the decode method.
+</TEXT>
+</result>

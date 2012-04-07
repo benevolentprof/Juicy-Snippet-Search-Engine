@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75145</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/beginners/DataConversion.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Convert integer type data into binary, octal and hexadecimal
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this section, you will learn how to convert an integer type data into binary, octal and hexadecimal.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Convert integer type data into binary, octal and
+hexadecimal
+
+
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+      
+
+In this section, you will learn how to convert an
+integer type data into binary, octal and hexadecimal. The&#160; java.lang package
+provides the facility for converting the data integer into binary, octal, and
+hexadecimal. The following program helps you to convert into these. toBinaryString()
+method converts integer type data into binary, toHexString()
+method converts integer type into hexadecimal and toOctalString() method converts integer into octal type data.&#160;
+Description of code:
+toBinaryString(int in):
+
+This is the method that takes an integer type value and returns the string
+representation of unsigned integer value that will represent the data in binary
+(base 2).
+toHexString(int in):
+
+This is the method that takes an integer type value and converts in
+hexadecimal or in an unsigned integer (base 16).
+toOctalString(int in):
+
+This is the method that takes an integer type value and converts it into octal
+type data. The octal type data has base 8.
+Here is the code of program:
+</TEXT>
+<CODE orderid="1" >
+public&#160;class&#160;DataConversion{
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;{
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Data&#160;types&#160;conversion&#160;example!&quot;);
+
+&#160;&#160;&#160;&#160;int&#160;in&#160;=&#160;50;
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Integer:&#160;&quot;&#160;+&#160;in);
+
+&#160;&#160;&#160;&#160;//integer&#160;to&#160;binary
+
+&#160;&#160;&#160;&#160;String&#160;by&#160;=&#160;Integer.toBinaryString(in);
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Byte:&#160;&quot;&#160;+&#160;by);
+
+&#160;&#160;&#160;&#160;//integer&#160;to&#160;hexadecimal
+
+&#160;&#160;&#160;&#160;String&#160;hex&#160;=&#160;Integer.toHexString(in);
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Hexa&#160;decimal:&#160;&quot;&#160;+&#160;hex);
+
+&#160;&#160;&#160;&#160;//integer&#160;to&#160;octal
+
+&#160;&#160;&#160;&#160;String&#160;oct&#160;=&#160;Integer.toOctalString(in);
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Octal:&#160;&quot;&#160;+&#160;oct);
+
+&#160;&#160;}
+
+}
+    
+   
+  
+   
+
+
+
+
+
+	Download this example.
+</CODE>
+<TEXT orderid="2" >
+Output of program:
+
+  
+    C:\vinod\Math_package&gt;javac DataConversion.java
+
+      
+
+      C:\vinod\Math_package&gt;java DataConversion
+
+      Data types conversion example!
+
+      Integer: 50
+
+      Byte: 110010
+
+      Hexa decimal: 32
+
+      Octal: 62
+  
+
+
+		
+		
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+      
+
+
+      
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Beginners Java Tutorial ...  227889 viewsRandomizer ...  229160 viewsAccess Static Member Of The Class Through Object ...  229219 viewsForcing Updates to a File to the Disk ...  229272 viewsDate forms ...  229363 viewsListing the File System Roots ...  229407 viewsGarbage Collection ...  229462 viewsComparing the File Dates ...  229467 viewsCopy a file to other destination and show the modification time of destination file ...  229478 viewsDate Comparison ...  229491 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+com
+class
+date
+comparison
+io
+methods
+method
+dates
+using
+equals
+this
+for
+ssi
+e
+iso
+section
+not
+ls
+first
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+1 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+		fantastic!!, but can you assist me to download all the topics in my mail. thanks
+
+		Posted by khadijah on Monday, 01.21.08 @ 23:25pm | #45809
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								SET Syntax
+										Convert integer type data into binary, octal and hexadecimal
+										Creating a Scrollable JTable
+										JSP Alert
+										JSP CheckBox
+										JSP decode URL
+										Duplicated Session Variables
+										JSP Frameset
+										JSP get Parameter
+										JSP Get URL
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

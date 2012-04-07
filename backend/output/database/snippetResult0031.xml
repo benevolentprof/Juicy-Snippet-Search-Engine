@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>1539</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.zetcode.com/tutorials/jeetutorials/datasource</url>
+</description>
+<TEXT orderid="0" >
+Home&#160;&#160;
+Contents
+
+
+
+
+DataSource &amp; DriverManager
+
+
+In this part of the JEE 5 tutorials, we will compare DataSource object with the DriverManager object. 
+
+
+
+
+DataSource and the DriverManager are the two basic ways to connect to a database in a JEE application. The DriverManager is 
+older facility, DataSource is newer. It is recommended to use the new DataSource facility to connect to databases and other
+resources. DataSource facility has several advantages over DriverManager facility. Using DataSource increases portability.
+The DataSource enables connection pooling and distributed transactions, the DriverManager does not allow such
+techniques. Properties of a DataSource are kept in a configuration file. Any changes to the data source or database drivers
+are made in the configuration file. In case of a DriverManager, these properties are hard coded in the application and for any changes we must recompile the code.
+
+
+
+In this chapter, we will have two examples. One of the examples will use a DriverManager, the other one will use
+a DataSource to connect to a MySQL database.
+</TEXT>
+<CODE orderid="1" >
+mysql&gt; describe books;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| id     | int(11)      | NO   | PRI | NULL    | auto_increment | 
+| author | varchar(30)  | YES  |     | NULL    |                | 
+| title  | varchar(40)  | YES  |     | NULL    |                | 
+| year   | int(11)      | YES  |     | NULL    |                | 
+| remark | varchar(100) | YES  |     | NULL    |                | 
++--------+--------------+------+-----+---------+----------------+
+5 rows in set (0.27 sec)
+</CODE>
+<TEXT orderid="2" >
+We will use a books table. 
+
+
+
+
+DriverManager
+
+
+
+The first example will use a DriverManager.
+</TEXT>
+</result>

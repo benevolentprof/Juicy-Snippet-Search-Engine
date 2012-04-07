@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>7006</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/data/article.php/10932_2172891_2/Databases-and-Tomcat.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Data &amp; Java
+					
+				
+				
+					Read More in Data &amp; Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Databases and Tomcat
+			
+			
+				
+				
+					March 31, 2003
+					By 
+Sams Publishing
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Direct JDBC Database Access
+Any JDBC-compliant database can be used with Tomcat provided the necessary supporting classes are available. If the JDBC driver for a database is provided as a JAR file, this JAR file must be added to the &lt;CATALINA_HOME&gt;/common/lib directory; otherwise, the Tomcat 4.1 class loader will not be able to load the driver.
+
+Note - The restriction of placing JDBC driver JAR files in &lt;CATALINA_HOME&gt;/common/lib applies to the Tomcat 4.1 beta release. Under Tomcat 4.0, you may also store the JAR files in the WEB-INF/lib or &lt;CATALINA_HOME&gt;/lib directory.
+
+A Simple Database Servlet
+The first example program shown in Listing 9.1 is a simple servlet that uses a database to display the exchange rate for converting UK pounds sterling (GBP) to US dollars (USD).
+
+Listing 9.1 The Simple Database Program DatabaseRates.java
+</TEXT>
+<CODE orderid="1" >
+import java.io.*;
+import java.sql.*;
+import javax.sql.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.util.*;
+
+public class DatabaseRates extends HttpServlet
+{
+  public void doGet(HttpServletRequest request,
+ HttpServletResponse response)
+  throws ServletException, IOException
+  {
+    response.setContentType(&quot;text/html&quot;);
+    PrintWriter out = response.getWriter();
+    Connection con = null;
+    out.println (&quot;&lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;Conversion Rates&quot;);
+    out.println (&quot;&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;&quot;);
+    out.println(&quot;&lt;H1&gt;Conversion Rates&lt;/H1&gt;&quot;);
+
+    try {
+      Class.forName(&quot;org.gjt.mm.mysql.Driver&quot;);
+      con = DriverManager.getConnection(&quot;jdbc:mysql://localhost/test&quot;,&quot;root&quot;,&quot;secret&quot;);
+      PreparedStatement pstmt = con.prepareStatement(&quot;SELECT rate FROM Exchange WHERE src = ? and dst = ?&quot;);
+      pstmt.setString(1,&quot;GBP&quot;);
+      pstmt.setString(2,&quot;USD&quot;);
+      ResultSet results = pstmt.executeQuery();
+      if (!results.next())
+        throw new SQLException(&quot;Missing Exchange rate data row&quot;);
+      double rate = results.getDouble(1);
+      out.println(&quot;GBP to USD rate = &quot;+rate+&quot;&lt;BR&gt;&quot;);
+      pstmt.setString(1,&quot;EUR&quot;);
+      pstmt.setString(2,&quot;USD&quot;);
+      results = pstmt.executeQuery();
+      if (!results.next())
+        throw new SQLException(&quot;Missing Exchange rate data row&quot;);
+      rate = results.getDouble(1);
+      out.println(&quot;EUR to USD rate = &quot;+rate+&quot;&lt;BR&gt;&quot;);
+    }
+    catch (Exception ex)
+    {
+      out.println(&quot;&lt;H2&gt;Exception Occurred&lt;/H2&gt;&quot;);
+      out.println(ex);
+      if (ex instanceof SQLException) {
+        SQLException sqlex = (SQLException) ex;
+        out.println(&quot;SQL state: &quot;+sqlex.getSQLState()+&quot;&lt;BR&gt;&quot;);
+        out.println(&quot;Error code: &quot;+sqlex.getErrorCode()+&quot;&lt;BR&gt;&quot;);
+      }
+    }
+    finally {
+      try { con.close(); } catch (Exception ex) {}
+    }
+    out.println (&quot;&lt;/BODY&gt;&lt;/HTML&gt;&quot;);
+  }
+}
+</CODE>
+<TEXT orderid="2" >
+Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		Note - The error handling in Listing 9.1 and all other examples in this chapter is designed to aid development and debugging. Chapter 12, &quot;Error Handling,&quot; discusses techniques for incorporating user-friendly error handling for a live application.
+
+Although the example in Listing 9.1 works and is thread-safe, there are a large number of problems:
+
+The JDBC driver, database, username, and password are hard-coded into the program.
+Every HTTP request must open a new connection to the database.
+The database access code and the HTML presentation code are inextricably intermixed within the servlet.
+
+As previously discussed, hard-coded database details always reduce portability of code and should be avoided if at all possible.
+Opening a database connection for every request will result in slower performance and may overload the database server because creating new client connections is a resource-intensive operation. In addition, as you have already been shown, the mixing of business logic and data presentation in a single class is a sign of poor system design and makes code maintenance a nightmare. Each of the problems just identified can be resolved using standard tools and design techniques as discussed later in this chapter.
+A Bad Example Servlet
+Before studying the correct approach to database access using data sources, a common technique suggested by some online tutorials and textbooks will be examined and rejected due to the complications inherent in the approach.
+In order to improve performance, you might think of moving the database connection code into the HttpServlet.init() method as follows:
+</TEXT>
+</result>

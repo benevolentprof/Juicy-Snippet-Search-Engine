@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>18505</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-tips.org/java-se-tips/java.util/how-to-use-of-hashmap-4.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home    Java SE Tips               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					How to use of HashMap									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;643
+
+
+PoorBest&#160;
+		
+				
+			
+				Map is an object that stores key/volume pairs. Given a key, you can find its value. Keys must be unique, but values may be duplicated. The HashMap class provides the primary implementation of the map interface. The HashMap class uses a hash table to implementation of the map interface. This allows the execution time of basic operations, such as get() and put() to be constant. 
+
+This code shows the use of HaspMap. In this program HashMap maps the names to account balances.
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.util.*;
+
+
+
+public&#160;class&#160;HashMapDemo&#160;{
+
+
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;{
+
+
+
+&#160;&#160;&#160;&#160;HashMap&#160;hm&#160;=&#160;new&#160;HashMap();
+
+&#160;&#160;&#160;&#160;hm.put(&quot;Rohit&quot;,&#160;new&#160;Double(3434.34));
+
+&#160;&#160;&#160;&#160;hm.put(&quot;Mohit&quot;,&#160;new&#160;Double(123.22));
+
+&#160;&#160;&#160;&#160;hm.put(&quot;Ashish&quot;,&#160;new&#160;Double(1200.34));
+
+&#160;&#160;&#160;&#160;hm.put(&quot;Khariwal&quot;,&#160;new&#160;Double(99.34));
+
+&#160;&#160;&#160;&#160;hm.put(&quot;Pankaj&quot;,&#160;new&#160;Double(-19.34));
+
+&#160;&#160;&#160;&#160;Set&#160;set&#160;=&#160;hm.entrySet();
+
+
+
+&#160;&#160;&#160;&#160;Iterator&#160;i&#160;=&#160;set.iterator();
+
+
+
+&#160;&#160;&#160;&#160;while(i.hasNext()){
+
+&#160;&#160;&#160;&#160;&#160;&#160;Map.Entry&#160;me&#160;=&#160;(Map.Entry)i.next();
+
+&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(me.getKey()&#160;+&#160;&quot;&#160;:&#160;&quot;&#160;+&#160;me.getValue()&#160;);
+
+&#160;&#160;&#160;&#160;}
+
+
+
+&#160;&#160;&#160;&#160;//deposit&#160;into&#160;Rohit&apos;s&#160;Account
+
+&#160;&#160;&#160;&#160;double&#160;balance&#160;=&#160;((Double)hm.get(&quot;Rohit&quot;)).doubleValue();
+
+&#160;&#160;&#160;&#160;hm.put(&quot;Rohit&quot;,&#160;new&#160;Double(balance&#160;+&#160;1000));
+
+
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Rohit&#160;new&#160;balance&#160;:&#160;&quot;&#160;+&#160;hm.get(&quot;Rohit&quot;));
+
+
+
+&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+Output Screen: 
+
+
+Rohit : 3434.34
+Ashish : 1200.34
+Pankaj : -19.34
+Mohit : 123.22
+Khariwal : 99.34
+Rohit new balance : 4434.34
+
+
+
+
+&#160;Related Tips 
+A custom combobox editor for use with the EditableComboBox class
+A demonstration of Java2D transformations
+A game of Tic-Tac-Toe that can be played between two client applets
+A Label that uses inline HTML to format its text
+A program to print limits of the primitive types
+A sample of inline DTD definition
+A sample of linked DTD definition
+A sample XML file
+
+			
+		
+				
+
+		&#160;
+
+		
+
+			
+									
+						
+							&lt; Prev
+					
+										&#160;
+
+					
+										
+						
+							Next &gt;
+					
+								
+			
+			                		
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+      
+    
+    
+      
+        
+          &#160;
+          &#160;
+          &#160;
+        
+        
+          &#160;
+          
+              &#160;            
+          &#160;
+        
+        
+          &#160;
+          &#160;
+          &#160;
+        
+      
+    
+    
+      
+        
+            
+            
+            
+        
+      
+    
+	
+	
+
+
+		
+				
+			
+				
+			
+		
+		
+		
+
+
+
+
+
+
+
+
+Home
+
+
+-
+
+
+About Us
+
+
+-
+
+
+Privacy Policy
+
+
+
+
+
+
+Copyright 2005 - 2008 www.java-tips.org
+Java is a trademark of Sun Microsystems, Inc.
+</TEXT>
+</result>

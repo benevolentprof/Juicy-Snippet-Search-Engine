@@ -1,0 +1,1076 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75585</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.roseindia.net/java/example/java/net/udp/UDPMulticastClient.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Multicast Client in Java
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				This section describes the ways to send and receive the IP packet or message by multicast client.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      UDP Multicast Client in Java
+
+
+
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+      
+      
+This section describes the ways to send and receive the IP
+packet or message by multicast client. Here, we provide many multicast clients
+and it&apos;s functionality for sending or receiving messages at a time. The detail
+information provides bellow:
+Description of program:&#160;
+Program runs then it provides a graphical layout that
+has four clients identified by the specific IP(&apos;224.0.0.0&apos;, &apos;235.0.0.1&apos;,
+&apos;235.255.0.1&apos;, &apos;224.0.255.1&apos;) and port number(5000). Those of any client sends
+and receives IP packet that depends upon the check box. If check box is enable
+then send or receive IP packets otherwise it couldn&apos;t be send or receive. Just
+bellow provides a text area that can be used for writing the message and
+receiving the message to multicast server. It has also &apos;Send&apos; command button for
+sending IP packet to multicast server.&#160;
+Here is the code of program:
+</TEXT>
+<CODE orderid="1" >
+import&#160;javax.swing.*;
+
+import&#160;java.awt.*;
+
+import&#160;java.awt.event.*;
+
+import&#160;java.net.*;
+
+import&#160;java.io.*;&#160;&#160;
+
+
+
+public&#160;class&#160;UDPMulticastClient{
+
+&#160;&#160;JFrame&#160;frame;
+
+&#160;&#160;JPanel&#160;panel;
+
+&#160;&#160;JTextField&#160;field1,&#160;field2,&#160;field3,&#160;field4,&#160;field5,&#160;field6,&#160;field7,&#160;field8;
+
+&#160;&#160;JTextArea&#160;area;
+
+&#160;&#160;JScrollPane&#160;pane;
+
+&#160;&#160;JLabel&#160;label;
+
+&#160;&#160;JButton&#160;button;
+
+&#160;&#160;JList&#160;list;
+
+&#160;&#160;Checkbox&#160;check1,&#160;check2,&#160;check3,&#160;check4;
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;{
+
+&#160;&#160;&#160;&#160;UDPMulticastClient&#160;u&#160;=&#160;new&#160;UDPMulticastClient();
+
+&#160;&#160;}
+
+&#160;&#160;public&#160;UDPMulticastClient(){
+
+&#160;&#160;&#160;&#160;frame&#160;=&#160;new&#160;JFrame(&quot;UDP&#160;Broadcast&#160;Client&quot;);
+
+&#160;&#160;&#160;&#160;frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+&#160;&#160;&#160;&#160;frame.setUndecorated(true);
+
+&#160;&#160;&#160;&#160;frame.getRootPane().setWindowDecorationStyle(JRootPane.PLAIN_DIALOG);
+
+&#160;&#160;&#160;&#160;panel&#160;=&#160;new&#160;JPanel();
+
+&#160;&#160;&#160;&#160;panel.setLayout(null);
+
+&#160;&#160;&#160;&#160;label&#160;=&#160;new&#160;JLabel(&quot;Destination&#160;IP&quot;);
+
+&#160;&#160;&#160;&#160;label.setBounds(80,&#160;5,&#160;100,&#160;30);
+
+&#160;&#160;&#160;&#160;panel.add(label);
+
+&#160;&#160;&#160;&#160;check1&#160;=&#160;new&#160;Checkbox();
+
+&#160;&#160;&#160;&#160;check1.setBounds(5,&#160;40,&#160;20,&#160;20);
+
+&#160;&#160;&#160;&#160;panel.add(check1);
+
+&#160;&#160;&#160;&#160;label&#160;=&#160;new&#160;JLabel(&quot;Client&#160;1&#160;:&quot;);
+
+&#160;&#160;&#160;&#160;label.setBounds(25,&#160;35,&#160;60,&#160;30);
+
+&#160;&#160;&#160;&#160;panel.add(label);
+
+&#160;&#160;&#160;&#160;field1&#160;=&#160;new&#160;JTextField(20);
+
+&#160;&#160;&#160;&#160;field1.setBounds(80,&#160;35,&#160;120,&#160;20);
+
+&#160;&#160;&#160;&#160;panel.add(field1);
+
+&#160;&#160;&#160;&#160;label&#160;=&#160;new&#160;JLabel(&quot;Destination&#160;Port&quot;);
+
+&#160;&#160;&#160;&#160;label.setBounds(255,&#160;5,&#160;100,&#160;30);
+
+&#160;&#160;&#160;&#160;panel.add(label);
+
+&#160;&#160;&#160;&#160;field2&#160;=&#160;new&#160;JTextField(10);
+
+&#160;&#160;&#160;&#160;field2.setBounds(255,&#160;35,&#160;100,&#160;20);
+
+&#160;&#160;&#160;&#160;panel.add(field2);
+
+&#160;&#160;&#160;&#160;check2&#160;=&#160;new&#160;Checkbox();
+
+&#160;&#160;&#160;&#160;check2.setBounds(5,&#160;70,&#160;20,&#160;20);
+
+&#160;&#160;&#160;&#160;panel.add(check2);
+
+&#160;&#160;&#160;&#160;label&#160;=&#160;new&#160;JLabel(&quot;Client&#160;2&#160;:&quot;);
+
+&#160;&#160;&#160;&#160;label.setBounds(25,&#160;65,&#160;60,&#160;30);
+
+&#160;&#160;&#160;&#160;panel.add(label);
+
+&#160;&#160;&#160;&#160;field3&#160;=&#160;new&#160;JTextField(20);
+
+&#160;&#160;&#160;&#160;field3.setBounds(80,&#160;65,&#160;120,&#160;20);
+
+&#160;&#160;&#160;&#160;panel.add(field3);
+
+&#160;&#160;&#160;&#160;field4&#160;=&#160;new&#160;JTextField(10);
+
+&#160;&#160;&#160;&#160;field4.setBounds(255,&#160;65,&#160;100,&#160;20);
+
+&#160;&#160;&#160;&#160;panel.add(field4);
+
+&#160;&#160;&#160;&#160;check3&#160;=&#160;new&#160;Checkbox();
+
+&#160;&#160;&#160;&#160;check3.setBounds(5,&#160;100,&#160;20,&#160;20);
+
+&#160;&#160;&#160;&#160;panel.add(check3);
+
+&#160;&#160;&#160;&#160;label&#160;=&#160;new&#160;JLabel(&quot;Client&#160;3&#160;:&quot;);
+
+&#160;&#160;&#160;&#160;label.setBounds(25,&#160;95,&#160;60,&#160;30);
+
+&#160;&#160;&#160;&#160;panel.add(label);
+
+&#160;&#160;&#160;&#160;field5&#160;=&#160;new&#160;JTextField(20);
+
+&#160;&#160;&#160;&#160;field5.setBounds(80,&#160;95,&#160;120,&#160;20);
+
+&#160;&#160;&#160;&#160;panel.add(field5);
+
+&#160;&#160;&#160;&#160;field6&#160;=&#160;new&#160;JTextField(10);
+
+&#160;&#160;&#160;&#160;field6.setBounds(255,&#160;95,&#160;100,&#160;20);
+
+&#160;&#160;&#160;&#160;panel.add(field6);
+
+&#160;&#160;&#160;&#160;check4&#160;=&#160;new&#160;Checkbox();
+
+&#160;&#160;&#160;&#160;check4.setBounds(5,&#160;130,&#160;20,&#160;20);
+
+&#160;&#160;&#160;&#160;panel.add(check4);
+
+&#160;&#160;&#160;&#160;label&#160;=&#160;new&#160;JLabel(&quot;Client&#160;4&#160;:&quot;);
+
+&#160;&#160;&#160;&#160;label.setBounds(25,&#160;125,&#160;60,&#160;30);
+
+&#160;&#160;&#160;&#160;panel.add(label);
+
+&#160;&#160;&#160;&#160;field7&#160;=&#160;new&#160;JTextField(20);
+
+&#160;&#160;&#160;&#160;field7.setBounds(80,&#160;125,&#160;120,&#160;20);
+
+&#160;&#160;&#160;&#160;panel.add(field7);
+
+&#160;&#160;&#160;&#160;field8&#160;=&#160;new&#160;JTextField(10);
+
+&#160;&#160;&#160;&#160;field8.setBounds(255,&#160;125,&#160;100,&#160;20);
+
+&#160;&#160;&#160;&#160;panel.add(field8);
+
+&#160;&#160;&#160;&#160;label&#160;=&#160;new&#160;JLabel(&quot;Message:&quot;);
+
+&#160;&#160;&#160;&#160;label.setBounds(10,&#160;160,&#160;80,&#160;30);
+
+&#160;&#160;&#160;&#160;panel.add(label);
+
+&#160;&#160;&#160;&#160;area&#160;=&#160;new&#160;JTextArea();
+
+&#160;&#160;&#160;&#160;pane&#160;=&#160;new&#160;JScrollPane(area);
+
+&#160;&#160;&#160;&#160;pane.setBounds(10,&#160;190,&#160;300,&#160;200);
+
+&#160;&#160;&#160;&#160;panel.add(pane);
+
+&#160;&#160;&#160;&#160;button&#160;=&#160;new&#160;JButton(&quot;Send&quot;);
+
+&#160;&#160;&#160;&#160;button.setBounds(235,&#160;410,&#160;75,&#160;30);
+
+&#160;&#160;&#160;&#160;button.addActionListener(new&#160;ActionListener(){
+
+&#160;&#160;&#160;&#160;&#160;&#160;public&#160;void&#160;actionPerformed(ActionEvent&#160;e){
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;new&#160;SendRequest();
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;});
+
+&#160;&#160;&#160;&#160;panel.add(button);
+
+&#160;&#160;&#160;&#160;frame.add(panel);
+
+&#160;&#160;&#160;&#160;frame.setSize(400,&#160;500);
+
+&#160;&#160;&#160;&#160;frame.setVisible(true);
+
+&#160;&#160;}
+
+&#160;&#160;public&#160;class&#160;SendRequest{
+
+&#160;&#160;&#160;&#160;SendRequest(){
+
+&#160;&#160;&#160;&#160;&#160;&#160;try{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;boolean&#160;b&#160;=&#160;true;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if(check1.getState()&#160;==&#160;b){
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;dip&#160;=&#160;field1.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;InetAddress&#160;address&#160;=&#160;InetAddress.getByName(dip);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;MulticastSocket&#160;socket&#160;=&#160;new&#160;MulticastSocket();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.joinGroup(address);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;port&#160;=&#160;field2.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;pnum&#160;=&#160;Integer.parseInt(port);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;mess&#160;=&#160;area.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;byte&#160;message[]&#160;=&#160;mess.getBytes();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DatagramPacket&#160;packet&#160;=&#160;new&#160;DatagramPacket(message,&#160;message.length,&#160;address,&#160;pnum);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.send(packet);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;area.setText(&quot;&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//For&#160;Received&#160;message
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DatagramPacket&#160;packet1&#160;=&#160;new&#160;DatagramPacket(message,&#160;message.length);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.receive(packet1);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;recmessage&#160;=new&#160;String(packet1.getData());
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;area.append(&quot;Received&#160;from&#160;server:&#160;&quot;&#160;+&#160;recmessage);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if(check2.getState()&#160;==&#160;b){
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;dip&#160;=&#160;field3.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;InetAddress&#160;address&#160;=&#160;InetAddress.getByName(dip);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;MulticastSocket&#160;socket&#160;=&#160;new&#160;MulticastSocket();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.joinGroup(address);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;port&#160;=&#160;field4.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;pnum&#160;=&#160;Integer.parseInt(port);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;mess&#160;=&#160;area.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;byte&#160;message[]&#160;=&#160;mess.getBytes();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DatagramPacket&#160;packet&#160;=&#160;new&#160;DatagramPacket(message,&#160;message.length,&#160;address,&#160;pnum);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.send(packet);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;area.setText(&quot;&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//For&#160;Received&#160;message
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DatagramPacket&#160;packet1&#160;=&#160;new&#160;DatagramPacket(message,&#160;message.length);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.receive(packet1);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;recmessage&#160;=new&#160;String(packet1.getData());
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;area.append(&quot;Received&#160;from&#160;server:&#160;&quot;&#160;+&#160;recmessage);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if(check3.getState()&#160;==&#160;b){
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;dip&#160;=&#160;field5.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;InetAddress&#160;address&#160;=&#160;InetAddress.getByName(dip);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;MulticastSocket&#160;socket&#160;=&#160;new&#160;MulticastSocket();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.joinGroup(address);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;port&#160;=&#160;field6.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;pnum&#160;=&#160;Integer.parseInt(port);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;mess&#160;=&#160;area.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;byte&#160;message[]&#160;=&#160;mess.getBytes();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DatagramPacket&#160;packet&#160;=&#160;new&#160;DatagramPacket(message,&#160;message.length,&#160;address,&#160;pnum);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.send(packet);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;area.setText(&quot;&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//For&#160;Received&#160;message
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DatagramPacket&#160;packet1&#160;=&#160;new&#160;DatagramPacket(message,&#160;message.length);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.receive(packet1);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;recmessage&#160;=new&#160;String(packet1.getData());
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;area.append(&quot;Received&#160;from&#160;server:&#160;&quot;&#160;+&#160;recmessage);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if(check4.getState()&#160;==&#160;b){
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;dip&#160;=&#160;field7.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;InetAddress&#160;address&#160;=&#160;InetAddress.getByName(dip);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;MulticastSocket&#160;socket&#160;=&#160;new&#160;MulticastSocket();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.joinGroup(address);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;port&#160;=&#160;field8.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;pnum&#160;=&#160;Integer.parseInt(port);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;mess&#160;=&#160;area.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;byte&#160;message[]&#160;=&#160;mess.getBytes();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DatagramPacket&#160;packet&#160;=&#160;new&#160;DatagramPacket(message,&#160;message.length,&#160;address,&#160;pnum);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.send(packet);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;area.setText(&quot;&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//For&#160;Received&#160;message
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DatagramPacket&#160;packet1&#160;=&#160;new&#160;DatagramPacket(message,&#160;message.length);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.receive(packet1);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;recmessage&#160;=new&#160;String(packet1.getData());
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;area.append(&quot;Received&#160;from&#160;server:&#160;&quot;&#160;+&#160;recmessage);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;catch(IOException&#160;io){}
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;}
+
+}
+    
+   
+  
+   
+  
+Download this example.
+</CODE>
+<TEXT orderid="2" >
+Output of program:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+      
+		
+		
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+	   
+  
+
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				UDP - User Datagram Protocol ...  182822 viewsUDP - User Datagram Protocol ...  183778 viewsUDP (User Datagram Protocol) ...  184675 viewsReceiving and sending a request to UDP server in Java ...  185136 viewsSending and receiving information to the UDP Client in Java ...  185914 viewsMulticast Client in Java ...  186980 viewsUDP Client in Java ...  187066 viewsUDP Server in Java ...  187170 viewsMulticast in Java ...  187395 viewsMulticast Server in Java ...  188056 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+java
+c
+com
+server
+layout
+time
+button
+io
+graph
+screen
+command
+this
+disable
+pear
+cast
+tar
+app
+cas
+buttons
+start
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+1 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+		
+
+
+
+Im new to java, i found this code very intresting espcially that im still trying to learn how to multicast ip packets.
+
+
+
+can you PLEASE tell me how to run this code.
+
+can i run it on just one laptop ? if yes can you tell me how?
+
+i urgently need your help.thank you so much
+
+		Posted by Lizzie on Saturday, 12.22.07 @ 17:42pm | #43375
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Mysql String Length
+										iBatis ResultMap example
+										Overview of JSTL Tags
+										Radio Tag (Form Tag) Example
+										Multicast Client in Java
+										Get Time And Date
+										Java Read File Line by Line - Java Tutorial
+										Stateless Session Bean Example
+										Ajax - Asynchronous JavaScript and XML, What  is Ajax?
+										Multicast Server in Java
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

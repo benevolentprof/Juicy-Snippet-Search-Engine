@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>7795</docid>
+<orderid>16</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/other/article.php/10936_3621276_2/Typed-and-Targeted-Property-Change-Events-in-Java.htm</url>
+</description>
+<TEXT orderid="14" >
+is used to represent the Automobile 
+instance as the source rather than the anonymous inner class.) Secondly, the 
+repeater is registered with the Engine instance as soon as it is 
+created. Thirdly, because the engine property can change, a 
+separate listener is registered with the Automobile instance itself 
+for notification of when the engine property value changes. When 
+this happens, the repeater is unregistered from the old Engine and 
+then registered with the new Engine.
+Now an external class can be notified of property changes of the 
+Engine property of the Automobile by registering with 
+the Automobile either for all property change events or only for 
+specific Engine-specific properties. If there is ever a question of 
+whether a property of Automobile or Engine has 
+changed, this may be resolved by examining
+</TEXT>
+<CODE orderid="15" >
+TargetedEvent.getTarget()
+</CODE>
+<TEXT orderid="16" >
+if the PropertyChangeEvent 
+in question implements TargetedEvent.
+The concept of a targeted event is especially useful when an object can have 
+an arbitrary number of contained objects over an arbitrary number of 
+hierarchical levels. As an example, consider the TreeControl 
+component in the com.guiseframework.component package of the Guise&#153; Internet application 
+framework. A TreeControl contains a root 
+TreeNodeModel&lt;V&gt; which itself can contain an arbitrary number 
+of TreeNodeModel&lt;V&gt; children, each of which in turn can 
+contain other tree nodes, and so on. A common use case is to listen for the 
+selection by the user of one of the nodes in a tree.
+An application simply cannot practically register and unregister a property 
+change listeners with each TreeNodeModel&lt;V&gt; as it is added or 
+removed from the tree. The Guise&#153; TreeControl therefore uses the 
+typed, targeted property change architecture described above to propagate 
+property changes of each TreeNodeModel&lt;V&gt; up the tree 
+hierarchy until it is finally repeated from the TreeControl. Any 
+property change event fired from the control will properly indicate the 
+TreeControl as its source, and indicate the tree node 
+with the changed property as its target. An application can 
+therefore listen directly to the TreeControl to be notified when a 
+tree node is selected, for example:
+</TEXT>
+<CODE orderid="17" >
+final TreeControl treeControl=new TreeControl();
+treeControl.addPropertyChangeListener(
+    TreeNodeModel.SELECTED_PROPERTY,
+    new AbstractGenericPropertyChangeListener&lt;Boolean&gt;()
+    {
+      public void propertyChange(
+          final GenericPropertyChangeEvent&lt;Boolean&gt;
+          propertyChangeEvent)
+      {
+        if(propertyChangeEvent.getTarget() instanceof TreeNodeModel)
+        {
+          final TreeNodeModel&lt;?&gt; treeNodeModel=
+              (TreeNodeModel&lt;?&gt;)propertyChangeEvent.getTarget();
+          if(Boolean.TRUE.equals(propertyChangeEvent.getNewValue()))
+          {
+            //the tree node was just selected
+          }
+        }
+      }
+    });
+</CODE>
+<TEXT orderid="18" >
+The application listens for the TreeNodeModel.SELECTED_PROPERTY 
+changing by registering one property change listener with the 
+TreeControl instance. Once the property changes, the listener 
+verifies that a tree node is indeed the object with the changed selection 
+status. If the new selected status is true, the application may 
+decide to perform some special action resulting from the selection change, 
+perhaps based upon the specific tree node target as reported in
+</TEXT>
+</result>

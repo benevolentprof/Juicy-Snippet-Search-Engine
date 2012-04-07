@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>7214</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/ent/article.php/10933_3580161_4/Using-More-Advanced-JDBC-Features.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Enterprise Java
+					
+				
+				
+					Read More in Enterprise Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Using More Advanced JDBC Features
+			
+			
+				
+				
+					January 26, 2006
+					By 
+Matt Weisfeld
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Closing the Connection
+
+Finally, you need to close the connection. This is another point where I ran into some confusion. Just as when I failed to commit the transaction, failing to close the connection can lead to the same problem. In some cases, the changes to the database were not permanent until the connection was closed. This is accomplished with the single line of code:
+</TEXT>
+<CODE orderid="1" >
+DBConnection.close();
+</CODE>
+<TEXT orderid="2" >
+The complete code for this method is presented in Listing 11.
+
+Listing 11
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+</TEXT>
+</result>

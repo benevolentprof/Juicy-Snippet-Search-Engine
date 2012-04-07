@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>79197</docid>
+<orderid>0</orderid>
+<type>CODE</type>
+<url>http://www.java-samples.com/cgi-bin/forum/YaBB.pl?num=1236682556</url>
+</description>
+<CODE orderid="0" >
+&#160;
+
+
+
+
+	
+		&#160;
+		Back to Java-Samples Home&#160;&#160;&#160;&#160;&#160;
+		&#160;
+	
+
+
+	
+	
+
+	
+				
+	
+		&#160;
+	
+
+
+	
+		&#160;
+		HomeHelpSearchLoginRegister
+		&#160;
+		
+		&#160;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+
+
+
+	
+		&#160;
+		Java-Samples Forum &#8250; Java &#8250; Java Basics &#8250; Can&#180;t connect 2 pc through TCP/UP
+	
+
+
+	
+
+
+	
+	
+		
+	
+	
+	
+	
+		&#8249; Previous Topic | Next Topic &#8250;
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+		 Pages: 1
+	
+	
+		
+	 
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		 Can&#180;t connect 2 pc through TCP/UP (Read 143 times)
+	
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+	
+		
+		javirivirivi
+		
+		YaBB Newbies
+
+		
+
+		Offline
+
+
+		
+
+		I Love Java Samples
+
+
+		Posts: 1
+
+		
+		
+		
+		
+		
+	
+	
+		
+		
+		
+			Can&#180;t connect 2 pc through TCP/UP
+
+			Mar 10th, 2009 at 6:56pm
+		
+		
+			
+	&#160;
+
+		
+		
+		
+			Hi. I&#180;m trying to connect 2 pc in my LAN througn TCP/IP socket and i get this error
+
+java.net.ConnectException: Connection refused: connect
+
+The problem is that the connect works perfect with UDP socket but not with TCP/IP. In localhost the program also works ok with TCP/IP but not between remote pc&apos;s. I tried it disconnecting firewalls, antiviruses ... I think this is caused by my router comtrend but i&apos;ve been searching and i didn&apos;t find nothing strange in it.
+What can i do ?? 
+
+class minimoCliente {
+&#160; &#160; public static void main( String args[] ) throws IOException {
+
+ &#160; &#160; &#160;&#160; InetAddress direcc = null;
+ try{
+&#160; &#160;direcc = InetAddress.getLocalHost();
+&#160; &#160;} catch(UnknownHostException uhe){
+&#160; &#160;System.err.println(&quot;Host no encontrado : &quot; + uhe);
+&#160; &#160;System.exit(-1);
+&#160; &#160;}
+
+ int puerto = 5001;
+
+
+ 
+&#160; &#160;Socket sckt = null;
+&#160; &#160;DataInputStream dis = null;
+&#160; &#160;DataOutputStream dos = null;
+&#160; &#160;try{
+
+&#160; &#160;int numero = 5;
+
+
+&#160; &#160;System.out.println(&quot;Direccion &quot;+direcc+&quot;\n&quot;);
+&#160; &#160;sckt = new Socket(&quot;MY_HOST&quot;,puerto);
+
+
+&#160; &#160;dis = new DataInputStream(sckt.getInputStream());
+
+&#160; &#160;dos = new DataOutputStream(sckt.getOutputStream());
+
+
+
+&#160; &#160;System.out.println(&quot;Lo escribimos\n&quot;);
+&#160; &#160;dos.writeInt(numero);
+
+
+
+&#160; &#160;long resultado = dis.readLong();
+
+&#160; &#160;System.out.println(&#160; &quot;Solicitud = &quot; + numero +
+&#160; &quot;\tResultado = &quot; +resultado );
+
+&#160; &#160;dis.close();
+&#160; &#160;dos.close();
+&#160; &#160;} catch(Exception e){
+&#160; &#160;System.err.println(&quot;Se ha producido la excepci&#243;n : &quot; +e);
+&#160; &#160;}
+
+&#160; &#160;try{
+&#160; &#160;if (sckt!=null) sckt.close();
+&#160; &#160;} catch(IOException ioe){
+&#160; System.err.println(&quot;Error al cerrar el socket : &quot; + ioe);
+&#160; }
+
+&#160; &#160;
+
+ }
+&#160; } 
+		
+	
+
+
+	
+		Back to top
+	
+	
+		
+			 &#160;
+		
+		
+			
+		
+		
+			
+		
+		
+		
+			
+	
+ &#160;
+		
+		
+			 IP Logged
+ &#160;
+		
+		
+	
+
+
+
+
+
+
+
+	
+		
+		vilyams
+		
+		Ex Member
+
+		
+
+		
+
+		
+
+		I Love Java Samples
+
+
+		
+		
+		
+		
+		
+		
+	
+	
+		
+		
+		
+			Re: Can&#180;t connect 2 pc through TCP/UP
+
+			Reply #1 - Mar 11th, 2009 at 10:33pm
+		
+		
+			
+	&#160;
+
+		
+		
+		
+			Hi,
+
+This could be because you are using a proxy. To confirm this check the &apos;internet options&apos; connections-&gt;Lan settings to confirm.
+
+If there is a proxy specified there then in your Java program you should use the following lines:
+
+&#160; &#160;Properties systemSettings = System.getProperties();
+ &#160; &#160; &#160;systemSettings.put(&quot;http.proxyHost&quot;,&quot;myproxy.com&quot;) ;
+ &#160; &#160; &#160;systemSettings.put(&quot;http.proxyPort&quot;, &quot;80&quot;) ;
+
+Change the proxy address and port according to what you see in your browser settings. 
+		
+	
+
+
+	
+		Back to top
+	
+	
+		
+			 &#160;
+		
+		
+			
+		
+		
+			
+		
+		
+		
+			
+	
+ &#160;
+		
+		
+			 IP Logged
+ &#160;
+		
+		
+	
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+		 Pages: 1
+	
+	
+		
+	 
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+		&#8249; Previous Topic | Next Topic &#8250;
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+
+	
+
+
+
+
+
+
+
+	
+
+
+	Forum Jump &#187;
+
+	Home
+
+	 &#187; 10 most recent Posts
+	 &#187; 10 most recent Topics
+	Java
+	&#160; - Java Basics &#171;&#171;
+	&#160; - Advanced Java Techniques
+	&#160; - JSP Samples
+	J2ME
+	&#160; - J2ME Basics and Getting started
+	&#160; - J2ME Samples
+
+
+
+
+
+
+	
+		&#160;
+		 &#171; Home  &#8249; Board  Top of this page 
+	
+
+
+
+
+
+
+
+Java-Samples Forum &#187; Powered by YaBB 2.4!
+
+YaBB &#169; 2000-2009. All Rights Reserved.
+</CODE>
+</result>

@@ -1,0 +1,897 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>5151</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/ent/article.php/10933_3728576_4/Dynamic-Service-Discovery-with-Java.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Enterprise Java
+					
+				
+				
+					Read More in Enterprise Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Dynamic Service Discovery with Java
+			
+			
+				
+				
+					February 19, 2008
+					By 
+Rob Lybarger
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Now, you have the code modifications for the client.
+</TEXT>
+<CODE orderid="1" >
+public class TestClient implements ServiceBrowserListener {
+
+  public static final String SERVICE_NAME = &quot;timeDemo&quot;;
+
+  public static void main(String[] args) {
+    new TestClient();
+  }
+
+  ServiceBrowser browser;
+  Vector&lt;ServiceDescription&gt; descriptors;
+  
+  TestClient() {
+    descriptors = new Vector&lt;ServiceDescription&gt;();
+
+    /* first browse for any &apos;timeDemo&apos; instance */
+    browser = new ServiceBrowser();
+    browser.addServiceBrowserListener(this);
+    browser.setServiceName(SERVICE_NAME);
+    browser.startListener();
+    browser.startLookup();
+    System.out.println(
+        &quot;Browser started. Will search for 2 secs.&quot;);
+    try {
+      Thread.sleep(2000);
+    }
+    catch (InterruptedException ie) {
+      // ignore
+    }
+    browser.stopLookup();
+    browser.stopListener();
+    
+    /* now if the browser found any matches, we&apos;ll
+     * print out the complete list, but only connect
+     * to the first one.
+     */
+    if (descriptors.size()&gt;0) {
+
+      System.out.println(&quot;\n---TIME SERVERS---&quot;);
+      for (ServiceDescription descriptor : descriptors) {
+        System.out.println(descriptor.toString());
+      }
+
+      System.out.println(&quot;\n---FIRST SERVER&apos;S TIME IS---&quot;);
+      ServiceDescription descriptor = descriptors.get(0);
+      try {
+        Socket socket = new Socket(descriptor.getAddress(),
+                                   descriptor.getPort());
+        InputStreamReader reader =
+           new InputStreamReader(socket.getInputStream());
+        BufferedReader bufferedReader =
+           new BufferedReader(reader);
+        String line = bufferedReader.readLine();
+        System.out.println(line);
+        socket.close();
+      }
+      catch (IOException ie) {
+        System.err.println(&quot;Exception: &quot;+ie);
+        System.exit(1);
+      }
+    }
+    else {
+      System.out.println(&quot;\n---NO TIME SERVERS FOUND---&quot;);
+    }
+    
+    System.out.println(&quot;\nThat&apos;s all folks.&quot;);
+    System.exit(0);
+  }
+
+  /* This is an event call-back method the browser uses
+   * when it receives a response. This will only be
+   * called during the two-second execution window.
+   */
+  public void serviceReply(ServiceDescription descriptor) {
+    int pos = descriptors.indexOf(descriptor);
+    if (pos&gt;-1) {
+      descriptors.removeElementAt(pos);
+    }
+    descriptors.add(descriptor);
+  }
+
+}
+</CODE>
+<TEXT orderid="2" >
+The structure is a little bit different this time just to satisfy needing an instance method to implement the ServiceBrowserListener interface. (However, you could write an inner/anonymous implementation and keep everything entirely in the static &apos;main&apos; method, if you want.) Before connecting, the client first needs to run the discovery browser to poll the network for available services. After letting the browser run for a little while, the browser is stopped, and the vector of responses is displayed. (The vector stores the same descriptor objects that the server-side code uses.) The first response in the vector is used to make a direct connection, just as before.
+
+And, there you have it. You can run as many Time Server instances on the network as you want (just use different instance names for each). You can run them on any port you want, and you can bring the servers up and down as desired. Whenever this client runs, it will look for any instance that responds to the browse query.
+
+Conclusion
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		Adding dynamic service discovery to an application actually can be a fairly simple matter. The browser/responder code only needs to be written once, and then it can be packaged along with your client and server application components time after time. (And I&apos;ve already given you a good, basic starting point for this code.)
+
+Other Directions
+
+If you skipped the Concept section, you should note there are a few extra things that the browser/responder can incorporate to add a little more robustness and efficiency. One of these is &quot;known answer suppression.&quot; This requires a little variation in the packets the browser sends out to include a list of those instances it already knows about, because the browse period is likely (and, for practical purposes, should be) long enough to send out a few  browse requests. It also requires a corresponding variation in the responder code to look for you &quot;known answer&quot; tokens in the browse requests so it can ignore them. Another nice touch is to have the server send out an &quot;available/not-available&quot; announcement when it starts up or when it shuts down. (Catching a control-C signal can be arranged using the Runtime.addShutdownHook method.) Clients that watch for these extra announcements can maintain an even more up-to-date list of available servers. (In a chat application, you would see someone immediately join or leave, for example.) Finally, if you start making a lot of use of discovery code, and you have a lot of server and client nodes, you might consider a known-answer caching mechanism (with some extra intelligence to allow these caches to gradually expire, and the like). You even can have client browsers running in a passive mode to cache responses that were triggered by other browse requests in more active clients. I&apos;ll leave implementation of these ideas to the reader.
+
+Download the Code
+
+You can download the code that accompanies this article here.
+
+About the Author
+
+Rob Lybarger is a software guy (and a degreed aerospace engineer) in the Houston, TX area who has been using Java for nearly ten years. He has used various versions of Windows, various distributions of Linux, but loves Mac OS X. He likes exploring new techniques and new approaches to organizing and wiring applications, and loves to let the computer do as much work for him as possible.			
+			
+			
+			
+				
+				
+1 
+2 
+3 
+4 
+
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>74842</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/java-get-example/java-binary-decimal.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Java binary to decimal
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				This Tutorial helps you to know the code for Java binary to a decimal number.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Java binary to decimal
+	  
+ 
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+This Tutorial helps you to know the code for Java binary to a decimal
+number.
+
+In this Tutorial we want to describe you a code that help you in
+understanding a how to get a &apos;Java binary to decimal&apos;. For this we have a class
+BinarytoDecimal, Inside this class we have a main method that includes-
+
+1)Buffered Reader&#160;&#160; -&#160; This is used to read a character stream
+from a file present in input stream reader.
+
+The System.out .print&#160; print&#160; the binary specified&#160; inside the
+braces.
+
+2)readline ( )&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; -
+This is used to read the binary value entered by the user and store the value in
+a string variable s.
+
+3)Integer.Parse ( )&#160;&#160;&#160; -The integer class has a method
+parseInt( ) that returns you the integer value from&#160; string passed as argument
+representation.&#160;
+
+Finally the System.out.println print the decimal value from the binary
+value.&#160;
+
+
+
+	BinarytoDecimal.java
+
+  
+    &#160;
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.io.BufferedReader;
+
+import&#160;java.io.InputStreamReader;
+
+public&#160;class&#160;BinarytoDecimal&#160;{
+
+
+
+&#160;&#160;&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;throws&#160;Exception&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;BufferedReader&#160;br&#160;=&#160;new&#160;BufferedReader(new&#160;InputStreamReader(System.in));
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;Enter&#160;the&#160;binary&#160;value:&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;s&#160;=&#160;br.readLine();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;Decimal&#160;value&#160;is&#160;:&#160;&quot;+Integer.parseInt(s,&#160;2));
+
+
+
+&#160;&#160;&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+&#160;
+
+Output of the program
+
+  
+    &#160;
+  
+    
+Enter&#160;the&#160;binary&#160;value:
+
+110111
+
+Decimal&#160;value&#160;is&#160;:&#160;55
+    
+   
+  
+  
+
+
+Download Source code
+
+ 
+
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+	  
+                
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java error identifier excepted ...  180003 viewsJava error class ...  180011 viewsJava error java.lang.noclassdeffounderror ...  180012 viewsGet Length of Array ...  180040 viewsGet Length of Array ...  180062 viewsGet Java Version ...  180079 viewsGet Property by Name ...  180107 viewsJava get Free Memory ...  180114 viewsJava get available Font ...  180115 viewsJava error icon ...  180115 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+java
+windows
+c
+error
+orm
+form
+diff
+io
+dialog
+icons
+sed
+format
+version
+window
+display
+icon
+port
+using
+log
+support
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+0 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Use DECLARE Statement in Procedure
+										Java binary to decimal
+										Get Local Host Name
+										Login form
+										Insertion Sort In Java
+										Using Beans in JSP. A brief introduction to JSP and Java Beans.
+										Input From Console
+										Struts2 Actions
+										Iteration
+										Compare string example
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

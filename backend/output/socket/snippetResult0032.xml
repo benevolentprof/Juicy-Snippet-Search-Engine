@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>5009</docid>
+<orderid>6</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/ent/article.php/604831/The-new-features-of-JDK-13---Kestrel.htm</url>
+</description>
+<TEXT orderid="4" >
+. If, for some reason, code needs to terminate without shutting down, the
+</TEXT>
+<CODE orderid="5" >
+Runtime.halt()
+</CODE>
+<TEXT orderid="6" >
+method shuts down the JVM. The use of this method should be avoided wherever possible, however, as applications will be unable to clean up after themselves.&#160; AWT &amp; Swing enhancements Several modifications have been made to the AWT API, including the introduction of a new class which allows automated testing of AWT components.  java.awt.Robot has methods to prepare screen captures and generate keystroke or mouse events, as well as to delay user events. Basically, it gives application developers a way to programmatically control user input events, which has wider implications that just testing. Another welcome change for developers that rely on the Java Print package ( java.awt.print) is the addition of two classes for finer control over printing. The first,  JobAttributes, makes it possible to control details like number of copies, page ranges, and the type of print dialog that is displayed. The second class,  PageAttributes, controls page orientation, page size, page color (monochrome or color), and resolution.&#160; There&apos;s also support for multiple monitors, with the introduction of two new constructors to Window and Frame, that take a GraphicsConfiguration instance as a parameter. There&apos;s also support for the Portable Network Graphics Format (PNG), and numerous method changes to the Swing API. This edition of the Java 2 Platform offers some very cool features that are sure to delight GUI programmers. Networking enhancements For network and distributed systems programmers, there are some useful new features. Several new methods have been added to java.net.Socket,&#160; which provide support for half-closed sockets, and the ability to modify the TCP  keepalive socket option.&#160;   shutdownInput() &#151; closes a socket&apos;s input stream, and discards any further data sent from the remote socket  shutdownOutput() &#151; closes a socket&apos;s output stream, in the same manner as  shutdownInput()
+</TEXT>
+<CODE orderid="7" >
+boolean getKeepAlive
+</CODE>
+<TEXT orderid="8" >
+&#151; returns true if the  keepalive socket option is set
+</TEXT>
+</result>

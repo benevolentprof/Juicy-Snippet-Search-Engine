@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75234</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/java-conversion/NumberToBinary.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Convert Number to Binary
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this section, you will learn to convert a number to a binary (0,1).
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Convert Number to Binary
+ 
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+In this section, you will learn to convert a number
+to a binary (0,1). The given number is a decimal format and the following
+program to calculate its binary.
+Code Description:
+This program takes a decimal number at the console.
+This number is as a string&#160;format so, it must be converted into an integer
+type data using the Integer.parseInt()
+method. The toBinaryString()  method is used for converting an integer type
+data into a binary.
+Here is the code of this program:
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.io.*;
+
+import&#160;java.lang.*;
+
+
+
+public&#160;class&#160;NumberToBinary&#160;{
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;throws&#160;IOException{
+
+&#160;&#160;&#160;&#160;BufferedReader&#160;bf=&#160;new&#160;BufferedReader(new&#160;InputStreamReader(System.in));
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Enter&#160;any&#160;number:&quot;);
+
+&#160;&#160;&#160;&#160;String&#160;sn&#160;=&#160;bf.readLine();
+
+&#160;&#160;&#160;&#160;int&#160;i&#160;=&#160;Integer.parseInt(sn);
+
+&#160;&#160;&#160;&#160;String&#160;s&#160;=&#160;Integer.toBinaryString(i);
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Binary&#160;number&#160;is:&quot;&#160;+&#160;s);
+
+&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+Download of this program:
+Output of this program given below.
+
+  
+    
+      C:\corejava&gt;java NumberToBinary
+
+        Enter any number:
+
+        25
+
+        Binary number is:11001
+
+        C:\corejava&gt; _
+    
+  
+
+
+
+		
+		
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+
+      
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java Conversion ...  182456 viewsConvert Carats To Grams ...  183105 viewsConvert Grams To Carat ...  183137 viewsConvert Grams To Ounce ...  183172 viewsImplementing Continue Statement In Java ...  183188 viewsThe Unary Operators ...  183244 viewsConvert One Unit to Another ...  183277 viewsJava Date Conversion ...  183303 viewsConvert Gallons To Liters ...  183304 viewsConvert Grams To Pounds ...  183321 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+convert
+io
+help
+this
+program
+to
+learn
+ram
+ear
+e
+il
+section
+in
+converting
+m
+ps
+pro
+s
+is
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+1 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+		hi,
+
+    i am kumaran.i want to use swing componement in jsp,because GUI i want in my jsp like jbutton,jtext...... so how can use jsp? tell me pls...........
+
+		Posted by kumaran on Thursday, 07.12.07 @ 12:10pm | #21130
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Convert Number to Binary
+										Convert String To Double
+										Understanding Struts Controller
+										10 Minutes Guide to Ant
+										ANT Tutorials
+										jQuery Drop Down Menu
+										Convert String To  Float
+										Convert  Date  to  String
+										Develop Hello World example using Spring 3.0 Framework
+										Array Delete
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

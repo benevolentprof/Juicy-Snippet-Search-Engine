@@ -1,0 +1,980 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75515</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/example/java/io/flat-file-xml.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Create XML file from flat file and data insert into database
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this section, we have developed an application to create xml file from flat file and data insert  into database in Java.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+      Create XML file from flat file and data insert into database
+	  
+ 
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+In this section, we have developed an application to
+create xml file from flat file and data insert&#160; into database in Java.&#160;
+
+ Two files are used &quot;FlatFileXml.java&quot;
+and &quot;flatfile.txt&quot; in
+the code given below.
+
+Flat file: A flat file is a
+simple plain text file. It consists of one record per line.
+The fields can be separated by delimiters, e.g. commas,
+
+or have a fixed length. It
+is a static document, spreadsheet, or textual record that typically contains data that is not structurally related.&#160;
+
+Brief description of the flow of application :
+
+1). Create a flat file&#160; &quot;flatfile.txt&quot;.
+
+2). Create a file &quot;FlatFileXml.java&quot;&#160;
+used to create an XML and data insert into the database.
+
+&#160;
+
+&#160;
+
+&#160;
+
+Step:1 Create a &quot;flatfile&quot; table in Database&#160;.
+
+
+  
+    create table `flatfile` (
+
+	`id` int ,
+
+	`title` varchar (250),
+
+	`url` varchar (250)
+
+      )
+    
+  
+
+
+
+Step:2 Create a &#160; &quot;FlatFileXml.java&quot;&#160;&#160;
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.io.*;
+
+import&#160;java.sql.*;
+
+
+
+import&#160;org.xml.sax.*;
+
+import&#160;org.xml.sax.helpers.*;
+
+
+
+import&#160;javax.xml.parsers.*;
+
+import&#160;javax.xml.transform.*;
+
+import&#160;javax.xml.transform.stream.*;
+
+import&#160;javax.xml.transform.sax.*;
+
+
+
+public&#160;class&#160;FlatFileXml&#160;&#160;{
+
+&#160;&#160;String&#160;url&#160;=&#160;&quot;jdbc:mysql://localhost:3306/&quot;;
+
+&#160;&#160;String&#160;dbName&#160;=&#160;&quot;userdetails&quot;;
+
+&#160;&#160;String&#160;driver&#160;=&#160;&quot;com.mysql.jdbc.Driver&quot;;
+
+&#160;&#160;String&#160;userName&#160;=&#160;&quot;root&quot;;&#160;
+
+&#160;&#160;String&#160;password&#160;=&#160;&quot;root&quot;;
+
+&#160;&#160;Statement&#160;stmt&#160;=&#160;null;
+
+&#160;&#160;Connection&#160;con;
+
+&#160;&#160;int&#160;val;
+
+
+
+&#160;&#160;BufferedReader&#160;br;
+
+&#160;&#160;StreamResult&#160;sr;
+
+
+
+&#160;&#160;TransformerHandler&#160;tfh;
+
+&#160;&#160;AttributesImpl&#160;ai;
+
+
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String&#160;args[])&#160;&#160;throws&#160;Exception{
+
+&#160;&#160;&#160;&#160;try
+
+&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;new&#160;FlatFileXml().datamain();
+
+    &#160;&#160;&#160; System.out.println(&quot;You are Successfully create XML and&#160;
+
+&#160;&#160;&#160; data insert into the database.&quot;);
+
+    &#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;catch&#160;(Exception&#160;e)
+
+&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(e.getMessage());
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;}
+
+
+
+&#160;&#160;public&#160;void&#160;datamain&#160;()&#160;{
+
+&#160;&#160;&#160;&#160;try&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;br&#160;=&#160;new&#160;BufferedReader(new&#160;FileReader(&quot;flatfile.txt&quot;));
+
+&#160;&#160;&#160;&#160;&#160;&#160;sr&#160;=&#160;new&#160;StreamResult(&quot;flatfile.xml&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;xmlMain();
+
+&#160;&#160;&#160;&#160;&#160;&#160;String&#160;str;
+
+&#160;&#160;&#160;&#160;&#160;&#160;while&#160;((str&#160;=&#160;br.readLine())&#160;!=&#160;null)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;doWork(str);
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;br.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;xmlEnd();
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;catch&#160;(Exception&#160;e)&#160;{&#160;e.printStackTrace();&#160;}
+
+&#160;&#160;}
+
+
+
+
+
+&#160;&#160;public&#160;void&#160;xmlMain()&#160;throws&#160;Exception&#160;{
+
+&#160;&#160;&#160;&#160;SAXTransformerFactory&#160;tf&#160;=&#160;&#160;&#160;(SAXTransformerFactory)&#160;
+
+&#160;&#160;&#160; SAXTransformerFactory.newInstance();
+    
+    
+    
+&#160;&#160;&#160;&#160;tfh&#160;=&#160;tf.newTransformerHandler();
+
+&#160;&#160;&#160;&#160;Transformer&#160;serTf&#160;=&#160;tfh.getTransformer();
+
+&#160;&#160;&#160;&#160;serTf.setOutputProperty(OutputKeys.ENCODING,&quot;ISO-8859-1&quot;);
+
+&#160;&#160;&#160;&#160;tfh.setResult(sr);
+
+&#160;&#160;&#160;&#160;tfh.startDocument();
+
+&#160;&#160;&#160;&#160;ai&#160;=&#160;new&#160;AttributesImpl();
+
+&#160;&#160;&#160;}
+
+
+
+&#160;&#160;public&#160;void&#160;doWork&#160;(String&#160;s)&#160;throws&#160;Exception{
+
+
+
+&#160;&#160;&#160;&#160;String&#160;[]&#160;ar&#160;=&#160;s.split(&quot;\\-&quot;);
+
+&#160;&#160;&#160;&#160;try{
+
+&#160;&#160;&#160;&#160;&#160;&#160;Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;con&#160;=&#160;DriverManager.getConnection(url+dbName,userName,password);
+
+&#160;&#160;&#160;&#160;&#160;&#160;String&#160;queryString&#160;=&#160;&quot;INSERT&#160;INTO&#160;flatfile&#160;(&#160;title,url)&#160;
+
+&#160;&#160;&#160;&#160;&#160; values(&apos;&quot;+ar[0]+&quot;&apos;,&apos;&quot;+ar[1]+&quot;&apos;)&quot;;
+    
+    
+    
+    
+&#160;&#160;&#160;&#160;&#160;&#160;stmt=con.createStatement();
+
+&#160;&#160;&#160;&#160;&#160;&#160;val&#160;=&#160;stmt.executeUpdate(queryString);
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;catch(Exception&#160;e)
+
+&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;e&#160;:&#160;&quot;&#160;+&#160;e);
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;ai.clear();
+
+&#160;&#160;&#160;&#160;tfh.startElement(&quot;&quot;,&quot;&quot;,&quot;TITLE&quot;,ai);
+
+&#160;&#160;&#160;&#160;tfh.characters(ar[0].toCharArray(),0,ar[0].length());
+
+&#160;&#160;&#160;&#160;tfh.endElement(&quot;&quot;,&quot;&quot;,&quot;TITLE&quot;);
+
+&#160;&#160;&#160;&#160;tfh.startElement(&quot;&quot;,&quot;&quot;,&quot;URL&quot;,ai);
+
+&#160;&#160;&#160;&#160;tfh.characters(ar[1].toCharArray(),0,ar[1].length());
+
+&#160;&#160;&#160;&#160;tfh.endElement(&quot;&quot;,&quot;&quot;,&quot;URL&quot;);
+
+&#160;&#160;}
+
+
+
+&#160;&#160;public&#160;void&#160;xmlEnd()&#160;throws&#160;Exception{
+
+&#160;&#160;&#160;&#160;tfh.endDocument();&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+&#160;Step:3 Create a flat file &quot;flatfile.txt&quot;.&#160; 
+
+
+  
+   
+  
+   
+    Java - http://www.roseindia.net
+
+    JSP - http://www.roseindia.net
+
+    SERVLET - http://www.roseindia.net
+
+    Struts - http://www.roseindia.net
+
+    
+    
+   
+  
+    
+
+
+Output:
+
+
+
+
+
+
+After run Successfully Create an&#160; XML file &quot;flatfile.xml&quot;
+    
+
+    
+
+
+&#160;
+
+
+
+
+
+&#160;
+
+
+
+
+
+
+
+
+Download the full Code
+
+
+ 
+
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+    
+  
+
+
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java I/0 Examples ...  211506 viewsDelete a File ...  212850 viewsDelete file or Directory ...  213488 viewsCopy multiple files ...  213616 viewsIntroduction to Filter I/O Streams ...  213692 viewsOverview of I/O Data Streams ...  213949 viewsCode for Garbage Collection ...  214004 viewsCode for Garbage Collection ...  214041 viewsDelete temp file ...  214094 viewsReading ISO Latin-1 Encoded Data in Java ...  214193 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+file
+user
+char
+content
+read
+name
+ria
+this
+message
+set
+app
+character
+like
+show
+if
+cte
+exists
+program
+to
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+1 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+		
+
+
+
+Hello
+
+
+
+Could you send me your email
+
+
+
+		Posted by Fahad on Wednesday, 12.23.09 @ 03:49am | #93579
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Create XML file from flat file and data insert into database
+										Data Normalization
+										Object
+										Operator Precedence
+										Thread Priorities
+										Conditional (Logical) Operators 
+										Open a URLConnection to specific website address
+										Convert String to Number
+										Pass value from iframe to parent
+										Java Get Example
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

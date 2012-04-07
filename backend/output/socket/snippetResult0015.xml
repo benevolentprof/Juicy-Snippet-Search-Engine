@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>919</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://java.sun.com/docs/books/tutorial/sdp/sockets/debug.html</url>
+</description>
+<TEXT orderid="0" >
+Download
+                                the JDK
+                            
+
+                            Search the
+                                Tutorials
+                            
+
+                            Hide the TOC
+                        
+                        
+    
+        Trail: Sockets Direct Protocol
+        
+Lesson: Understanding the Sockets Direct Protocol
+    
+
+    
+        
+            Understanding the Sockets Direct Protocol
+Overview
+Creating an SDP Configuration File
+Enabling the SDP Protocol
+Debugging SDP
+Technical Issues with SDP
+Solaris Support
+Supported Java APIs
+For More Information
+
+    
+    
+            
+                Home Page
+                &gt;
+                Sockets Direct Protocol
+                &gt;
+                Understanding the Sockets Direct Protocol
+            
+            
+                &#171;&#160;Previous&#160;&#8226;&#160;Trail&#160;&#8226;&#160;Next&#160;&#187;
+            
+            Debugging SDP
+            
+
+
+You can enable debugging messages by using the
+-Dcom.sun.sdp.debug flag.
+If you specify a file, the messages will be output to that file.
+Otherwise, the messages will be printed to standard output.
+
+This first example shows sample messages printed to standard output:
+</TEXT>
+<CODE orderid="1" >
+% java -Dcom.sun.sdp.conf=sdp.conf -Dcom.sun.sdp.debug MyApplicaton
+BIND to 192.168.0.1:5000 (socket converted to SDP protocol)
+CONNECT to 129.156.232.160:80 (no match)
+CONNECT to 192.168.0.2:80 (socket converted to SDP protocol)
+</CODE>
+<TEXT orderid="2" >
+This second example shows the output redirected to a file named debug.log:
+</TEXT>
+<CODE orderid="3" >
+% java -Dcom.sun.sdp.conf=sdp.conf -Dcom.sun.sdp.debug=debug.log MyApplication &amp;
+[1] 27310
+% tail -f debug.log
+BIND to 192.168.0.1:5000 (socket converted to SDP protocol)
+</CODE>
+</result>

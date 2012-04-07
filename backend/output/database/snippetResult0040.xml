@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>74292</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.devdaily.com/java/edu/pj/jdbc/jdbc0003</url>
+</description>
+<TEXT orderid="0" >
+devdaily.com
+  
+  
+  
+      
+
+  
+    mission&#160;&#160;|&#160;&#160;contact&#160;
+              |&#160;&#160;login&#160;&#160;
+         
+
+  
+      
+
+  
+      
+
+  
+ 
+
+
+
+
+
+
+
+    
+
+
+
+
+
+      
+      
+    
+
+    categories
+    
+  best practices&#160;(48)
+  career&#160;(37)
+  cvs&#160;(27)
+  design&#160;(6)
+  drupal&#160;(14)
+  eclipse&#160;(6)
+  gadgets&#160;(32)
+  intellij&#160;(4)
+  java&#160;(317)
+  jbuilder&#160;(20)
+  jdbc&#160;(20)
+  swing&#160;(74)
+  jsp&#160;(8)
+  latex&#160;(26)
+  linux/unix&#160;(179)
+  mac&#160;os&#160;x&#160;(152)
+  mysql&#160;(37)
+  news&#160;(51)
+  ooa/ood&#160;(9)
+  perl&#160;(144)
+  php&#160;(26)
+  postgresql&#160;(17)
+  ruby&#160;(52)
+  servlets&#160;(10)
+  svn&#160;(7)
+  technology&#160;(32)
+  testing&#160;(4)
+  uml&#160;(13)
+
+
+
+
+    popular
+    
+
+    java developer jobs
+    php, cakephp, and lamp jobs
+    geek gifts under $10
+    geek gifts under $20
+    75+ linux and unix tutorials
+    20+ vi/vim tutorials
+
+
+
+
+
+    related
+    Java JDBC Insert Example - How to insert data into a SQL table
+JDBC ResultSet metadata - the number of columns in a ResultSet
+JDBC 101: Connect to a SQL database with JDBC
+A Java DB2 JDBC Driver class and URL example
+JDBC connection string examples
+
+
+    
+  
+  
+    
+    
+          Java JDBC - an SQL SELECT query example
+    
+    
+    
+    
+    
+    
+
+  
+    
+    
+        Submitted by alvin on July 28, 2007 - 3:08am
+    
+                    tags:&#160; database
+java
+jdbc
+jdbc
+query
+resultset
+select
+sql
+statement
+table
+
+          
+    Introduction
+In our JDBC&#160;connection article we demonstrated how to connect your Java applications to standard SQL databases like Oracle, Informix, Sybase, and others using JDBC.&#160; In our examples we showed how to connect to two different databases --&#160; Mini SQL (mSQL), and Interbase -- just so you can see how the code changes when you switch from one database to another.
+
+In this &quot;JDBC&#160;SELECT&#160;query&quot; tutorial we&apos;ll take JDBC&#160;to the next step -- we&apos;ll show you how to create and execute a SQL SELECT statement in your Java code.
+Our sample database
+Before getting into our JDBC&#160;examples, it will help to to know what our database table looks like.&#160; In all of our examples, we&apos;re going to be accessing a database named Demo.&#160; In our JDBC query examples, we&apos;re going to be accessing a database table named Customers, that&apos;s contained in the Demo database.
+Here&apos;s what the Customers database table looks like:  
+
+&#160;
+
+
+    
+        
+            Cnum
+            Lname
+            Salutation
+            City
+            Snum
+        
+    
+    
+        
+            1001
+            Simpson
+            Mr.
+            Springfield
+            2001
+        
+        
+            1002
+            MacBeal
+            Ms.
+            Boston
+            2004
+        
+        
+            1003
+            Flinstone
+            Mr.
+            Bedrock
+            2003
+        
+        
+            1004
+            Cramden
+            Mr.
+            New York
+            2001
+        
+    
+
+Table 1: Our sample Customers database table will contain these four sample records.
+
+How to query a JDBC database
+Today we&apos;ll show you that querying an SQL database with JDBC is often a simple three step process.&#160; The three steps are:
+
+    Create a JDBC ResultSet object.
+    Execute the SQL&#160;query (a SELECT&#160;query) you want to run.
+    Read the results.
+
+The hardest part of the process is defining the query you want to run, and then writing the code to read and manipulate the results of your SELECT query.
+Creating a valid SQL SELECT query
+In today&apos;s example, we&apos;ll create a simple SQL query.&#160; We&apos;ll keep the statement simple, and we&apos;ll just say this:
+
+select Lname from Customers
+where Snum = 2001;
+
+This statement returns each Lname (last name) record from our Customers database where Snum (salesperson id-number) equals 2001. In plain English, you might say &quot;give me the last name of every customer where the salesperson id-number is 2001&quot;.
+Okay, now that we know the information we want to retrieve, how do we put this SQL statement into a Java program?&#160; It&apos;s actually very simple.&#160; Here&apos;s the JDBC&#160;code necessary to create and execute our query:
+</TEXT>
+<CODE orderid="1" >
+Statement stmt = conn.createStatement();
+ResultSet rs = stmt.executeQuery(&quot;SELECT Lname FROM Customers WHERE Snum = 2001&quot;);
+</CODE>
+<TEXT orderid="2" >
+When we use JDBC, our query results are returned in a Java ResultSet object, so we first create the object rs to hold our results.&#160; This creates the object, but at this point no query has been defined.&#160; In the second statement (executeQuery) we specify the desired SQL query and send it to the SQL database.
+Reading the results (Java JDBC&#160;ResultSet)
+After we execute our SQL query, how do we read the results? Fortunately, JDBC makes this pretty easy also.&#160; In many cases, you can just use the next() method of the ResultSet object.&#160; After the previous two lines, you might add a reading loop like this:
+</TEXT>
+</result>

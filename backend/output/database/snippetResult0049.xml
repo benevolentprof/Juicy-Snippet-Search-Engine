@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>100038</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.javapractices.com/topic/Topic183.cjp</url>
+</description>
+<TEXT orderid="0" >
+Home |
+  Poll |
+   
+  Wiki |
+  Source Code |
+
+  WEB4J |
+
+   Links
+   
+  
+   
+   
+  
+ 
+
+
+
+
+
+  
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+ 
+
+
+
+
+
+ 
+   
+
+ 
+
+
+
+
+Encapsulate connections
+
+
+ 
+
+A database connection can be obtained in different ways. One should
+hide this design decision in a utility class, such that changes to this
+decision will have minimal ripple effects. Another important benefit is
+elimination of code repetition.
+
+Example
+
+This is taken from the WEB4J example application. 
+Here, a Connection is
+obtained from a JNDI DataSource configured on the server. An alternate
+implementation might obtain a Connection directly from the JDBC
+driver. (Some modern drivers include a built-in connection pool.)
+
+This implementation is slightly unusual in that it can return a Connection
+for more than one database.
+</TEXT>
+<CODE orderid="1" >
+package hirondelle.web4j.config;
+
+import java.util.*;
+import java.util.logging.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+import hirondelle.web4j.database.DAOException;
+import hirondelle.web4j.database.ConnectionSource;
+import hirondelle.web4j.util.Util;
+import javax.servlet.ServletConfig;
+
+/** 
+ Implementation of {@link ConnectionSource}, required by WEB4J. 
+ 
+ &lt;P&gt;This implementation uses a &lt;tt&gt;Connection&lt;/tt&gt; pool managed by the container.
+ This class is non-final only since it is convenient for 
+ {@link hirondelle.fish.test.doubles.FakeConnectionSrc}.
+ Only one method can be overridden - {@link #getConnectionByName(String)}. 
+*/
+public class ConnectionSrc implements ConnectionSource  {
+
+  /** Read in connection strings from &lt;tt&gt;web.xml&lt;/tt&gt;. */
+  public final void init(ServletConfig aConfig){
+    fDefaultDbConnString = aConfig.getInitParameter(DEFAULT_CONN_STRING);
+    fAccessControlDbConnectionString = 
+      aConfig.getInitParameter(ACCESS_CONTROL_CONN_STRING)
+    ;
+    fTranslationDbConnectionString = aConfig.getInitParameter(TRANSLATION_CONN_STRING);
+    ensureAllSettingsPresent();
+    
+    fMapNameToConnectionString = new LinkedHashMap&lt;String, String&gt;();
+    fMapNameToConnectionString.put(DEFAULT, fDefaultDbConnString);
+    fMapNameToConnectionString.put(ACCESS_CONTROL, fAccessControlDbConnectionString);
+    fMapNameToConnectionString.put(TRANSLATION, fTranslationDbConnectionString);
+    fLogger.config(
+      &quot;Connection strings : &quot; + Util.logOnePerLine(fMapNameToConnectionString)
+    );
+  }
+
+  /**
+   Return value contains only {@link #DEFAULT}, {@link #ACCESS_CONTROL}, 
+   and {@link #TRANSLATION}.
+  */
+  public final Set&lt;String&gt; getDatabaseNames(){
+    return Collections.unmodifiableSet(fMapNameToConnectionString.keySet()); 
+  }
+  
+  /**
+   Return a {@link Connection} for the default database.
+  */
+  public final Connection getConnection() throws DAOException {
+    return getConnectionByName(DEFAULT);
+  }
+
+  /**
+   Return a {@link Connection} for the identified database.
+   
+   @param aDatabaseName one of the values {@link #DEFAULT}, 
+   {@link #TRANSLATION}, or {@link #ACCESS_CONTROL}.
+  */
+  public final Connection getConnection(String aDatabaseName) throws DAOException {
+    return getConnectionByName(aDatabaseName);
+  }
+  
+  /** 
+   Name used to identify the default database. The default database is 
+   the main database, carrying core business data. It is the data that is 
+   most often accessed. 
+  */
+  public static final String DEFAULT = &quot;DEFAULT&quot;;
+  
+  /** Name used to identify the access control database (users, roles, etc.).*/
+  public static final String ACCESS_CONTROL = &quot;ACCESS_CONTROL&quot;;
+  
+  /** Name used to identify the translation database.  */
+  public static final String TRANSLATION = &quot;TRANSLATION&quot;;
+
+  /** 
+   This method can be overridden by a subclass.
+   Such overrides are intended for testing. 
+  */ 
+  protected Connection getConnectionByName(String aDbName) throws DAOException {
+    Connection result = null;
+    String dbConnString = getConnectionString(aDbName);  
+    if( ! Util.textHasContent(dbConnString) ){
+      throw new IllegalArgumentException(
+        &quot;Unknown database name : &quot; + Util.quote(aDbName)
+      );      
+    }
+    try {
+      Context initialContext = new InitialContext();
+      if ( initialContext == null ) {
+        fLogger.severe(
+          &quot;DataSource problem. InitialContext is null. Db : &quot; + Util.quote(dbConnString)
+        );
+      }
+      DataSource datasource = (DataSource)initialContext.lookup(dbConnString);
+      if ( datasource == null ){
+        fLogger.severe(&quot;Datasource is null for : &quot; + dbConnString);
+      }
+      result = datasource.getConnection();
+    }
+    catch (NamingException ex){
+      throw new DAOException(
+        &quot;Config error with JNDI and datasource, for db &quot; + Util.quote(dbConnString), ex
+      );
+    }
+    catch (SQLException ex ){
+      throw new DAOException(
+        &quot;Cannot get JNDI connection from datasource, for db &quot; + Util.quote(dbConnString), 
+        ex
+      );
+    }
+    return result;
+  }
+  
+  /**
+   This item is protected, in order to make it visible to any subclasses created 
+   for testing outside of the normal runtime environment.
+  */
+  protected String getConnectionString(String aDbName){
+    return fMapNameToConnectionString.get(aDbName);
+  }
+  
+  //PRIVATE//
+  
+  /**
+   Maps the database name passed to {@link #getConnection(String)} to the 
+   actual connection string.
+  */
+  private static Map&lt;String, String&gt; fMapNameToConnectionString;
+
+  private static final String DEFAULT_CONN_STRING = &quot;DefaultDbConnectionString&quot;;
+  private static String fDefaultDbConnString;
+  
+  private static final String ACCESS_CONTROL_CONN_STRING = 
+    &quot;AccessControlDbConnectionString&quot;
+  ;
+  private static String fAccessControlDbConnectionString;
+  
+  private static final String TRANSLATION_CONN_STRING = &quot;TranslationDbConnectionString&quot;;
+  private static String fTranslationDbConnectionString;
+  
+  private static final Logger fLogger = Util.getLogger(ConnectionSrc.class);
+  
+  private static void ensureAllSettingsPresent(){
+    if( ! Util.textHasContent(fDefaultDbConnString) ) {
+      logError(DEFAULT_CONN_STRING);
+    }
+    if( ! Util.textHasContent(fTranslationDbConnectionString) ) {
+      logError(TRANSLATION_CONN_STRING);
+    }
+    if ( ! Util.textHasContent(fAccessControlDbConnectionString) ) {
+      logError(ACCESS_CONTROL_CONN_STRING);
+    }
+  }
+  
+  private static void logError(String aSettingName){
+    fLogger.severe(&quot;Web.xml missing init-param setting for &quot; + aSettingName);
+  }
+}
+</CODE>
+<TEXT orderid="2" >
+See Also :
+
+ 
+  
+  Connection pools 
+
+ 
+  
+  A Web App Framework - WEB4J 
+
+ 
+
+
+
+Would you use this technique?
+
+  
+  
+    Yes
+    &#160;&#160;No
+    &#160;&#160;Undecided
+    &#160;&#160;
+    
+    
+  
+
+
+
+
+ 
+ 
+
+
+  
+
+ 
+
+
+
+
+
+  
+&#169; 2010 Hirondelle Systems |
+Source Code |
+Contact |
+License |
+Quotes |
+RSS
+
+
+
+
+
+ Individual code snippets can be used under this BSD license - Last updated on January 4, 2009.
+
+ Over 100,000 unique IPs last month - Built with WEB4J.
+
+ - In Memoriam : Bill Dirani -
+</TEXT>
+</result>

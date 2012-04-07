@@ -1,0 +1,954 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>7531</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/ent/article.php/10933_1356891_2/A-PatternFramework-for-ClientServer-Programming-in-Java.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Enterprise Java
+					
+				
+				
+					Read More in Enterprise Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			A Pattern/Framework for Client/Server Programming in Java
+			
+			
+				
+				
+					June 10, 2002
+					By 
+Usman Saleem
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+As you can see, writing a server that handles multiple clients is not difficult at all in Java. I hope the pattern above will provide you with a good start for building servers for your specific tasks. Clients in Java that access these and other servers are even easier to write; I provide a pattern for them, as follows.
+
+Client Development
+
+Java&apos;s powerful networking capabilities enable us to build highly sophisticated and complex Internet-capable software. The following pattern for building the client side of a client/server model also uses the Observer pattern; however, here the intent is to send out the messages to Observers, received from the server. The source code is as follows:
+</TEXT>
+<CODE orderid="1" >
+//Client.java
+//&#169; Usman Saleem, 2002 and Beyond.
+//usman_saleem@yahoo.com
+
+package com.usal.clientPattern;
+
+import java.net.Socket;
+import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Observable;
+
+
+public class Client extends Observable implements Runnable {
+
+    /**
+     * Uses to connect to the server 
+     */
+    private Socket socket;
+
+    /**
+     * For reading input from server. 
+     */
+    private BufferedReader br;
+
+    /**
+     * For writing output to server. 
+     */
+    private PrintWriter pw;
+
+    /**
+     * Status of client. 
+     */
+    private boolean connected;
+
+    /**
+     * Port number of server
+     */
+     private int port=5555; //default port
+
+    /**
+     * Host Name or IP address in String form
+     */
+    private String hostName=&quot;localhost&quot;;//default host name
+
+    public Client() {
+		connected = false;
+    }
+
+    public void connect(String hostName, int port) throws IOException {
+        if(!connected)
+        {
+	     this.hostName = hostName;
+           this.port = port;
+           socket = new Socket(hostName,port);
+           //get I/O from socket
+           br = new BufferedReader(new         InputStreamReader(socket.getInputStream()));
+           pw = new PrintWriter(socket.getOutputStream(),true);
+
+		   connected = true;
+           //initiate reading from server...
+           Thread t = new Thread(this);
+           t.start(); //will call run method of this class
+        }
+    }
+
+    public void sendMessage(String msg) throws IOException
+    {
+		if(connected) {
+	        pw.println(msg);
+        } else throw new IOException(&quot;Not connected to server&quot;);
+    }
+
+    public void disconnect() {
+		if(socket != null &amp;&amp; connected)
+        {
+          try {
+			socket.close();
+          }catch(IOException ioe) {
+			//unable to close, nothing to do...
+          }
+          finally {
+			this.connected = false;
+          }
+        }
+    }
+
+    public void run() {
+	   String msg = &quot;&quot;; //holds the msg recieved from server
+         try {
+            while(connected &amp;&amp; (msg = br.readLine())!= null)
+            {
+			 System.out.println(&quot;Server:&quot;+msg);
+			 //notify observers//
+			 this.setChanged();
+ //notify+send out recieved msg to Observers
+              	 this.notifyObservers(msg);
+            }
+         }
+         catch(IOException ioe) { }
+         finally { connected = false; }
+    }
+
+    public boolean isConnected() {
+		return connected;
+    }
+
+
+    public int getPort(){
+            return port;
+        }
+
+    public void setPort(int port){
+            this.port = port;
+        }
+
+    public String getHostName(){
+            return hostName;
+        }
+
+    public void setHostName(String hostName){
+            this.hostName = hostName;
+        }
+
+	//testing Client//
+    public static void main(String[] argv)throws IOException {
+        Client c = new Client();
+        c.connect(&quot;localhost&quot;,5555);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String msg = &quot;&quot;;
+        while(!msg.equalsIgnoreCase(&quot;quit&quot;))
+        {
+           msg = br.readLine();
+           c.sendMessage(msg);
+        }
+        c.disconnect();
+    }
+}
+</CODE>
+<TEXT orderid="2" >
+The core method of the client pattern is connect(). It creates a connection to the server, gets I/O streams, and initiates the Client as a Thread. The run() method, in turn, starts handling incoming messages from the server and notifying the interested Observer classes about the message received. This enables us to use sendMessage() for sending messages to the server separately.
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		I do not provide the class that implements the Observer interface here; however, all messages received from the server will be received via the update() method&apos;s second argument in the implemented class that has registered the Client class as observable.
+The above-mentioned Client is a very generic implementation; you will need to customize it according to your needs.
+
+I hope that this article will be of help to you in starting to develop your own custom client/server-based programs. Do let me know of any improvements in this pattern or of any problems/errors you found.
+
+Good luck and happy programming in Java.
+
+Usman Saleem
+
+Muhammad Ali Jinnah University, Islamabad Campus
+
+Islamabad, Pakistan
+
+			
+			
+			
+			
+				
+				
+1 
+2 
+
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

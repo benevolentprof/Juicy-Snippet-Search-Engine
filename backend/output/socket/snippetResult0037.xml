@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>81211</docid>
+<orderid>192</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/j2me/api/java/io/class-use/IOException.html</url>
+</description>
+<TEXT orderid="190" >
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Set datagram address.
+
+
+
+&#160;StreamConnection
+</TEXT>
+<CODE orderid="191" >
+StreamConnectionNotifier.acceptAndOpen()
+</CODE>
+<TEXT orderid="192" >
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Returns a StreamConnection that represents
+ a server side socket connection.
+
+
+
+&#160;OutputStream
+</TEXT>
+<CODE orderid="193" >
+OutputConnection.openOutputStream()
+</CODE>
+<TEXT orderid="194" >
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Open and return an output stream for a connection.
+
+
+
+&#160;DataOutputStream
+</TEXT>
+</result>

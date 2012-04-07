@@ -1,0 +1,959 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>76165</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/beginners/arrayexamples/heapSort.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Heap Sort in Java
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this example we are going to sort integer values of an array using heap sort.
+
+There are two types of heap. First one is  Max heap and second one is min heap. Max heap is a special type of binary tree .The roots of  the max heap is greater than its c
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Heap Sort in Java
+
+
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+     
+
+
+      
+      
+Introduction
+
+
+      
+      
+
+In this example we are going to sort integer values of an array&#160;using heap sort.
+
+
+
+There are two types of heap. First one is&#160; Max heap and second one is min
+heap. Max heap is a special type of binary tree .The roots of&#160; the max heap
+is greater than its child roots. Other heap is min heap it is also a special
+type of heap which has minimum root than his child. We can sort the array values
+using heap sorting algorithm. In this algorithm the heap build is used to
+rebuild the heap.&#160;
+
+In this example we sorting all elements of an array. The complexity&#160;&#160;
+of the heap sort is O(n.log(n)). Heap sort is slowest&#160; but it is better
+option for large data sets.
+
+
+
+The example of Max heap: 
+
+
+      
+      
+
+
+
+
+ 
+
+
+      
+      
+
+      Code description:&#160;
+
+To sort a heap&#160; Build Heap algorithm is used to build a heap out of the
+data set .Then remove the root element and replace the last element at the
+position of root node. Then rearrange the heap. Place the root node in an array.
+Follow these steps until all elements in heap is not replace into array. The
+values in array will be in sorted order.&#160;
+
+
+
+Steps of heap sort algorithm:  
+
+1. Remove the parent root and replace it with the rightmost leaf.&#160;
+
+2.Strore parent root in an array.&#160;
+
+3. Re-establish the heap.&#160;
+
+4. Repeat steps 1 and 3&#160; until values in heap is not zero.&#160;
+
+
+
+Working of heap sort  algorithm:
+
+      Input:1,3,5,4,2
+
+      Step1:Buid Heap tree and an array of same size.
+
+      
+
+
+      
+
+      
+
+      Step2: Remove largest root and&#160; add largest root in array.
+
+
+      Step3:Replace last value (eg 2) at at root node position.
+      
+
+
+      Step4:Swap 2 and 4
+
+
+      Step5:Swap 2 and 3.
+
+      
+
+      
+
+      Step6:Remove 4 and replace 2 at position of 4 and add 4 in array
+
+      
+
+      
+
+      Step7:Swap 2 and 3
+
+      
+
+
+      Step8:Remove 3 ,add in array and replace 1 at position of 3.
+
+
+      
+      
+ 
+
+Step9:Swap 2 and 1.
+
+
+
+Step10:Remove 2 and it at root position
+
+
+
+
+
+
+
+Step11:Remove 1 and add in array.
+
+      
+
+ 
+
+Output: Sorted array 1,2,3,4,5
+
+
+      The code of the program :
+</TEXT>
+<CODE orderid="1" >
+public&#160;class&#160;heap_Sort{
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String&#160;a[]){
+
+&#160;&#160;&#160;&#160;int&#160;i;
+
+&#160;&#160;&#160;&#160;&#160;&#160;int&#160;arr[]&#160;=&#160;{1,3,4,5,2};
+
+
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;\n&#160;&#160;Heap&#160;Sort\n---------------\n&quot;);
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;\n&#160;&#160;Unsorted&#160;Array\n\n&quot;);
+
+&#160;&#160;&#160;&#160;for&#160;(i&#160;=&#160;0;&#160;i&#160;&lt;&#160;arr.length;&#160;i++)
+
+&#160;&#160;&#160;&#160;&#160;&#160;System.out.print(&quot;&#160;&quot;+arr[i]);
+
+&#160;&#160;&#160;&#160;for(i=arr.length;&#160;i&gt;1;&#160;i--){
+
+&#160;&#160;&#160;&#160;&#160;&#160;fnSortHeap(arr,&#160;i&#160;-&#160;1);
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;\n&#160;&#160;Sorted&#160;array\n---------------\n&quot;);
+
+&#160;&#160;&#160;&#160;for&#160;(i&#160;=&#160;0;&#160;i&#160;&lt;&#160;arr.length;&#160;i++)
+
+&#160;&#160;&#160;&#160;&#160;&#160;System.out.print(&quot;&#160;&quot;+arr[i]);
+
+&#160;&#160;}
+
+
+
+&#160;&#160;public&#160;static&#160;void&#160;fnSortHeap(int&#160;array[],&#160;int&#160;arr_ubound){
+
+&#160;&#160;&#160;&#160;int&#160;i,&#160;o;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;lChild,&#160;rChild,&#160;mChild,&#160;root,&#160;temp;
+
+&#160;&#160;&#160;&#160;root&#160;=&#160;(arr_ubound-1)/2;
+
+
+
+&#160;&#160;&#160;&#160;for(o&#160;=&#160;root;&#160;o&#160;&gt;=&#160;0;&#160;o--){
+
+&#160;&#160;&#160;&#160;&#160;&#160;for(i=root;i&gt;=0;i--){
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;lChild&#160;=&#160;(2*i)+1;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;rChild&#160;=&#160;(2*i)+2;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if((lChild&#160;&lt;=&#160;arr_ubound)&#160;&amp;&amp;&#160;(rChild&#160;&lt;=&#160;arr_ubound)){
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if(array[rChild]&#160;&gt;=&#160;array[lChild])
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;mChild&#160;=&#160;rChild;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;else
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;mChild&#160;=&#160;lChild;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;else{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if(rChild&#160;&gt;&#160;arr_ubound)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;mChild&#160;=&#160;lChild;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;else
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;mChild&#160;=&#160;rChild;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if(array[i]&#160;&lt;&#160;array[mChild]){
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;temp&#160;=&#160;array[i];
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;array[i]&#160;=&#160;array[mChild];
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;array[mChild]&#160;=&#160;temp;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;temp&#160;=&#160;array[0];
+
+&#160;&#160;&#160;&#160;array[0]&#160;=&#160;array[arr_ubound];
+
+&#160;&#160;&#160;&#160;array[arr_ubound]&#160;=&#160;temp;
+
+&#160;&#160;&#160;&#160;return;
+
+&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+Output of the example:
+
+
+
+    
+
+  
+        
+          
+            
+              C:\array\sorting&gt;Javac heap_Sort.java
+              C:\array\sorting&gt;java heap_SortC:\array\sorting&gt;java heap_Sort
+                Heap Sort
+---------------
+  Heap Sort
+---------------
+
+                Unsorted Array
+  Unsorted Array
+
+               1 3 4 5 2
+  Sorted array
+--------------- 1 3 4 5 2
+  Sorted array
+---------------
+               1 2 3 4 5
+C:\array\sorting&gt;_ 1 2 3 4 5
+C:\array\sorting&gt;_
+            
+          
+        
+   
+
+Download this example.
+
+
+		
+		
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+     
+  
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Extra Storage Merge Sort in Java ...  229537 viewsIntroduction to Java Arrays ...  229787 viewsCopying Arrays ...  229946 viewsBidirectional Bubble Sort in Java ...  230131 viewsStructure of Java Arrays ...  230257 viewsOdd Even Transposition Sort In Java ...  230428 viewsMulti-dimensional arrays ...  230561 viewsJava Array Usage ...  230658 viewsSelection Sort In Java ...  232647 viewsJava Array Declaration ...  232793 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+java
+c
+ide
+array
+io
+variable
+sed
+type
+name
+ria
+id
+ai
+element
+elements
+if
+ie
+to
+notation
+ld
+rack
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+3 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+		I thank you for given out code for heapsort program free on the internet. please send to me a code for an instant messaging system for peer-to-peer(ad-hoc)networking in either java,VB,or c++. with a siutable deployable platform. I&apos;m final year computer science student of university of nigeria nsukka. I want to use it for my project.
+
+I can be of any importance to your company in Nigeria if you want. I will be grateful if my request is granted. thanks and may your company continue to excel.
+
+		Posted by chimereze on Saturday, 04.4.09 @ 03:28am | #86489
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		this web page is very useful any body those who are beginner of data structures in java
+
+		Posted by sridhar on Tuesday, 02.19.08 @ 22:41pm | #49114
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		Very nice tutorial. Is it possible to make this vizual, using swing classes instead standard output? I apreciate it if you can give me some links with swing tutorial for heap sorting algorithm
+
+		Posted by ludi on Tuesday, 12.18.07 @ 02:37am | #42762
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Display Data from Database in JSP
+										Heap Sort in Java
+										Running First Hibernate 3.0 Example
+										Bidirectional Bubble Sort in Java
+										Struts Resources
+										Designing Database
+										Login and User Registration Application
+										Java Captcha in Struts 2 Application
+										Struts 2 RequiredString validator
+										Struts1 vs Struts2
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

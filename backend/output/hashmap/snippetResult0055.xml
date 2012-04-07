@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75983</docid>
+<orderid>15</orderid>
+<type>CODE</type>
+<url>http://www.roseindia.net/javatutorials/doclet_for_finding_missing_comments.shtml</url>
+</description>
+<CODE orderid="13" >
+public class A {
+  public void A() {}
+}
+</CODE>
+<TEXT orderid="14" >
+Back to the problem on hand, a checker for methods and constructors.  Since
+the only difference in our checking has to do with the return value, we make
+an abstract method called checkReturnComments().  I&apos;ll let you
+figure out the checkParametersForComments() and
+checkExceptionComments() methods yourself.
+</TEXT>
+<CODE orderid="15" >
+import com.sun.javadoc.*;
+import java.util.*;
+
+public abstract class ExecutableChecker extends Checker {
+  protected final String descriptor;
+  private final ExecutableMemberDoc doc;
+  public ExecutableChecker(ClassChecker parentChecker,
+      ExecutableMemberDoc doc) {
+    super(doc);
+    descriptor = parentChecker.getDescriptor() + &apos;.&apos; +
+      doc.name() + doc.flatSignature();
+    this.doc = doc;
+  }
+  protected String getDescriptor() {
+    return descriptor;
+  }
+  public void check() {
+    checkComments(); // calls superclass
+    checkReturnComments(); // calls subclass
+    checkParametersForComments();
+    checkExceptionComments();
+  }
+  public abstract void checkReturnComments();
+  private void checkParametersForComments() {
+    ParamTag[] tags = doc.paramTags();
+    Map tagMap = new HashMap(tags.length);
+    for (int i = 0; i &lt; tags.length; i++) {
+      if (tagMap.containsKey(tags[i].parameterName()))
+        error(&quot;parameter \&quot;&quot; + tags[i].parameterName()
+            + &quot;\&quot; has multiple comments&quot;);
+      else if (!isEmpty(tags[i].parameterComment()))
+        tagMap.put(tags[i].parameterName(), tags[i]);
+    }
+    Parameter[] params = doc.parameters();
+    for (int i = 0; i &lt; params.length; i++) {
+      if (tagMap.remove(params[i].name()) == null
+          &amp;&amp; !params[i].name().equals(&quot;this$0&quot;)) {
+        error(&quot;misses comment for parameter \&quot;&quot; +
+          params[i].name() + &quot;\&quot;&quot;);
+      }
+    }
+    Iterator it = tagMap.keySet().iterator();
+    while (it.hasNext()) {
+      error(&quot;parameter \&quot;&quot; + it.next() + &quot;\&quot; does not exist&quot;);
+    }
+  }
+  private void checkExceptionComments() {
+    ThrowsTag[] tags = doc.throwsTags();
+    Map tagMap = new HashMap(tags.length);
+    for (int i = 0; i &lt; tags.length; i++) {
+      if (tagMap.containsKey(tags[i].exceptionName()))
+        error(&quot;has multiple comments for exception \&quot;&quot; +
+          tags[i].exceptionName() + &quot;\&quot;&quot;);
+      else if (!isEmpty(tags[i].exceptionComment()))
+        tagMap.put(tags[i].exceptionName(), tags[i]);
+    }
+    ClassDoc[] exceptions = doc.thrownExceptions();
+    for (int i = 0; i &lt; exceptions.length; i++) {
+      if (tagMap.remove(exceptions[i].name()) == null)
+        error(&quot;is missing comments for exception \&quot;&quot; +
+          exceptions[i].name() + &quot;\&quot;&quot;);
+    }
+    Iterator it = tagMap.keySet().iterator();
+    while (it.hasNext()) {
+      error(&quot;has unnecessary comment for exception \&quot;&quot; +
+        it.next() + &apos;&quot;&apos;);
+    }
+  }
+  protected void foundCommentsForNonExistentReturnValue() {
+    error(&quot;has unnecessary return comment&quot;);
+  }
+}
+</CODE>
+<TEXT orderid="16" >
+Jetzt haben wir das schlimmste hinter uns.  Ooops - sorry - when I am
+tired I sometimes revert to my mother language ;-)  Let&apos;s have a look
+at the checker for the constructors.  All we do is check whether there
+is a tag for @return and if there is, the checker
+complains.
+</TEXT>
+<CODE orderid="17" >
+import com.sun.javadoc.ConstructorDoc;
+
+public class ConstructorChecker extends ExecutableChecker {
+  private final ConstructorDoc doc;
+  public ConstructorChecker(ClassChecker parent,
+      ConstructorDoc doc) {
+    super(parent, doc);
+    this.doc = doc;
+  }
+  public void checkReturnComments() {
+    if (doc.tags(&quot;return&quot;).length &gt; 0)
+      foundCommentsForNonExistentReturnValue();
+  }
+}
+</CODE>
+</result>

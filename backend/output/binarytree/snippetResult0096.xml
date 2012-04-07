@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>29327</docid>
+<orderid>0</orderid>
+<type>CODE</type>
+<url>http://www.exampledepot.com/egs/javax.swing.tree/FindNode.html</url>
+</description>
+<CODE orderid="0" >
+Example DepotUseful code samples
+
+
+        
+    
+            
+  Home
+  Java
+  Contact
+  Blog
+
+	
+
+
+    
+    
+
+	
+	    
+	
+		
+
+ 
+
+
+
+
+
+
+	    
+	
+	
+
+    
+
+
+    
+    
+
+	
+	    
+	
+		
+
+              
+
+    
+
+
+Java &#187; Java packages &#187; javax.swing.tree &#187; Nodes
+
+
+
+
+
+    
+
+
+    
+
+ Finding a Node in a JTree Component
+
+
+
+
+
+
+COPY
+// Create tree
+JTree tree = new JTree();
+
+// Search forward from first visible row looking for any visible node
+// whose name starts with prefix.
+int startRow = 0;
+String prefix = &quot;b&quot;;
+TreePath path = tree.getNextMatch(prefix, startRow, Position.Bias.Forward);
+
+// Search backward from last visible row looking for any visible node
+// whose name starts with prefix.
+startRow = tree.getRowCount()-1;
+prefix = &quot;b&quot;;
+path = tree.getNextMatch(prefix, startRow, Position.Bias.Backward);
+
+// Find the path (regardless of visibility) that matches the
+// specified sequence of names
+path = findByName(tree, new String[]{&quot;JTree&quot;, &quot;food&quot;, &quot;bananas&quot;});
+
+// Finds the path in tree as specified by the node array. The node array is a sequence
+// of nodes where nodes[0] is the root and nodes[i] is a child of nodes[i-1].
+// Comparison is done using Object.equals(). Returns null if not found.
+public TreePath find(JTree tree, Object[] nodes) {
+    TreeNode root = (TreeNode)tree.getModel().getRoot();
+    return find2(tree, new TreePath(root), nodes, 0, false);
+}
+
+// Finds the path in tree as specified by the array of names. The names array is a
+// sequence of names where names[0] is the root and names[i] is a child of names[i-1].
+// Comparison is done using String.equals(). Returns null if not found.
+public TreePath findByName(JTree tree, String[] names) {
+    TreeNode root = (TreeNode)tree.getModel().getRoot();
+    return find2(tree, new TreePath(root), names, 0, true);
+}
+private TreePath find2(JTree tree, TreePath parent, Object[] nodes, int depth, boolean byName) {
+    TreeNode node = (TreeNode)parent.getLastPathComponent();
+    Object o = node;
+
+    // If by name, convert node to a string
+    if (byName) {
+        o = o.toString();
+    }
+
+    // If equal, go down the branch
+    if (o.equals(nodes[depth])) {
+        // If at end, return match
+        if (depth == nodes.length-1) {
+            return parent;
+        }
+
+        // Traverse children
+        if (node.getChildCount() &gt;= 0) {
+            for (Enumeration e=node.children(); e.hasMoreElements(); ) {
+                TreeNode n = (TreeNode)e.nextElement();
+                TreePath path = parent.pathByAddingChild(n);
+                TreePath result = find2(tree, path, nodes, depth+1, byName);
+                // Found a match
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+    }
+
+    // No match at this branch
+    return null;
+}
+
+
+
+
+
+
+
+
+    
+
+
+    
+    
+
+	
+		    
+		    
+		    
+		        	
+			Related examples
+
+		    
+		    
+	
+	    
+	
+		
+    
+  
+  
+      
+        
+      
+  
+                Adding a Node to a JTree Component
+  
+  
+  
+      
+  
+                Converting a Node in a JTree Component to a TreePath
+  
+  
+  
+      
+  
+                Converting All Nodes in a JTree Component to a TreePath Array
+  
+  
+  
+      
+  
+                Removing a Node to a JTree Component
+  
+  
+  
+      
+  
+                Visiting All the Nodes in a JTree Component
+  
+  
+    
+  
+  
+  
+  
+  
+  
+ 
+	    
+	
+	
+
+    
+
+
+    
+    
+
+	
+		    
+		    
+		    
+		        	
+			Post a comment
+
+		    
+		    
+	
+	    
+	
+		
+
+ Your name: 
+ 
+
+
+ Comment: *
+ 
+
+More information about formatting options
+
+CAPTCHAThis question is for testing whether you are a human visitor and to prevent automated spam submissions.
+
+ What code is in the image?: *
+ 
+ Enter the characters shown in the image. Ignore spaces and be careful about upper and lower case.
+
+
+
+
+
+	    
+	
+	
+
+    
+
+
+
+
+
+
+    
+                
+        Login&#160;|&#160;Terms of Use&#160;|&#160;Trademarks&#160;|&#160;Privacy Statement
+Copyright &#169; 2009&#160;Example Depot.&#160;All Rights Reserved.
+</CODE>
+</result>

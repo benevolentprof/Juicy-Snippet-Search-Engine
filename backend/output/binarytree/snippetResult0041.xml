@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>1360</docid>
+<orderid>40</orderid>
+<type>TEXT</type>
+<url>http://www.zetcode.com/tutorials/mysqlcapitutorial</url>
+</description>
+<TEXT orderid="38" >
+The example is similar to the previous one. It just adds column header names to it.
+</TEXT>
+<CODE orderid="39" >
+while(field = mysql_fetch_field(result)) {
+     printf(&quot;%s &quot;, field-&gt;name);
+ }
+</CODE>
+<TEXT orderid="40" >
+The mysql_fetch_field() call returns a MYSQL_FIELD structure. We get the column header names from
+this structure.
+
+
+$ ./headers
+id name age
+1  Tom  25
+2  Elisabeth  32
+3  Jane  22
+4  Luke  28
+
+
+
+And this is the output of our program.
+
+
+Inserting images into MySQL database
+
+
+Some people prefer to put their images into the database, some prefer to keep them on the file system for their applications.
+Technical difficulties arise when we work with millions of images.
+Images are binary data. MySQL database has a special data type to store binary data called BLOB (Binary Large Object).
+
+
+mysql&gt; describe images;
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| id    | int(11)    | NO   | PRI |         |       |
+| data  | mediumblob | YES  |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+
+
+This is the table, that we will use in our example. It can be created by the following SQL statement.
+</TEXT>
+<CODE orderid="41" >
+create table images(id int not null primary key, data mediumblob);
+
+
+
+#include &lt;my_global.h&gt;
+#include &lt;mysql.h&gt;
+
+int main(int argc, char **argv)
+{
+  MYSQL *conn;
+
+  int len, size;
+  char data[1000*1024];
+  char chunk[2*1000*1024+1];
+  char query[1024*5000];
+
+  FILE *fp;
+
+  conn = mysql_init(NULL);
+  mysql_real_connect(conn, &quot;localhost&quot;, &quot;zetcode&quot;, &quot;passwd&quot;, &quot;testdb&quot;, 0, NULL, 0);
+
+  fp = fopen(&quot;image.png&quot;, &quot;rb&quot;);
+  size = fread(data, 1, 1024*1000, fp);
+
+  mysql_real_escape_string(conn, chunk, data, size);
+
+  char *stat = &quot;INSERT INTO images(id, data) VALUES(&apos;1&apos;, &apos;%s&apos;)&quot;;
+  len = snprintf(query, sizeof(stat)+sizeof(chunk) , stat, chunk);
+
+  mysql_real_query(conn, query, len);
+
+  fclose(fp);
+  mysql_close(conn);
+}
+</CODE>
+<TEXT orderid="42" >
+In this example, we will insert one image into the images table. The image can be max 1 MB.
+</TEXT>
+</result>

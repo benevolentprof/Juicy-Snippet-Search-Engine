@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>13086</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.java-tips.org/java-me-tips/midp/sending-e-mail-from-a-mobile-device.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home  Java ME Tips  MIDP    Sending e-mail from a mobile device               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					Sending e-mail from a mobile device									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;8
+
+
+PoorBest&#160;
+		
+				
+			
+				
+
+This tip demonstrates a method of sending a mail from a
+handset. Wireless portals support many of the same applications as 
+Internet portals. For example they provide messaging services, which 
+includes electronic mail. So this tip in J2ME may be very helpful for
+developers who want to implement these type of services.
+</TEXT>
+<CODE orderid="1" >
+void&#160;sendMail()&#160;
+
+{
+
+&#160;&#160;SocketConnection&#160;sc=null;
+
+&#160;&#160;InputStream&#160;is=null;
+
+&#160;&#160;OutputStream&#160;os=null;
+
+
+
+&#160;&#160;//Login&#160;to&#160;mail&#160;server
+
+&#160;&#160;try&#160;{
+
+
+
+&#160;&#160;&#160;&#160;byte&#160;b[]=new&#160;byte[200];
+
+&#160;&#160;&#160;&#160;int&#160;total=0;
+
+&#160;&#160;&#160;&#160;sc&#160;=&#160;(SocketConnection)
+
+&#160;&#160;&#160;&#160;Connector.open(&quot;socket://&quot;+servAdd+&quot;:110&quot;);
+
+&#160;&#160;&#160;&#160;is&#160;=&#160;sc.openInputStream();
+
+&#160;&#160;&#160;&#160;os&#160;=&#160;sc.openOutputStream();
+
+&#160;&#160;&#160;&#160;os.write((&quot;USER&#160;
+ ).getBytes());&#160;
+
+&#160;&#160;&#160;&#160;total=is.read(b);
+
+&#160;&#160;&#160;&#160;response+=new&#160;String(b,0,total);
+
+&#160;&#160;&#160;&#160;os.write((&quot;PASS&#160;123\r\n&quot;).getBytes());
+
+&#160;&#160;&#160;&#160;total=is.read(b);
+
+&#160;&#160;&#160;&#160;response+=new&#160;String(b,0,total);
+
+&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;//&#160;Sending&#160;mail
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;sc&#160;=&#160;(SocketConnection)Connector.open(&quot;socket://&quot;+serverAdd+&quot;:25&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;is&#160;=&#160;sc.openInputStream();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;os&#160;=&#160;sc.openOutputStream();
+
+&#160;&#160;&#160;&#160;os.write((&quot;HELO&#160;there&quot;&#160;+&#160;&quot;\r\n&quot;).getBytes());&#160;
+
+&#160;&#160;&#160;&#160;os.write((&quot;MAIL&#160;FROM:&#160;
+ ).getBytes());
+
+&#160;&#160;&#160;&#160;os.write((&quot;RCPT&#160;TO:&#160;
+ ).getBytes());
+
+&#160;&#160;&#160;&#160;os.write(&quot;DATA\r\n&quot;.getBytes());
+
+&#160;&#160;&#160;&#160;os.write((&quot;From:&#160;
+ ).getBytes());
+
+&#160;&#160;&#160;&#160;os.write((&quot;To:&#160;
+ ).getBytes());
+
+&#160;&#160;&#160;&#160;os.write((&quot;Subject:&#160;&quot;+subject+&quot;\r\n&quot;).getBytes());
+
+&#160;&#160;&#160;&#160;os.write((msg+&quot;\r\n&quot;).getBytes());&#160;//&#160;message&#160;body
+
+&#160;&#160;&#160;&#160;os.write(&quot;.\r\n&quot;.getBytes());
+
+&#160;&#160;&#160;&#160;os.write(&quot;QUIT\r\n&quot;.getBytes());&#160;&#160;&#160;&#160;
+
+
+
+&#160;&#160;}&#160;catch(Exception&#160;e){}
+
+
+
+&#160;&#160;}&#160;
+</CODE>
+<TEXT orderid="2" >
+&#160;Related Tips 
+A Graphics MIDlet
+A method of using differnet fonts in Java ME
+A Midlet application for GIF Animation
+A MIDlet with Hello text and an Exit command
+A sample of graphics - commands and event handling
+A utility of startTimer
+A way to know when some changes are made in a list
+An example of MIDlet skeleton
+
+			
+		
+				
+
+		&#160;
+
+		
+
+			
+									
+						
+							&lt; Prev
+					
+										&#160;
+
+					
+										
+						
+							Next &gt;
+					
+								
+			
+			                
+
+
+
+
+
+
+
+ 
+Page 1 of 0 ( 0 comments )
+
+
+       You can share your information about this topic using the form below! 
+
+Please do not post your questions with this form! Thanks.
+
+ 
+
+  
+    
+      
+                
+          
+          
+
+          
+          Name (required)
+
+          
+          
+
+                    
+          
+
+          E-Mail (required)          
+                    
+
+          
+          
+          
+
+          Your email will not be displayed on the site - only to our administrator          
+          
+
+          Homepage(optional)
+
+
+
+
+
+
+
+          
+          
+
+          Comment          
+                    Enable HTML code :
+          
+          Yes
+          
+          No 
+
+          
+          
+          
+          
+
+          
+
+ 
+          
+
+          
+          
+        
+      
+    
+  
+
+
+
+
+
+&#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+      
+    
+    
+      
+        
+          &#160;
+          &#160;
+          &#160;
+        
+        
+          &#160;
+          
+              &#160;            
+          &#160;
+        
+        
+          &#160;
+          &#160;
+          &#160;
+        
+      
+    
+    
+      
+        
+            
+            
+            
+        
+      
+    
+	
+	
+
+
+		
+				
+			
+				
+			
+		
+		
+		
+
+
+
+
+
+
+
+
+Home
+
+
+-
+
+
+About Us
+
+
+-
+
+
+Privacy Policy
+
+
+
+
+
+
+Copyright 2005 - 2008 www.java-tips.org
+Java is a trademark of Sun Microsystems, Inc.
+</TEXT>
+</result>

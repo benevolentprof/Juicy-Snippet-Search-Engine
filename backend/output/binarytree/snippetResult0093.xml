@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>29319</docid>
+<orderid>0</orderid>
+<type>CODE</type>
+<url>http://www.exampledepot.com/egs/javax.swing.tree/ExpandEvent.html</url>
+</description>
+<CODE orderid="0" >
+Example DepotUseful code samples
+
+
+        
+    
+            
+  Home
+  Java
+  Contact
+  Blog
+
+	
+
+
+    
+    
+
+	
+	    
+	
+		
+
+ 
+
+
+
+
+
+
+	    
+	
+	
+
+    
+
+
+    
+    
+
+	
+	    
+	
+		
+
+              
+
+    
+
+
+Java &#187; Java packages &#187; javax.swing.tree &#187; Events
+
+
+
+
+
+    
+
+
+    
+
+ Listening for Expansion and Collapse Events in a JTree Component
+
+
+
+
+The tree component allows you to get events before and after a node
+has been expanded or collapsed.  The events that are fired before a
+node is expanded or collapsed can be vetoed, thereby preventing the
+operation.
+
+
+
+
+COPY
+// Create tree
+JTree tree = new JTree();
+
+// Add pre-expansion event listener
+tree.addTreeWillExpandListener(new MyTreeWillExpandListener());
+
+// Add post-expansion event listener
+tree.addTreeExpansionListener(new MyTreeExpansionListener());
+
+// Pre-expansion/collapse event listener
+public class MyTreeWillExpandListener implements TreeWillExpandListener {
+    public void treeWillExpand(TreeExpansionEvent evt) throws ExpandVetoException {
+        JTree tree = (JTree)evt.getSource();
+
+        // Get the path that will be expanded
+        TreePath path = evt.getPath();
+
+        // Cancel the operation if desired
+        boolean veto = false;
+        if (veto) {
+            throw new ExpandVetoException(evt);
+        }
+    }
+
+    public void treeWillCollapse(TreeExpansionEvent evt) throws ExpandVetoException {
+        JTree tree = (JTree)evt.getSource();
+
+        // Get the path that will be collapsed
+        TreePath path = evt.getPath();
+
+        // Cancel the operation if desired
+        boolean veto = false;
+        if (veto) {
+            throw new ExpandVetoException(evt);
+        }
+    }
+}
+
+// Post-expansion/collapse event listener
+public class MyTreeExpansionListener implements TreeExpansionListener {
+    public void treeExpanded(TreeExpansionEvent evt) {
+        JTree tree = (JTree)evt.getSource();
+
+        // Get the path that was expanded
+        TreePath path = evt.getPath();
+    }
+
+    public void treeCollapsed(TreeExpansionEvent evt) {
+        JTree tree = (JTree)evt.getSource();
+
+        // Get the path that was collapsed
+        TreePath path = evt.getPath();
+    }
+}
+
+
+
+
+
+
+
+
+    
+
+
+    
+    
+
+	
+		    
+		    
+		    
+		        	
+			Related examples
+
+		    
+		    
+	
+	    
+	
+		
+    
+  
+  
+      
+        
+      
+  
+                Listening for Selection Events in a JTree Component
+  
+  
+    
+  
+  
+  
+  
+  
+  
+ 
+	    
+	
+	
+
+    
+
+
+    
+    
+
+	
+		    
+		    
+		    
+		        	
+			Post a comment
+
+		    
+		    
+	
+	    
+	
+		
+
+ Your name: 
+ 
+
+
+ Comment: *
+ 
+
+More information about formatting options
+
+CAPTCHAThis question is for testing whether you are a human visitor and to prevent automated spam submissions.
+
+ What code is in the image?: *
+ 
+ Enter the characters shown in the image. Ignore spaces and be careful about upper and lower case.
+
+
+
+
+
+	    
+	
+	
+
+    
+
+
+
+
+
+
+    
+                
+        Login&#160;|&#160;Terms of Use&#160;|&#160;Trademarks&#160;|&#160;Privacy Statement
+Copyright &#169; 2009&#160;Example Depot.&#160;All Rights Reserved.
+</CODE>
+</result>

@@ -1,0 +1,844 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75885</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/collection/collection-get-column.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Get Column Value Using  Collection Classes
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				The HashSet class implements the Set interface which holds the iteration element of the set.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+      Get Column Value Using&#160; Collection Classes
+	  
+ 
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+      
+      
+This application illustrates how to retrieve data from mysql table using
+HashSet class.
+The HashSet class implements the Set interface which holds the iteration
+element of the set. In this example we are using the java.util package to extends
+this class. There are four type of constructor available in this class:
+
+  HashSet ():- This HashSet Constructs a new, empty set.&#160;
+  HashSet (Collection&lt;? extends E&gt; c):- This HashSet Constructs
+    a new set containing the elements in the specified collection.&#160;
+  HashSet (int initialCapacity):- Constructs a new, empty set; the
+    backing HashMap instance has the specified initial capacity and default load
+    factor.
+  HashSet (int initialCapacity, float loadFactor):- Constructs a new,
+    empty set; the backing HashMap instance has the specified initial capacity
+    and the specified load factor.
+
+&#160;
+
+
+
+	The Source Code of Employee.java
+&#160;
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.sql.*;
+
+import&#160;java.util.*;
+
+
+
+public&#160;class&#160;Employee{
+
+&#160;&#160;private&#160;String&#160;name;
+
+&#160;&#160;private&#160;String&#160;lastAccess;
+
+&#160;&#160;private&#160;int&#160;id;
+
+
+
+&#160;&#160;public&#160;String&#160;getName&#160;()&#160;{
+
+&#160;&#160;&#160;&#160;return&#160;(name);
+
+&#160;&#160;}
+
+&#160;&#160;public&#160;void&#160;setName&#160;(String&#160;name){
+
+&#160;&#160;&#160;&#160;this.name&#160;=&#160;name;
+
+&#160;&#160;}
+
+
+
+&#160;&#160;public&#160;String&#160;getLastAccess&#160;(){
+
+&#160;&#160;&#160;&#160;return&#160;(lastAccess);
+
+&#160;&#160;}&#160;
+
+&#160;&#160;public&#160;void&#160;setLastAccess&#160;(String&#160;lastAccess){
+
+&#160;&#160;&#160;&#160;this.lastAccess&#160;=&#160;lastAccess;
+
+&#160;&#160;}
+
+
+
+&#160;&#160;public&#160;int&#160;getId()&#160;{
+
+&#160;&#160;&#160;&#160;return&#160;(id);
+
+&#160;&#160;}
+
+&#160;&#160;public&#160;void&#160;setId&#160;(int&#160;id){
+
+&#160;&#160;&#160;&#160;this.id&#160;=&#160;id;
+
+&#160;&#160;}
+
+
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;{
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;\nGetting&#160;All&#160;Rows&#160;from&#160;a&#160;table!\n&quot;);
+
+&#160;&#160;&#160;&#160;Connection&#160;con&#160;=&#160;null;
+
+&#160;&#160;&#160;&#160;String&#160;url&#160;=&#160;&quot;jdbc:mysql://localhost:3306/&quot;;
+
+&#160;&#160;&#160;&#160;String&#160;db&#160;=&#160;&quot;test&quot;;
+
+&#160;&#160;&#160;&#160;String&#160;driver&#160;=&#160;&quot;com.mysql.jdbc.Driver&quot;;
+
+&#160;&#160;&#160;&#160;String&#160;user&#160;=&#160;&quot;root&quot;;
+
+&#160;&#160;&#160;&#160;String&#160;pass&#160;=&#160;&quot;root&quot;;
+
+&#160;&#160;&#160;&#160;ArrayList&#160;list&#160;=&#160;new&#160;ArrayList();
+
+&#160;&#160;&#160;&#160;Employee&#160;emp;
+
+&#160;&#160;&#160;&#160;int&#160;count&#160;=0;
+
+
+
+&#160;&#160;&#160;&#160;try{
+
+&#160;&#160;&#160;&#160;&#160;&#160;Class.forName(driver).newInstance();
+
+&#160;&#160;&#160;&#160;&#160;&#160;con&#160;=&#160;DriverManager.getConnection(url+db,&#160;user,&#160;pass);
+
+&#160;&#160;&#160;&#160;&#160;&#160;Statement&#160;stmt&#160;=&#160;con.createStatement();
+
+&#160;&#160;&#160;&#160;&#160;&#160;ResultSet&#160;rs&#160;=&#160;stmt.executeQuery(&quot;select&#160;*from&#160;emp&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;Emp_Id&quot;&#160;+&#160;&quot;\t&#160;&#160;&#160;&quot;&#160;+&#160;&quot;Emp_name&quot;&#160;+&#160;&quot;\t&quot;&#160;+&#160;&quot;Access_Time&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;while&#160;(rs.next())&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;count++;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;emp&#160;=&#160;new&#160;Employee&#160;();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;emp.setId(rs.getInt(&quot;id&quot;));
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;emp.setName(rs.getString(&quot;name&quot;));
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;emp.setLastAccess(rs.getString(&quot;lastAccess&quot;));
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;list.add(emp);
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;ListIterator&#160;li&#160;=&#160;list.listIterator();
+
+&#160;&#160;&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;while&#160;(li.hasNext()){
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Employee&#160;emp1=(Employee)li.next();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print(emp1.getId()+&quot;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print(emp1.getName()+&quot;\t&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print(emp1.getLastAccess());
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print(&quot;\n&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;}&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;&#160;&#160;rs.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;stmt.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;con.close();
+
+&#160;&#160;&#160;&#160;}&#160;catch&#160;(Exception&#160;e)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;e.printStackTrace();
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+&#160;
+Output:
+&#160;
+Download Source Code
+
+
+		
+		
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+      
+      
+    
+  
+
+
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Generate shuffling in the specified list ...  180051 viewsSome array operations (declare, initialize, reassign) ...  181253 viewsGet Column Value Using  Collection Classes ...  182032 viewsConvert array to Vector ...  182350 viewsInsertion, sorting and searching in array ...  182393 viewsJava Vector ...  182841 viewsWorking with java Collections class ...  183363 viewsJavaFX 3D Effect Example ...  184879 viewsDeclare string array in Java (one and two dimensional) ...  185173 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+java
+c
+string
+ide
+array
+io
+word
+vi
+new
+key
+this
+id
+element
+elements
+for
+example
+keyword
+with
+to
+ini
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+0 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Get Column Value Using  Collection Classes
+										URL file Download and Save in the Local Directory
+										Delete file or Directory
+										Write to a file 
+										Introduction to Filter I/O Streams
+										Overview of I/O Data Streams
+										Create Temp File
+										Working with PrintStream
+										Working With File
+										Java Vector
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

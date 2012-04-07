@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>20864</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-tips.org/other-api-tips/netbeans/decorating-an-entire-tree-of-nodes-2.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home    Other API Tips               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					Decorating an entire tree of Nodes									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;0
+
+
+PoorBest&#160;
+		
+				
+			
+				
+
+Say you have a reference to the root of a tree of Node instances, and you want to add icons or actions to those nodes. This is easily done by subclassing FilterNode and overriding the appropriate methods (e.g. getActions(), getIcon(), etc.), wrapping the original node inside your FilterNode. Now let&apos;s say that the Node you want to decorate builds out its children in a lazy fashion, that is, only when the user expands the tree in some tree view. How would you decorate that node and all of its children, without traversing the entire tree and effectively undoing the benefits of the lazy population of the tree?
+
+Fortunately, while this sounds rather challenging, it turns out to be surprisingly easy and simple to achieve. The trick is to subclass the FilterNode.Children class and override the copyNode() method. Below is a short example:
+</TEXT>
+<CODE orderid="1" >
+class&#160;NodeProxy&#160;extends&#160;FilterNode&#160;{
+
+
+
+&#160;&#160;&#160;&#160;public&#160;NodeProxy(Node&#160;original)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;super(original,&#160;new&#160;ProxyChildren(original));
+
+&#160;&#160;&#160;&#160;}
+
+
+
+&#160;&#160;&#160;&#160;//&#160;add&#160;your&#160;specialized&#160;behavior&#160;here...
+
+}
+
+
+
+class&#160;ProxyChildren&#160;extends&#160;FilterNode.Children&#160;{
+
+
+
+&#160;&#160;&#160;&#160;public&#160;ProxyChildren(Node&#160;owner)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;super(owner);
+
+&#160;&#160;&#160;&#160;}
+
+
+
+&#160;&#160;&#160;&#160;protected&#160;Node&#160;copyNode(Node&#160;original)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return&#160;new&#160;NodeProxy(original);
+
+&#160;&#160;&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+As you can see, NodeProxy is intended to wrap around another Node and provide some additional appearance or behavioral changes (e.g. different icons or actions). The fun part is the ProxyChildren class. While very short and simple, it provides that critical ability for our NodeProxy to act as a decorator for not only the root node, but all of its children, and their children, and so on, without having to traverse the entire tree at once. 
+
+Source: NetBeans FAQ
+
+
+
+
+
+
+&#160;Related Tips 
+ I have written a module. Can I sell it?
+2D texture font - NeHe Tutorial JOGL Port
+3D Human Animation Applet
+3D lens flare with occlusion testing - NeHe Tutorial JOGL Port
+3D shapes - NeHe Tutorial JOGL Port
+A model with a light which is moved by a modeling transformation
+A Morph object to animate a shape between two key shapes
+A red sphere using the Sphere utility class
+
+			
+		
+				
+
+		&#160;
+
+		
+
+			
+									
+						
+							&lt; Prev
+					
+										&#160;
+
+					
+										
+						
+							Next &gt;
+					
+								
+			
+			                
+
+
+
+
+
+
+
+ 
+Page 1 of 0 ( 0 comments )
+
+
+       You can share your information about this topic using the form below! 
+
+Please do not post your questions with this form! Thanks.
+
+ 
+
+  
+    
+      
+                
+          
+          
+
+          
+          Name (required)
+
+          
+          
+
+                    
+          
+
+          E-Mail (required)          
+                    
+
+          
+          
+          
+
+          Your email will not be displayed on the site - only to our administrator          
+          
+
+          Homepage(optional)
+
+
+
+
+
+
+
+          
+          
+
+          Comment          
+                    Enable HTML code :
+          
+          Yes
+          
+          No 
+
+          
+          
+          
+          
+
+          
+
+ 
+          
+
+          
+          
+        
+      
+    
+  
+
+
+
+
+
+&#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+      
+    
+    
+      
+        
+          &#160;
+          &#160;
+          &#160;
+        
+        
+          &#160;
+          
+              &#160;            
+          &#160;
+        
+        
+          &#160;
+          &#160;
+          &#160;
+        
+      
+    
+    
+      
+        
+            
+            
+            
+        
+      
+    
+	
+	
+
+
+		
+				
+			
+				
+			
+		
+		
+		
+
+
+
+
+
+
+
+
+Home
+
+
+-
+
+
+About Us
+
+
+-
+
+
+Privacy Policy
+
+
+
+
+
+
+Copyright 2005 - 2008 www.java-tips.org
+Java is a trademark of Sun Microsystems, Inc.
+</TEXT>
+</result>

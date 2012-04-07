@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>3640</docid>
+<orderid>3</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/ejb/article.php/10931_3550616_2/Introducing-Betwixt.htm</url>
+</description>
+<CODE orderid="1" >
+package com.manning.commons.chapter05;
+import java.util.Collection;
+public class Ingredient {
+   private String key;
+   private String name;
+   private String alternate;
+   public String getKey() {
+      return this.key;
+   }
+   public void setKey(String key) {
+      this.key = key;
+   }
+   public String getName() {
+      return this.name;
+   }
+   public void setName(String name) {
+      this.name = name;
+   }
+   public String getAlternate() {
+      return this.alternate;
+   }
+   public void setAlternate(String alternate) {
+      this.alternate = alternate;
+   }
+   public Ingredient() {
+      this(&quot;Empty&quot;, &quot;Empty&quot;, &quot;Empty&quot;);
+   }
+   public Ingredient(String key, String name, String alternate) {
+      this.key = key;
+      this.name = name;
+      this.alternate = alternate;
+   }
+   public String toString() {
+      return &quot;[Key=&quot; + this.key + &quot;, Name=&quot; + this.name + &quot;,
+               Alternate=&quot; + this.alternate + &quot;]&quot;;
+   }
+}
+</CODE>
+<TEXT orderid="2" >
+Listing 2. A Meal Class
+</TEXT>
+<CODE orderid="3" >
+package com.manning.commons.chapter05;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
+public class Meal {
+   private int weekday;
+   private int mealType;
+   private String mealName;
+   private Map ingredients;
+   /** 0 - Sunday, 1 - Monday ..... 6 - Saturday */
+   public int getWeekday() {
+      return this.weekday;
+   }
+   public void setWeekday(int weekday) {
+      this.weekday = weekday;
+   }
+   /** 0 - breakfast, 1 - lunch, 2 - dinner, 3 - other */
+   public int getMealType() {
+      return this.mealType;
+   }
+   public void setMealType(int mealType) {
+      this.mealType = mealType;
+   }
+   public String getMealName() {
+      return this.mealName;
+   }
+   public void setMealName(String mealName) {
+      this.mealName = mealName;
+   }
+   public Map getIngredients() {
+      return this.ingredients;
+   }
+   public void addIngredient(Ingredient ingredient) {
+      addIngredient(ingredient.getKey(), ingredient);
+   }
+   public void addIngredient(String key, Ingredient ingredient) {
+      ingredients.put(key, ingredient);
+   }
+   public Meal() {
+      this(0, 0, &quot;No meal&quot;);
+   }
+   public Meal(int weekday, int mealType, String mealName) {
+      this.weekday = weekday;
+      this.mealType = mealType;
+      this.mealName = mealName;
+      ingredients = new HashMap();
+   }
+   public String toString() {
+      StringBuffer buffer = new StringBuffer(
+         &quot;Meal name: &quot; + this.mealName + &quot;, Meal Type: &quot;
+                       + this.mealType + &quot; Meal Day: &quot;
+                       + this.weekday);
+      buffer.append(&quot;rnIngredients:rn&quot;);
+      Iterator itr = ingredients.values().iterator();
+      while(itr.hasNext()) {
+         buffer.append(itr.next() + &quot;rn&quot;);
+      }
+      return buffer.toString();
+   }
+}
+</CODE>
+<TEXT orderid="4" >
+Listing 3. A MealPlan class
+</TEXT>
+<CODE orderid="5" >
+package com.manning.commons.chapter05;
+import java.util.Map;
+import java.util.Date;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.GregorianCalendar;
+public class MealPlan {
+   private Date startDate;
+   private Date endDate;
+   private Collection meals;
+   private Meal snack;
+   public Date getStartDate() {
+      return this.startDate;
+   }
+   public void setStartDate(Date startDate) {
+      this.startDate = startDate;
+   }
+   public Date getEndDate() {
+      return this.endDate;
+   }
+   public void setEndDate(Date endDate) {
+      this.endDate = endDate;
+   }
+   public Collection getMeals() {
+      return this.meals;
+   }
+   public Meal getSnack() {
+      return this.snack;
+   }
+   public void setSnack(Meal snack) {
+      this.snack = snack;
+   }
+   public void addMeal(Meal meal) {
+      if(meal == null)
+         throw new IllegalArgumentException(&quot;Meal cannot be added
+                                             null&quot;);
+      meals.add(meal);
+   }
+   /** If this is called, it creates a MealPlan starting from now
+     * till end of week */
+   public MealPlan() {
+      this(null, null);
+   }
+   public MealPlan(Date startDate, Date endDate) {
+      if(startDate == null &amp;&amp; endDate == null) {
+         startDate = new Date();
+         Calendar calendar = new GregorianCalendar();
+         calendar.setTime(startDate);
+         calendar.add(Calendar.WEEK_OF_YEAR, 1);
+         endDate = calendar.getTime();
+      }
+      if(startDate == null || endDate
+                   == null || startDate.after(endDate))
+         throw new IllegalArgumentException(&quot;Please check the dates&quot;);
+      this.startDate = startDate;
+      this.endDate = endDate;
+      meals = new ArrayList();
+   }
+   public String toString() {
+      StringBuffer buffer =
+         new StringBuffer(&quot; **** Your Meal Plan **** &quot;);
+      buffer.append(&quot;rnStart Date: &quot; + this.startDate);
+      buffer.append(&quot;rnEnd Date: &quot; + this.endDate + &quot;rnrn&quot;);
+      Iterator itr = meals.iterator();
+      while(itr.hasNext()) {
+         buffer.append(itr.next() + &quot;rn&quot;);
+      }
+      buffer.append
+         (&quot; ----------------------------------------------rn&quot;);
+      return buffer.toString();
+   }
+}
+</CODE>
+</result>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>6143</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/other/article.php/600531/The-Persistent-Hashtable-A-Quick-and-Dirty-Database.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			The Persistent Hashtable: A Quick-and-Dirty Database
+			
+			
+				
+				
+					February 14, 2001
+					By 
+Greg Travis
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+
+			 I think the thing I hate most in programming is writing the same piece of code twice. Even writing something similar to something I&apos;ve already written bugs me.  Larry Wall, the creator of Perl, once said: &quot;The three principal virtues of a programmer are Laziness, Impatience, and Hubris.&quot; The combination of these virtues is what makes it annoying to have to write something more than once. And the only way to remove this annoyance is to make yourself a simple useful library that you can reuse.  This article describes the implementation of a simple library for doing something that many programs have to do: save data. It&apos;s not going to solve all of our data-saving needs, because, regardless of what some database vendors might tell you, there is no one piece of software that can properly handle every data-saving situation. 
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		 The software we&apos;re going to be talking about is called a Persistent Hashtable, and it&apos;s going to fill a specific niche in the world of data-saving, which is a very broad world.  At one extreme, you have the filesystem. A filesystem can store just about anything, but you have to make all the decisions about how to save your data by yourself and write the code anew for each application.  At the other extreme, you have your high-end database engines. These, too, can store just about anything, and they take care of many things (data safety, concurrency, efficiency).  But what if you just need to save a few strings or numbers &#151; configuration data, for example? Using the filesystem means you have to invent a data format, and using a database involves big libraries, database engines, and SQL queries. Annoying.  What we&apos;ll create is something whose API is so simple, you&apos;ll find it to be the perfect answer to the question, &quot;How can I save these bits of data without too much hassle?&quot;  Here&apos;s the API in action. To save some data, you do this:
+</TEXT>
+<CODE orderid="1" >
+persistentHash.put( &quot;hostname&quot;, &quot;www.developer.com&quot; );
+</CODE>
+<TEXT orderid="2" >
+To load some data, you do this:
+</TEXT>
+</result>

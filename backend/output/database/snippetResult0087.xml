@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>79802</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=962</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            Arrays and Dynamic Arrays in VB.net
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+
+It&apos;s time to start coding that database program. But wait a
+moment-how are you going to handle the data? It&apos;s just a simple program, so you
+don&apos;t want to start tangling with the full database techniques. An array would
+be perfect; how do you set one up?
+Arrays are programming constructs that let you access your data
+by numeric index. To dimension arrays, you can use Dim
+(standard arrays), ReDim (dynamic arrays), Static
+(arrays that don&apos;t change when between calls to the procedure they&apos;re in), Private
+(arrays private to the form or module they&apos;re declared in), Protected
+(arrays restricted to a class or classes derived from that class), Public
+(arrays global to the whole program), and more as discussed in the topic &quot;Declaring
+Variables.&quot; I&apos;ll start with standard arrays.
+
+  Standard Arrays
+  You usually use the Dim statement to
+  declare a standard array; here are a few examples of standard array
+  declarations:
+</TEXT>
+<CODE orderid="1" >
+Dim Data(30)
+    Dim Strings(10) As String
+    Dim TwoDArray(20, 40) As Integer
+    Dim Bounds(10, 100)
+</CODE>
+<TEXT orderid="2" >
+The Data array now has 30 elements,
+  starting from Data(0), which is how you refer to the first
+  element, up to Data(29). 0 is the lower
+  bound of this array, and 19 is the upper bound
+  (following the lead of Java, in VB .NET, the lower bound of every array index
+  is 0, and you can no longer use the Option Base statement
+  or To keyword that used to be available to set custom
+  lower bounds). The Bounds array has two indices, one of
+  which runs from 0 to 9, and the other of which runs from 0 to 99.
+
+  I can treat an array as a set of variables accessible with the
+  array index, as here, where I&apos;m storing a string in Strings(3)
+  (that is, the fourth element in the array) and then displaying that string on
+  the console:
+</TEXT>
+</result>

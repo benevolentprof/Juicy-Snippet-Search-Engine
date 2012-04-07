@@ -1,0 +1,1275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>5821</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/other/article.php/3386271/Understanding-Base64-Data.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Understanding Base64 Data
+			
+			
+				
+				
+					July 27, 2004
+					By 
+Richard G. Baldwin
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Java Programming Notes # 2188
+
+   Preface
+   Preview
+  Understanding Base64
+  Program Code
+   Run the Programs
+   Summary
+   What&apos;s Next?
+   Program
+Listings
+
+
+
+ Preface
+
+This is the third in a series of lessons designed to teach you how to
+write Java programs to protect your email inbox from spam and
+email-borne viruses.&#160; The first lesson in the series was
+entitled 
+Overview of the BigDog Email Protection Program.&#160;
+The previous lesson was entitled 
+Getting Started 
+with the BigDog Email Protection Program.
+
+
+
+In addition, the material in this lesson has broad applicability in
+other areas such as Security,
+Introduction to Message Digests and Servlets, Session
+Tracking Using Basic Authentication.
+
+
+
+I have published several earlier lessons that deal
+exclusively with spam and email-borne viruses, such as the series that
+began with the lesson entitled Enlisting
+Java in the War Against SPAM: The Communications Module and the
+series that began with
+the lesson entitled Enlisting
+Java in the War Against Email Viruses.&#160; Information in those
+lessons serves
+as background material for this series.
+
+
+
+Viewing tip
+ 
+You may find it useful to open another copy of this lesson in a
+separate browser window.&#160; That will make it easier for you to
+scroll back and forth among the different listings and figures while
+you are reading about them. 
+Supplementary material 
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		I recommend that you also study the other lessons in my extensive
+collection of online Java tutorials.&#160; You will find those lessons
+published at Gamelan.com.&#160;
+However, as of the date of this writing, Gamelan doesn&apos;t maintain a
+consolidated index of my Java tutorial lessons, and sometimes
+they are difficult to locate there.&#160; You will find a consolidated
+index at  www.DickBaldwin.com.
+Preview
+This lesson explains the
+use of base64 encoding and decoding in general,
+and illustrates base64 encoding and decoding using sample programs.
+
+
+A future lesson will
+explain how base64 decoding is used in the BigDog program.
+Understanding
+Base64
+
+
+What
+is base64 encoding?
+
+
+
+As I understand it, the base64 encoding scheme was originally devised
+to make it possible to reliably transmit eight-bit data through
+transmission systems constrained to handle seven-bit data.&#160; The
+encoding scheme has been in use for many years.
+
+
+
+Among other things, the use of base64 encoding makes it possible to:
+
+
+  Transmit image data reliably across the Internet.
+  Transmit non-English characters reliably across the Internet.
+
+Can be used to hide spam
+
+
+
+Unfortunately, the use of base64 encoding also makes it possible for
+spammers to hide offensive text from spam blocking programs that are
+not equipped to deal effectively with the hiding technique.&#160; The
+spam screening module used by the BigDog set of programs deals
+with the following:
+
+
+  Encoded subject lines.
+  Encoded body text in single-part messages.
+  Encoded body text in multipart messages.
+
+This lesson explains base64 in general.&#160; Future lessons will
+explain the Java code that I have written
+to deal
+with these issues in the BigDog program.
+
+
+
+RFC 1521
+
+
+
+One of the best resources that I have found for understanding base64
+encoding is the document entitled Mechanisms
+for Specifying and Describing the Format of Internet Message Bodies,
+otherwise known as Request for Comments (RFC) 1521.
+
+
+(This is a
+rather large document that covers numerous topics in addition to base64
+encoding.)
+
+
+The author of RFC 1521
+states:
+
+
+&quot;STD
+11, RFC
+822
+defines a message representation protocol which specifies considerable
+detail about message headers, but which leaves the message content, or
+message body, as flat ASCII text. This document redefines the format of
+message bodies to allow multi-part textual and non-textual message
+bodies to be represented and exchanged without loss of information.&quot;
+
+
+
+Support for richer text, audio, video, and
+non-English languages
+
+
+
+In justifying RFC 1521, the author also states:
+
+
+&quot;Even
+in the case of text, however, RFC 822
+is inadequate for the needs of mail users whose languages require the
+use of character sets richer than US ASCII [US-ASCII]. Since RFC 822
+does not specify mechanisms for mail containing audio, video, Asian
+language text, or even text in most European languages, additional
+specifications are needed.&quot;
+
+
+After discussing several
+problems that existed prior to RFC 1521, the
+author states:
+
+
+&quot;This
+document describes several
+mechanisms that combine to solve most of these problems without
+introducing any serious incompatibilities with the existing world of RFC 822
+mail.&quot;
+
+
+The author of RFC 1521 goes
+on to describe several features proposed by
+RFC 1521, including the use of base64 encoding in email messages.&#160;
+The author tells us that base64 as described in RFC 1521 is &quot;...adapted
+from RFC
+1421, ...&quot;&#160; RFC 1421 describes
+Message Encryption and Authentication Procedures.
+
+
+(I have
+written several previous lessons involving encryption and
+authentication that briefly describe the use of base64 encoding.)
+
+
+The
+base64 encoding process
+
+
+
+Eight-bit data values are mapped into a 65-character
+subset of the US-ASCII code, enabling subgroups of 6 bits each to be
+represented
+by 64 different printable
+characters.
+
+(The extra 65th character, &apos;=&apos;, is used to signify a
+special processing function, which I will describe later.)
+
+
+The encoding process causes 24-bit groups, each representing three
+eight-bit data values, to be
+represented as output groups of four encoded characters that are
+derived from a base64 alphabet.
+
+
+
+Concatenate, subdivide, and translate
+
+
+
+Proceeding from left to right, a 24-bit input group is formed by
+concatenating three 8-bit input groups. These 24 bits are then treated
+as 4 concatenated 6-bit groups, each of which is translated into a
+single character in the base64 alphabet.
+
+(Table 1, which I will present later, shows the base64
+alphabet.)
+
+
+The order of the bits is important
+
+
+
+The input bit stream must be ordered with the most significant bit
+first.&#160; The first bit in the stream must be the high order bit in
+the first byte, and the eighth bit must be the low order bit in the
+first byte, etc.
+
+
+
+The base64 alphabet
+
+
+
+The base64 alphabet is made up of 64 printable characters plus the
+equal &apos;=&apos; character.&#160; The &apos;=&apos; character is used as a pad
+when the number of input bytes is not evenly divisible by three, and
+therefore doesn&apos;t produce a number of output
+characters that is evenly divisible by four.
+
+
+
+
+(For
+example, the four input bytes represented by the eight-bit characters
+klmn produce the following six output characters plus two pad
+characters: a2xtbg==.&#160; In addition, the output stream of
+characters is terminated by a carriage return character and a line feed
+character.)
+
+
+The
+base64 alphabet
+
+
+
+The base64 alphabet is shown in Table 1.&#160; Whenever the value of a
+six-bit group matches one of the values in the Value columns in
+Table 1, that value is replaced by the seven-bit ASCII value of the
+corresponding
+character shown in the Char column to the right of the Value
+column.
+
+
+
+
+
+
+  
+    
+      Value
+
+      
+      Char
+
+      
+      Value
+
+      
+      Char
+
+      
+      Value
+
+      
+      Char
+
+      
+      Value
+
+      
+      Char
+
+      
+    
+    
+      0
+
+      
+      A
+
+      
+      17
+
+      
+      R
+
+      
+      34
+
+      
+      i
+
+      
+      51
+
+      
+      z
+
+      
+    
+    
+      1
+
+      
+      B
+
+      
+      18
+
+      
+      S
+
+      
+      35
+
+      
+      j
+
+      
+      52
+
+      
+      0
+
+      
+    
+    
+      2
+
+      
+      C
+
+      
+      19
+
+      
+      T
+
+      
+      36
+
+      
+      k
+
+      
+      53
+
+      
+      1
+
+      
+    
+    
+      3
+
+      
+      D
+
+      
+      20
+
+      
+      U
+
+      
+      37
+
+      
+      l
+
+      
+      54
+
+      
+      2
+
+      
+    
+    
+      4
+
+      
+      E
+
+      
+      21
+
+      
+      V
+
+      
+      38
+
+      
+      m
+
+      
+      55
+
+      
+      3
+
+      
+    
+    
+      5
+
+      
+      F
+
+      
+      22
+
+      
+      W
+
+      
+      39
+
+      
+      n
+
+      
+      56
+
+      
+      4
+
+      
+    
+    
+      6
+
+      
+      G
+
+      
+      23
+
+      
+      X
+
+      
+      40
+
+      
+      o
+
+      
+      57
+
+      
+      5
+
+      
+    
+    
+      7
+
+      
+      H
+
+      
+      24
+
+      
+      Y
+
+      
+      41
+
+      
+      p
+
+      
+      58
+
+      
+      6
+
+      
+    
+    
+      8
+
+      
+      I
+
+      
+      25
+
+      
+      Z
+
+      
+      42
+
+      
+      q
+
+      
+      59
+
+      
+      7
+
+      
+    
+    
+      9
+
+      
+      J
+
+      
+      26
+
+      
+      a
+
+      
+      43
+
+      
+      r
+
+      
+      60
+
+      
+      8
+
+      
+    
+    
+      10
+
+      
+      K
+
+      
+      27
+
+      
+      b
+
+      
+      44
+
+      
+      s
+
+      
+      61
+
+      
+      9
+
+      
+    
+    
+      11
+
+      
+      L
+
+      
+      28
+
+      
+      c
+
+      
+      45
+
+      
+      t
+
+      
+      62
+
+      
+      +
+
+      
+    
+    
+      12
+
+      
+      M
+
+      
+      29
+
+      
+      d
+
+      
+      46
+
+      
+      u
+
+      
+      63
+
+      
+      /
+
+      
+    
+    
+      13
+
+      
+      N
+
+      
+      30
+
+      
+      e
+
+      
+      47
+
+      
+      v
+
+      
+      pad
+
+      
+      =
+
+      
+    
+    
+      14
+
+      
+      O
+
+      
+      31
+
+      
+      f
+
+      
+      48
+
+      
+      w
+
+      
+      
+
+      
+      
+
+      
+    
+    
+      15
+
+      
+      P
+
+      
+      32
+
+      
+      g
+
+      
+      49
+
+      
+      x
+
+      
+      
+
+      
+      
+
+      
+    
+    
+      16
+
+      
+      Q
+
+      
+      33
+
+      
+      h
+
+      
+      50
+
+      
+      y
+
+      
+      
+
+      
+      
+
+      
+    
+  
+
+
+
+Table 1: The base64 alphabet
+
+
+
+
+Encoding and decoding example from Table 1
+
+
+
+For example, when encoding, the six-bit value of zero is replaced in
+the base64 output by a value of 65, which is the seven-bit ASCII value
+that
+represents the character A.
+
+
+
+When decoding, the base64 character A is replaced by a six-bit group
+of bits with a value of zero.
+
+
+
+Line length limitations
+
+
+
+According to RFC 1521, the output stream of encoded characters must be
+represented in lines of no more than 76 characters each.
+
+
+
+As you
+will see later, the Sun encoding software accepts input data as an
+array of eight-bit bytes.&#160; The output stream is always terminated
+by a
+carriage return and a line feed.&#160; If the number of bytes in the
+input array produces more than 76 characters in the output stream, each
+group of 76 output characters is terminated by a carriage return and a
+line feed, and the final partial line, if any, is also terminated by a
+carriage return and a line feed.
+
+
+
+The final line also includes pad characters, if necessary, to guarantee
+that the total number of base64 characters in the output is evenly
+divisible by four.
+
+
+
+The pad character
+
+
+
+Here is part of what the author of RFC 1521 has to say about the use of
+the pad character:
+
+
+&quot;Special
+processing is performed if fewer than 24 bits are available at the end
+of the data being encoded. A full encoding quantum is always completed
+at the end of a body. When fewer than 24 input bits are available in an
+input group, zero bits are added (on the right) to form an integral
+number of 6-bit groups. Padding at the end of the data is performed
+using the &apos;=&apos; character.&quot;
+
+
+Three
+possible cases regarding padding
+
+
+
+The author of RFC 1521 goes
+on to tell us:
+
+
+&quot;Since all
+base64 input is an integral number of octets, only the following cases
+can arise:
+
+  
+    the final
+quantum of encoding input is an integral multiple of 24 bits; here, the
+final unit of encoded output will be an integral multiple of 4
+characters with no &apos;=&apos; padding,
+    the final
+quantum of encoding input is exactly 8 bits; here, the final unit of
+encoded output will be two characters followed by two &apos;=&apos; padding
+characters, or
+    the final
+quantum of encoding input is exactly 16 bits; here, the final unit of
+encoded output will be three characters followed by one &apos;=&apos; padding
+character.&quot;
+  
+
+
+Program Code
+Two
+different programs
+
+
+
+I am going to present and discuss two different programs in this
+lesson.&#160; I will begin with a program named Base64_02.java.&#160;
+The sole purpose of this program is to illustrate the base64 encoding
+and decoding algorithms in a very simple setting.
+
+
+
+Next, I will present a program that explains the use of encoding and
+decoding classes and methods in an undocumented Sun package named sun.misc.&#160;
+Along with that discussion, I will also point you to alternative
+documented
+resources for encoding and decoding base64.
+
+
+
+In a future lesson, I will explain several methods that are
+incorporated
+into the BigDog set of programs that is designed to protect
+your email inbox from viruses and spam.
+
+
+
+The program named Base64_02
+
+
+
+This program is not intended for production use.&#160; Rather, it is
+intended solely to illustrate the encoding and decoding algorithms for
+base64.&#160; I will point you to programs that are intended for
+production use later.
+
+
+
+Not fully tested
+
+
+
+Note that this program has not been fully tested.&#160; Don&apos;t use it
+for any significant purpose without first testing the conversion to
+base64 for all possible values in a group of three eight-bit bytes.
+
+
+
+Documented encoding and decoding classes
+
+
+
+For documented software that you can use to encode and decode base64,
+see the following encoder
+and decoder
+classes.&#160; I haven&apos;t tested these programs, but I am assuming that
+they are correct.&#160; They are published on the excellent web site of Professor Douglas Lyon , who provides the source code for dozens of different
+algorithms including those used to encode and decode base64.
+
+
+
+Undocumented Sun classes
+
+
+
+If you are willing to use undocumented Sun classes to encode and
+decode base64, you can use the encodeBuffer method of the sun.misc.BASE64Encoder
+class and the decodeBuffer method of the sun.misc.BASE64Decoder
+class.&#160; I will show you how to use these methods in the next
+program in this lesson.&#160; For now, however, let&apos;s get back to the
+discussion of the program named Base64_02.
+
+
+
+This program was tested using SDK 1.4.2 under WinXP.
+
+
+
+Will discuss in fragments
+
+
+
+As usual, I will discuss the
+program in fragments.&#160; A complete listing is provided in Listing
+19 near the end of the lesson.
+The first program fragment begins in Listing 1.&#160;
+</TEXT>
+<CODE orderid="1" >
+class Base64_02 {
+
+  public static void main(String[] args) {
+
+    byte[] rawData = &quot;klm&quot;.getBytes();
+    showData(rawData);
+
+Listing 1
+</CODE>
+<TEXT orderid="2" >
+Listing 1 shows the beginning of the main method, which creates
+a byte array object containing three eight-bit characters, and
+passes the array to a method named showData for display.
+
+(Each of the eight-bit characters in the array consists
+of the least significant eight bits of the sixteen-bit Unicode
+character contained in the String &quot;klm&quot;.)
+
+
+The showData method
+
+
+
+The showData method displays the data in an incoming byte array
+as
+character data and also as binary data.&#160; The showData
+method is shown in its entirety in Listing 2.
+
+(Note that if there are more than four bytes in the
+incoming array, the binary
+data will not be correct.&#160; Bits will have been lost on the most
+significant end.&#160; Note also that leading zeros are not
+displayed in the binary data.)
+</TEXT>
+<CODE orderid="3" >
+static void showData(byte[] data){
+    int save = 0;
+    for(int cnt = 0; cnt &lt; data.length; cnt++){
+      System.out.print((char)data[cnt]);
+      save = (save  &lt;&lt; 8) | data[cnt];
+    }//end for loop
+    System.out.println();
+    System.out.println(
+                   Integer.toBinaryString(save));
+  }//end showData
+
+Listing 2
+</CODE>
+<TEXT orderid="4" >
+Process using a for loop
+
+
+
+The showData method processes the incoming array using a for
+loop based on the length of the array.&#160; One of the bytes
+is displayed during each iteration of the for
+loop in Listing 2.&#160; The byte is cast to type char to cause
+it to be displayed as a character.
+
+
+
+Also, a binary shift operation is used to construct an int
+value containing shifted versions of each the bytes in the incoming
+array during successive iterations of the for loop.
+
+
+
+Shift eight bits during each iteration
+
+
+
+During each iteration of the loop, the current contents of the int
+variable named save are shifted eight bits to the left, and the
+next data byte from the incoming array is placed in the
+least significant eight bits of the variable.
+
+(As mentioned above, if there are more than four bytes
+in the array, byte data will be shifted off the most significant end of
+the variable, and the data will be corrupted.)
+
+
+Display the binary value
+
+
+
+After all of the bytes in the array have been processed, the method
+named toBinaryString,
+which is a class variable of the Integer class, is used to
+display the contents of the variable named save as a binary
+value.
+
+(As mentioned above, this method does not display
+leading zeros on the most significant end of the binary value.)
+
+
+The output
+
+
+
+Figure 1 shows the output produced by this method when called from the
+code in Listing 1.
+
+
+
+  
+    
+      
+      klm
+1101011 01101100 01101101
+
+Figure 1
+      
+    
+  
+
+
+As you can see, the three letters in the first line of output
+correspond to the characters represented by each of the bytes in the
+incoming array.
+
+
+
+The binary bits represented
+by the 1&apos;s and 0&apos;s in the second line correspond to the binary bits in
+each of the bytes in the incoming array after the bytes have been
+concatenated.
+
+(Note that I manually inserted spaces in the second line
+in Figure 1 to separate the bits into eight-bit groups.&#160; This
+makes it easier to analyze the visually.)
+
+
+What do the bits represent?
+
+
+
+The eight bits on the right correspond to the least significant eight
+bits in the character
+&apos;m&apos;.
+
+
+
+The seven bits on the left correspond to the bits in the
+character &apos;k&apos;, with the left-most zero bit not being displayed.
+
+
+
+The remaining bits in the middle correspond to the bits in the
+character &apos;l&apos;.
+
+(Note that is a lower-case L, not a numeric 1.)
+
+
+We will be working with the binary output in Figure 1 later.
+
+
+
+Encode and display the data
+
+
+
+Now let&apos;s return to our discussion of the main method.&#160;
+The first statement in Listing 3 passes the array object containing the
+raw data to the method named encoder.&#160; The purpose of the encoder
+method is to encode the three
+eight-bit bytes as four six-bit characters.&#160; This method returns a
+four-element array containing the four six-bit characters in the
+least significant six bits of four eight-bit bytes.
+
+
+
+The second statement in Listing 3 passes the array containing the four
+base64 characters to the showData method for display in both
+character and binary format.
+</TEXT>
+</result>

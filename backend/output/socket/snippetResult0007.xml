@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>9091</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/other/article.php/10936_3564211_1/Consolidating-Email-using-Java-Part-2.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Consolidating Email using Java, Part 2
+			
+			
+				
+				
+					November 15, 2005
+					By 
+Richard G. Baldwin
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Java Programming Notes # 2402
+
+   Preface
+   General
+Background Information
+   Discussion and
+Sample Code
+   Run the Program
+   Summary
+   Complete Program
+Listings
+
+
+
+ Preface
+
+ Multiple Email accounts?
+ In Part 1 of this lesson, I asked the following questions:
+
+ How many different Email accounts do you have?
+ Do you check them all 
+regularly?
+ Do you have an easy way to consolidate them so that you only have to 
+check one Email account in order to read all of your Email?
+
+ I then went on to provide and explain an interactive Java program 
+that you can use to consolidate all of 
+your Email messages from different accounts onto a single Email server.
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		 If the answer to the first question above was more than one Email account, 
+and the answer to the last question was no, then either the program that 
+I provided in 
+Part 1 or the program that I will provide in this lesson may be of 
+considerable interest to you.
+ The difference between the two programs
+ This lesson provides a non-interactive version of the program from 
+Part 1 that you can use 
+to consolidate all of 
+your Email messages onto a single Email server on a scheduled, unattended, automatic basis.
+ By non-interactive, I mean that the difference between this program and the program 
+from Part 1 is:
+
+ The program in 
+ Part 1 requires user interaction each time messages are 
+ moved from one Email server to another.
+ The program that I will present in this lesson is a &quot;set it and 
+ forget it&quot; program.
+
+
+
+	
+		Related Articles
+	
+	
+		
+			Digital Signatures using Message Digests with Java
+			Steganography 101 using Java
+			Consolidating Email using Java
+			Uploading Old Email to Gmail using Java
+			
+	
+
+
+ Set it and forget it
+In other words, you can set this program up 
+ as a Scheduled Task in a task scheduler so that it will run automatically on whatever 
+ schedule your task scheduler supports.
+You can set up different instances of this program as separate Scheduled 
+Tasks to 
+automatically consolidate Email messages from different Email accounts onto a 
+single Email server, even if the managers of those accounts refuse to forward 
+your Email messages for you.
+If you also need to consolidate Email messages on a demand (non-scheduled) basis, 
+you can accomplish that with a couple of mouse clicks.
+As a result, by using this program, you will have an easy way to consolidate Email messages 
+from all of your Email accounts onto a single Email server so that you only have to 
+check one Email account in order to read all of your Email?  Then you can 
+answer yes to the third question that I posed earlier.
+Third lesson in a series
+This is the third lesson in a series of lessons on the general topic of 
+moving Email messages among servers and local computers.
+The first lesson was entitled 
+Consolidating Email using Java.  
+That is the document that I will refer to as
+Part 1 of this lesson.
+The second and previous lesson was entitled 
+Uploading Old Email to Gmail using 
+Java.
+ Viewing tip 
+You may find it useful to open another copy of this lesson in a
+separate browser window.  That will make it easier for you to
+scroll back
+and forth among the different listings and figures while you are
+reading
+about them. 
+Supplementary material 
+I recommend that you also study the other lessons in my extensive
+collection of online Java tutorials.  You will find those lessons
+published
+at Gamelan.com. 
+However, as of the date of this writing, Gamelan doesn&apos;t maintain a
+consolidated index of my Java tutorial lessons, and sometimes they are
+difficult to locate there.  You will find a consolidated index at  www.DickBaldwin.com.
+
+ General Background Information
+ Multiple Email accounts
+ The previous two lessons in this series discussed the background, the 
+desirability, and the 
+rationale for using a program like the one that I will present in this lesson to 
+consolidate Email messages from multiple Email accounts onto a single Email 
+server.  I won&apos;t repeat that discussion here.  Rather, this lesson 
+will concentrate on the technical aspects of the automated version of a 
+program for performing such consolidation.
+ Even if you decide that you would prefer to use the automated version of the 
+program presented in this lesson, it is strongly recommended that you study 
+Part 1 before embarking on this lesson.  The code in the program in this lesson is 
+very similar to, but organized differently from the code in 
+Part 1.  
+Therefore, I won&apos;t explain the 
+details of the code in this lesson.  Rather, I will simply refer you to the 
+appropriate section of 
+Part 1 for detailed explanations of the code.
+
+ Discussion
+and Sample Code
+
+An Email forwarding program
+In this lesson, I will provide the following two Java 
+classes, which work together as a program to download Email messages from one 
+POP3 server and to forward those messages to another Email server on a totally 
+unattended, automated, and scheduled basis:
+
+ BigDog06fetch
+ BigDog06forward
+
+The first class listed above replaces the class named BigDog04g in 
+Part 1.  The second class listed above replaces the class named 
+BigDog04i in 
+Part 1.
+Command-line parameters
+As was the case in 
+Part 1, all of the user-specific information required by the program is provided 
+by the following eight command-line parameters:
+
+ pop3Server:  Server from which the messages will be 
+ downloaded
+ userName:  On pop3Server
+ password:  On pop3Server
+ destinationAddress:  Email address to which the messages 
+ will be forwarded
+ smtpServer:  An available SMTP server that can be used to 
+ forward the messages
+ workingDir:  Messages are temporarily stored here
+ archiveDir:  Messages are moved to here from the workingDir 
+ for long-term storage if desired (optional)
+ fwdTag:  String prepended to the subject when the message is 
+ forwarded. (Can be an empty string.)
+
+Automation was my long-term goal
+As I mentioned in 
+Part 1, I&apos;m aware that parameter input via command-line parameters isn&apos;t nearly as 
+sexy as input via a graphical user interface.  However, it is much easier 
+to automate command-line input.  Command-line input can be automated using batch files.  
+Unattended automated execution of the program was my long-term goal 
+for this project from the very beginning.
+Doing the setup for unattended automated execution
+In the next few paragraphs, I will explain how to use batch files to schedule 
+the execution of the program under the Windows XP operating system.  If you 
+are running under a different operating system, you will need to examine the 
+documentation for that operating system to learn how to schedule tasks on your 
+machine.
+One batch file for each POP3 Server
+I have a different batch file set up for each of the POP3 servers from which I want 
+messages to be downloaded and consolidated onto a common Email server.  
+(I use Google&apos;s Gmail as my common Email account.)
+The Windows XP Scheduled Tasks feature
+For a particular POP3 server, all I have to do to cause the messages to be 
+moved from the POP3 server to my Gmail 
+account is to register the batch file for that POP3 server as a Scheduled Task under Windows XP.
+
+ (Actually I have two batch files set up for each POP3 server because I 
+ have to use a different SMTP server depending on whether I am at home with 
+ my laptop or at work with my laptop.  (See Figure 2.)  
+ I normally have half of the Scheduled Tasks disabled when I am at home, and 
+ have the other half disabled when I am at work.)
+
+What is the Scheduled Tasks feature?
+Figure 1 contains part of what the Microsoft help system has to say about the 
+Scheduled Tasks feature.
+
+
+
+
+
+  
+    
+      
+      Scheduled Tasks overview
+  With Scheduled Tasks, you can schedule any script, program, or 
+  document to run at a time that is most convenient for you. Scheduled 
+  Tasks starts each time you start Windows XP 
+  and runs in the background.
+  With Scheduled Tasks, you can also:
+  
+   Schedule a
+   task 
+   to run daily, weekly, monthly, or at certain times (such as system 
+   startup). 
+   
+   Change the schedule for a
+   task. 
+   
+   Stop a scheduled
+   task. 
+   
+   Customize how a
+   task 
+   will run at a scheduled time. 
+  
+      Figure 1
+      
+    
+  
+
+
+The idle time option is missing
+One thing that the Microsoft help system fails to mention is that the 
+Scheduled Tasks feature also allows tasks to be scheduled for execution anytime 
+following a specified amount of idle time.  I have my system set up so that 
+each of the batch files is executed as a Scheduled Task after a few minutes of 
+idle time.
+
+ (As you will see shortly, this idle-time capability is also missing from the 
+ Windows Scheduled 
+ Tasks Wizard.  However, there is a workaround that can be used to 
+ incorporate the idle-time capability.)
+
+Icons on the desktop
+I also have icons with shortcuts to each of the batch files on my desktop so 
+that I can force a batch file to be executed whenever I want even if such 
+execution isn&apos;t scheduled to occur any time soon.
+Registering Scheduled Tasks
+To schedule tasks under Windows XP, go to the Control Panel and double click 
+on Scheduled Tasks.
+When the Scheduled Tasks folder appears, (see 
+Figure 2), double click on &quot;Add 
+Scheduled Task.&quot;  This will start the Scheduled Task Wizard 
+running.
+Just follow the instructions provided by the wizard and browse to the 
+appropriate batch 
+file when you are given the opportunity to Select Program to Schedule.
+Idle time option is missing from the wizard also
+Be aware, however, that in the version of Windows XP that I am currently 
+running (Windows XP Professional, Version 5.1, Service Pack 2), there is 
+an apparent bug in the Scheduled Task Wizard.  In particular, when 
+using the wizard to set up a Scheduled Task, you are only given the following 
+six choices as to when the task should be performed:
+
+ Daily
+ Weekly
+ Monthly
+ One time only
+ When my computer starts
+ When I log on
+
+The ability to cause the task to be performed during idle time is 
+missing from the list.
+Can correct for the omission later
+However, even though it is inconvenient, if you go ahead and select one of 
+the items in the list and click Next a couple of times, you will reach the point where you can check a box that reads &quot;Open advanced 
+properties for this task when I click Finish.&quot;  The 
+Advanced 
+Properties dialog (see Figure 3) will let you change your selection to When idle if 
+you choose to do so.
+When you check that box and click Finish, the Advanced Properties
+dialog having the following three tabs (see Figure 3,
+Figure 4, and Figure 5) will appear:
+
+ Task
+ Schedule
+ Settings
+
+A more-complete list
+Select the Schedule tab shown in Figure 4 and you will have access to a pull-down list 
+entitled Schedule Task that contains the items in the list given above.  
+The pull-down list also provides an additional selection that reads &quot;When 
+idle.&quot;
+If that is your choice, make that selection and then select the Settings 
+tab shown in Figure 5.  The dialog on the Settings tab will give you an opportunity to 
+customize the selection in more detail.
+Scheduled Tasks on the desktop
+Because you may want to make modifications later to tasks that you have scheduled, 
+it is convenient to go to the Control Panel and create a shortcut on the desktop 
+to Scheduled Tasks.  You can do this by right-clicking on Scheduled 
+Tasks on the Control Panel and then selecting Create Shortcut.
+Having created the Scheduled Tasks  shortcut on the desktop, whenever you double-click the shortcut, 
+the Scheduled Tasks folder should 
+appear on your screen, looking something like that shown in Figure 2.
+
+
+  
+    
+      
+      
+
+      Figure 2
+      
+    
+  
+
+
+Creating a new Scheduled Task
+To create a new Scheduled Task, double-click on the top item in Figure 
+2 that reads Add Scheduled Task.  This will start the Scheduled 
+Task Wizard that I discussed earlier.
+Existing Scheduled Tasks
+Each of the bottom four items in Figure 2 represent scheduled tasks.  
+Those with the red x are temporarily disabled.
+Modifying a Scheduled Task
+Once you have created a Scheduled Task, you can modify that task (or use 
+it to create a new one) without having to deal with the wizard.  If you 
+right-click on a Scheduled Task in Figure 2, a popup menu will appear with the following 
+selections:
+
+ Run
+ Cut
+ Copy
+ Delete
+ Rename
+ Properties
+
+The first five choices are generally self-explanatory.  For example, you 
+can cause the task to run at a non-scheduled time by selecting Run on the 
+popup menu.
+Using an existing task to create a new one
+You can create a new Scheduled Task by:
+
+ Copying an existing Scheduled Task to the clipboard
+ Pasting it into a different directory
+ Renaming it in the other directory
+ Copying it back into the Scheduled Tasks directory
+ Modifying the properties of the new Scheduled Task to suit the new 
+ requirements
+
+The Scheduled Task Properties
+Selecting Properties in the popup menu produces the dialog shown in
+Figure 3.  This is the dialog that I referred to as 
+the Advanced Properties dialog earlier.
+
+
+  
+    
+      
+      
+
+      Figure 3
+      
+    
+  
+
+
+Modifying a Scheduled Task
+Once you have opened the Advanced Properties dialog on a Scheduled 
+Task and have selected one 
+of the tabs, you can make any modification to the task that 
+is allowed by the system.
+Disable and/or enable a Scheduled Task
+For example, the checkbox in the bottom left 
+corner of Figure 3 can be used to enable and disable the Scheduled Task. 
+(Figure 2 shows two Scheduled Tasks that have been disabled.)
+The Schedule and Settings tabs
+Figure 4 shows the Schedule tab.
+
+  
+    
+      
+      
+
+      Figure 4
+      
+    
+  
+
+
+Figure 5 shows the Settings tab.
+
+  
+    
+      
+      
+
+      Figure 5
+      
+    
+  
+
+
+There are no GUIs with this version of the program 
+That&apos;s enough talk about Windows.  Let&apos;s discuss Java programming.
+This version of the program does not display GUIs on the screen as was the 
+case with the version presented in 
+Part 1.  Rather, this version runs in 
+batch mode, from start to finish, with no user interaction.
+From start to finish ...
+From start to finish includes the following operations:
+
+ Download messages and save them as individual files in a local working 
+ directory.
+ Transform the message files into Email messages and send the messages to 
+ the specified destination Email address.
+ Upon confirmation that each message has been sent successfully, delete 
+ the original message from the POP3 server, and remove the message file from 
+ the working directory.
+
+If a problem is recognized anywhere along the way, the messages are not 
+deleted from the POP3 server and the message files are not removed from the 
+working directory.  This makes it possible to recover from the problem, if 
+necessary, by downloading the messages from the POP3 server into an ordinary 
+Email client program.
+Status and progress information
+Status and progress information appears in the command-line window while the 
+program is running.  However, unless you put a PAUSE command at the end of 
+the batch file, that window will probably disappear before you 
+have much time to study it.
+
+ (If you want the command-line window to remain 
+visible until you dismiss it, put a PAUSE command at the end of the batch file.  This might 
+be useful if you suspect that there is a problem, but it will probably also 
+ prevent the next scheduled running of the batch file and the program.)
+
+A batch-file command
+A typical batch file command is shown in Figure 6.
+
+ (Note that it was 
+necessary for me to manually enter line breaks into Figure 6 to force the command 
+to fit in this narrow publication format.)
+
+
+
+  
+    
+      
+      java BigDog06fetch pop.austincc.edu userName 
+password acct@xyz.com smtp-server.austin.rr.com 
+./temp/ c:/z-MailArchives/ &quot;ACC-&quot;
+
+      Figure 6Figure 6
+      
+    
+  
+
+
+You should be able to match up the individual command-line parameters in 
+Figure 6 with the description of the parameters discussed earlier.
+Two classes are used
+This program consists of the following two classes:
+
+ BigDog06fetch
+ BigDog06forward
+
+As mentioned earlier, the BigDog06fetch class replaces the class named BigDog04g 
+in Part 1.  The BigDog06forward class replaces the class named 
+BigDog04i in 
+Part 1.  
+Because the user interactivity 
+has been removed, the two classes presented here are much simpler than the two 
+classes presented in 
+Part 1.
+Overall control
+The class named BigDog06fetch is a Java application and serves as 
+the driver for the entire program.  The main method instantiates an 
+object of the BigDog06fetch class.
+The BigDog06fetch object downloads all of the 
+available messages from a POP3 server and writes them as individual files 
+in a local working directory.  Then it instantiates an object of the class
+BigDog06forward.
+The object of the class
+BigDog06forward
+
+ Forwards the messages to a specified Email address.
+ Deletes the messages from the POP3 server.
+ Removes the message files from the working directory.
+
+Deleting messages and moving message files
+Messages are not deleted from the POP3 server until they have been 
+successfully forwarded to the specified Email address.  When the messages are deleted from the POP3 server, the 
+message files are also removed from the working directory.
+By enabling and disabling blocks of code prior to compilation, a user can 
+customize the program to cause the message files to be moved from the working 
+directory into an archive directory or to simply be deleted from the working 
+directory without saving them in an archive directory.
+Directories must already exist
+Note that both of the directories specified by 
+command-line parameters must already exist when the 
+program is run for the first time.
+If message files are not being saved in 
+an archive directory, the seventh command line parameter is a dummy parameter, which is 
+essentially ignored by the program.  Even though it is ignored, it must be 
+provided as a command-line parameter to cause the number of parameters to be 
+correct.
+Tagging the forwarded messages
+The eighth command-line parameter is a string that is prepended onto the beginning of the 
+Subject line in the message before the message is forwarded.  For example, it can be used to 
+indicate the originating Email account.  If you don&apos;t want to tag the 
+Subject of the forwarded message, just enter an empty string, &quot;&quot;, as the eighth command-line 
+parameter.
+POP3 technical information
+For technical information on POP3, see RFC 1725 at
+
+http://www.cse.ohio-state.edu/cgi-bin/rfc/rfc1725.html 
+A POP3 Command Summary is provided in the program comments in Listing 9 near 
+the end of the lesson.
+Program testing
+The entire program was successfully tested using JDK 1.5.0_01 running under WinXP.  JDK 
+1.5 or later is required because of the use of
+generics 
+in the program.
+Will discuss in fragments, (but not very much)
+Complete listings of both classes are provided in Listing 9 and Listing 10 near the end of the lesson.  
+Normally, I would break both classes down into fragments and discuss the 
+fragments in detail.  
+However, because of the similarities between these classes and the classes that I 
+explained in Part 1, my discussion of code in this lesson will be very 
+limited.  I will concentrate on those aspects of the code in this lesson 
+that are different from the code in 
+Part 1.
+BigDog06fetch is not a Frame
+Unlike the class definition for BigDog04g in 
+Part 1, the class 
+definition for BigDog06fetch is not a Frame.  That is because 
+this version of the program doesn&apos;t present a GUI to the user.  The class 
+definition for BigDog06fetch begins in Listing 1.
+</TEXT>
+<CODE orderid="1" >
+class BigDog06fetch{
+  static String workingDir;
+  int numberMsgs = 0;
+  int msgNumber;
+  String uidl = &quot;&quot;;//unique msg ID
+  BufferedReader inputStream;
+  PrintWriter outputStream;
+  Socket socket;
+  String pathFileName;
+  static String[] params;
+
+Listing 1
+</CODE>
+<TEXT orderid="2" >
+The code in Listing 1 simply declares some necessary variables.
+The main method
+BigDog06fetch is a Java application and therefore requires a main 
+method.  The main method begins in Listing 2.
+As mentioned
+earlier, certain critical information is 
+provided to the program by way of eight command-line parameters.  The code 
+in Listing 2 tests to confirm that the user has entered eight command-line 
+parameters.  If not, usage information is displayed and the program 
+terminates at that point.
+</TEXT>
+<CODE orderid="3" >
+public static void main(String[] args){
+    if(args.length != 8){
+      System.out.println(
+                   &quot;Wrong number of parameters&quot;);
+      System.out.println(
+         &quot;Usage: java BigDog06fetch &quot;
+         + &quot;npop3Server nuserName npassword &quot;
+         + &quot;ndestinationAddress nsmtpServer&quot;
+         + &quot;nworkingDir narchiveDir nfwdTag&quot;);
+      System.out.println(&quot;If not saving msg &quot;
+        + &quot;files in archive, seventh parameter &quot;
+        + &quot;is a dummy parameter.&quot;);
+      System.out.println(&quot;Terminating program.&quot;);
+      System.exit(0);
+    }//end if
+
+Listing 2
+</CODE>
+</result>

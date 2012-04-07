@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>76577</docid>
+<orderid>28</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/javacertification/wcd-guide/jsp_standard_tag.shtml</url>
+</description>
+<TEXT orderid="26" >
+The name of the exported scoped variable var for the
+					resulting value of the test condition. The type of the scoped variable is 
+					Boolean.
+				
+                    
+					The &lt;c:choose&gt; tag works like a Java switch 
+					statement in that it lets you choose between a number of alternatives. Where the 
+					switch statement has case statements, the 
+					&lt;c:choose&gt; tag has &lt;c:when&gt; tags. 
+					In a switch statement, you can specify a default 
+					clause to specify a default action in case none of the cases match. The 
+					&lt;c:choose&gt; equivalent of default 
+					is &lt;c:otherwise&gt; (optional), but note, 
+					it MUST be the LAST action nested within &lt;c:choose&gt;.					
+				
+                    
+					Syntax:
+					
+
+&lt;c:choose&gt;
+	body content (&lt;when&gt; and &lt;otherwise&gt; subtags)
+&lt;/c:choose&gt;
+
+					
+					
+
+&lt;c:when test=&quot;testCondition&quot;&gt;
+	body content
+&lt;/c:when&gt;
+
+					
+					
+
+&lt;c:otherwise&gt;
+	conditional block
+&lt;/c:otherwise&gt;
+
+					
+  
+					Iterator tags.
+				
+                    
+					The &lt;c:forEach&gt; action repeats its nested body content over 
+					the collection of objects specified by the items attribute. For example, the JSP code 
+					below creates an HTML table with one column that shows the default display value of each 
+					item in the collection:
+</TEXT>
+<CODE orderid="27" >
+&lt;table&gt;
+	&lt;c:forEach var=&quot;customer&quot; items=&quot;${customers}&quot;&gt;
+		&lt;tr&gt;&lt;td&gt;${customer}&lt;/td&gt;&lt;/tr&gt;
+	&lt;/c:forEach&gt;
+&lt;/table&gt;
+</CODE>
+<TEXT orderid="28" >
+A large number of collection types are supported by &lt;c:forEach&gt;, 
+					including all implementations of java.util.Collection (includes 
+					List, LinkedList, ArrayList, 
+					Vector, Stack, Set), 
+					and java.util.Map (includes HashMap, 
+					Hashtable, Properties, Provider, 
+					Attributes).
+				
+                    
+					Arrays of objects as well as arrays of primitive types (e.g. int) are also 
+					supported. For arrays of primitive types, the current item for the iteration is automatically
+					wrapped with its standard wrapper class (e.g. Integer for 
+					int, Float for float, etc.).
+				
+                    
+					If the items attribute is of type java.util.Map, then the current item 
+					will be of type java.util.Map.Entry, which has the following two 
+					properties: key - the key under which this item is stored in the 
+					underlying Map; value - the value that corresponds 
+					to this key.
+				
+                    
+					Syntax.
+												
+                    								
+					Syntax 1: Iterate over a collection of objects:
+</TEXT>
+<CODE orderid="29" >
+&lt;c:forEach [var=&quot;varName&quot;] items=&quot;collection&quot;
+	[varStatus=&quot;varStatusName&quot;]
+	[begin=&quot;begin&quot;] [end=&quot;end&quot;] [step=&quot;step&quot;]&gt;
+	
+	body content (JSP)
+	
+&lt;/c:forEach&gt;
+</CODE>
+<TEXT orderid="30" >
+Syntax 2: Iterate a fixed number of times:
+</TEXT>
+</result>

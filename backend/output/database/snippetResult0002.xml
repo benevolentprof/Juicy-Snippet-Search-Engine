@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>79615</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=624</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            JDBC Basics and JDBC Components
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+
+The JDBC API is a Java API that can access any kind of tabular data,
+especially data stored in a Relational Database.
+JDBC
+helps you to write java applications that manage these three programming
+activities:
+
+  
+  Connect to a data source, like a database
+  Send queries and update statements to the database
+  Retrieve and process the results received from the database in answer to
+    your query
+
+    
+
+    The following simple code fragment gives a simple example of these three
+    steps:
+</TEXT>
+<CODE orderid="1" >
+Connection con = DriverManager.getConnection
+           ( &quot;jdbc:myDriver:wombat&quot;, &quot;myLogin&quot;,&quot;myPassword&quot;);
+			  
+Statement stmt = con.createStatement();
+ResultSet rs = stmt.executeQuery(&quot;SELECT a, b, c FROM Table1&quot;);
+while (rs.next()) {
+	int x = rs.getInt(&quot;a&quot;);
+	String s = rs.getString(&quot;b&quot;);
+	float f = rs.getFloat(&quot;c&quot;);
+	}
+</CODE>
+<TEXT orderid="2" >
+This short code fragment instantiates a DriverManager object to
+    connect to a database driver and log into the database, instantiates a Statement
+    object that carries your SQL language query to the database; instantiates a ResultSet
+    object that retrieves the results of your query, and executes a simple while
+    loop, which retrieves and displays those results. It&apos;s that simple.
+
+JDBC includes four components:
+
+  The JDBC API&#160;
+
+    
+
+    The JDBC&#153; API provides programmatic access to relational data from the
+    Java&#153; programming language. Using the JDBC API, applications can execute
+    SQL statements, retrieve results, and propagate changes back to an
+    underlying data source. The JDBC API can also interact with multiple data
+    sources in a distributed, heterogeneous environment.
+
+    
+
+    The JDBC API is part of the Java platform, which includes the Java&#153;
+    Standard Edition (Java&#153; SE ) and the Java&#153; Enterprise Edition
+    (Java&#153; EE). The JDBC 4.0 API is divided into two packages: java.sql
+    and javax.sql. Both packages are included in the Java SE and
+    Java EE platforms.
+
+  JDBC Driver Manager&#160;
+
+    
+
+    The JDBC DriverManager class defines objects which can connect
+    Java applications to a JDBC driver. DriverManager has
+    traditionally been the backbone of the JDBC architecture. It is quite small
+    and simple.
+
+    
+
+    The Standard Extension packages javax.naming and
+    javax.sql let you use a DataSource object registered
+    with a Java Naming and Directory Interface&#153; (JNDI) naming service
+    to establish a connection with a data source. You can use either connecting
+    mechanism, but using a DataSource object is recommended
+    whenever possible.
+
+  JDBC Test Suite 
+
+    
+
+    The JDBC driver test suite helps you to determine that JDBC drivers will run
+    your program. These tests are not comprehensive or exhaustive, but they do
+    exercise many of the important features in the JDBC API.
+
+  JDBC-ODBC Bridge
+
+    
+
+    The Java Software bridge provides JDBC access via ODBC drivers. Note that
+    you need to load ODBC binary code onto each client machine that uses this
+    driver. As a result, the ODBC driver is most appropriate on a corporate
+    network where client installations are not a major problem, or for
+    application server code written in Java in a three-tier architecture.
+
+This Trail uses the first two of these these four JDBC components to connect
+to a database and then build a java program that uses SQL commands to
+communicate with a test Relational Database. The last two components are used in
+specialized environments to test web applications, or to communicate with
+ODBC-aware DBMSs.
+
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</TEXT>
+</result>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>504</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://java.sun.com/docs/books/tutorial/uiswing/events/treeselectionlistener.html</url>
+</description>
+<TEXT orderid="0" >
+Download
+                                the JDK
+                            
+
+                            Search the
+                                Tutorials
+                            
+
+                            Hide the TOC
+                        
+                        
+    
+        Trail: Creating a GUI With JFC/Swing
+        
+Lesson: Writing Event Listeners
+        
+Section: Implementing Listeners for Commonly Handled Events
+    
+
+    
+        
+            Writing Event Listeners
+Introduction to Event Listeners
+General Information about Writing Event Listeners
+Listeners Supported by Swing Components
+Implementing Listeners for Commonly Handled Events
+How to Write an Action Listener
+How to Write a Caret Listener
+How to Write a Change Listener
+How to Write a Component Listener
+How to Write a Container Listener
+How to Write a Document Listener
+How to Write a Focus Listener
+How to Write an Internal Frame Listener
+How to Write an Item Listener
+How to Write a Key Listener
+How to Write a List Data Listener
+How to Write a List Selection Listener
+How to Write a Mouse Listener
+How to Write a Mouse-Motion Listener
+How to Write a Mouse-Wheel Listener
+How to Write a Property Change Listener
+How to Write a Table Model Listener
+How to Write a Tree Expansion Listener
+How to Write a Tree Model Listener
+How to Write a Tree Selection Listener
+How to Write a Tree-Will-Expand Listener
+How to Write an Undoable Edit Listener
+How to Write Window Listeners
+Listener API Table
+Solving Common Event-Handling Problems
+
+    
+    
+            
+                Home Page
+                &gt;
+                Creating a GUI With JFC/Swing
+                &gt;
+                Writing Event Listeners
+            
+            
+                &#171;&#160;Previous&#160;&#8226;&#160;Trail&#160;&#8226;&#160;Next&#160;&#187;
+            
+            How to Write a Tree Selection Listener
+            
+
+To detect when the user selects a node in a
+tree, you need to register a tree selection listener.
+Here is an example, taken from 
+the TreeDemo example discussed in
+Responding to Node Selection, of detecting node selection
+in a tree that can have at most one node 
+selected at a time:
+</TEXT>
+<CODE orderid="1" >
+tree.addTreeSelectionListener(new TreeSelectionListener() {
+    public void valueChanged(TreeSelectionEvent e) {
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode)
+                           tree.getLastSelectedPathComponent();
+
+    /* if nothing is selected */ 
+        if (node == null) return;
+
+    /* retrieve the node that was selected */ 
+        Object nodeInfo = node.getUserObject();
+	...
+    /* React to the node selection. */
+	...
+    }
+});
+</CODE>
+<TEXT orderid="2" >
+To specify that the tree should support single selection,
+the program uses this code:
+</TEXT>
+</result>

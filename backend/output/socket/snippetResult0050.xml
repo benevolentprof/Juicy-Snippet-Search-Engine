@@ -1,0 +1,878 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75581</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.roseindia.net/java/example/java/net/udp/udp-client-send-receive.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Sending and receiving information to the UDP Client in Java
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				Here, you will provide send and receive information by the UDP client in Java.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Sending and receiving information to the UDP Client in Java
+
+
+
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+      
+
+Here, you will provide send and receive information by
+the UDP client in Java. UDP client sends information or messages to UDP server
+and it collects some messages from UDP server.
+Description of program:
+When you will run the program then appears a graphical
+layout on the screen. Which has destination IP (Internet protocol) address (localhost
+or 127.0.0.1), destination port number (8080), a text area and a &apos;Send&apos; command
+button. All information or messages are written by client in a text area after
+that you clicked on the &apos;Send&apos; button then messages to be send into the UDP
+server and it also sends a message to UDP client in the text area. Therefore UDP
+client can identify that your sending information are received or not by the UDP
+server.
+Here is the code of program:
+</TEXT>
+<CODE orderid="1" >
+import&#160;javax.swing.*;
+
+import&#160;java.awt.*;
+
+import&#160;java.awt.event.*;
+
+import&#160;java.net.*;
+
+import&#160;java.io.*;
+
+
+
+public&#160;class&#160;RecUDPClient{
+
+&#160;&#160;JFrame&#160;frame;
+
+&#160;&#160;JPanel&#160;panel;
+
+&#160;&#160;JTextField&#160;field1,&#160;field2;
+
+&#160;&#160;JTextArea&#160;area;
+
+&#160;&#160;JScrollPane&#160;pane;
+
+&#160;&#160;JLabel&#160;label;
+
+&#160;&#160;JButton&#160;button;
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;{
+
+&#160;&#160;&#160;&#160;RecUDPClient&#160;u&#160;=&#160;new&#160;RecUDPClient();
+
+&#160;&#160;}
+
+&#160;&#160;public&#160;RecUDPClient(){
+
+&#160;&#160;&#160;&#160;frame&#160;=&#160;new&#160;JFrame(&quot;Text&#160;Client&quot;);
+
+&#160;&#160;&#160;&#160;frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+&#160;&#160;&#160;&#160;frame.setUndecorated(true);
+
+&#160;&#160;&#160;&#160;frame.getRootPane().setWindowDecorationStyle(JRootPane.PLAIN_DIALOG);
+
+&#160;&#160;&#160;&#160;panel&#160;=&#160;new&#160;JPanel();
+
+&#160;&#160;&#160;&#160;panel.setLayout(null);
+
+&#160;&#160;&#160;&#160;label&#160;=&#160;new&#160;JLabel(&quot;Desination&#160;IP:&quot;);
+
+&#160;&#160;&#160;&#160;label.setBounds(10,&#160;20,&#160;100,&#160;30);
+
+&#160;&#160;&#160;&#160;panel.add(label);
+
+&#160;&#160;&#160;&#160;field1&#160;=&#160;new&#160;JTextField(20);
+
+&#160;&#160;&#160;&#160;field1.setBounds(125,&#160;25,&#160;150,&#160;20);
+
+&#160;&#160;&#160;&#160;panel.add(field1);
+
+&#160;&#160;&#160;&#160;label&#160;=&#160;new&#160;JLabel(&quot;Destination&#160;Port:&quot;);
+
+&#160;&#160;&#160;&#160;label.setBounds(10,&#160;50,&#160;100,&#160;30);
+
+&#160;&#160;&#160;&#160;panel.add(label);
+
+&#160;&#160;&#160;&#160;field2&#160;=&#160;new&#160;JTextField(10);
+
+&#160;&#160;&#160;&#160;field2.setBounds(125,&#160;55,&#160;100,&#160;20);
+
+&#160;&#160;&#160;&#160;panel.add(field2);
+
+&#160;&#160;&#160;&#160;area&#160;=&#160;new&#160;JTextArea();
+
+&#160;&#160;&#160;&#160;pane&#160;=&#160;new&#160;JScrollPane(area);
+
+&#160;&#160;&#160;&#160;pane.setBounds(10,&#160;100,&#160;300,&#160;200);
+
+&#160;&#160;&#160;&#160;panel.add(pane);
+
+&#160;&#160;&#160;&#160;button&#160;=&#160;new&#160;JButton(&quot;Send&quot;);
+
+&#160;&#160;&#160;&#160;button.setBounds(235,&#160;310,&#160;75,&#160;30);
+
+&#160;&#160;&#160;&#160;button.addActionListener(new&#160;ActionListener(){
+
+&#160;&#160;&#160;&#160;&#160;&#160;public&#160;void&#160;actionPerformed(ActionEvent&#160;ae){
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;new&#160;SendRequest();
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;});
+
+&#160;&#160;&#160;&#160;panel.add(button);
+
+&#160;&#160;&#160;&#160;frame.add(panel);
+
+&#160;&#160;&#160;&#160;frame.setSize(400,&#160;400);
+
+&#160;&#160;&#160;&#160;frame.setVisible(true);
+
+&#160;&#160;}
+
+&#160;&#160;public&#160;class&#160;SendRequest{
+
+&#160;&#160;&#160;&#160;SendRequest(){
+
+&#160;&#160;&#160;&#160;&#160;&#160;try{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DatagramSocket&#160;socket;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DatagramPacket&#160;packet;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;InetAddress&#160;address;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket&#160;=&#160;new&#160;DatagramSocket();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;dip&#160;=&#160;field1.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;address&#160;=&#160;InetAddress.getByName(dip);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;port&#160;=&#160;field2.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;pnum&#160;=&#160;Integer.parseInt(port);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//For&#160;send&#160;the&#160;message&#160;by&#160;the&#160;client
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;mess&#160;=&#160;area.getText();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;byte&#160;message[]&#160;=&#160;mess.getBytes();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;packet&#160;=&#160;new&#160;DatagramPacket(message,&#160;message.length,&#160;address,&#160;pnum);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.send(packet);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;area.setText(&quot;&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;//For&#160;Received&#160;message
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;packet&#160;=&#160;new&#160;DatagramPacket(message,&#160;message.length);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.receive(packet);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;recmessage&#160;=&#160;new&#160;String(packet.getData());
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;area.append(&quot;Received
+from server:&#160;&quot;&#160;+&#160;recmessage);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;socket.close();
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;catch(IOException&#160;io){}
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;}
+
+}
+    
+   
+  
+   
+
+
+Download this example.
+</CODE>
+<TEXT orderid="2" >
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+    
+  
+
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				UDP - User Datagram Protocol ...  182822 viewsUDP - User Datagram Protocol ...  183778 viewsUDP (User Datagram Protocol) ...  184675 viewsReceiving and sending a request to UDP server in Java ...  185135 viewsSending and receiving information to the UDP Client in Java ...  185914 viewsMulticast Client in Java ...  186979 viewsUDP Client in Java ...  187066 viewsUDP Server in Java ...  187170 viewsMulticast in Java ...  187394 viewsMulticast Server in Java ...  188055 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+java
+c
+com
+server
+layout
+time
+button
+io
+graph
+screen
+command
+this
+disable
+pear
+cast
+tar
+app
+cas
+buttons
+start
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+2 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+		please make clear about how to access the server and client programs in one program using udp protocal in java
+
+		Posted by sunayana on Wednesday, 09.17.08 @ 12:44pm | #80035
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		It is a good program for beginner
+
+
+
+I have a question if You can answer me on my email address
+
+
+
+Q1 
+
+i have to message the those computer connected from my Lan Card at a time ...suppose i have two Lan cards in my computer my code will take out the address of that LAN cards and send the message to the computer connected to it 
+
+
+
+Q1
+
+i have to take out the IP address of LAN card using UDP automatically and it can bind that address for messaging
+
+
+
+
+
+		Posted by aamir on Wednesday, 12.27.06 @ 15:06pm | #2097
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								List in J2ME
+										Accessing database from JSP
+										Dojo Radio Button
+										INTRODUCTION TO JSP DECLARATIVES
+										Struts Validator Framework
+										Sending and receiving information to the UDP Client in Java
+										Struts Validator Framework Tutorial with Example
+										Introduction to JSP Declaratives Declarations
+										JDBC-Odbc Connection
+										JSTL &lt;c:import&gt; with &lt;c:param&gt;
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

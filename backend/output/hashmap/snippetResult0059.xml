@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>4474</docid>
+<orderid>3</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/ent/article.php/3691986/Design-Pattern-Proxy.htm</url>
+</description>
+<CODE orderid="1" >
+import static org.junit.Assert.*;
+import org.junit.*;
+
+public class PortfolioTest {
+   private Portfolio portfolio;
+
+   @Before
+   public void initialize() {
+      portfolio = new Portfolio();
+   }
+
+   @Test
+   public void containsNoHoldingsOnCreation() {
+      assertEquals(0, portfolio.numberOfHoldings());
+   }
+
+   @Test
+   public void storesSinglePurchaseSingleShare() {
+      assertEquals(0, portfolio.sharesOf(&quot;MSFT&quot;));
+      portfolio.purchase(&quot;MSFT&quot;, 1);
+      assertEquals(1, portfolio.numberOfHoldings());
+      assertEquals(1, portfolio.sharesOf(&quot;MSFT&quot;));
+   }
+
+   @Test
+   public void sumsSharesForMultiplePurchasesSameSymbol() {
+      portfolio.purchase(&quot;MSFT&quot;, 1);
+      portfolio.purchase(&quot;MSFT&quot;, 2);
+      assertEquals(1, portfolio.numberOfHoldings());
+      assertEquals(3, portfolio.sharesOf(&quot;MSFT&quot;));
+   }
+
+   @Test
+   public void segregatesSharesBySymbol() {
+      portfolio.purchase(&quot;MSFT&quot;, 5);
+      portfolio.purchase(&quot;IBM&quot;, 10);
+      assertEquals(2, portfolio.numberOfHoldings());
+      assertEquals(5, portfolio.sharesOf(&quot;MSFT&quot;));
+   }
+
+   @Test(expected=InvalidSymbolException.class)
+   public void disallowsPurchaseOfNullSymbol() {
+      portfolio.purchase(null, 0);
+   }
+}
+</CODE>
+<TEXT orderid="2" >
+Listing 2: Portfolio
+</TEXT>
+<CODE orderid="3" >
+import java.util.*;
+
+public class Portfolio {
+   private Map&lt;String,Integer&gt; symbols =
+      new HashMap&lt;String,Integer&gt;();
+
+   public int numberOfHoldings() {
+      return symbols.size();
+   }
+
+   public int sharesOf(String symbol) {
+      if (!symbols.containsKey(symbol))
+         return 0;
+      return symbols.get(symbol);
+   }
+
+   public void purchase(String symbol, int shares) {
+      if (symbol == null)
+         throw new InvalidSymbolException();
+      symbols.put(symbol, shares + sharesOf(symbol));
+   }
+}
+</CODE>
+<TEXT orderid="4" >
+The InvalidSymbolException class is simply an empty subclass of RuntimeException.
+
+The first step toward building a proxy is to define a common interface. I execute an Extract Implementer refactoring [Feathers2004], ending up with an interface named Portfolio and an implementation of the Portfolio interface named PortfolioImpl.
+
+Listing 3: Introducing an interface
+</TEXT>
+<CODE orderid="5" >
+// Portfolio.java
+public interface Portfolio {
+   int numberOfHoldings();
+   int sharesOf(String symbol);
+   void purchase(String symbol, int shares);
+}
+
+// PortfolioImpl.java--renamed from Portfolio
+import java.util.*;
+
+public class PortfolioImpl implements Portfolio {
+   ...
+</CODE>
+</result>

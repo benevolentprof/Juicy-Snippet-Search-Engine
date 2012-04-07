@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>2764</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/data/article.php/3667831/Four-Ways-to-Optimize-Your-MySQL-Database.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Data &amp; Java
+					
+				
+				
+					Read More in Data &amp; Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Four Ways to Optimize Your MySQL Database
+			
+			
+				
+				
+					March 26, 2007
+					By 
+Jason Gilmore
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+
+From its inception, speed has been a strong point of the MySQL database server. In fact, its developers have long been cautious to add new features at the expense of performance even when faced by withering pressure from detractors. Yet over time MySQL&apos;s features caught up with its blazing speed, and today its used to power some of the highest traffic websites in the world, Yahoo! Finance, Craiglist, and TicketMaster among them. Accordingly, for most applications chances are MySQL is going to perform to your expectations.
+
+
+
+However, with Web traffic exploding, and the complexity of applications increasing all the time, you should strive to optimize your database from its very inception, and continue to review and refine its structure and query activity over its lifetime. You can do so by following a process I refer to as NICM, or preferably, &quot;Neglecting to Index Causes Misery&quot; (those of you new to database optimization will soon get the joke). This process consists of five steps, including Normalize, Index, Cache, and Monitor. In this inaugural installment of my new MySQL series for Developer.com, I&apos;ll introduce these five steps, highlighting not only how they will ensure your database is running at full tilt, but also how they will actually help you to more effectively manage your data.
+
+
+Normalize
+
+
+The relational database is aptly named because it promotes the strategy of managing data through well-defined relations. By creating and enforcing relations, its possible to greatly reduce the possibility inconsistencies could creep into the data. This strategy is known as database normalization, of which there are several well-defined states, also known as forms. 
+
+
+
+To illustrate both the concept and importance of normalization, consider a scenario in which you&apos;re tasked with creating a corporate human resources application capable of managing employee information. This application would allow the HR manager to easily insert, update, view and delete employee data. Each employee record would contain the usual information, including name, phone number, position, salary, and supervisor.
+
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		
+Note that in the opening sentence I stated that relational databases promote the strategy of managing data through well-defined relations&#8212;you&apos;re certainly not constrained to do so. Therefore there&apos;s nothing to prevent you from creating a single table that looks like this:
+</TEXT>
+<CODE orderid="1" >
+CREATE TABLE employees (
+ name VARCHAR(50) NOT NULL,
+ telephone CHAR(10) NOT NULL,
+ position VARCHAR(20) NOT NULL,
+ salary DECIMAL(8,2) NOT NULL,
+ supervisor VARCHAR(50) NOT NULL
+)
+</CODE>
+<TEXT orderid="2" >
+Yet several problems with this approach should be evident. Because the data types used to define these columns are all indicative of an input method requiring the manager to manually enter each value. For example, the manager might type the following values into the web form when adding a new employee: 
+
+
+
+&quot;Jason Gilmore&quot;, &quot;614-999-9999&quot;, &quot;Software Developer&quot;, &quot;50000.00&quot;, &quot;John Thompson&quot;
+
+
+
+
+	
+		Related Articles
+	
+	
+		
+			Performing HTTP Geocoding with the Google Maps API
+			Developing a Ajax-driven Shopping Cart with PHP and Prototype
+			Integrating MP3 Audio Messages Into Your Website
+			
+	
+
+
+
+But what if over time the manager begins to enter the &quot;Software Developer&quot; title as &quot;Sft. Dev.&quot;, and occasionally forgets the periods, using just &quot;Sft Dev&quot;? These inconsistencies eliminate the possibility of using simple SELECT queries to retrieve the roster of software developers. The simple answer to the problem is to normalize the position data, creating a new table intended to contain the master list of all possible positions:
+
+
+
+CREATE TABLE positions (
+ id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ name VARCHAR(20) NOT NULL
+)
+
+
+Then you revise the employees table so that it refers to a position&apos;s primary key rather than the name (in the revised table, the _fk postfix is simply a naming convention to remind the database administrator that this column points to a foreign table key):
+</TEXT>
+</result>

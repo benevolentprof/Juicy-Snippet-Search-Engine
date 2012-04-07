@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>3498</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/data/article.php/10932_3677501_2/Working-with-Design-Patterns-Flyweight.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Data &amp; Java
+					
+				
+				
+					Read More in Data &amp; Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Working with Design Patterns: Flyweight
+			
+			
+				
+				
+					May 14, 2007
+					By 
+Jeff Langr
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Now that I&apos;ve encapsulated instantiation in the factory&apos;s create method, I can control when Time objects get created. As the first step, I create a unique key by concatenating the hour and the minute into a time string. I use this key to extract an entry, if one exists, from a new HashMap named times. If an entry exists, I return it. If no entry exists, I create a new Time object, and stuff it into the times map at the key I created.
+
+That&apos;s it. Implementing flyweight can be this straightforward. The chief downsides are:
+
+
+Instantiation of all Time objects must be done through the factory. If not, you lose the benefit of flyweight.
+Using the factory requires the overhead of an additional method call and a hash table lookup. This rarely presents a performance problem in Java.
+
+
+So, was it worth it? I hacked together a quick application class to see whether the flyweight was paying off:
+</TEXT>
+<CODE orderid="1" >
+import java.util.*;
+
+public class App extends Thread {
+   private static Random random = new Random();
+
+   public static void main(String[] args) {
+      new App().start();
+   }
+
+   public void run() {
+      int size = 1000000;
+      List&lt;Appointment&gt; appointments =
+         new ArrayList&lt;Appointment&gt;(size);
+      for (int i = 0; i &lt; size; i++) {
+         appointments.add(createRandomAppt());
+      }
+      System.out.println(&quot;created &quot; + appointments.size());
+      while (true) {
+         Thread.yield();
+      }
+   }
+
+   private Appointment createRandomAppt() {
+      Time start = createRandomTime();
+      Time stop = createRandomTime();   // kind of bogus
+      return new Appointment(start, stop);
+   }
+
+   private Time createRandomTime() {
+      byte hour = (byte)random.nextInt(24);
+      byte quartile = (byte)random.nextInt(4);
+      byte minute = 0;
+      switch (quartile) {
+         case 0:
+            minute = 0;
+            break;
+         case 1:
+            minute = 15;
+            break;
+         case 2:
+            minute = 30;
+            break;
+         case 3:
+            minute = 45;
+            break;
+      }
+      //return new Time(hour, minute);
+      return TimeFactory.create(hour, minute);
+   }
+}
+</CODE>
+<TEXT orderid="2" >
+Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		Ignoring the fact that an appointment stop time probably should be some time later than its start time, the application puts together a number of appointments with random stop and start times. The times are constrained to quarter-hour marks. This is good enough for a quick test; in reality, appointment times during a typical business day are likely to be even more constrained.
+
+The last two lines in createRandomTime control how the Time instances get created. For the first run, I uncommented the line that creates a Time directly via its constructor:
+</TEXT>
+</result>

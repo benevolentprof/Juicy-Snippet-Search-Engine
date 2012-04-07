@@ -1,0 +1,971 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>6930</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/web/article.php/10935_2211381_5/A-Dynamic-e-Business-Application-Using-Web-Services.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Web-based Java
+					
+				
+				
+					Read More in Web-based Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			A Dynamic e-Business Application Using Web Services 
+			
+			
+				
+				
+					May 22, 2003
+					By 
+Simon  John
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Various functional controller objects use data access objects and JDBC for database operation. The application uses the Pointbase database bundled with the application server for data persistence.
+
+The manufacturer discovers and interacts with parts vendors to procure computer accessories. The manufacturer application searches a UDDI business registry (UBR) for organizations matching the search classification using the JAXR API. The ServiceProviderLocator object actually performs the search for vendor organizations based on the classification and search criteria. The ProviderClent object then performs dynamic binding with the received endpoints and invokes services on the part vendors using appropriate call agents depending on the binding type. It may use Dynamic Invocation Interface, JAX-RPC (DII), or use JAXM messages. Below is the code snippet showing the ProviderClient getting quotes from all vendors.
+</TEXT>
+<CODE orderid="1" >
+try {
+  Enumeration e= orgTable.elements();
+
+  // iterate thrugh the cached service providers
+  while(e.hasMoreElements()) {
+
+    ServiceProviderInfo spi = (ServiceProviderInfo)e.nextElement();
+
+    // get the endpoint for the specified service
+    String[] endpoint = spi.getService(service).
+                            getServiceEndpoint();
+    if(endpoint == null) throw new Exception(
+                         &quot;No Organisation endpoints found !&quot;);
+
+    // Assuming &apos;JAXRPC&apos; and &apos;SOAPNET&apos; are the only two types of
+    // service bindings.
+    // Using &apos;JAXRPC&apos; as default
+    // create a call agent suitable for the endpoint
+    ICallAgent ca = CallAgentFactory.newCallAgent(endpoint);
+
+    // invoke the Web service method on the endpoint
+    String quote = ca.getQuote(type, size);
+    if(quote != null) allQuotes.put(spi.getProviderName(), quote);
+  }
+  if(allQuotes.isEmpty()) throw new Exception(
+               &quot;No Vendors with matching specifications !&quot;);
+} catch (Throwable t) {
+  System.out.println(&quot;Exception : In Provider-getAllQuotes&gt;&gt; &quot; );
+  throw new Exception(t.getMessage());
+}
+// return the quote collection from all vendors
+return allQuotes;
+</CODE>
+<TEXT orderid="2" >
+The application uses the reference UDDI implementation provided as a part of the JWSDK pack for the UBR. Figure 9 illustrates the manufacturer application and its interaction with part vendors.
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		
+
+
+
+Click here for a larger image.
+
+Figure 9: The Vendor-Manufacturer Interactions
+
+The parts vendor services are published to the UDDI test registry using the JAXR publishing APIs. They host Web services with the same service names and signatures to return product details and price quotes. One vendor is implemented as a WAR application deployed on the Tomcat servlet engine. The second vendor, also a Java application on the Apache/Axis platform, uses a Java:RPC provider to communicate with the manufacturer. Both of them use JAXP APIs to process data from an XML document that holds parts information. The third vendor is implemented using C# on the Microsoft .NET platform, which communicates with the manufacturer using synchronous JAXM. Below are the messages exchanged between the manufacturer and a vendor implemented on .NET while invoking the getQuote() method, captured using the &apos;tcpmon&apos; utility from Apache/Axis.
+
+
+Listen Port: 9003
+
+Target Host: localhost
+
+Target Port: 80
+
+==== Request ====
+
+POST /SymphonyQS/QuoteService/QuoteService.asmx HTTP/1.1
+
+SOAPAction: http://tempuri.org/getQuote
+
+Content-Type: text/xml; charset=&quot;utf-8&quot;
+
+Content-Length: 266
+
+User-Agent: Java1.4.0_02
+
+Host: localhost
+
+Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+
+Connection: keep-alive
+
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+&#160;&lt;soap-env:Envelope xmlns:soap-env=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
+
+&#160;&#160;&lt;soap-env:Header/&gt;
+
+&#160;&#160;&lt;soap-env:Body&gt;
+
+&#160;&#160;&#160;&lt;getQuote xmlns=&quot;http://tempuri.org/&quot;&gt;
+
+&#160;&#160;&#160;&#160;&lt;size&gt;40&lt;/size&gt;
+
+&#160;&#160;&#160;&#160;&lt;type&gt;IDE&lt;/type&gt;
+
+&#160;&#160;&#160;&lt;/getQuote&gt;
+
+&#160;&#160;&lt;/soap-env:Body&gt;
+
+&#160;&lt;/soap-env:Envelope&gt;
+
+
+==== Response ====
+
+HTTP/1.1 100 Continue
+
+
+
+Server: Microsoft-IIS/5.0
+
+Date: Tue, 18 Mar 2003 20:45:01 GMT
+
+HTTP/1.1 200 OK
+
+Server: Microsoft-IIS/5.0
+
+Date: Tue, 18 Mar 2003 20:45:09 GMT
+
+Cache-Control: private, max-age=0
+
+Content-Type: text/xml; charset=utf-8
+
+Content-Length: 350
+
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+
+&#160;&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+
+&#160;&#160;&lt;soap:Body&gt;
+
+&#160;&#160;&#160;&lt;getQuoteResponse xmlns=&quot;http://tempuri.org/&quot;&gt;
+
+&#160;&#160;&#160;&#160;&lt;getQuoteResult&gt;225.00&lt;/getQuoteResult&gt;
+
+&#160;&#160;&#160;&lt;/getQuoteResponse&gt;
+
+&#160;&#160;&lt;/soap:Body&gt;
+
+&#160;&lt;/soap:Envelope&gt;
+
+
+
+
+Working with the Application
+
+
+Download the application and other required software
+
+
+The POC application zip file from here
+J2SDK1.4 from http://java.sun.com/j2se/1.4.1/download.html
+JSWDK pack from http://java.sun.com/webservices/downloads/webservicespack.html
+Sun-ONE AS-7 from http://wwws.sun.com/software/products/appsrvr/appsrvr_download.html
+Apache Axis from http://ws.apache.org/axis/
+Jakarta Struts from http://jakarta.apache.org/builds/jakarta-struts/release/v1.0.2/
+The Ant utility is included with the Sun-ONE AS-7.
+
+
+Follow the instructions in the readme.txt file of eTrade.zip to install and deploy the application. (Important: Remember to place the struts.jar file in the /src/lib folder as mentioned in readme.txt; otherwise, the project will fail to compile.)
+Make sure the Sun-ONE App Server is started and the Manufacturer application is up and running. You should see the message &quot;INFO: CORE5053: Application on Ready complete.&quot; on the application server console on successful startup.
+Test to see whether the manufacturer Web service has been installed by pointing the browser to http://localhost:81/manufacturer/jaxrpc/TradingWebServicesIF. If successfully installed, you should see a message to that effect.
+Modify the customer.properties file if required, in particular the WSDL_URL and JMS_PROVIDER_URL properties. Execute the run-client.bat file to start the Customer Client (swing based application).
+Log in using JOHNS and any password.
+On successful login, you should see the application come up with the customer information on the first of the four tab pages. The second tab page, View Products, lists product details of the one chosen from the list box. The third tab page, Create Order, is for customers to prepare and place orders. Use the buttons provided at the bottom. When an order is placed, it will be removed from this page and available as an ordered item in the last tab page Order Details. This last page shows previous orders, their status and details. The status of orders on this page is updated automatically when the administrator approves it from the manufacturer application.
+Test to see whether the vendor Web service has been installed by pointing the browser to:
+
+
+http://localhost:80/SymphonyQS/QuoteService/QuoteService.asmx for Symphony on .NET.
+http://localhost:8080/MarigoldQS/jaxrpc/QuoteServiceIF for Marigold on Tomcat WAR
+http://localhost:8080/axis/services/QuoteService  for Cosmic on Apache/Axis
+
+If successfully installed, you should see a message to that effect. These vendors should have been published in the registry as well. Use the JAXR Registry browser to verify.
+
+
+To run the manufacturer application point the browser to http://localhost:81/manufacturer/index.jsp . Use IE 5.0 or higher as other browsers may not render some pages properly. Select one of the options from the menu. The customer and product management options allow you to create, update, or delete items in the database. The view/approve order option allows you to selectively retrieve orders, view, and approve pending orders. On approval of an order, the invoice document is sent to the customer and order status updated both at the customer and the manufacturer application. Quote for parts is an option to retrieve all vendors registered in the global registry for a particular service. Once the parts vendors are located you can get the part information by clicking on any one of them. You can also locate the vendor that quotes the least for a particular part item. For example, enter &apos;IDE&apos; for type and &apos;40&apos; for size and select the &apos;Get Best Quote&apos; option to select the best quote vendor for an IDE HDD of size 40 GB. You can delete a vendor from the UDDI registry entry using the JAXR Registry browser and re-run the &apos;Get Best Quote&apos; and expect a different result.
+You can use the tcpmon utility that comes with Apache-Axis to view the SOAP messages that go back and forth between the Manufacturer and customer as well as those between manufacturer and the vendors.
+The Web application response may be slow the first time you access a jsp resource as they are first converted to servlets. It should be much better on subsequent invocations of the same resource.
+
+			
+			
+			
+			
+				
+				
+1 
+2 
+3 
+4 
+5 
+6 
+
+				
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

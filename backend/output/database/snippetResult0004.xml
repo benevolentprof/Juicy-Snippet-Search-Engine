@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>1196</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://learnola.com/2009/01/07/java-tutorial-connect-to-mysql-database/</url>
+</description>
+<TEXT orderid="0" >
+Video Training &#8211; Tutorials
+ 
+
+
+
+
+	
+		
+			
+			
+		
+	
+
+	
+		Home
+		About
+All&#160;Tutorials
+Training&#160;Videos
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+		Java Tutorial &#8211; Connect to MySQL&#160;Database
+
+		
+		   		January 7, 2009
+   		
+   		   		
+
+		We also have some excellent Beginners Programming Java tutorials that use high quality narrated videos and practical working files to teach the fundamentals of programming in Java Beginners Java Training Videos &#8211; Programming
+.
+Java Tutorial &#8211; Database Programming
+This tutorial assumes knowledge of basic database concepts and MySQL.
+In this Java tutorial you will learn how to connect to a MySQL database.
+Connecting to a database will likely be a common task as your Java projects progress. In this JAVA tutorial, we will use the Java Database Connectivity API (Application Programming Interface) &#8211; JDBC to deliver our data.
+The JDBC libraries provide the means to connect your programs to a database and perform any operations upon the data that you require. To start using JDBC you need:
+
+the JDK (which you may already have installed)
+a JBDC driver, which depends on the Database Management System you are using for your data.
+
+Once you have installed a driver compatible with the DBMS for your data source, create a new Java project in your IDE. Enter the following import statement at the top of your Main Class:
+</TEXT>
+<CODE orderid="1" >
+//import required for database operations
+import java.sql.*;
+</CODE>
+<TEXT orderid="2" >
+Now enter your main method (this code is for MySQL databases, with notes where alterations are required for other systems):
+</TEXT>
+</result>

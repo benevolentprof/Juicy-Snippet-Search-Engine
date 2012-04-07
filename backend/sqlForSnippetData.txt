@@ -1,0 +1,90 @@
+select t2.docid, url, match(html) against ('binary tree') as score 
+from htmlstorage t2
+inner join document t1 on t1.docid=t2.docid
+where match(html) against ('binary tree')  limit 100;
+
+
+-- count all document that has code --- > '13599'
+SELECT count(DISTINCT docid) FROM snippetdata where `type`=1; 
+
+-- select all docid that has only text  ---> 20627
+SELECT count(*) FROM (SELECT DISTINCT docid FROM snippetdata GROUP BY docid HAVING sum(`type`)=0) t1;
+
+-- all docs = 34226
+SELECT count(distinct docid) FROM snippetdata
+
+
+-- Filter For snippet that have the most highly score in the page
+select t2.docid,orderid,`type`, url, `data`, match(`data`) against ('binary tree') as score 
+from snippetdata t2
+inner join document t1 on t1.docid=t2.docid
+inner join docwithcode t3 on t1.docid=t3.docid
+where 
+match(`data`) against ('binary tree') 
+group by t2.docid 
+having score = Max(score) 
+limit 100;
+
+
+-- Search using TF/IDF (v.2) : search inside snippet first, then group by document
+SELECT t1.docid,t3.url,max(MATCH(`data`) AGAINST ('hashmap')) as score FROM
+docwithcode t1
+INNER JOIN snippetdata t2 ON t1.docid=t2.docid
+INNER JOIN document t3 ON t1.docid=t3.docid
+WHERE 
+MATCH(`data`) AGAINST ('hashmap')
+GROUP BY t1.docid, t3.url
+ORDER BY score DESC
+
+
+-- To check codesnippet that is Java language or not (check on keyword_ratio)
+SELECT t1.docid,`data`, avg(keywordratio) as score FROM snippetdata t1
+INNER JOIN docwithcode t2 ON t1.docid=t2.docid
+WHERE `type`=1 GROUP BY t1.docid HAVING score=0
+
+-- set TITLE in "document" table
+UPDATE document t1
+INNER JOIN htmlstorage t2 ON t1.docid=t2.docid
+SET t1.title = SUBSTR(html,LOCATE('<title>',LOWER(html))+7,LOCATE('</title>',LOWER(html))-LOCATE('<title>',LOWER(html))-7)
+
+-- LONGEST title page  (801 chars)
+-- http://www.roseindia.net/javacertification/scjp5/javaclasspath.shtml
+
+-- CREATE TABLE codesnippet
+CREATE  TABLE IF NOT EXISTS `codesnippet`.`codesnippet` (
+  `codesnippetid` INT NOT NULL AUTO_INCREMENT ,
+  `docid` INT NULL ,
+  `url` VARCHAR(250) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL ,
+  `title` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL ,
+  `code` LONGTEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL ,
+  `text` LONGTEXT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NULL ,
+  PRIMARY KEY (`codesnippetid`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+-- Query data for put in codesnippet
+SELECT t1.docid,t2.orderid,t3.orderid,t2.type,t3.type,t4.url,t4.title,t2.data,t3.data
+FROM docwithcode t1
+INNER JOIN snippetdata t2 ON t1.docid=t2.docid 
+INNER JOIN snippetdata t3 ON t1.docid=t3.docid AND t2.orderid+1=t3.orderid
+INNER JOIN document t4 ON t1.docid=t4.docid
+INNER JOIN htmlstorage t5 ON t1.docid=t5.docid
+WHERE t3.type=1 LIMIT 10 
+
+-- INSERT into codesnippet
+INSERT INTO codesnippet(docid,url,title,`text`,`code`)
+SELECT t1.docid,t4.url,t4.title,t2.data,t3.data
+FROM docwithcode t1
+INNER JOIN snippetdata t2 ON t1.docid=t2.docid 
+INNER JOIN snippetdata t3 ON t1.docid=t3.docid AND t2.orderid+1=t3.orderid
+INNER JOIN document t4 ON t1.docid=t4.docid
+INNER JOIN htmlstorage t5 ON t1.docid=t5.docid
+WHERE t3.type=1 
+
+-- Count no. of document with code , and the code is Java
+SELECT count(*) FROM (SELECT docid FROM snippetdata GROUP BY docid HAVING sum(keywordratio)>0) t1
+
+-- Insert the document with java code into "docwithcode" table
+DELETE FROM docwithcode ;
+INSERT INTO docwithcode SELECT docid FROM snippetdata GROUP BY docid HAVING sum(keywordratio)>0;

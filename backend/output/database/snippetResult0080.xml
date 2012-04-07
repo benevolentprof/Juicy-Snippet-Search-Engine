@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>79880</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=1012</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            Configuring JDBC DataSources in Struts
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+
+You can define any number of JDBC javax.sql.DataSource
+objects for the application in the configuration file under the element &lt;data-sources&gt;.
+Every data source is defined within the &lt;data-sources&gt;
+element using the &lt;data-source&gt; element. The &lt;data-source&gt;
+element defines a number of attributes, the most important of which are listed
+in Table below.
+
+
+  &lt;data-source&gt;
+    Attributes
+  
+    
+      
+        Element
+        Attribute
+      
+      
+        Description
+      
+    
+  
+  
+    
+      
+        key
+      
+      
+        The name used by Action
+        classes for looking up this connection. The default is org.apache.struts.action.DATA_SOURCE
+        (defined in the constant org.apache.struts.Globals.DATA_SOURCE_KEY).
+      
+    
+    
+      
+        type
+      
+      
+        The name of the actual class that implements the DataSource
+        interface.
+      
+    
+  
+
+
+You supply any further configuration information using nested &lt;set-property&gt;
+tags. You can use these tags to set JavaBeans properties on the DataSource;
+they take property and value
+attributes to specify the property to set and the value to which to set it.
+The default attribute values for &lt;data-source&gt;
+cause it to instantiate a GenericDataSource and give
+it the key. The GenericDataSource class wraps an
+ordinary JDBC Driver and turns it into a DataSource
+with a database connection pool. This class has a number of JavaBean properties
+to configure, the most important of which are listed in Table below.
+
+
+  &lt;data-source&gt;
+    Attributes
+  
+    
+      
+        Element
+        Attribute
+      
+      
+        Description
+      
+    
+  
+  
+    
+      
+        description
+      
+      
+        A description of this DataSource.
+      
+    
+    
+      
+        driverClass
+      
+      
+        The fully qualified JDBC Driver
+        class used to access the database.
+      
+    
+    
+      
+        url
+      
+      
+        The JDBC URL used to access the database.
+      
+    
+    
+      
+        user
+      
+      
+        The username used to log into the database.
+      
+    
+    
+      
+        password
+      
+      
+        The password used to log into the database.
+      
+    
+    
+      
+        maxCount
+      
+      
+        The maximum number of connections in the
+        connection pool.
+      
+    
+    
+      
+        readOnly
+      
+      
+        If true, the Connections
+        returned by the DataSource re read-only; this
+        has performance advantages with some databases.
+      
+    
+    
+      
+        autoCommit
+      
+      
+        If true, the Connections
+        returned by the DataSource automatically
+        commit the transaction after every SQL statement.
+      
+    
+  
+
+The following excerpt illustrates how you&apos;ll use these
+attributes to define a DataSource for the pizza
+MySQL database:
+
+  &lt;data-sources&gt;
+  &lt;data-source key=&quot;pizza&quot;&gt;
+    &lt;set-property property=&quot;driverClass&quot;
+                   value=&quot;com.mysql.jdbc.Driver&quot; /&gt;
+    &lt;set-property property=&quot;url&quot;
+                   value=&quot;jdbc:mysql://localhost/pizza&quot; /&gt;
+  &lt;/data-source&gt;
+&lt;/data-sources&gt;
+
+
+The DataSource will be bound in the
+application context under the name pizza. You can use
+it in the JSTL &lt;sql:query&gt;, &lt;sql:update&gt;,
+and &lt;sql:transaction&gt; tags:
+
+  &lt;sql:query var=&quot;myobject&quot;
+            dataSource=&quot;${applicationScope.pizza}&quot;&gt;
+
+
+You can also retrieve it from within a Struts action using the getDataSource()
+method:
+</TEXT>
+<CODE orderid="1" >
+DataSource ds = getDataSource(request, &quot;pizza&quot;);
+Connection con = ds.getConnection();
+</CODE>
+<TEXT orderid="2" >
+&#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</TEXT>
+</result>

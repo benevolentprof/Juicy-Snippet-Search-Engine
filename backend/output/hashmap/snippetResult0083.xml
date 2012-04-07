@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>9795</docid>
+<orderid>40</orderid>
+<type>TEXT</type>
+<url>http://www.javacoffeebreak.com/books/extracts/javanutshell3rdedition/index.html</url>
+</description>
+<TEXT orderid="38" >
+&#160;
+          Arrays can be treated and manipulated as objects in
+          Java. Given an arbitrary object o,
+          you can use code such as the following to find out if the object is an
+          array and, if so, what type of array it is:
+</TEXT>
+<CODE orderid="39" >
+Class type = o.getClass();
+if (type.isArray()) {
+  Class elementType = type.getComponentType();
+}
+</CODE>
+<TEXT orderid="40" >
+&#160;
+          
+          
+          
+          4.6 Collections
+          The Java collection framework is a set of important
+          utility classes and interfaces in the java.util
+          package for working with collections of objects. The collection
+          framework defines two fundamental types of collections. A CollectionCollection
+          is a group of objects, while a Map
+          is a set of mappings, or associations, between objects. A Set
+          is a type of Collection in which
+          there are no duplicates, and a List
+          is a Collection in which the
+          elements are ordered. Collection, Set,
+          List, and Map
+          are all interfaces, but the java.util
+          package also defines various concrete implementations (see ). Other
+          important interfaces are IteratorIterator
+          and ListIterator, which allow you
+          to loop through the objects in a collection. The collection framework
+          is new as of Java 1.2, but prior to that release you can use Vector
+          and Hashtable, which are
+          approximately the same as ArrayList
+          and HashMap.
+          The following code demonstrates how you might create
+          and perform basic manipulations on sets, lists, and maps:
+</TEXT>
+<CODE orderid="41" >
+import java.util.*;              
+
+Set s = new HashSet();           // Implementation based on a hash table
+s.add(&quot;test&quot;);                   // Add a String object to the set
+boolean b = s.contains(&quot;test2&quot;); // Check whether a set contains an object
+s.remove(&quot;test&quot;);                // Remove a member from a set
+
+Set ss = new TreeSet();          // TreeSet implements SortedSet
+ss.add(&quot;b&quot;);                     // Add some elements
+ss.add(&quot;a&quot;);        
+// Now iterate through the elements (in sorted order) and print them
+for(Iterator i = ss.iterator(); i.hasNext();)
+  System.out.println(i.next());
+
+List l = new LinkedList();       // LinkedList implements a doubly linked list
+l = new ArrayList();             // ArrayList is more efficient, usually
+Vector v = new Vector();         // Vector is an alternative in Java 1.1/1.0
+l.addAll(ss);                    // Append some elements to it
+l.addAll(1, ss);                 // Insert the elements again at index 1
+Object o = l.get(1);             // Get the second element
+l.set(3, &quot;new element&quot;);         // Set the fourth element
+l.add(&quot;test&quot;);                   // Append a new element to the end
+l.add(0, &quot;test2&quot;);               // Insert a new element at the start
+l.remove(1);                     // Remove the second element
+l.remove(&quot;a&quot;);                   // Remove the element &quot;a&quot;
+l.removeAll(ss);                 // Remove elements from this set
+if (!l.isEmpty())                // If list is not empty,
+  System.out.println(l.size());  // print out the number of elements in it
+boolean b1 = l.contains(&quot;a&quot;);    // Does it contain this value?
+boolean b2 = l.containsAll(ss);  // Does it contain all these values?
+List sublist = l.subList(1,3);   // A sublist of the 2nd and 3rd elements
+Object[] elements = l.toArray(); // Convert it to an array
+l.clear();                       // Delete all elements
+
+Map m = new HashMap();           // Hashtable an alternative in Java 1.1/1.0
+m.put(&quot;key&quot;, new Integer(42));   // Associate a value object with a key object
+Object value = m.get(&quot;key&quot;);     // Look up the value associated with a key
+m.remove(&quot;key&quot;);                 // Remove the association from the Map
+Set keys = m.keySet();           // Get the set of keys held by the Map
+</CODE>
+<TEXT orderid="42" >
+&#160;
+          Arrays of objects and collections serve similar
+          purposes. It is possible to convert from one to the other:
+</TEXT>
+</result>

@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75826</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/example/java/util/finding-preference-preference-tree.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Finding a Preference in a Preference Tree 
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this section you will learn how to find the preference of Preference node in a Preference Tree. 
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Finding a Preference in a Preference Tree
+
+
+
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+In this section you will learn how to find the preference of Preference
+node in a Preference Tree.&#160;
+You can see in the given example that we are retrieving the keys and values
+of the Preference node &apos;Java Types&apos;. For this, we have create a method find(Preferences
+p) and use different methods inside it. The method p.name() returns
+the name of the node. In order to get the keys of the specified node, we have
+used the method p.getKeys() and the method p.get(s,&quot;&quot;)
+returns the values with respect to the key.
+Here is the code of FindPreference.java
+&#160;
+&#160;
+&#160;
+&#160;
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.util.prefs.*;
+
+import&#160;java.util.*;
+
+import&#160;java.util.prefs.*;
+
+import&#160;java.io.*;
+
+
+
+public&#160;class&#160;FindPreferences&#160;{
+
+public&#160;void&#160;find(Preferences&#160;p)&#160;throws&#160;BackingStoreException{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;Node&apos;s&#160;name:&#160;&quot;&#160;+&#160;p.name());
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;Information&#160;of&#160;Preference&#160;node&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;for(String&#160;s&#160;:&#160;p.keys())&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;&#160;&#160;&quot;&#160;+&#160;s&#160;+&#160;&quot;&#160;=&#160;&quot;&#160;+&#160;p.get(s,&#160;&quot;&quot;));
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]args)&#160;throws&#160;Exception{
+
+&#160;&#160;&#160;&#160;FindPreferences&#160;s=new&#160;FindPreferences();
+
+&#160;&#160;&#160;&#160;Preferences&#160;root&#160;=&#160;Preferences.userRoot();
+
+&#160;&#160;&#160;&#160;Preferences&#160;prefs&#160;=&#160;root.node(&quot;Java&#160;Types&quot;);
+
+&#160;&#160;&#160;&#160;s.find(prefs);
+
+&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+Output will be displayed as:
+
+Download Source Code:
+&#160;
+
+
+		
+		
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+      
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Removing a Preference from a Preference Node ...  192726 viewsRemoving a Preference Node  ...  192744 viewsCreating a Preference Node  ...  192818 viewsFinding a Preference in a Preference Tree  ...  192822 viewsGetting the Maximum Size of a Preference Key and Value  ...  192825 viewsListening for Changes to Preference Values in a Preference Node  ...  192827 viewsDetermining If a Preference Node Contains a Specific Key  ...  192829 viewsGetting and Setting Java Type Values in a Preference  ...  192832 viewsDetermining If a Preference Node Exists  ...  192838 viewsDetermining When a Preference Node Is Added or Removed  ...  192849 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+reference
+io
+method
+user
+remove
+new
+rmi
+using
+this
+node
+oo
+move
+root
+example
+add
+to
+exam
+ref
+ld
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+0 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Finding a Preference in a Preference Tree 
+										What is the use of java?
+										Methods of Servlets
+										Variables in Java
+										Retrieving the Parent and Child Nodes of a Preference Node 
+										Installation, Configuration and running Servlets
+										Struts Resources
+										Designing Database
+										Login and User Registration Application
+										Java Captcha in Struts 2 Application
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

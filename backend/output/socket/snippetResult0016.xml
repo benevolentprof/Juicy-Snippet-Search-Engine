@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>80691</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=1064</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            Multi Threaded Server Socket Programming&#160;in VB.net
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+
+
+Multithreaded Server Socket Progam is a Console application which can easily handle multiple clients at the same
+instant, we need to create a Server Socket from TcpListener class and listen to PORT 8888. When the server gets a request from Client, the Server passes the instance of the client request to a separate class handleClient. In handleClient class there is a Thread, which handles the communication between the instance of Server side client and Client from outside.
+For each request from the client, in Server there is a new thread instant is created for communication, so we can connect more than one client at the same time to Server and enable them to communicate independently.
+Create a new VB.NET Console Application project and put the following source code in the project.
+</TEXT>
+<CODE orderid="1" >
+Imports System.Net.Sockets
+Imports System.Text
+Module Module1
+    Sub Main()
+        Dim serverSocket As New TcpListener(8888)
+        Dim clientSocket As TcpClient
+        Dim counter As Integer
+
+        serverSocket.Start()
+        msg(&quot;Server Started&quot;)
+        counter = 0
+        While (True)
+            counter += 1
+            clientSocket = serverSocket.AcceptTcpClient()
+            msg(&quot;Client No:&quot; + Convert.ToString(counter) + &quot; started!&quot;)
+            Dim client As New handleClinet
+            client.startClient(clientSocket, Convert.ToString(counter))
+        End While
+
+        clientSocket.Close()
+        serverSocket.Stop()
+        msg(&quot;exit&quot;)
+        Console.ReadLine()
+    End Sub
+
+    Sub msg(ByVal mesg As String)
+        mesg.Trim()
+        Console.WriteLine(&quot; &gt;&gt; &quot; + mesg)
+    End Sub
+
+    Public Class handleClinet
+        Dim clientSocket As TcpClient
+        Dim clNo As String
+        Public Sub startClient(ByVal inClientSocket As TcpClient, _
+        ByVal clineNo As String)
+            Me.clientSocket = inClientSocket
+            Me.clNo = clineNo
+Dim ctThread As Threading.Thread = New Threading.Thread(AddressOf doChat)
+            ctThread.Start()
+        End Sub
+        Private Sub doChat()
+            Dim requestCount As Integer
+            Dim bytesFrom(10024) As Byte
+            Dim dataFromClient As String
+            Dim sendBytes As [Byte]()
+            Dim serverResponse As String
+            Dim rCount As String
+            requestCount = 0
+
+            While (True)
+                Try
+                    requestCount = requestCount + 1
+                    Dim networkStream As NetworkStream = _
+                            clientSocket.GetStream()
+    networkStream.Read(bytesFrom, 0, CInt(clientSocket.ReceiveBufferSize))
+    dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom)
+                    dataFromClient = _
+                dataFromClient.Substring(0, dataFromClient.IndexOf(&quot;$&quot;))
+                    msg(&quot;From client-&quot; + clNo + dataFromClient)
+                    rCount = Convert.ToString(requestCount)
+            serverResponse = &quot;Server to clinet(&quot; + clNo + &quot;) &quot; + rCount
+                    sendBytes = Encoding.ASCII.GetBytes(serverResponse)
+                    networkStream.Write(sendBytes, 0, sendBytes.Length)
+                    networkStream.Flush()
+                    msg(serverResponse)
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                End Try
+
+            End While
+
+        End Sub
+    End Class
+End Module
+</CODE>
+<TEXT orderid="2" >
+&#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</TEXT>
+</result>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>6638</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/other/article.php/10936_3792296_2/Reading-Excel-Files-with-Apache-POI-HSSF.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Reading Excel Files with Apache POI HSSF
+			
+			
+				
+				
+					December 22, 2008
+					By 
+Scott Nelson
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+To represent values from a spreadsheet, I find a Map of ArrayLists handy for the rows of data, with the key being the column name, and then dropping these Maps into an ArrayList. This makes for simple code to read the values for multiple purposes without having to create new objects or expose the HSSF APIs to client applications. This is definitely not the only approach, just the one I found most useful the first time I implemented the HSSF APIs (see the User-Friendly Updates section of &quot;Open Source-Based Portal-Lite&quot;).
+</TEXT>
+<CODE orderid="1" >
+/**
+ * @param sheetIndex
+ * @return ArrayList&lt;Map&gt; where the key is the field names.
+ * Assumes first row contains field names
+ */
+public ArrayList&lt;Map&gt; getMappedValues(int sheetIndex)
+{
+   ArrayList&lt;String&gt;    colNames    = null;
+   ArrayList&lt;Map&gt;       mapArray    = null;
+   HSSFRow              row         = null;
+   HSSFSheet            sheet       = null;
+   int                  sheetRows   = 0;
+   int                  rowCols     = 0;
+   Map&lt;String, Object&gt;  rowMap      = null;
+
+   sheet     = this.workbook.getSheetAt(sheetIndex);
+   sheetRows = sheet.getPhysicalNumberOfRows();
+   mapArray  = new ArrayList&lt;Map&gt;(sheetRows - 1);
+   colNames  = getColNames(sheetIndex);
+
+   colNames.trimToSize();
+
+   rowCols = colNames.size();
+
+   for (int i = 1; i &lt; sheetRows; i++)
+   {
+      row    = sheet.getRow(i);
+      rowMap = new HashMap&lt;String, Object&gt;(rowCols);
+      for (int c = 0; c &lt; rowCols; c++)
+      {
+         rowMap.put(colNames.get(c), getCellValue(row.getCell(c)));
+      }
+      mapArray.add(rowMap);
+   }
+   return mapArray;
+}
+</CODE>
+<TEXT orderid="2" >
+Again, you can overload to provide the convenience of a sheet name instead of an index:
+</TEXT>
+<CODE orderid="3" >
+public ArrayList&lt;Map&gt; getMappedValues(String sheetName)
+{
+   return getMappedValues(this.workbook.getSheetIndex(sheetName));
+}
+</CODE>
+</result>

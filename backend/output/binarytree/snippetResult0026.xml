@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>4274</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/data/article.php/1433011/Using-Unicode-Order-to-Create-Data-Aware-Alphanumeric-Search-Trees.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Data &amp; Java
+					
+				
+				
+					Read More in Data &amp; Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Using Unicode Order to Create Data Aware Alphanumeric Search Trees
+			
+			
+				
+				
+					July 25, 2002
+					By 
+Nasir Khan
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Trees are one of the most commonly used data structures in software engineering. They are also probably most fascinating of all. In this article, we introduce the general tree and then build an algorithm and design to solve a typical problem, which leads us to a multi-way tree.
+
+Binary Search Trees
+
+Binary trees are one of the most commonly used data structures where the data has some sort of natural order and fast searching is one of the requirements. A binary search tree is a binary tree organized specifically for searches. It is called so because a binary decision (decision with two outcomes) is made at each node. Each node of a binary tree has two pointers to the nodes below, one to the left and one to the right.
+
+
+
+The search starts at root at the top and descends level by level until the node is found. If the current node is greater than the desired node, the left pointer is followed to a level down; otherwise, a right pointer is followed. This traversal continues until the desired node is found or it is established that the node is not present in the tree. In any case, if the tree is balanced, searching is a log(n) operation or one longest branch in the worst case.
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		The point to note here is that binary trees make use of two values, greater than (&gt;) or less than (&lt;) to create/traverse the tree. These two are the property of the data of the tree; for example, each node is either greater than or less than any other node.
+
+Java has two implementations of Tree, java.util.TreeMap with a Map interface and java.util.TreeSet with a Set interface.
+
+A slightly different approach is introduced in this article to solve a typical problem in which a &quot;tree&quot; is constructed which uses more than the absolute value of the node and is not restricted with a binary decision of &lt; or &gt; to traverse.
+
+But first, the problem.
+
+Problem
+
+Let us say we have a sequence of digits, which are to be searched in another sequence of digits&#8212;like 236543 to be searched in 23654329876533.
+
+Let us get a more concrete example. Let us say a gift card company has a distinct identifier 54327, so all the gift cards it issues are like 5432-7XXX-XXXX-XXXX. (A larger company may have a four or a three digit identifier.) So, any purchase made using these cards should be directed to this company. Let a purchase be made from a card with number 5432765487690087; this card number evidently belongs to our company in question because the card number &quot;starts with&quot; the number 54327. The rest of the number 65487690087 identifies the client or the individual who made the purchase. The problem is to &quot;match&quot; the string 54327 with the card number and the strip off this pattern and find the remainder of the number.
+
+Solutions
+
+Of course there are different approaches to solving this problem. One very simple solution is to use the startsWith() method of the String class. Let&apos;s say we have a TreeSet object having all the possible patterns (belonging presumably to different companies), when we have to find pattern which matches we can iterate over all the patterns and use startsWith() to find the one that matches. This is a painfully slow approach because of two reasons: one because we do not know at the outset till what digit position to match in the string 5432765487690087. Consequently, we are not able to use the tree property. And two, because startsWith() is inherently slow.
+
+The terms used so far like &quot;Pattern,&quot; &quot;Sequence,&quot; and &quot;Match&quot; reminds us of regular expressions. Thankfully, since JDK1.4 regular expressions are now part of the Java platform. Making use of regular expressions, constructs, and classes, we can have another solution to this problem. Consider the following code snippet.
+</TEXT>
+<CODE orderid="1" >
+import java.util.regex.*;
+
+public class MatchTest {
+  public static void main (String args[]) {
+    Pattern p = Pattern.compile (&quot;54327&quot;);
+    String[] splitResult = p.split(&quot;5432765487690087&quot;);
+    System.out.println(splitResult[1]);
+  }
+}
+</CODE>
+<TEXT orderid="2" >
+We start by creating a Pattern object, which is a compiled representation of a regular expression. This Pattern object can be used to create a Matcher object on which the boolean matches() method can be called to find if the pattern matches with the matcher. Or we could use the String[] split (CharSequence string) method on the Pattern object, which splits the CharSequence &quot;around&quot; the pattern.
+
+The above code snippet prints 65487690087, which identifies the client from the gift card number. This is fine because it returns the final result with just two lines of code. But consider a situation where there are a number of patterns and you have to &quot;match&quot; against each one of them.
+
+Alternative
+
+Here we introduce the concept of a data-aware tree to solve this problem. This &quot;tree&quot; is suited to search from within a list of contiguous characters. Each leaf node is not a representation of the complete data of the node. The entire tree branch from root to the leaf node contains the information. The information is sort of normalized across the tree. Let us clarify this by an example. The following example is suited to match the pattern of a string of numbers and return the result for our problem in question. This makes use of the fact that characters &apos;0&apos;,&apos;1&apos;,....&apos;9&apos; are sequential Unicode/ASCII characters.
+
+Let us introduce a class called Element, which represents a &quot;node&quot; of our data-aware tree.
+</TEXT>
+</result>

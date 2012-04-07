@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>79677</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=1078</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            Using Text file as database in PHP
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+Storing your data in a text file doesn&apos;t require any additional database software to be installed, but that&apos;s pretty much its only advantage. Its main disadvantages are clumsiness and inefficiency. At the beginning of a request, you&apos;ve got to lock your text file and haul out all your data from it, even if you&apos;re only using a little bit of the data. Until you unlock the file at the end of the request, all other processes have to wait around, doing nothing, which means all your users are waiting too. One of the great assets of databases is that they give you structured access to your data, so you only lock (and load into memory) the data you actually care about. The text file solution doesn&apos;t do that.&#160;
+Use a text file with advisory locking to prevent conflicts. You can store data in the text file in any useful format (CSV, pipe-delimited, etc.) One convenient way is to put all the data you want to store in one variable (a big associative array) and then store the output of calling serialize( ) on the variable:&#160;
+</TEXT>
+<CODE orderid="1" >
+$data_file = &apos;/tmp/data&apos;;
+
+
+
+// open the file for reading and writing
+
+$fh = fopen($data_file,&apos;a+&apos;) or die($php_errormsg);
+
+rewind($fh)                  or die($php_errormsg);
+
+
+
+// get an exclusive lock on the file&#160;
+
+flock($fh,LOCK_EX)           or die($php_errormsg);
+
+
+
+// read in and unserialize the data
+
+$serialized_data = fread($fh,filesize($data_file)) or die($php_errormsg);
+
+$data = unserialize($serialized_data);
+
+
+
+/*
+
+ * do whatever you need to with $data ...
+
+ */
+
+
+
+// reserialize the data&#160;
+
+$serialized_data = serialize($data);
+
+
+
+// clear out the file
+
+rewind($fh)                  or die($php_errormsg);
+
+ftruncate($fp,0)             or die($php_errormsg);
+
+
+
+// write the data back to the file and release the lock&#160;
+
+if (-1 == (fwrite($fh,$serialized_data))) { die($php_errormsg); }
+
+fflush($fh)                  or die($php_errormsg);
+
+flock($fh,LOCK_UN)           or die($php_errormsg);
+
+fclose($fh)                  or die($php_errormsg);
+</CODE>
+<TEXT orderid="2" >
+What&apos;s worse, the locking you can do with a text file isn&apos;t nearly as robust as what you can do with a database. Because flock( ) provides a kind of file locking called advisory locking, the only thing that prevents multiple processes from stepping on each other and trashing your data is politeness and diligent programming. There&apos;s no guarantee your data is safe from an innocently incompetent or intentionally malicious program.
+
+
+
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</TEXT>
+</result>

@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>15841</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-tips.org/java-se-tips/java.lang/binary-search-implementation-in-java-5.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					Binary Search Implementation in Java									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;161
+
+
+PoorBest&#160;
+		
+				
+			
+				This tip shows how to implement binary search in Java.
+</TEXT>
+<CODE orderid="1" >
+public&#160;class&#160;BinarySearch
+
+{
+
+&#160;&#160;&#160;&#160;public&#160;static&#160;final&#160;int&#160;NOT_FOUND&#160;=&#160;-1;
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;/**
+
+&#160;&#160;&#160;&#160;&#160;*&#160;Performs&#160;the&#160;standard&#160;binary&#160;search
+
+&#160;&#160;&#160;&#160;&#160;*&#160;using&#160;two&#160;comparisons&#160;per&#160;level.
+
+&#160;&#160;&#160;&#160;&#160;*&#160;@return&#160;index&#160;where&#160;item&#160;is&#160;found,&#160;or&#160;NOT_FOUND.
+
+&#160;&#160;&#160;&#160;&#160;*/
+
+&#160;&#160;&#160;&#160;public&#160;static&#160;int&#160;binarySearch(&#160;Comparable&#160;[&#160;]&#160;a,&#160;Comparable&#160;x&#160;)
+
+&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;low&#160;=&#160;0;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;high&#160;=&#160;a.length&#160;-&#160;1;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;mid;
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;while(&#160;low&#160;&lt;=&#160;high&#160;)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;mid&#160;=&#160;(&#160;low&#160;+&#160;high&#160;)&#160;/&#160;2;
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if(&#160;a[&#160;mid&#160;].compareTo(&#160;x&#160;)&#160;&lt;&#160;0&#160;)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;low&#160;=&#160;mid&#160;+&#160;1;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;else&#160;if(&#160;a[&#160;mid&#160;].compareTo(&#160;x&#160;)&#160;&gt;&#160;0&#160;)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;high&#160;=&#160;mid&#160;-&#160;1;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;else
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return&#160;mid;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return&#160;NOT_FOUND;&#160;&#160;&#160;&#160;&#160;//&#160;NOT_FOUND&#160;=&#160;-1
+
+&#160;&#160;&#160;&#160;}
+
+
+
+&#160;&#160;&#160;&#160;//&#160;Test&#160;program
+
+&#160;&#160;&#160;&#160;public&#160;static&#160;void&#160;main(&#160;String&#160;[&#160;]&#160;args&#160;)
+
+&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;SIZE&#160;=&#160;8;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Comparable&#160;[&#160;]&#160;a&#160;=&#160;new&#160;Integer&#160;[&#160;SIZE&#160;];
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;for(&#160;int&#160;i&#160;=&#160;0;&#160;i&#160;&lt;&#160;SIZE;&#160;i++&#160;)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;a[&#160;i&#160;]&#160;=&#160;new&#160;Integer(&#160;i&#160;*&#160;2&#160;);
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;for(&#160;int&#160;i&#160;=&#160;0;&#160;i&#160;&lt;&#160;SIZE&#160;*&#160;2;&#160;i++&#160;)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&#160;&quot;Found&#160;&quot;&#160;+&#160;i&#160;+&#160;&quot;&#160;at&#160;&quot;&#160;+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;binarySearch(&#160;a,&#160;new&#160;Integer(&#160;i&#160;)&#160;)&#160;);
+
+
+
+&#160;&#160;&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+&#160;Related Tips 
+A custom combobox editor for use with the EditableComboBox class
+A demonstration of Java2D transformations
+A game of Tic-Tac-Toe that can be played between two client applets
+A Label that uses inline HTML to format its text
+A program to print limits of the primitive types
+A sample of inline DTD definition
+A sample of linked DTD definition
+A sample XML file
+
+			
+		
+				
+
+		&#160;
+
+		
+
+			
+									
+						
+							&lt; Prev
+					
+										&#160;
+
+					
+										
+						
+							Next &gt;
+					
+								
+			
+			                
+
+
+
+
+
+
+
+ 
+Page 1 of 0 ( 0 comments )
+
+
+       You can share your information about this topic using the form below! 
+
+Please do not post your questions with this form! Thanks.
+
+ 
+
+  
+    
+      
+                
+          
+          
+
+          
+          Name (required)
+
+          
+          
+
+                    
+          
+
+          E-Mail (required)          
+                    
+
+          
+          
+          
+
+          Your email will not be displayed on the site - only to our administrator          
+          
+
+          Homepage(optional)
+
+
+
+
+
+
+
+          
+          
+
+          Comment          
+                    Enable HTML code :
+          
+          Yes
+          
+          No 
+
+          
+          
+          
+          
+
+          
+
+ 
+          
+
+          
+          
+        
+      
+    
+  
+
+
+
+
+
+&#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+      
+    
+    
+      
+        
+          &#160;
+          &#160;
+          &#160;
+        
+        
+          &#160;
+          
+              &#160;            
+          &#160;
+        
+        
+          &#160;
+          &#160;
+          &#160;
+        
+      
+    
+    
+      
+        
+            
+            
+            
+        
+      
+    
+	
+	
+
+
+		
+				
+			
+				
+			
+		
+		
+		
+
+
+
+
+
+
+
+
+Home
+
+
+-
+
+
+About Us
+
+
+-
+
+
+Privacy Policy
+
+
+
+
+
+
+Copyright 2005 - 2008 www.java-tips.org
+Java is a trademark of Sun Microsystems, Inc.
+</TEXT>
+</result>

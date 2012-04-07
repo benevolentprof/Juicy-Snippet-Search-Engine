@@ -1,0 +1,773 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75190</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/java-conversion/BinaryToHexa.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Convert Binary to Hexadecimal
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this section, you will learn to convert binary data into hexadecimal.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Convert Binary to Hexadecimal
+ 
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+In this section, you will learn to convert binary data
+into hexadecimal.&#160; The
+java.lang package provides the functionality to convert the binary data
+into hexadecimal.&#160;
+Description of the program:
+This program takes a binary data from user, which is a
+string type that is&#160; converted into the long data using the parseLong() method. It
+takes string type value and converts it into a long data. The  condition [ if(rem != 0 &amp;&amp; rem != 1)  ] checks
+whether the given number is binary number or not. If the given number is
+either &apos;0&apos; or &apos;1&apos; , program converts the binary data into hexadecimal using toHexaString()
+ method. If fails, it displays a message &quot;This is
+not a binary number&quot; or &quot;Please try once again.&quot;.&#160;
+toHexString():
+
+This is the method that
+takes an integer type value and converts it into binary to hexadecimal. The base
+of hexadecimal is 16.
+Here
+is the code of this program:
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.io.*;
+
+import&#160;java.lang.*;
+
+
+
+public class&#160;&#160;BinaryToHexa{
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)throws&#160;IOException{
+
+&#160;&#160;&#160;&#160;BufferedReader&#160;bf=&#160;new&#160;BufferedReader(new&#160;InputStreamReader(System.in));
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Enter&#160;the&#160;Binary&#160;number:&quot;);
+
+&#160;&#160;&#160;&#160;String&#160;hex&#160;=&#160;bf.readLine();
+
+&#160;&#160;&#160;&#160;long&#160;num&#160;=&#160;Long.parseLong(hex);
+
+&#160;&#160;&#160;&#160;long&#160;rem;
+
+&#160;&#160;&#160;&#160;while(num&#160;&gt;&#160;0){
+
+&#160;&#160;&#160;&#160;&#160;&#160;rem&#160;=&#160;num&#160;%&#160;10;
+
+&#160;&#160;&#160;&#160;&#160;&#160;num&#160;=&#160;num&#160;/&#160;10;
+
+&#160;&#160;&#160;&#160;&#160;&#160;if(rem&#160;!=&#160;0&#160;&amp;&amp;&#160;rem&#160;!=&#160;1){
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;This&#160;is&#160;not&#160;a&#160;binary&#160;number.&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;Please&#160;try&#160;once&#160;again.&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.exit(0);
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;int&#160;i=&#160;Integer.parseInt(hex,2);
+
+&#160;&#160;&#160;&#160;String&#160;hexString&#160;=&#160;Integer.toHexString(i);
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Hexa&#160;decimal:&#160;&quot;&#160;+&#160;hexString);
+
+&#160;&#160;}
+
+}
+    
+   
+  
+   
+
+
+
+
+Download this program.
+</CODE>
+<TEXT orderid="2" >
+Output of this program:
+
+  
+    C:\corejava&gt;java BinaryToHexa
+
+      Enter the Binary number:
+
+      1111111
+
+      Hexa decimal: 7f
+
+      
+
+      C:\corejava&gt;_
+  
+
+
+&#160;
+
+
+		
+		
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+
+      
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java Conversion ...  182452 viewsConvert Carats To Grams ...  183101 viewsConvert Grams To Carat ...  183133 viewsConvert Grams To Ounce ...  183168 viewsImplementing Continue Statement In Java ...  183184 viewsThe Unary Operators ...  183240 viewsConvert One Unit to Another ...  183273 viewsJava Date Conversion ...  183299 viewsConvert Gallons To Liters ...  183300 viewsConvert Grams To Pounds ...  183317 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+convert
+io
+help
+this
+program
+to
+learn
+ram
+ear
+e
+il
+section
+in
+converting
+m
+ps
+pro
+s
+is
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+2 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+		It won&apos;t work for large binary numbers.
+
+		Posted by Gregg Love on Thursday, 11.13.08 @ 13:28pm | #81648
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		kindly send me a full copy of binary to octal conversion in java?AS SOON AS POSSIBLE!!!!!!
+
+		Posted by zaldy on Wednesday, 10.15.08 @ 12:37pm | #81094
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Java - Continue statement in Java
+										Convert Binary to Hexadecimal
+										Convert Binary to Decimal
+										Spring cglib2
+										Spring asm Dependency
+										The @configuration annotation example in Spring 3.0 Framework
+										Develop Hello World example using Spring 3.0 Framework
+										Learn Features of Spring 3.0
+										Spring 3.0 Tutorials with example code
+										Axis2 Eclipse plugin Tutorial
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

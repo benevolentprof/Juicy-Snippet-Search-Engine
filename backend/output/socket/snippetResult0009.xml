@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75934</docid>
+<orderid>3</orderid>
+<type>CODE</type>
+<url>http://www.roseindia.net/javatutorials/controlling_machines_remotely_with_java.shtml</url>
+</description>
+<CODE orderid="1" >
+package com.maxoft.teacher;
+
+import java.awt.*;
+import java.io.*;
+
+public interface RobotAction extends Serializable {
+  Object execute(Robot robot) throws IOException;
+}
+</CODE>
+<TEXT orderid="2" >
+On the client machine, you would run the Student class, which
+    would read in the RobotAction objects, one by one, and run
+    them by passing a handle to the Robot on the client machine.
+    If the action produces a result, we send that back to the
+    teacher.  In this simple program, the only reaction could be
+    a screendump, so the teacher program only has to cater for a
+    byte[].  However, it could easily be
+    expanded to allow actions to be sent back to the teacher,
+    such as the HelpAction!
+</TEXT>
+<CODE orderid="3" >
+package com.maxoft.teacher;
+
+import java.awt.*;
+import java.io.*;
+import java.net.Socket;
+
+public class Student {
+  private final ObjectOutputStream out;
+  private final ObjectInputStream in;
+  private final Robot robot;
+
+  public Student(String serverMachine, String studentName)
+      throws IOException, AWTException {
+    Socket socket = new Socket(serverMachine, Teacher.PORT);
+    robot = new Robot();
+    out = new ObjectOutputStream(socket.getOutputStream());
+    in = new ObjectInputStream(
+      new BufferedInputStream(socket.getInputStream()));
+    out.writeObject(studentName);
+    out.flush();
+  }
+
+  public void run() throws ClassNotFoundException {
+    try {
+      while (true) {
+        RobotAction action = (RobotAction) in.readObject();
+        Object result = action.execute(robot);
+        if (result != null) {
+          out.writeObject(result);
+          out.flush();
+          out.reset();
+        }
+      }
+    } catch (IOException ex) {
+      System.out.println(&quot;Connection closed&quot;);
+    }
+  }
+
+  public static void main(String[] args) throws Exception {
+    Student student = new Student(args[0], args[1]);
+    student.run();
+  }
+}
+</CODE>
+<TEXT orderid="4" >
+The first RobotAction is MoveMouse.  We specify where the
+    mouse must move to, then send the coordinates over the
+    network to the student.  The student program then calls
+    execute, causing his mouse to runs across his
+    monitor to the specified position.
+</TEXT>
+<CODE orderid="5" >
+package com.maxoft.teacher;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
+
+public class MoveMouse implements RobotAction {
+  private final int x;
+  private final int y;
+
+  public MoveMouse(Point to) {
+    x = (int)to.getX();
+    y = (int)to.getY();
+  }
+  public MoveMouse(MouseEvent event) {
+    this(event.getPoint());
+  }
+  public Object execute(Robot robot) {
+    robot.mouseMove(x, y);
+    return null;
+  }
+  public String toString() {
+    return &quot;MoveMouse: x=&quot; + x + &quot;, y=&quot; + y;
+  }
+}
+</CODE>
+</result>

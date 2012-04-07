@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>79840</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=1074</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            OleDbDataAdapter class in VB.net
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+OleDbDataAdapter objects act as a bridge between datasets and data sources. As you know, datasets are really just repositories of data; they&apos;re not directly connected to a database. OleDbDataAdapter objects connect datasets and data sources by supporting the Fill method to load data from the data source into the dataset, and the Update method to send changes you&apos;ve made in the dataset back to the data source.
+
+
+
+After you&apos;ve created a data connection and used it to create a command object, you can assign the command object to one of the command properties of the data
+adapter - SelectCommand, InsertCommand, DeleteCommand, and UpdateCommand. (All these command objects are created automatically when you use the Data Adapter Configuration
+Wizard.) These commands are used as needed by the data adapter.
+
+
+
+You also have to specify a table mapping when creating a data adapter object. The names of the tables you use in a dataset can be different from those in the database, depending on how you&apos;ve named them, and a table mapping relates the table names in the database to the names in the dataset. For example, here&apos;s how I connect the tables in the database to names I&apos;ve given them in the dataset:
+</TEXT>
+<CODE orderid="1" >
+Dim Table1Mappings As New DataTableMappingCollection()
+
+Table1Mappings.Add(&quot;authors&quot;, &quot;writers&quot;)
+
+Table1Mappings.Add(&quot;publishers&quot;, &quot;company&quot;)
+</CODE>
+<TEXT orderid="2" >
+If you do not specify a TableName or a TableMapping name when calling the Fill or Update method of a data adapter, the data adapter searches for a TableMapping object named &quot;Table&quot;. If it can&apos;t find that object, the data adapter uses the name &quot;Table&quot; for the data source table, and that means you can create a default table mapping by creating a TableMapping object using the table name &quot;Table&quot;. For example, here&apos;s how I create a new OleDbDataAdapter object, set up the select command object it should use to populate datasets, create a default table mapping, and fill a dataset named ds with the authors table, using this adapter:
+
+
+
+Dim OleDbDataAdapter1 As OleDbDataAdapter = New OleDbDataAdapter()
+
+
+
+OleDbDataAdapter1.SelectCommand = Command1
+
+OleDbDataAdapter1.TableMappings.Add(&quot;Table&quot;, &quot;authors&quot;)
+
+OleDbDataAdapter1.Fill(ds)
+
+
+
+
+
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</TEXT>
+</result>

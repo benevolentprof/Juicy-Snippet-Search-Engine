@@ -1,0 +1,26 @@
+
+
+-- group snippet by hash, then select only distintive docid to say that it's not duplicate
+-- INSERT INTO docnodup (SELECT distinct min(docid) FROM codesnippet GROUP BY hash ORDER BY docid ASC)
+
+
+-- for group of CODE SNIPPET
+CREATE  TABLE IF NOT EXISTS `codesnippet`.`snippetgroup` (
+  `codesnippetid` INT NOT NULL ,
+  `samesnippetlist` VARCHAR(5000) NULL ,
+  `samesnippetcount` INT NULL ,
+  PRIMARY KEY (`codesnippetid`) ,
+INDEX `countsnippetlist` (`samesnippetcount` ASC) );
+
+-- Input data into snippet group (after filter duplicate page)
+SET group_concat_max_len = 5000;
+INSERT INTO snippetgroup
+(SELECT 
+    min(codesnippetid) as codesnippetid, 
+    group_concat(codesnippetid ORDER BY codesnippetid) as samesnippetlist,
+    count(codesnippetid) as samesnippetcount
+FROM codesnippet t1 
+GROUP BY hash
+ORDER BY codesnippetid ASC);
+
+ 

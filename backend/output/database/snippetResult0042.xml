@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>80765</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=1019</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            How To Connect To A MySql Database in VB.net
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+In this article I will explain how to connect to a MySql
+database in VB.net.
+MySql is an open source free database. In order to follow along with this
+tutorial you will need to have MySql installed on your machine. You can download
+MySql from the MySql website.www.mysql.com.
+
+
+
+Connector/Net
+
+As well as downloading the MySql database, you will need to download the MySql
+Connector/Net driver. This driver enables developers to easily create .NET
+applications. Developers can build applications using their choice of .NET
+languages. MySql Connector/Net is a fully-managed&#160;ADO.NET&#160;driver
+written in 100% pure C#.
+
+
+
+You will need to download this driver from the MySql website. Once downloaded
+simply go through the installation process.
+
+
+
+
+Console Application
+
+It&#146;s time to look at some code. Load the Visual Studios IDE and select a new
+Visual Basic Console Application. Once your new projected has loaded you should
+have an empty module.
+
+
+
+The first thing we need to do is add a reference to the MySql assembly. Click
+the Project from the menu and then select Add Reference. Under the .Net tab,
+browse for the MySQL.Data assembly.
+
+
+
+Now that the reference has been added, we need to use the Imports directive to
+import the
+
+MySql.Data.MySqlClient namespace.
+
+
+
+Your imports directives should look like the following:
+
+
+
+Imports System.Data
+
+Imports MySql.Data.MySqlClient
+
+
+
+To connect to the MySql database, we need to use the MySqlConnection Class. This
+class has two constructors. The default constructor takes no arguments. The
+second constructor takes a connection string as an argument. If you use the
+default constructor, you can specify the connection string later in your code by
+using the ConnectionString property.
+
+
+
+Below in listing 1.1 we use the second constructor.
+
+
+
+Listing 1.1
+</TEXT>
+<CODE orderid="1" >
+con = New MySqlConnection(\&quot;Server=\&quot; + _host + \&quot;;User
+Id=\&quot; + _user + \&quot;;Password=\&quot; + _pass + \&quot;;\&quot;)
+</CODE>
+<TEXT orderid="2" >
+In listing 1.1 a MySqlConnection object is created. This object is then used to
+connect to the database.
+
+
+
+Listing 1.2 below shows the complete code to connect to a MySql database and
+query a table. The MySql database is used for this example.
+
+
+
+Listing 1.2
+
+
+Imports System.Data
+
+Imports MySql.Data.MySqlClient
+
+
+
+Module Module1
+
+&#160; &#160;Private con As New MySqlConnection
+
+&#160; &#160;Private cmd As New MySqlCommand
+
+&#160; &#160;Private reader As MySqlDataReader
+
+
+
+&#160; &#160;Private _host As String = \&quot;localhost\&quot; \&apos; Connect to
+localhost database
+
+&#160; &#160;Private _user As String = \&quot;root\&quot; \&apos;Enter your username,
+default is root
+
+&#160; &#160;Private _pass As String = \&quot;\&quot; \&apos;Enter your password
+
+
+
+&#160; &#160;Sub Main()
+
+&#160;&#160;&#160;&#160;&#160; &#160;con = New MySqlConnection(\&quot;Server=\&quot;
++ _host + \&quot;;User Id=\&quot; + _user + \&quot;;Password=\&quot; + _pass +
+\&quot;;\&quot;)
+
+&#160;&#160;&#160;&#160;&#160; &#160;Try
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &#160;con.Open()
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &#160;\&apos;Check if the
+connection is open
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &#160;If con.State =
+ConnectionState.Open Then
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;con.ChangeDatabase(\&quot;MYSQL\&quot;) \&apos;Use the MYSQL database for this
+example
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;Console.WriteLine(\&quot;Connection Open\&quot;)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;Dim Sql As String = \&quot;SELECT * FROM USER\&quot; \&apos; Query the USER
+table to get user information
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;cmd = New MySqlCommand(Sql, con)
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;reader = cmd.ExecuteReader()
+
+
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;\&apos;Loop through all the users
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;While reader.Read()
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;Console.WriteLine(\&quot;HOST: \&quot; &amp; reader.GetString(0)) \&apos;Get
+the host
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;Console.WriteLine(\&quot;USER: \&quot; &amp; reader.GetString(1)) \&apos;Get
+the username
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;Console.WriteLine(\&quot;PASS: \&quot; &amp; reader.GetString(2)) \&apos;Get
+the password
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;End While
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &#160;End If
+
+
+
+
+
+&#160;&#160;&#160;&#160;&#160; &#160;Catch ex As Exception
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &#160;Console.WriteLine(ex.Message)
+\&apos; Display any errors.
+
+&#160;&#160;&#160;&#160;&#160; &#160;End Try
+
+
+
+
+
+&#160;&#160;&#160;&#160;&#160; &#160;Console.ReadKey()
+
+&#160; &#160;End Sub
+
+
+
+End Module
+Author
+Email: syed@cy2online.net
+
+
+Author URL: www.cy2online.net
+
+
+
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</TEXT>
+</result>

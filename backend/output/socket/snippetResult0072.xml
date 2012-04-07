@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>8764</docid>
+<orderid>4</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/ent/article.php/10933_3455311_1/Understanding-Java-RMI-Internals.htm</url>
+</description>
+<TEXT orderid="2" >
+The client speaks to the stub, the stub speaks to the skeleton through the network, the skeleton speaks to the server, the server executes the required function, and the results are also passed in the same way. So, you will have four separate programs corresponding to each of these entities (this means four class files).
+
+Later, in JDK 1.2, the skeletons were incorporated into the server itself so that there are no separate entities as skeletons. In other words, the skeletons&apos;s functionality was incorporated into the server itself. So, the scenario became like this:
+</TEXT>
+<CODE orderid="3" >
+Client&lt;---&gt;stub&lt;---&gt;[NETWORK]&lt;---&gt;Server_with_skeleton_functionality
+</CODE>
+<TEXT orderid="4" >
+Socket-Level Details
+
+Now, you can examine how the communication is achieved in the socket level. This is very important. This is where the concept usually gets twisted. So, take special note about this section.
+
+
+The server listens to a port on the server machine. This port is usually an anonymous port that is chosen at runtime by the jvm or the underlying operating system. Or, you can say that the server exports itself to a port on the server machine.
+The client has NO idea on which machine and to which port the server is listening. But, it has a stub object that knows all these. So, the client can invoke the desired method of the stub.
+The client invokes the function of the stub.
+The stub connects to the server&apos;s listening port and sends the parameters. The details of this are given below. You can skip it if you don&apos;t want to know about the intricate details about TCP/IP connection semantics. For those who are interested, this is how it is done.
+
+
+The client connects to the server&apos;s listening port.
+The server accepts the incoming connection and creates a new socket just to handle this single connection.
+The old listening port is still there; it waits for the incoming requests from the clients.
+The communication between client and server takes place using the newly created socket on the server.
+With an agreed-upon protocol, they communicate and exchange parameters and results.
+The protocol can be JRMP (Java Remote Method protocol) or CORBA-compatible RMI-IIOP (Internet Inter-ORB Protocol).
+
+
+The method is executed on the server and the result is sent back to the stub.
+The stub returns the results back to the client as if the stub had executed the function locally.
+
+
+So, that is how it is done. Wait a second. Take a look at Point 2. The stub knows which host the server is running and to which port the server is listening. How is that possible?? If the client does not know about the server host and port, how can it create an object of the stub that knows all these? Especially when the server port is chosen arbitrarily or randomly when the server is instantiated, it will change for each object of the same server class. Once the client knows these details, it can proceed. Also, it should be noted that even if the client has CalcImpl_Stub.class in its machine, it cannot simply create an object of the stub because its constructor takes a RemoteRef reference as a parameter and you can get that only from an object of the remote server&#8212;exactly what we are trying to access! This is called a Bootstrap Problem.
+
+Bootstrap Problem!!!
+
+This is one of the biggest problems in many real-life systems. The solution depends on how we can inform the client about the details of the server. RMI designers have a work-around for the bootstrap problem. That is where the RMIRegistry comes in. The Registry can be thought of as a service that keeps (public_name, Stub_object) pairs in a hashmap. For example, if I have a Remote Server object called Scientific_Calculator, I can make it available by a public name, &quot;calc&quot;. For this, I will create a Stub Object at the server machine and register it with the RMIRegistry so that clients who want to access the services of the Remote Server object can get the Stub Object from the Registry. For doing these things, you use a class called java.rmi.Naming.
+
+Let me illustrate this with an example.
+
+Consider a calculator application. It has an add(int,int) function. You want to make this function available to remote clients on other machines. We have the Remote interface called Calc.
+
+Source code of Calc.java:
+</TEXT>
+<CODE orderid="5" >
+public interface Calc extends Remote
+{
+   public int add(int i,int j)throws RemoteException;
+}
+</CODE>
+<TEXT orderid="6" >
+We have the server class CalcImpl.
+
+Source code of CalcImpl.java:
+</TEXT>
+</result>

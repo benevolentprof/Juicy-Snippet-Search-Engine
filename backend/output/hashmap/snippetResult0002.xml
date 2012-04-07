@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>8666</docid>
+<orderid>22</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/data/article.php/10932_1556041_1/The-Java-Database-Control-in-BEA-Weblogic.htm</url>
+</description>
+<TEXT orderid="20" >
+Now, to retrieve all the values from the personnel table, use the following declaration:
+</TEXT>
+<CODE orderid="21" >
+/**
+ * @jws:sql statement=&quot;select * from personnel&quot;
+ */
+public Personnel[] getAllPersonnel();
+</CODE>
+<TEXT orderid="22" >
+Returning a HashMap
+If you don&apos;t want to write new classes for every variation of columns that you might retrieve, you can simply return a HashMap (a Java data structure that associates keys with values) or an array of HashMaps (if you want to return multiple database rows). The database control stores each column value in the HashMap using the column name as the key, for example:
+</TEXT>
+<CODE orderid="23" >
+/**
+ * @jws:sql statement=&quot;select * from personnel&quot;
+ */
+public HashMap[] getAllPersonnel();
+</CODE>
+<TEXT orderid="24" >
+To fetch the value of the &quot;firstName&quot; column for the first row returned by the getAllPersonnel method, you could use a statement like this:
+</TEXT>
+</result>

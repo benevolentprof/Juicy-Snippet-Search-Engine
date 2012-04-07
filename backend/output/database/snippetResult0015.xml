@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>79631</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=632</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            Using the DriverManager Class vs Using a DataSource Object for a connection
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+
+Using the DriverManager Class
+The DriverManager class works with the Driver
+interface to manage the set of drivers available to a JDBC client. When the
+client requests a connection and provides a URL, the DriverManager
+is responsible for finding a driver that recognizes the URL and for using it to
+connect to the corresponding data source. Connection URLs have the following
+form:
+</TEXT>
+<CODE orderid="1" >
+jdbc:derby:&lt;dbName&gt;[propertyList]
+</CODE>
+<TEXT orderid="2" >
+The dbName portion of the URL identifies a specific database. A
+database can be in one of many locations: in the current working directory, on
+the classpath, in a JAR file, in a specific Java DB database home directory, or
+in an absolute location on your file system.
+If you are using a vendor-specific driver, such as Oracle, the documentation
+will tell you what subprotocol to use, that is, what to put after jdbc:
+in the JDBC URL. For example, if the driver developer has registered the name OracleDriver
+as the subprotocol, the first and second parts of the JDBC URL will be jdbc.driver.OracleDriver
+. The driver documentation will also give you guidelines for the rest of the
+JDBC URL. This last part of the JDBC URL supplies information for identifying
+the data source.
+The getConnection method establishes a connection:
+</TEXT>
+<CODE orderid="3" >
+Connection conn = DriverManager.getConnection(&quot;jdbc:derby:COFFEES&quot;);
+</CODE>
+<TEXT orderid="4" >
+In place of &quot; myLogin &quot; you insert the name you use to
+log in to the DBMS; in place of &quot; myPassword &quot; you insert
+your password for the DBMS. So, if you log in to your DBMS with a login name of
+&quot; Fernanda &quot; and a password of &quot; J8,
+&quot; just these two lines of code will establish a connection:
+</TEXT>
+</result>

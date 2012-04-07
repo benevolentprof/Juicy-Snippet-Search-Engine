@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>678</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://java.sun.com/docs/books/tutorial/jdbc/basics/joins.html</url>
+</description>
+<TEXT orderid="0" >
+Download
+                                the JDK
+                            
+
+                            Search the
+                                Tutorials
+                            
+
+                            Hide the TOC
+                        
+                        
+    
+        Trail: JDBC(TM) Database Access
+        
+Lesson: JDBC Basics
+    
+
+    
+        
+            JDBC Basics
+Getting Started
+Setting Up a Database
+Establishing a Connection
+Setting Up Tables
+Retrieving Values from Result Sets
+Updating Tables
+Milestone: The Basics of JDBC
+Using Prepared Statements
+Using Joins
+Using Transactions
+Stored Procedures
+SQL Statements for Creating a Stored Procedure
+Creating Complete JDBC Applications 
+Running the Sample Applications
+Creating an Applet from an Application
+
+    
+    
+            
+                Home Page
+                &gt;
+                JDBC(TM) Database Access
+                &gt;
+                JDBC Basics
+            
+            
+                &#171;&#160;Previous&#160;&#8226;&#160;Trail&#160;&#8226;&#160;Next&#160;&#187;
+            
+            Using Joins
+            
+Sometimes you need to use two or more tables to get the data you want. For example, suppose the proprietor of The Coffee Break wants a list of the coffees he buys from Acme, Inc. This involves information in the COFFEES table as well as the yet-to-be-created SUPPLIERS table. This is a case where a join is needed. A join is a database operation that relates two or more tables by means of values that they share in common. In our example database, the tables COFFEES and SUPPLIERS
+ both have the column SUP_ID, which can be used to join them.
+
+
+Before we go any further, we need to create the table SUPPLIERS
+ and populate it with values.
+
+
+The code below creates the table 
+SUPPLIERS:
+</TEXT>
+<CODE orderid="1" >
+String createSUPPLIERS = &quot;create table SUPPLIERS &quot; +  
+			 &quot;(SUP_ID INTEGER, SUP_NAME VARCHAR(40), &quot; + 
+			 &quot;STREET VARCHAR(40), CITY VARCHAR(20), &quot; +
+			 &quot;STATE CHAR(2), ZIP CHAR(5))&quot;;
+stmt.executeUpdate(createSUPPLIERS);
+</CODE>
+<TEXT orderid="2" >
+The following code inserts rows for three suppliers into SUPPLIERS:
+</TEXT>
+</result>

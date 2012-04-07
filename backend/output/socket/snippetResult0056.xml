@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>8735</docid>
+<orderid>3</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/ent/article.php/10933_3604491_1/Objects-and-ClientServer-Connections.htm</url>
+</description>
+<CODE orderid="1" >
+import java.io.*;
+import java.util.*;
+
+public class Employee implements Serializable {
+
+   private int employeeNumber;
+   private String employeeName;
+
+   Employee(int num, String name) {
+      employeeNumber = num;
+      employeeName= name;
+   }
+
+   public int getEmployeeNumber() {
+      return employeeNumber ;
+   }
+
+   public void setEmployeeNumber(int num) {
+      employeeNumber = num;
+   }
+
+   public String getEmployeeName() {
+      return employeeName ;
+   }
+
+   public void setEmployeeName(String name) {
+      employeeName = name;
+   }
+}
+</CODE>
+<TEXT orderid="2" >
+Listing 1: The Employee Object
+
+The complete code for the Client class is shown in Listing 2.
+</TEXT>
+<CODE orderid="3" >
+import java.io.*;
+import java.net.*;
+
+public class Client {
+
+   public static void main(String[] arg) {
+      try {
+         Employee joe = new Employee(150, &quot;Joe&quot;);
+
+         System.out.println(&quot;employeeNumber= &quot; + joe
+                            .getEmployeeNumber());
+         System.out.println(&quot;employeeName= &quot; + joe
+                            .getEmployeeName());
+
+         Socket socketConnection = new Socket(&quot;127.0.0.1&quot;, 11111);
+
+
+         ObjectOutputStream clientOutputStream = new 
+                        ObjectOutputStream(socketConnection
+                                           .getOutputStream());
+         ObjectInputStream clientInputStream = new 
+         ObjectInputStream(socketConnection.getInputStream());
+
+         clientOutputStream.writeObject(joe);
+
+         joe= (Employee)clientInputStream.readObject();
+
+         System.out.println(&quot;employeeNumber= &quot; + joe
+                            .getEmployeeNumber());
+         System.out.println(&quot;employeeName= &quot; + joe
+                            .getEmployeeName());
+
+         clientOutputStream.close();
+         clientInputStream.close();
+
+      } catch (Exception e) {System.out.println(e); }
+   }
+}
+</CODE>
+<TEXT orderid="4" >
+Listing 2: The Client
+
+The complete code for the Server class is shown in Listing 3.
+</TEXT>
+<CODE orderid="5" >
+import java.io.*;
+import java.net.*;
+
+public class Server {
+
+   public static void main(String[] arg) {
+
+      Employee employee = null;
+
+      try {
+
+         ServerSocket socketConnection = new ServerSocket(11111);
+
+         System.out.println(&quot;Server Waiting&quot;);
+
+         Socket pipe = socketConnection.accept();
+
+         ObjectInputStream serverInputStream = new    
+            ObjectInputStream(pipe.getInputStream());
+
+         ObjectOutputStream serverOutputStream = new 
+            ObjectOutputStream(pipe.getOutputStream());
+
+          employee = (Employee )serverInputStream.readObject();
+
+         employee .setEmployeeNumber(256);
+         employee .setEmployeeName(&quot;John&quot;);
+
+         serverOutputStream.writeObject(employee);
+
+         serverInputStream.close();
+         serverOutputStream.close();
+
+
+      }  catch(Exception e) {System.out.println(e); 
+      }
+   }
+
+}
+</CODE>
+</result>

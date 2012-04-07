@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75186</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/java-conversion/DecimalToBinary.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Convert Decimal into Binary
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this section, you will learn to convert decimal number into binary.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Convert Decimal into Binary&#160;
+ 
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+In this section, you will learn to convert decimal
+number into binary. The java.lang  package provides the functionality to
+convert&#160; a decimal number into a binary number.&#160;
+Description of program:
+This program takes a decimal number from console and it converts
+it&#160; into binary format using the toBinaryString() method.
+Input number is taken as string&#160; so convert it into an integer
+data using the Integer.parseInt() method. To convert the Decimal number into binary number use toBinaryString() method.&#160;
+toBinaryString():
+
+
+This method takes an integer type value and returns its string
+representation of&#160; integer values which represents the data in binary. The base of binary number is 2.
+Here is the code of this program:
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.lang.*;
+
+import&#160;java.io.*;
+
+public&#160;class&#160;DecimalToBinary{
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String&#160;args[])&#160;throws&#160;IOException{
+
+&#160;&#160;BufferedReader&#160;bf&#160;=&#160;new&#160;BufferedReader(new&#160;InputStreamReader(System.in));
+
+&#160;&#160;System.out.println(&quot;Enter&#160;the&#160;decimal&#160;value:&quot;);
+
+&#160;&#160;String&#160;hex&#160;=&#160;bf.readLine();
+
+&#160;&#160;int&#160;i&#160;=&#160;Integer.parseInt(hex);&#160;&#160;
+
+&#160;&#160;String&#160;by&#160;=&#160;Integer.toBinaryString(i);
+
+&#160;&#160;System.out.println(&quot;Binary:&#160;&quot;&#160;+&#160;by);
+
+&#160;&#160;}
+
+}&#160;&#160;
+    
+   
+  
+   
+  
+
+
+
+
+
+Download this program.
+</CODE>
+<TEXT orderid="2" >
+Output of this program:
+
+  
+    C:\corejava&gt;java DecimalToBinary
+
+      Enter the decimal value:
+
+      123
+
+      Binary: 1111011
+      
+
+      C:\corejava&gt;_
+  
+
+
+
+		
+		
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+
+      
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java Conversion ...  182452 viewsConvert Carats To Grams ...  183101 viewsConvert Grams To Carat ...  183133 viewsConvert Grams To Ounce ...  183168 viewsImplementing Continue Statement In Java ...  183184 viewsThe Unary Operators ...  183240 viewsConvert One Unit to Another ...  183273 viewsJava Date Conversion ...  183299 viewsConvert Gallons To Liters ...  183300 viewsConvert Grams To Pounds ...  183317 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+convert
+io
+help
+this
+program
+to
+learn
+ram
+ear
+e
+il
+section
+in
+converting
+m
+ps
+pro
+s
+is
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+6 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+		Thank you so much for your unlimited support
+
+		Posted by yonas on Saturday, 12.26.09 @ 23:55pm | #93632
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		I need your help for my assignment.
+
+I want to convert decimal number to binary number by using C++ program. The result should be easy that I can understand.
+
+the output should be like that:
+
+Enter Decimal Number: 7
+
+The Binary Eguivalent: 111 
+
+		Posted by Emy on Saturday, 12.13.08 @ 02:53am | #82705
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		hey, how can you please do this again without the &quot;toBinaryString&quot; and not importing it to java lang..
+
+
+
+		Posted by jhet on Saturday, 09.27.08 @ 07:28am | #80733
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		hai
+
+     By useing  this how to elemenate(remove)
+
+ duplicate values  in array 
+
+
+
+
+
+                   1------------1 Row
+
+                  1 1--------------2Row
+
+                 1 2 1-------------3Row
+
+                1 2 2 3------------4Row
+
+               1 2 3 3 2-----------5Row
+
+see above in this remove duplicates and give me 
+
+out in the following way
+
+                 
+
+                    1
+
+                   1 2
+
+                  1 2 3 
+
+                 1 2 3 4 
+
+                1 2 3 4 5
+
+
+
+
+
+
+
+		Posted by durgaprasad on Friday, 09.12.08 @ 14:34pm | #78870
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		hai
+
+ 
+
+ by useing this methode implement the programm
+
+    public void devisibleByThree(int i,int j)
+
+{
+
+..............
+
+..............
+
+............
+
+}
+
+ by useing this implement programm in java
+
+		Posted by durgaprasad on Friday, 09.12.08 @ 14:23pm | #78869
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+		which JRE is it
+
+		Posted by steve on Saturday, 02.9.08 @ 20:12pm | #47710
+
+		
+&#160;&#160;&#160;&#160;&#160;&#160;View This Comment Separately
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Convert Decimal into Binary
+										Directory and File Listing Example in Java
+										Struts Forward Action Example
+										Struts DynaActionForm
+										Struts DynaActionForm
+										Java I/0 Examples
+										Struts DynaActionForm
+										Selection Sort In Java
+										Quick Sort In Java
+										Software Framework
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

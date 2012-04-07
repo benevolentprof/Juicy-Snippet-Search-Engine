@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>74729</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/java-get-example/get-column-names.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Java program to get column names of a table
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this example of getting the columns names we need to have connection with the database and then after we will get metadata of this table and find the columns name within the metadata.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+      Java program to get column names of a
+table
+	  
+ 
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+In this example of getting the columns names we need to
+have connection with the database and then after we will get metadata of this
+table and find the columns name within the metadata.
+In our example program we have created a database
+connection with the data table within the MySQL database. The data table
+view is as follows:
+&#160;
+
+
+      
+&#160;
+
+
+
+To have metadata related manipulation we need to have
+an object of ResultSetMetaData and thereafter we can do the manipulation
+on the table related information.
+ResultSetMetaData&#160;rsmd&#160;=&#160;rs.getMetaData();
+
+int&#160;NumOfCol&#160;=&#160;rsmd.getColumnCount();
+Above lines of code creates an object of ResultSetMetaData&#160;and
+we can get the number of columns with the use of getColumnCount() methods.
+Now we can get the column names with the index value by the method getColumnName().Here is the example code of GetColumnName.java
+ as follows:
+
+ 
+
+	GetColumnName.java
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.sql.*;
+
+public&#160;class&#160;GetColumnName&#160;{
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;throws&#160;Exception&#160;{
+
+&#160;&#160;&#160;&#160;String&#160;driver&#160;=&#160;&quot;com.mysql.jdbc.Driver&quot;;
+
+&#160;&#160;&#160;&#160;String&#160;url&#160;=&#160;&quot;jdbc:mysql://localhost:3306/&quot;;
+
+&#160;&#160;&#160;&#160;String&#160;username&#160;=&#160;&quot;root&quot;;
+
+&#160;&#160;&#160;&#160;String&#160;password&#160;=&#160;&quot;root&quot;;
+
+&#160;&#160;&#160;&#160;String&#160;dbName=&#160;&quot;any&quot;;
+
+&#160;&#160;&#160;&#160;Class.forName(driver);
+
+&#160;&#160;&#160;&#160;Connection&#160;conn&#160;=&#160;DriverManager.getConnection(url+dbName,&#160;username,&#160;password);
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Connected&quot;);
+
+&#160;&#160;&#160;&#160;Statement&#160;st&#160;=&#160;conn.createStatement();
+
+&#160;&#160;&#160;&#160;ResultSet&#160;rs&#160;=&#160;st.executeQuery(&quot;SELECT&#160;*&#160;FROM&#160;webpages&quot;);
+
+&#160;&#160;&#160;&#160;ResultSetMetaData&#160;rsmd&#160;=&#160;rs.getMetaData();
+
+&#160;&#160;&#160;&#160;int&#160;NumOfCol&#160;=&#160;rsmd.getColumnCount();
+
+&#160;&#160;&#160; for(int&#160;i=1;i&lt;=NumOfCol;i++)
+
+&#160;&#160;&#160;&#160;{
+
+&#160;&#160;&#160;&#160;System.out.println(&quot;Name&#160;of&#160;[&quot;+i+&quot;]&#160;Column=&quot;+rsmd.getColumnName(i));
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;st.close();
+
+&#160;&#160;&#160;&#160;conn.close();
+
+&#160;&#160;}
+
+}&#160;
+</CODE>
+<TEXT orderid="2" >
+Output:
+
+  
+    C:\javaexamples&gt;javac GetColumnName.java
+
+      
+
+      C:\javaexamples&gt;java GetColumnName
+
+      Connected
+
+      Name of [1] Column=id
+
+      Name of [2] Column=title
+
+      Name of [3] Column=url
+
+      Name of [4] Column=pageContent
+  
+
+&#160;
+
+Download Source Code
+
+ &#160;
+
+   
+
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+      
+    
+  
+
+
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java error identifier excepted ...  180000 viewsJava error class ...  180008 viewsJava error java.lang.noclassdeffounderror ...  180009 viewsGet Length of Array ...  180037 viewsGet Length of Array ...  180059 viewsGet Java Version ...  180076 viewsGet Property by Name ...  180104 viewsJava get Free Memory ...  180111 viewsJava get available Font ...  180112 viewsJava error icon ...  180112 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+java
+windows
+c
+error
+orm
+form
+diff
+io
+dialog
+icons
+sed
+format
+version
+window
+display
+icon
+port
+using
+log
+support
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+0 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Java program to get column names of a table
+										Connecting to MySQL database and retrieving and displaying data in JSP
+page
+										Java program to get the color of pixel
+										Java program to get class name without package
+										Java get class directory
+										Downloading and installing JUnit 4.3.1 s
+										Login Form using Ajax
+										Spring Injection Example
+										Get Ascii Value
+										Get Date and Time
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

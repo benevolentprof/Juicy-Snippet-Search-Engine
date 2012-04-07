@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>74643</docid>
+<orderid>3</orderid>
+<type>CODE</type>
+<url>http://www.roseindia.net/javatutorials/JTable_in_JDK.shtml</url>
+</description>
+<CODE orderid="1" >
+setSize(columnModel.getColumn(column).getWidth(), 100000);
+</CODE>
+<TEXT orderid="2" >
+This magically made the renderer work under JDK 1.4 and 1.5.
+    However, it did not address the other issues that I mentioned
+    in the original newsletter:
+  
+
+  
+    It worked when only one column contained the TextAreaRenderer.
+    I did not implement a TextAreaEditor.
+  
+
+  
+    
+    Something else which bothered me with the proposed solutions
+    was that the cells with our renderers looked slightly
+    different to the cells with default renderers.
+  
+
+  
+    
+    Here is a renderer followed by an editor that address all
+    these issues:
+</TEXT>
+<CODE orderid="3" >
+import javax.swing.*;
+import javax.swing.table.*;
+import java.awt.*;
+import java.util.*;
+
+public class TextAreaRenderer extends JTextArea
+    implements TableCellRenderer {
+  private final DefaultTableCellRenderer adaptee =
+      new DefaultTableCellRenderer();
+  /** map from table to map of rows to map of column heights */
+  private final Map cellSizes = new HashMap();
+
+  public TextAreaRenderer() {
+    setLineWrap(true);
+    setWrapStyleWord(true);
+  }
+
+  public Component getTableCellRendererComponent(//
+      JTable table, Object obj, boolean isSelected,
+      boolean hasFocus, int row, int column) {
+    // set the colours, etc. using the standard for that platform
+    adaptee.getTableCellRendererComponent(table, obj,
+        isSelected, hasFocus, row, column);
+    setForeground(adaptee.getForeground());
+    setBackground(adaptee.getBackground());
+    setBorder(adaptee.getBorder());
+    setFont(adaptee.getFont());
+    setText(adaptee.getText());
+
+    // This line was very important to get it working with JDK1.4
+    TableColumnModel columnModel = table.getColumnModel();
+    setSize(columnModel.getColumn(column).getWidth(), 100000);
+    int height_wanted = (int) getPreferredSize().getHeight();
+    addSize(table, row, column, height_wanted);
+    height_wanted = findTotalMaximumRowSize(table, row);
+    if (height_wanted != table.getRowHeight(row)) {
+      table.setRowHeight(row, height_wanted);
+    }
+    return this;
+  }
+
+  private void addSize(JTable table, int row, int column,
+                       int height) {
+    Map rows = (Map) cellSizes.get(table);
+    if (rows == null) {
+      cellSizes.put(table, rows = new HashMap());
+    }
+    Map rowheights = (Map) rows.get(new Integer(row));
+    if (rowheights == null) {
+      rows.put(new Integer(row), rowheights = new HashMap());
+    }
+    rowheights.put(new Integer(column), new Integer(height));
+  }
+
+  /**
+   * Look through all columns and get the renderer.  If it is
+   * also a TextAreaRenderer, we look at the maximum height in
+   * its hash table for this row.
+   */
+  private int findTotalMaximumRowSize(JTable table, int row) {
+    int maximum_height = 0;
+    Enumeration columns = table.getColumnModel().getColumns();
+    while (columns.hasMoreElements()) {
+      TableColumn tc = (TableColumn) columns.nextElement();
+      TableCellRenderer cellRenderer = tc.getCellRenderer();
+      if (cellRenderer instanceof TextAreaRenderer) {
+        TextAreaRenderer tar = (TextAreaRenderer) cellRenderer;
+        maximum_height = Math.max(maximum_height,
+            tar.findMaximumRowSize(table, row));
+      }
+    }
+    return maximum_height;
+  }
+
+  private int findMaximumRowSize(JTable table, int row) {
+    Map rows = (Map) cellSizes.get(table);
+    if (rows == null) return 0;
+    Map rowheights = (Map) rows.get(new Integer(row));
+    if (rowheights == null) return 0;
+    int maximum_height = 0;
+    for (Iterator it = rowheights.entrySet().iterator();
+         it.hasNext();) {
+      Map.Entry entry = (Map.Entry) it.next();
+      int cellHeight = ((Integer) entry.getValue()).intValue();
+      maximum_height = Math.max(maximum_height, cellHeight);
+    }
+    return maximum_height;
+  }
+}
+</CODE>
+<TEXT orderid="4" >
+I know that the mechanism for handling the cell renderer for
+    several columns is rather complex and inefficient.  However,
+    it caters for the general case where one instance of the cell
+    renderer is used for several columns, or even for several
+    tables.
+  
+
+  
+    
+    You will notice that I am borrowing the formatting of the
+    DefaultTableCellRenderer, so that the Text Area looks the
+    same as the other cells, for the particular platform and JVM
+    version.
+  
+
+  
+    
+    As predicted in my newsletter three years ago, it was a
+    &quot;Kinderspiel&quot; (child&apos;s play) to write the TextAreaEditor.  A
+    few points to note:  I subclass the DefaultCellEditor, which
+    only caters for JTextField, JComboBox and JCheckbox as
+    editors.  I therefore replace the editorComponent with my
+    own, and also set my own delegate.  In order to make it
+    possible to edit more than the current cell allows, I put the
+    TextArea for editing into a JScrollPane, and I set its border
+    to null, to prevent it from showing the scrollbar
+    unnecessarily.
+</TEXT>
+<CODE orderid="5" >
+import javax.swing.*;
+
+public class TextAreaEditor extends DefaultCellEditor {
+  public TextAreaEditor() {
+    super(new JTextField());
+    final JTextArea textArea = new JTextArea();
+    textArea.setWrapStyleWord(true);
+    textArea.setLineWrap(true);
+    JScrollPane scrollPane = new JScrollPane(textArea);
+    scrollPane.setBorder(null);
+    editorComponent = scrollPane;
+
+    delegate = new DefaultCellEditor.EditorDelegate() {
+      public void setValue(Object value) {
+        textArea.setText((value != null) ? value.toString() : &quot;&quot;);
+      }
+      public Object getCellEditorValue() {
+        return textArea.getText();
+      }
+    };
+  }
+}
+</CODE>
+</result>

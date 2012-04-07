@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>3928</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/other/article.php/10936_3795251_3/Java-Ordered-Collections-Trees-and-Skip-Lists.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Java Ordered Collections: Trees and Skip Lists
+			
+			
+				
+				
+					January 9, 2009
+					By 
+Mark Grand
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+The binary tree shown in Figure 4 does not branch. To find the node for 9 requires searching very other node in the binary tree. A tree like this is not very fast to search. This brings me to the second rule that the TreeSet uses for its binary tree.
+
+The second rule is that the tree must be balanced. Balanced means that the tree branches and the leaf nodes are about the same distance from the root of the tree. By distance, I mean the number of nodes between the root and the leaf. To keep its binary tree balanced, a TreeSet object may need to adjust the organization of its binary tree after each add or remove operation.
+
+If the tree is perfectly balanced, the leaf node farthest from the root node is no more than one node farther from the root node than the nearest leaf node. The binary tree in Figure 1 is perfectly balanced.
+
+On average, it takes less time to search for objects in a perfectly balanced binary tree than to search in a tree that is less well balanced. However, it turns out algorithms for keeping a tree perfectly balanced can require a lot of effort in some cases. Algorithms that keep a binary tree partially balanced within a guaranteed limit require a lot less effort.
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		The effort to keep a tree perfectly balanced may be justified if it is expected that many more search operations than adds or removes will be made. However, because TreeSet is a general purpose class, it uses an algorithm called red black tree. Red black tree guarantees that the distance from the root to the most distant leaf is no more than twice the distance from the root to the nearest leaf.
+
+Earlier in this article, I mentioned that the choice to use a TreeSet has concurrency implications. None of its methods are synchronized. If two threads attempt to modify a TreeSet at the same time, it will break. To avoid this problem, it is up to the caller to arrange for calls to a TreeSet to be single threaded. If a TreeSet object&apos;s methods will have multiple callers, the solution is to have them call the TreeSet object&apos;s methods through a wrapper object whose methods are synchronized. This is commonly arranged code similar to this:
+</TEXT>
+<CODE orderid="1" >
+SortedSet set s = Collections.synchronizedSortedSet(new TreeSet());
+</CODE>
+<TEXT orderid="2" >
+The challenge this presents for concurrency is that access to the entire TreeSet object is forced to be single threaded. If there are more than a few threads trying to add objects to or remove object from the same TreeSet object, they will all need to wait for their turn. For situations like this, the better choice is ConcurrentSkipListSet.
+
+ConcurrentSkipListSet
+
+java.util.concurrent.ConcurrentSkipListSet is a thread-safe implementation of the SortedSet interface. Multiple threads can add and remove objects at the same time and work correctly. However, individual search, add, and remove operations take longer for a ConcurrentSkipListSet than for a TreeSet, so you usually should not use ConcurrentSkipListSet unless concurrency is an issue.
+
+One other caution about the ConcurrentSkipListSet is that the size() method can take a long time. To avoid needing locks, the ConcurrentSkipListSet does not keep a running count of the number of objects that are currently in the set. For this reason, the size method works by iterating over the objects in the ConcurrentSkipListSet and counts them.
+
+You now have the information you need to decide when it is appropriate to use a TreeSet or a ConcurrentSkipListSet. However, when using a ConcurrentSkipListSet, it may be helpful to understand the underlying data structure.
+
+The ConcurrentSkipListSet is based on a data structure called a skip list. Unlike a binary tree, the internal organization of a skip list does not need to be adjusted because of the order that data is added or removed. The internal organization of a skip list is based on random numbers and is not dependent on the actual data in the skip list.
+
+Figure 5 shows an example of a skip list.
+
+
+Figure 5: Skip List
+
+The first node in the skip list is called the header. It refers to other nodes or an object called NIL. NIL is at the end of every skip list. Both the header and NIL are in every skip list, even if the skip list is empty.
+
+The header is the first node in multiple linked lists. These linked lists are called level 1, level 2, &#8230; In Figure 5, the level 1 list is shown towards the bottom of the diagram and the level 4 list is shown towards the top of the list.
+
+Nodes that appear in the linked lists between the header and NIL have associated value objects. The order in which nodes appear in the linked lists is based on their value objects and determined by the natural ordering of the value objects or by a Comparator.
+
+All of the nodes in a skip list are in the level 1 linked list. Roughly &#189; of the nodes in a skip list are in the level 1 and 2 linked lists. About &#189; of those nodes (about &#188; of all the nodes) are also in the level 3 linked list. If there are higher levels of linked lists, each linked list includes about &#189; of the nodes in the linked list in the next lower level.
+
+The algorithm for searching a skip list starts at the highest level linked list, looking for a node whose value is greater than or equal to the value being searched for. If the value of a node is equal to what is being searched for, the search is done. Otherwise, the search backs up a node and continues one level of linked list down until either the search is successful or there are no more nodes to search. To clarify the search process, here is an example:
+
+Suppose that you are searching the skip list shown in Figure 6 for an object with the value 5. There are four levels in the skip list, so you start with the level 4 linked list. The first node on the level 4 linked list (after the header) has the value 2. Because 2 is less than 5, you look at the next node on the level 4 linked list.
+
+The next node on the level 4 linked list is NIL. Because NIL is the end of the linked list, the search continues on the level 3 linked list.
+
+The next node on the level 3 linked list after the node with the value 2 has the value 9. Because 9 is greater than 5, the search continues on the level 2 linked list.
+
+The next node on the level 2 linked list after the node with the value 2 has the value 4. Because 4 is less than 5, the search continues with the next node on the level 2 linked list.
+
+The next node on the level 2 linked list after the node with the value 4 has the value 6. Because 6 is greater than 5, the search continues on the level 1 linked list.
+
+The next node on the level 1 linked list after the node with the value 4 has the value 5. Because that is equal to the value we are looking for, the search is done.			
+			
+			
+			
+				
+				
+1 
+2 
+3 
+4 
+
+				
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>7396</docid>
+<orderid>4</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/ejb/article.php/3321521</url>
+</description>
+<TEXT orderid="2" >
+Again, there&apos;s not a lot to look at. The first thing the execute method does, as any DynaForm-based action does, is to cast the generic ActionForm class to a DynaValidatorForm. This allows us to
+use the get and set methods on the form. Next,
+the method creates a three-element array of type Person. In this method the
+size is hardwired, in a real application this could be a size based on
+doing a select from a database. The important thing to consider
+is that the array is being created in the code here, not by the Struts
+engine itself. So any arbitrary number of rows could be created
+by the code in response to application requirements.
+
+
+Once the array is in place, the method creates three instances of the Person class and populates the
+values.&#160; Again, in a real application this would more likely be
+done inside a loop reading rows from a database and populating the form
+rows.&#160; Lastly, the action returns success, causing Struts to
+transfer control to the displayForm.jsp
+page.
+
+
+
+&lt;!--
+    Copyright 2004, James M Turner.
+    All Rights Reserved
+    
+    --&gt;
+
+&lt;%@ taglib uri=&quot;/WEB-INF/struts-html.tld&quot; prefix=&quot;html&quot; %&gt;
+&lt;%@ taglib uri=&quot;/WEB-INF/c.tld&quot; prefix=&quot;c&quot; %&gt;
+
+&lt;head&gt;
+&lt;title&gt;Star Wars Actor Fact Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;H1&gt;&lt;center&gt;Start Wars Actor Fact Page&lt;/title&gt;
+&lt;html:form action=&quot;/processActorComments&quot; &gt;
+    &lt;table border=&quot;1&quot; width=&quot;80%&quot;&gt;
+        &lt;tr&gt;&lt;th&gt;Last Name&lt;/th&gt;&lt;th&gt;First Name&lt;/th&gt;&lt;th&gt;Date of Birth&lt;/th&gt;&lt;th&gt;Comment&lt;/th&gt;&lt;/tr&gt;
+        &lt;c:forEach var=&quot;people&quot; items=&quot;${dynamicArrayForm.map.people}&quot;&gt;
+            &lt;tr&gt;&lt;td&gt;&lt;c:out value=&quot;${people.lastName}&quot;/&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;c:out value=&quot;${people.firstName}&quot;/&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;c:out value=&quot;${people.dateOfBirth}&quot;/&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;html:text name=&quot;people&quot; indexed=&quot;true&quot; property=&quot;comment&quot;/&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/c:forEach&gt;
+    &lt;/table&gt;
+    &lt;P/&gt;
+    &lt;html:submit value=&quot;Update Comments&quot;/&gt; 
+&lt;/html:form&gt;
+
+
+
+
+Again, there&apos;s not a huge amount to look at here, it&apos;s exactly the same
+as the code we looked at in the last article when we were looking at fixed-length rows. The page iterates over the rows (remembering that we have to use the map
+property in JSTL to gain access to DynaForm properties), and displays the last name, first name, and date of birth of the actor, and providing a text field to enter a comment.
+
+
+
+When we fire up our browser and request http://localhost:8080/struts/setupForm.do
+(assuming you put the struts.war
+file in Tomcat on your local machine), the following page will appear:
+
+
+Start Wars Actor Fact Page
+
+  
+    
+      
+        Last Name
+        First Name
+        Date of Birth
+        Comment
+      
+      
+        Ford
+        Harrison
+        07/13/1942
+        
+      
+      
+        Fisher
+        Carrie
+        10/21/1956
+        
+      
+      
+        Hamill
+        Mark
+        09/25/1951
+        
+      
+    
+  
+    
+
+
+Once the form is submitted, another simple Struts action processes the
+results:
+</TEXT>
+<CODE orderid="3" >
+package demo;
+
+/**
+ *  Copyright 2004, James M. Turner.
+ * All Rights Reserved
+ *
+ * A Struts action that sends the new comments to the console
+ */
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.*;
+
+import org.apache.struts.action.*;
+import org.apache.struts.validator.DynaValidatorForm;
+
+public class ProcessFormAction extends Action {
+    public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+                                 HttpServletResponse response)
+            throws ServletException, IOException {
+
+        DynaValidatorForm df = (DynaValidatorForm) form;
+        Person[] p = (Person[]) df.get(&quot;people&quot;);
+
+        for (int i = 0; i &lt; p.length; i++) {
+            System.out.println(p[i].getFirstName() + &quot; &quot; + p[i].getLastName() + &quot;:&quot; + p[i].getComment());
+        }
+
+        return mapping.findForward(&quot;success&quot;);
+    }
+}
+</CODE>
+<TEXT orderid="4" >
+In a real application, this is where data would be written back to the
+database.&#160; In this case, it just dumps the data to the console so
+we can see it was correctly received.&#160; Assuming that we filled out
+appropriate values for each of the actors, we&apos;d see the following on
+the console:
+
+Harrison Ford:Indiana Jones
+Carrie Fisher:Postcards from the Edge
+Mark Hamill:Wing Commander
+
+As I mentioned at the beginning of the article, there&apos;s another way to
+handle things however, that doesn&apos;t require the use of a session-scoped
+form.&#160; That way is to use HashMaps
+to store the rows.&#160; Let&apos;s look at the same code, reimplemented
+using HashMaps.
+
+
+
+To start, we&apos;ll add a new form to our struts-config.xml:
+
+
+
+        &lt;form-bean name=&quot;dynamicHashmapForm&quot; type=&quot;org.apache.struts.validator.DynaValidatorForm&quot;&gt;
+            &lt;form-property name=&quot;people&quot; type=&quot;java.util.HashMap&quot;/&gt;
+            &lt;form-property name=&quot;comments&quot; type=&quot;java.util.HashMap&quot;/&gt;
+        &lt;/form-bean&gt;
+
+Instead of arrays of beans, now we use a HashMap to store each person&apos;s
+data.&#160; In addition, we need a new HashMap
+to store the comments, for a reason I&apos;ll explain a bit later.&#160; We
+also need a new action to populate the data:
+</TEXT>
+<CODE orderid="5" >
+package demo;
+
+/**
+ *  Copyright 2004, James M. Turner.
+ * All Rights Reserved
+ *
+ * A Struts action that sets up a DynaForm which is globally scoped
+ */
+
+import java.io.IOException;
+import java.util.HashMap;
+import javax.servlet.ServletException;
+import javax.servlet.http.*;
+
+import org.apache.struts.action.*;
+import org.apache.struts.validator.DynaValidatorForm;
+
+public class SetupHashFormAction extends Action {
+    public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+                                 HttpServletResponse response)
+            throws ServletException, IOException {
+
+        DynaValidatorForm df = (DynaValidatorForm) form;
+        HashMap hm = (HashMap) df.get(&quot;people&quot;);
+        Person p = new Person();
+        p = new Person();
+        p.setDateOfBirth(&quot;07/13/1942&quot;);
+        p.setLastName(&quot;Ford&quot;);
+        p.setFirstName(&quot;Harrison&quot;);
+        p.setGender(&quot;M&quot;);
+        hm.put(&quot;1&quot;, p);
+        p = new Person();
+        p.setDateOfBirth(&quot;10/21/1956&quot;);
+        p.setLastName(&quot;Fisher&quot;);
+        p.setFirstName(&quot;Carrie&quot;);
+        p.setGender(&quot;F&quot;);
+        hm.put(&quot;2&quot;, p);
+        p = new Person();
+        p.setDateOfBirth(&quot;09/25/1951&quot;);
+        p.setLastName(&quot;Hamill&quot;);
+        p.setFirstName(&quot;Mark&quot;);
+        p.setGender(&quot;M&quot;);
+        hm.put(&quot;3&quot;, p);
+        return mapping.findForward(&quot;success&quot;);
+    }
+}
+</CODE>
+<TEXT orderid="6" >
+Essentially, this is the same code as before, except we&apos;re storing the Person objects into a HashMap instead of an array.&#160;
+We also don&apos;t need to create the HashMap,
+because it&apos;s done automatically as part of the form instantiation.
+
+
+
+The tricky part comes in the JSP itself:
+
+&lt;!--
+    Copyright 2004, James M Turner.
+    All Rights Reserved
+    
+    --&gt;
+
+&lt;%@ taglib uri=&quot;/WEB-INF/struts-html.tld&quot; prefix=&quot;html&quot; %&gt;
+&lt;%@ taglib uri=&quot;/WEB-INF/struts-html-el.tld&quot; prefix=&quot;html-el&quot; %&gt;
+&lt;%@ taglib uri=&quot;/WEB-INF/struts-tiles.tld&quot; prefix=&quot;tiles&quot; %&gt;
+&lt;%@ taglib uri=&quot;/WEB-INF/c.tld&quot; prefix=&quot;c&quot; %&gt;
+&lt;%@ taglib prefix=&quot;fmt&quot; uri=&quot;/WEB-INF/fmt.tld&quot; %&gt;
+
+&lt;head&gt;
+&lt;title&gt;Star Wars Actor Fact Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;H1&gt;&lt;center&gt;Start Wars Actor Fact Page&lt;/title&gt;
+&lt;html:form action=&quot;/processHashActorComments&quot; &gt;
+    &lt;table border=&quot;1&quot; width=&quot;80%&quot;&gt;
+        &lt;tr&gt;&lt;th&gt;Last Name&lt;/th&gt;&lt;th&gt;First Name&lt;/th&gt;&lt;th&gt;Date of Birth&lt;/th&gt;&lt;th&gt;Comment&lt;/th&gt;&lt;/tr&gt;
+        &lt;c:forEach var=&quot;people&quot; items=&quot;${dynamicHashmapForm.map.people}&quot;&gt;
+            &lt;tr&gt;&lt;td&gt;&lt;c:out value=&quot;${people.value.lastName}&quot;/&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;c:out value=&quot;${people.value.firstName}&quot;/&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;c:out value=&quot;${people.value.dateOfBirth}&quot;/&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;html-el:text property=&quot;comments(${people.value.lastName},${people.value.firstName})&quot; /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/c:forEach&gt;
+    &lt;/table&gt;
+    &lt;P/&gt;
+    &lt;html:submit value=&quot;Update Comments&quot;/&gt; 
+&lt;/html:form&gt;
+
+			
+			
+			
+			
+				
+1 
+2 
+
+				
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

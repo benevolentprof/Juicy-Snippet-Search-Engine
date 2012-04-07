@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>8476</docid>
+<orderid>5</orderid>
+<type>CODE</type>
+<url>http://www.developer.com/java/article.php/10922_3719336_2/Getting-Test-Doubles-in-Place.htm</url>
+</description>
+<CODE orderid="3" >
+import static org.junit.Assert.*;
+import org.junit.*;
+
+public class PortfolioTest {
+   private static final int CURRENT_MSFT_VALUE = 100;
+   private static final String MSFT = &quot;MSFT&quot;;
+   private Portfolio portfolio;
+
+   @Before
+   public void initialize() {
+      StockLookupService service = new StockLookupService() {
+         public int currentValue(String symbol) {
+            if (MSFT.equals(symbol))
+               return CURRENT_MSFT_VALUE;
+            return 0;
+         }
+      };
+      StockLookupServiceFactory.set(service);
+
+      portfolio = new Portfolio();
+   }
+
+   @After
+   public void blowOutMockFromFactory() {
+      StockLookupServiceFactory.resetToDefault();
+   }
+
+   @Test
+   public void multiplesValueByShares() {
+      portfolio.purchase(MSFT, 10);
+      assertEquals(CURRENT_MSFT_VALUE * 10, portfolio.value());
+   }
+}
+</CODE>
+<TEXT orderid="4" >
+I rarely use the factory method of injection unless I already have a compelling need for a factory. Without such need, it ends up adding some small but questionable additional complexity to the application.
+
+Listing 6: Injecting via a factory.
+</TEXT>
+<CODE orderid="5" >
+import java.util.*;
+
+public class Portfolio {
+   private Map&lt;String,Integer&gt; holdings =
+      new HashMap&lt;String,Integer&gt;();
+
+   public int value() {
+      StockLookupService service = StockLookupServiceFactory.get();
+
+      int total = 0;
+      for (Map.Entry&lt;String,Integer&gt; entry: holdings.entrySet()) {
+         String symbol = entry.getKey();
+         int shares = entry.getValue();
+         total += service.currentValue(symbol) * shares;
+      }
+      return total;
+   }
+
+   public void purchase(String symbol, int shares) {
+      holdings.put(symbol, shares);
+   }
+}
+</CODE>
+<TEXT orderid="6" >
+Injecting Via Subclass Override
+
+A third mechanism involves stubbing a method of the target class Portfolio itself. I refer to this as injection via subclass override. The test appears in Listing 7. The Portfolio instance actually tested is in fact an anonymous subclass of the real target, with a creation method overridden. This creation method is responsible for returning an instance of type StockLookupService. In production (see Listing 8), the real creation method returns a NASDAQLookupService, whereas the stub returns the fake.
+
+Listing 7: Test-driving injection via subclass override.
+</TEXT>
+<CODE orderid="7" >
+@Before
+public void initialize() {
+   final StockLookupService service = new StockLookupService() {
+      public int currentValue(String symbol) {
+      if (MSFT.equals(symbol))
+         return CURRENT_MSFT_VALUE;
+         return 0;
+      }
+   };
+
+   portfolio = new Portfolio() {
+      @Override
+      protected StockLookupService createStockLookupService() {
+      return service;
+      }
+   };
+}
+</CODE>
+</result>

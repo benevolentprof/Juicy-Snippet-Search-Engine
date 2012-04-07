@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>7001</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/data/article.php/10932_3391131_2/An-Introduction-to-Object-Relational-Mapping-with-Hibernate.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Data &amp; Java
+					
+				
+				
+					Read More in Data &amp; Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			An Introduction to Object-Relational Mapping with Hibernate
+			
+			
+				
+				
+					August 5, 2004
+					By 
+Olexiy &amp; Alexander Prokhorenko
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+At last, we will start using Hibernate. To keep object in a database, it is necessary to execute the following steps (actions):
+
+
+Create an object of the Product class
+Receive net.sf.hibernate.SessionFactory with the use of net.sf.hibernate.cfg.Configuration, right at the beginning of the application.
+Open a net.sf.hibernate.Session session by calling the SessionFactory.openSession() method.
+Keep an object of the Product class and close the session.
+
+
+However, before you start these steps, you should define some configuration files with which Hibernate will &quot;know&quot; where it is necessary to keep your objects and how your objects will be displayed in the chosen storehouse (the database table).
+
+The first configuration file is a hibernate.properties file. This file defines which database we want to us, a name of the user and the password, and a set of other options. In our case, the database will be MySQL, and the hibernate.properties file will contain the next lines:
+
+
+hibernate.connection.username=green
+hibernate.connection.password=
+hibernate.connection.url=jdbc:mysql://localhost/hibernate
+hibernate.connection.driver_class=com.mysql.jdbc.Driver
+hibernate.dialect=net.sf.hibernate.dialect.MySQLDialect
+
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		The next necessary file is Product.hbm.xml. It is an XML file that defines how Java objects are kept in a database. In this file, we determine the data in what table of our database and how it will be written down, what field in which column of the table, and so forth. Here is the code for our Product.hbm.xml file:
+
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE hibernate-mapping
+   PUBLIC &quot;-//Hibernate/Hibernate Mapping DTD//EN&quot;
+   &quot;http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd&quot;&gt;
+&lt;hibernate-mapping&gt;
+   &lt;class name=&quot;Product&quot; table=&quot;products&quot;&gt;
+      &lt;id name=&quot;id&quot; type=&quot;string&quot; unsaved-value=&quot;null&quot;&gt;
+         &lt;column name=&quot;id&quot; sql-type=&quot;char(32)&quot; not-null=&quot;true&quot;/&gt;
+         &lt;generator class=&quot;uuid.hex&quot;/&gt;
+      &lt;/id&gt;
+      &lt;property name=&quot;name&quot;&gt;
+         &lt;column name=&quot;name&quot; sql-type=&quot;char(255)&quot; not-null=&quot;true&quot;/&gt;
+      &lt;/property&gt;
+      &lt;property name=&quot;price&quot;&gt;
+         &lt;column name=&quot;price&quot; sql-type=&quot;double&quot; not-null=&quot;true&quot;/&gt;
+      &lt;/property&gt;
+      &lt;property name=&quot;amount&quot;&gt;
+         &lt;column name=&quot;amount&quot; sql-type=&quot;integer&quot; not-null=&quot;true&quot;/&gt;
+      &lt;/property&gt;
+   &lt;/class&gt;
+&lt;/hibernate-mapping&gt;
+
+
+The line &lt;class name = &quot;Product&quot; table = &quot;products&quot;&gt; means that we are going to display a class with the name Product in the table products.
+
+The &lt;id&gt; element and its affiliated elements set the communication between our Java class and a database.
+
+The &lt;property&gt; elements define in what columns each of fields will be kept, and also its type, a name, etc.
+
+The &lt;generator class = &quot;uuid.hex&quot;/&gt; element, at first glance, is not understandable. Knowing that is one of the affiliated elements of an &lt;id&gt; element, its purpose becomes clearer: Because our application does not know how the data will be kept in a database, the substitute key is necessary for us. This key will not have any value in the business logic of the application. It only helps Hibernate manipulate objects. Again, a created object of the Product class has no certain ID&#8212;Hibernate will create it for us. In our case, we have chosen UUID lines; however, there are many various predetermined ID generators. Besides, you also can write you own. For more detailed information, I suggest you to take a look at the documentation delivered with Hibernate.
+
+Storing New Products
+
+Now that we have these two files, we can create an algorithm for storing the Product class in a database with the help of the following code:
+</TEXT>
+<CODE orderid="1" >
+import net.sf.hibernate.Session;
+import net.sf.hibernate.SessionFactory;
+import net.sf.hibernate.Transaction;
+import net.sf.hibernate.cfg.Configuration;
+
+// Usage:
+// java InsertProduct &lt;title&gt; &lt;amount&gt; &lt;price&gt;
+public class InsertProduct {
+   public static void main(String[] args) throws Exception {
+      Product p = new Product();
+      p.setName(args[0]);
+      p.setAmount(Integer.parseInt(args[1]));
+      p.setPrice(Double.parseDouble(args[2]));
+
+      Configuration cfg = new Configuration().addClass(Product.class);
+      SessionFactory sf = cfg.buildSessionFactory();
+
+      Session sess = sf.openSession();
+
+      Transaction t = sess.beginTransaction();
+      sess.save(p);
+      t.commit();
+      sess.close();
+   }
+}
+</CODE>
+<TEXT orderid="2" >
+To run our program and store a new object, use this:
+
+java InsertProduct Book 100 600
+
+With the help of the MySQL console client (mysql.exe), you can take a look at the products table&apos;s contents. Use the following commands:
+</TEXT>
+</result>

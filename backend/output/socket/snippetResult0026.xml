@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75874</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/network/lowportscanner.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Low port Scanner
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this section, you will learn how to get local port number of the local machine.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Low port Scanner
+ 
+
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+In this section, you will learn how to get local port
+number of the local machine. Here, we define the name of program LowPortScanner.
+In this we check the argument and create a socket object. This program
+mainly display the massage on the command line very low port information. The java.net package provides two classes
+a socket and ServerSocket that implement the client side of the connection and
+server side of the connection, respectively. The Socket classes are used to
+represent the connection between a client program and a server program.&#160;
+&#160;
+Here is the code of this program:
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.net.*;
+
+import&#160;java.io.*;
+
+
+
+public&#160;class&#160;LowPortScanner&#160;{
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;{
+
+&#160;&#160;&#160;&#160;String&#160;host&#160;=&#160;&quot;localhost&quot;;
+
+&#160;&#160;&#160;&#160;if&#160;(args.length&#160;&gt;&#160;0)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;host&#160;=&#160;args[0];
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;for&#160;(int&#160;i&#160;=&#160;1;&#160;i&#160;&lt;&#160;1024;&#160;i++)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;try&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Socket&#160;s&#160;=&#160;new&#160;Socket(host,&#160;i);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(&quot;There&#160;is&#160;a&#160;server&#160;on&#160;port&#160;&quot;&#160;+&#160;i&#160;+&#160;&quot;&#160;of&#160;&quot;&#160;+&#160;host);
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;catch(UnknownHostException&#160;ex){
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.err.println(ex);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;break;
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;catch&#160;(IOException&#160;ex)&#160;{}
+
+&#160;&#160;&#160;&#160;}
+
+&#160;&#160;}
+
+}&#160;
+</CODE>
+<TEXT orderid="2" >
+&#160;
+Output of this program:
+
+ 
+
+  
+    C:\rose&gt;java LowPortScanner
+
+      There is a server on port 135 of localhost
+
+      _
+  
+
+
+&#160;
+Download of this program.
+
+&#160;
+
+
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+
+
+      
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				EncoderTest ...  179699 viewsURLInformation ...  179706 viewsGetHTTPHeader ...  179756 viewsGetKeepAlive ...  179790 viewsEchoClientSocket ...  179837 viewsReadIPAddress ...  179840 viewsPrint the URL of a URLConnection ...  179848 viewsHow to retrieve URL information ...  180554 viewsOpen a URLConnection to specific website address ...  180859 viewsComputer Networking ...  180916 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+com
+ide
+print
+vi
+using
+int
+printer
+id
+tar
+start
+computer
+modem
+activity
+long
+where
+with
+commercial
+mode
+ci
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+0 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Low port Scanner
+										Local Port Scanner
+										ReadIPAddress
+										JSP Tutorials
+										Login Application
+										Hibernate Delete Query
+										Introduction to the JSP Java Server Pages
+										GetKeepAlive
+										Client Socket Information
+										The &lt;APPLET&gt; Tag in Detail
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>3658</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/ejb/article.php/10931_3494801_2/Consuming-and-Binding-EJBs-and-Data-in-Creator.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					EJB/Components
+					
+				
+				
+					Read More in EJB/Components &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Consuming and Binding EJBs and Data in Creator
+			
+			
+				
+				
+					April 4, 2005
+					By 
+Dick Wall
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Binding Lists and Tables using Collections and Arrays
+
+So far, you have a working EJB API and a simple screen, but it&apos;s not very exciting and also not very representative of any real-world usage. You can up the ante by adding a new page with a table of company details in it. The page will use the an EJB method that returns a two-dimensional array of Strings with the details in it, and you will bind the details into the table and display them.
+
+To create the page:
+
+
+In the navigation view, add a new page. Call it something like ArrayBinding.
+In the project navigator, right-click on the new page and select &quot;Set as Start Page.&quot;
+Open the page, and then drag a Data Table control into it.
+The data you are binding in has five fields in each row in the string array. The data in these rows (in order) is: companyId, companyName, formedDate, annualIncome, and numberOfEmployees.
+Right-click on the table and select table layout. (Note: You need to select the whole table to see the table layout option. Click on the table repeatedly until the whole table is outlined.)
+In the Table Layout dialog, remove the columns that are already defined, then define 5 new ones. For the new columns, fill in (for the Header and Value fields respectively):
+
+
+
+
+
+Heading
+Value
+
+Company ID
+#{currentRow[0]}
+
+Company Name
+#{currentRow[1]}
+
+Formed
+#{currentRow[2]}
+
+Annual Income
+#{currentRow[3]}
+
+No. Of Employees
+#{currentRow[4]}
+
+
+
+The above Value setting binds in the current row elements by index name using the JSP 2.0 Expression Language.
+Next, you need to bind the array returned from the EJB method into the table. First, drag the CollectionDemoEJB onto the page so that it makes a reference.
+Make a property on the page. To do this, there are actually two ways to do this. I am going to use the quicker way:
+
+
+Using the project explorer, open the Java Sources section of the tree, expand out the default package, and find the ArrayBinding.java file. Expand this class, and keep expanding until you see a node that reads &quot;Bean Patterns.&quot;
+Right-click on the Bean Patterns node and then choose Add-&gt;Property.
+When the dialog comes up, set the property name to be companyDetails and the type to be String[][].
+Hit OK.
+
+
+
+What this has actually done is to create a companyDetails attribute, and a getter and setter for it. You could have accomplished the same by adding the attribute and accessor/modifier yourself, but this way is a little faster.
+Now, you need to load the data into the new property in the class constructor. Right-click on the page and select Edit ArrayBinding Java Source; then, go to the Constructor and add the following code after the comment about adding additional code here:
+</TEXT>
+<CODE orderid="1" >
+try {
+    this.companyDetails = this.collectionDemoEJBClient1.
+                          listCompanyDetails();
+}
+catch (RemoteException rex) {
+    throw new FacesException(rex);
+}
+catch (NamingException nex) {
+    throw new FacesException(nex);
+}
+catch (CreateException cex) {
+    throw new FacesException(cex);
+}
+</CODE>
+<TEXT orderid="2" >
+Save and compile the new code. Remember to use the fast import option to add necessary import statements.
+Switch back to the jsp page and click on the table until the whole table is selected. Then, look in the properties and find the Value field; click on the ... button at the side.
+In the dialog that comes up, Select the Bind to an Object tab and find the companyDetails String[][] property you just created. Select that and the binding is made.
+Now, run the page. You should see a list of three companies details in the Data Table.
+
+
+Any list or array type can be bound into a data table in this manner. The iterator value will be whatever the elements of that list or array are in order (the default name for the iterator in the table is currentRow). How you use the data from the iterator is of course up to you and you can hit problems with array bounds exceptions or (as you will see below) bean properties that are incorrectly named.
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		What you have done here is bound a very simple grid of strings into a datatable. The approach is simplem but has a number of limitations. Firstly, the 2d array of Strings can only represent String data, while the datatable control can actually deal with more than just string data. Also, the expressions used to access the data in the table are not very friendly&#8212;you need to know the field positions of data in the array columns, for example. One approach to improving this might be to use a HashTable or HashMap to both name the data fields and allow non-string objects to be used.
+
+The EL (Expression Language) to access a HashMap entry would be:
+</TEXT>
+<CODE orderid="3" >
+#{currentRow[&apos;myfield&apos;]}
+</CODE>
+<TEXT orderid="4" >
+Instead of using a numerical array index, you use the string key to access the field in the Map. However, an even richer and easier way of accessing data in the DataTable, and for that matter other controls in Creator exists, is that of using serializable beans.
+
+Binding Serializable Objects
+
+By making EJB methods return either Serializable beans, or collections of such beans, you are able to get structured data back to the client from the EJB. The SerializedDemoEJB is an example of doing this.
+
+This is the culmination of the binding process, and you are going to build a moderately complex page for this last one. As a result, the steps will be slightly less detailed. Refer to the previous examples if you get stuck on a particular step.
+
+For this page, you will create a pulldown menu of company names to IDs, a section of information about the company, and then a table of employee details for that company.
+
+
+Create a new page. Call it CompanyDetails, and set it as the start page.
+Open the page, add a dropdown list called companySelect, and text labels and fields for Company Name, Company Formed, Annual Income and Number of Employees. Name the output text fields something meaningful in each case.
+Add a data table.
+The resulting screen before binding should look something like this:
+
+
+
+
+
+Click here for a larger image.
+
+
+One by one, drag a reference to the CollectionDemoEJB and SerializedDemoEJB onto the page.
+Locate the CompanyDetails.java node in the project navigator, expand until you see the Bean Patterns, and add the following properties to the Bean Patterns:
+
+
+property companyNameList of type java.util.Map
+property currentCompany of type com.wallsoft.creator.demo.ejb.Company
+property employeeDetails of type java.util.List
+
+
+Right-click on the page and Edit CompanyDetails Java Source.
+In the CompanyDetails.java source file, add the following code to the constructor:
+</TEXT>
+</result>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>74457</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.devdaily.com/java/swing/tame/tree/WideCellEditor.java.shtml</url>
+</description>
+<TEXT orderid="0" >
+devdaily home&#160;|&#160;java&#160;|&#160;perl&#160;|&#160;unix&#160;|&#160;directory&#160;|&#160;blog
+ 
+ 
+
+
+
+
+
+
+ 
+ 
+ 
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What this is
+
+This file is part of the Tame Swing collection that we have compiled. All of the Java source code in these examples was created by Nobuo Tamemasa. As these examples have become hard to find on the internet, we have put them in one place here, supported by minimal advertising. In time we will include images of each running sample Java/Swing application.
+
+The intent of having these files here is to help you learn Java and Swing by example, and Tame certainly created some terrific examples of the power of the Swing framework.
+
+
+Other links
+
+  &#160;The main &quot;Tame Swing&quot; page
+  &#160;Other source code files at this package level
+
+The source code
+</TEXT>
+<CODE orderid="1" >
+/* ( swing1.1beta3 ) swing#1007 */
+package tame.tree;
+
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+
+import javax.swing.JTree;
+import javax.swing.tree.DefaultTreeCellEditor;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeCellEditor;
+import javax.swing.tree.TreePath;
+
+/**
+@author Nobuo Tamemasa
+@version 1.0 11/09/98
+*/
+public class WideCellEditor extends DefaultTreeCellEditor {
+
+  public WideCellEditor(JTree tree,
+  			DefaultTreeCellRenderer renderer) {
+    this(tree, renderer, null);
+  }
+
+  public WideCellEditor(final JTree tree, final DefaultTreeCellRenderer renderer,
+			TreeCellEditor editor) {
+    super(tree,renderer,editor);
+    editingContainer = new WideEditorContainer();
+  }
+
+  public Component getTreeCellEditorComponent(JTree tree, Object value,
+	  boolean isSelected, boolean expanded, boolean leaf, int row) {
+    Component c = super.getTreeCellEditorComponent(tree, value,
+	             isSelected, expanded, leaf, row);
+    ((WideEditorContainer)editingContainer).setLocalCopy(
+                     tree,lastPath,offset,editingComponent);
+    return c;
+  }
+
+  class WideEditorContainer extends DefaultTreeCellEditor.EditorContainer {
+    JTree     tree;
+    TreePath  lastPath;
+    int       offset;
+    Component editingComponent;
+
+    public void doLayout() {
+      if (editingComponent != null) {
+        Dimension  cSize = getSize();
+        Dimension  eSize = editingComponent.getPreferredSize();
+        int n = lastPath.getPathCount();
+        Rectangle r = new Rectangle();
+        r = tree.getBounds(r);
+        eSize.width = r.width -(offset *n);
+        editingComponent.setSize(eSize);
+        editingComponent.setLocation(offset, 0);
+        editingComponent.setBounds(offset, 0, eSize.width, cSize.height);
+        setSize(new Dimension(eSize.width + offset, cSize.height));
+      }
+    }
+
+    void setLocalCopy(JTree tree, TreePath lastPath,
+                        int offset,Component editingComponent) {
+      this.tree     = tree;
+      this.lastPath = lastPath;
+      this.offset   = offset;
+      this.editingComponent = editingComponent;
+    }
+  }
+
+}
+</CODE>
+<TEXT orderid="2" >
+Copyright &#169; 1998-2009 DevDaily.com
+
+All Rights Reserved.
+</TEXT>
+</result>

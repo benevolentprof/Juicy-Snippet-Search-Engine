@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>23226</docid>
+<orderid>4</orderid>
+<type>TEXT</type>
+<url>http://www.java2s.com/Open-Source/Java-Document/Net/mina-2.0.0-M1/Catalogmina-2.0.0-M1.htm</url>
+</description>
+<TEXT orderid="2" >
+Monitoring an IoSession
+
+Each session is registered to MBean server individually.
+</TEXT>
+<CODE orderid="3" >
+acceptor.addListener( new IoServiceListener()
+{
+    public void serviceActivated( IoService service, SocketAddress serviceAddress, IoHandler handler, IoServiceConfig config )
+    {
+    }
+
+    public void serviceDeactivated( IoService service, SocketAddress serviceAddress, IoHandler handler, IoServiceConfig config )
+    {
+    }
+
+    public void sessionCreated( IoSession session )
+    {
+        try
+        {
+            IoSessionManager sessMgr = new IoSessionManager( session );
+            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();  
+            ObjectName name = new ObjectName( &quot;com.acme.test.session:type=IoSessionManager,name=&quot; + session.getRemoteAddress().toString().replace( &apos;:&apos;, &apos;/&apos; ) );
+            mbs.registerMBean( sessMgr, name );
+        }
+        catch( JMException e )
+        {
+            logger.error( &quot;JMX Exception: &quot;, e );
+        }      
+    }
+
+    public void sessionDestroyed( IoSession session )
+    {
+        try
+        {
+            ObjectName name = new ObjectName( &quot;com.acme.test.session:type=IoSessionManager,name=&quot; + session.getRemoteAddress().toString().replace( &apos;:&apos;, &apos;/&apos; ) );
+            ManagementFactory.getPlatformMBeanServer().unregisterMBean( name );
+        }
+        catch( JMException e )
+        {
+            logger.error( &quot;JMX Exception: &quot;, e );
+        }      
+    }
+});
+</CODE>
+<TEXT orderid="4" >
+org.apache.mina.integration.ognlorg.apache.mina.statemachineorg.apache.mina.statemachine.annotationorg.apache.mina.statemachine.contextorg.apache.mina.statemachine.eventorg.apache.mina.statemachine.transitionorg.apache.mina.transportorg.apache.mina.transport.socketorg.apache.mina.transport.socket.aprorg.apache.mina.transport.socket.nio
+
+
+
+Socket (TCP/IP) and Datagram (UDP/IP) support based on Java
+NIO (New I/O) API.
+
+Configuring the number of NIO selector loops
+
+You can specify the number of Socket I/O thread to utilize multi-processors
+efficiently by specifying the number of processing threads in the constructor. The default is 1
+
+
+
+
+
+org.apache.mina.integration.ognlorg.apache.mina.statemachineorg.apache.mina.statemachine.annotationorg.apache.mina.statemachine.contextorg.apache.mina.statemachine.eventorg.apache.mina.statemachine.transitionorg.apache.mina.transportorg.apache.mina.transport.socketorg.apache.mina.transport.socket.aprorg.apache.mina.transport.socket.nio
+
+
+
+Socket (TCP/IP) and Datagram (UDP/IP) support based on Java
+NIO (New I/O) API.
+
+Configuring the number of NIO selector loops
+
+You can specify the number of Socket I/O thread to utilize multi-processors
+efficiently by specifying the number of processing threads in the constructor. The default is 1
+
+
+
+
+org.apache.mina.transport.vmpipe
+
+
+
+In-VM pipe support which removes the overhead of local loopback communication.
+
+What is &apos;in-VM pipe&apos;?
+
+    In-VM pipe is a direct event forwarding mechanism between two
+	ProtocolHandlers in the
+    same Java Virtual Machine.  Using in-VM pipe, you can remove the overhead
+    of encoding and decoding which is caused uselessly by local loopback
+    network communication.  Here are some useful situations possible:
+    
+        SMTP server and SPAM filtering server,
+        web server and Servlet/JSP container.
+    
+
+
+    Please refer to
+    Tennis
+    example.
+
+
+
+
+org.apache.mina.integration.ognlorg.apache.mina.statemachineorg.apache.mina.statemachine.annotationorg.apache.mina.statemachine.contextorg.apache.mina.statemachine.eventorg.apache.mina.statemachine.transitionorg.apache.mina.transportorg.apache.mina.transport.socketorg.apache.mina.transport.socket.aprorg.apache.mina.transport.socket.nio
+
+
+
+Socket (TCP/IP) and Datagram (UDP/IP) support based on Java
+NIO (New I/O) API.
+
+Configuring the number of NIO selector loops
+
+You can specify the number of Socket I/O thread to utilize multi-processors
+efficiently by specifying the number of processing threads in the constructor. The default is 1
+
+
+
+
+org.apache.mina.transport.vmpipe
+
+
+
+In-VM pipe support which removes the overhead of local loopback communication.
+
+What is &apos;in-VM pipe&apos;?
+
+    In-VM pipe is a direct event forwarding mechanism between two
+	ProtocolHandlers in the
+    same Java Virtual Machine.  Using in-VM pipe, you can remove the overhead
+    of encoding and decoding which is caused uselessly by local loopback
+    network communication.  Here are some useful situations possible:
+    
+        SMTP server and SPAM filtering server,
+        web server and Servlet/JSP container.
+    
+
+
+    Please refer to
+    Tennis
+    example.
+
+
+
+org.apache.mina.util
+
+
+
+Miscellaneous utility classes
+
+
+
+org.apache.mina.integration.ognlorg.apache.mina.statemachineorg.apache.mina.statemachine.annotationorg.apache.mina.statemachine.contextorg.apache.mina.statemachine.eventorg.apache.mina.statemachine.transitionorg.apache.mina.transportorg.apache.mina.transport.socketorg.apache.mina.transport.socket.aprorg.apache.mina.transport.socket.nio
+
+
+
+Socket (TCP/IP) and Datagram (UDP/IP) support based on Java
+NIO (New I/O) API.
+
+Configuring the number of NIO selector loops
+
+You can specify the number of Socket I/O thread to utilize multi-processors
+efficiently by specifying the number of processing threads in the constructor. The default is 1
+
+
+
+
+org.apache.mina.transport.vmpipe
+
+
+
+In-VM pipe support which removes the overhead of local loopback communication.
+
+What is &apos;in-VM pipe&apos;?
+
+    In-VM pipe is a direct event forwarding mechanism between two
+	ProtocolHandlers in the
+    same Java Virtual Machine.  Using in-VM pipe, you can remove the overhead
+    of encoding and decoding which is caused uselessly by local loopback
+    network communication.  Here are some useful situations possible:
+    
+        SMTP server and SPAM filtering server,
+        web server and Servlet/JSP container.
+    
+
+
+    Please refer to
+    Tennis
+    example.
+
+
+
+org.apache.mina.util
+
+
+
+Miscellaneous utility classes
+
+
+
+w__w__w__.j__a_v___a2___s_.__c__o__m___ | Contact UsCopyright 2009 - 12 Demo Source and Support. All rights reserved.All other trademarks are property of their respective owners.
+</TEXT>
+</result>

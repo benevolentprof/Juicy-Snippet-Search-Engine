@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>1663</docid>
+<orderid>22</orderid>
+<type>TEXT</type>
+<url>http://www.zetcode.com/tutorials/javagnometutorial/advancedwidgets</url>
+</description>
+<TEXT orderid="20" >
+A new column is created with &quot;Name&quot; title. Each column has a cell renderer. 
+The cell renderer is responsible for displaying data. In our case we have
+the most common cell renderer, the CellRendererText.
+As the name suggests, it shows textual data in a 
+TreeViewColumn.
+</TEXT>
+<CODE orderid="21" >
+row = model.getIter(treePath);
+
+ place = model.getValue(row, placeCol);
+ name = model.getValue(row, nameCol);
+ year = model.getValue(row, yearCol);
+
+ text = name + &quot;, &quot; + place + &quot;, &quot; + year;
+
+ statusbar.setMessage(text);
+</CODE>
+<TEXT orderid="22" >
+If we double click on an item, we display the whole row in the statusbar. 
+
+
+
+
+
+
+Figure: ListView
+
+
+
+Tree
+
+
+In the last example of this chapter, we use the TreeView
+widget to show a hierarchical tree of data.
+</TEXT>
+<CODE orderid="23" >
+tree.java
+package com.zetcode;
+
+import org.gnome.gdk.Event;
+import org.gnome.gtk.CellRendererText;
+import org.gnome.gtk.DataColumn;
+import org.gnome.gtk.DataColumnString;
+import org.gnome.gtk.Gtk;
+import org.gnome.gtk.Statusbar;
+import org.gnome.gtk.TreeIter;
+import org.gnome.gtk.TreePath;
+import org.gnome.gtk.TreeStore;
+import org.gnome.gtk.TreeView;
+import org.gnome.gtk.TreeViewColumn;
+import org.gnome.gtk.VBox;
+import org.gnome.gtk.Widget;
+import org.gnome.gtk.Window;
+import org.gnome.gtk.WindowPosition;
+
+/**
+ * ZetCode Java Gnome tutorial
+ *
+ * This program demonstrates the
+ * TreeView widget in tree view mode. 
+ *
+ * @author jan bodnar
+ * website zetcode.com
+ * last modified March 2009
+ */
+
+public class GTree extends Window {
+
+    private DataColumnString dataCol;
+
+    private TreeStore model;
+    private TreeIter row;
+    private TreeView view;
+    private TreeIter rowChild;
+
+    private TreeViewColumn column;
+    private CellRendererText renderer;
+
+    private Statusbar statusbar;
+
+    public GTree() {
+    
+        setTitle(&quot;GTree&quot;);
+        
+        initUI();
+        
+        connect(new Window.DeleteEvent() {
+            public boolean onDeleteEvent(Widget source, Event event) {
+                Gtk.mainQuit();
+                return false;
+            }
+        });
+    
+        setDefaultSize(350, 300);
+        setPosition(WindowPosition.CENTER);
+        showAll();
+    }
+    
+    public void initUI() {
+
+        statusbar = new Statusbar();
+
+        model = new TreeStore(new DataColumn[] {
+                dataCol = new DataColumnString(),
+        });
+        
+        row = model.appendRow();
+        model.setValue(row, dataCol, &quot;Scripting languages&quot;);
+        rowChild = model.appendChild( row );
+        model.setValue(rowChild, dataCol, &quot;PHP&quot;);         
+        rowChild = model.appendChild( row );
+        model.setValue(rowChild, dataCol, &quot;Python&quot;);
+        rowChild = model.appendChild( row );
+        model.setValue(rowChild, dataCol, &quot;PERL&quot;);
+        rowChild = model.appendChild( row );
+        model.setValue(rowChild, dataCol, &quot;Ruby&quot;);
+         
+        row = model.appendRow();
+        model.setValue(row, dataCol, &quot;Compiling languages&quot;);
+        rowChild = model.appendChild( row );
+        model.setValue( rowChild, dataCol, &quot;Java&quot;);         
+        rowChild = model.appendChild( row );
+        model.setValue( rowChild, dataCol, &quot;C++&quot;);
+        rowChild = model.appendChild( row );
+        model.setValue( rowChild, dataCol, &quot;C#&quot;);
+        rowChild = model.appendChild( row );
+        model.setValue( rowChild, dataCol, &quot;C&quot;);
+
+        view = new TreeView(model);
+        
+        column = view.appendColumn();
+        column.setTitle(&quot;Programming Languages&quot;);
+        renderer = new CellRendererText(column);
+        renderer.setText(dataCol);  
+    
+        view.connect(new TreeView.RowActivated() {
+
+            public void onRowActivated(TreeView treeView,
+                        TreePath treePath,
+                        TreeViewColumn treeViewColumn) {
+                         
+                final TreeIter row;
+                final String text;
+                
+                row = model.getIter(treePath);
+                text = model.getValue(row, dataCol);
+
+                statusbar.setMessage(text);
+            }
+        });
+        
+        VBox vbox = new VBox(false, 0);
+        
+        vbox.packStart(view);
+        vbox.packStart(statusbar, false, false, 0);
+        add(vbox);
+    }
+    
+    public static void main(String[] args) {
+        Gtk.init(args);
+        new GTree();
+        Gtk.main();
+    }  
+}
+</CODE>
+<TEXT orderid="24" >
+This time we use the TreeView widget to show hierarchical 
+data.
+</TEXT>
+</result>

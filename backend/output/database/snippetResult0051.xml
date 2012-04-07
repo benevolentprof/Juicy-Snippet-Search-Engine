@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>2799</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/ejb/article.php/10931_3715171_3/Introducing-JBoss-Seam.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					EJB/Components
+					
+				
+				
+					Read More in EJB/Components &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Introducing JBoss&#174; Seam
+			
+			
+				
+				
+					December 7, 2007
+					By 
+Jim Farley
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Practical Tip: Be careful about SQL reserved words used as EJB entity bean class or property names. Persistence engines may try to map them directly to auto-generated columns/tables, resulting in unexpected SQLExceptions. Notice that we called our GadgetBean property &quot;description&quot;, rather than &quot;desc&quot;. This is longer to type, but &quot;desc&quot; is reserved in some databases. If you decided to auto-generate the schema, a property called &quot;desc&quot; could be mapped into a column named &quot;DESC&quot;, and problems could ensue. We&apos;re being extra careful here by using explicit @Column EJB3 annotations to map the properties to columns in our database model, so even if we auto-generated the schema, we&apos;re sure not to run into issues.
+
+In order to implement the functionality we&apos;ve laid out for our Gadget Catalog, we&apos;ll need to be able to get a list of all gadgets currently in the database, and we&apos;ll need to be able to add a new Gadget to the database. Using a fairly typical &quot;session fa&#231;ade&quot; pattern for EJBs, we create a GadgetAdminBean session EJB to provide these functions. The code for this is shown in Listing 2.
+
+Listing 2. GadgetAdminBean Session EJB
+</TEXT>
+<CODE orderid="1" >
+@Stateless
+public class GadgetAdminBean implements IGadgetAdminBean {
+   @PersistenceContext (unitName= &quot;gadgetDatabase&quot;)
+   private EntityManager mEntityManager;
+
+   /** Retrieve all gadgets from the catalog,
+       ordered by description*/
+   public List&lt;GadgetBean&gt; getAllGadgets() {
+   List&lt;GadgetBean&gt; gadgets = new ArrayList&lt;GadgetBean&gt;();
+   try {
+      Query q =
+         mEntityManager.createQuery(&quot;select g from GadgetBean &quot; +
+                                    &quot;g order by g.description&quot;);
+         List gList = q.getResultList();
+         Iterator i = gList.iterator();
+         while (i.hasNext()) {
+            gadgets. add ( (GadgetBean) i.next());
+         )
+      )
+
+      catch (Exception e) {
+         e.printStackTrace ();
+      }
+      return gadgets;
+
+   /** Insert a new gadget into the catalog */
+   public void newGadget(GadgetBean g) {
+      try {
+         mEntityManager. persist(g);
+      }
+      catch (Exception e) {
+         e.printStackTrace ();
+      }
+   }
+}
+</CODE>
+<TEXT orderid="2" >
+This session EJB uses standard EJB 3.0 and Java Persistence API (JPA) calls to implement the required functions. We&apos;ve marked this as a stateless session bean using the EJB 3.0 @Stateless annotation on the class declaration. We&apos;re also using the JPA @Persistence-Context annotation to inject a JPA EntityManager into this session bean, allowing us to perform the persistence operations necessary to query and insert into the gadget database. We&apos;re referencing a persistence unit named &quot;gadgetDatabase&quot;, so we&apos;ll need to define a persistence unit with this name in the persistence.xml deployment file when we package up these EJBs.
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		The getAllGadgets () method loads the entire Gadget Catalog using a JPA query created from the EntityManager. The newGadget () method persists a new gadget (in the form of a GadgetBean) using the EntityManager.
+
+These two EJBs seem to take care of our current needs in terms of persistence operations, so now we can turn our attention to the UI. To implement the UI we specified in the pageflow design earlier, we create two JSF pages, one for each of the pages we specified. The first JSF page displays the list of gadgets in the database along with a link to create a new gadget. In building these pages, let&apos;s assume we can access the persistence functionality we built earlier through a JSF managed bean named &quot;gadgetAdmin&quot;. Our gadget list JSF is shown in Listing 3. It simply uses a JSF data table component to iterate through the gadgets returned from the getAllGadgets () operation on the gadgetAdmin bean, displaying each gadget as a row in a table. Then, at the bottom of the table, we generate a link that invokes a JSF action named &quot;addGadget&quot;.
+
+Listing 3. Gadget List JSF Page
+
+
+&lt;%@ taglib uri=&quot;http://java.sun.com/jsf/html&quot; prefix=&quot;h&quot;%&gt;
+&lt;%@ taglib uri=&quot;http://java.sun.com/jsf/core&quot; prefix=&quot;f&quot;%&gt;
+
+&lt;html&gt;
+&lt;head&gt;
+   &lt;title&gt;Gadget List&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+   &lt;f:view&gt;
+      &lt;h:messages/&gt;
+      &lt;!-- Show the current gadget catalog --&gt;
+      &lt;h:dataTable value=&quot;#{gadgetAdmin.allGadgets}&quot; var=&quot;g&quot;&gt;
+         &lt;h : column&gt;
+            &lt;f:facet name=&quot;header&quot;&gt;
+               &lt;h:outputText value=&quot;Type&quot; /&gt;
+            &lt;/f: facet&gt;
+            &lt;h:outputText value=&quot;#{g.type}&quot; /&gt;
+         &lt;/h: column&gt;
+         &lt;h: column&gt;
+            &lt;f:facet name=&quot;header&quot;&gt;
+               &lt;h:outputText value=&quot;Description&quot; /&gt;
+            &lt;/f: facet&gt;
+            &lt;h:outputText value=&quot;#{g.description}&quot; /&gt;
+         &lt;/h: column&gt;
+      &lt;/h: dataTable&gt;
+      &lt;h:form&gt;
+         &lt;!-- Link to add a new gadget --&gt;
+         &lt;h:commandLink action=&quot;addGadget&quot;&gt;
+            &lt;h:outputText value=&quot;Add a new gadget&quot; /&gt;
+         &lt;/h:commandLink&gt;
+      &lt;/h: form&gt;
+   &lt;/f: view&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+The addGadget action is supposed to bring us to the second page in our pageflow, the gadget entry form. The JSF page that implements this, addGadget.jsp, is shown in Listing 4.			
+			
+			
+			
+				
+				
+1 
+2 
+3 
+4 
+5 
+6 
+
+				
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

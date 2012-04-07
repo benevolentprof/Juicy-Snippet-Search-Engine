@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>80474</docid>
+<orderid>0</orderid>
+<type>CODE</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=94</url>
+</description>
+<CODE orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            NetworkClient
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+
+NetworkClient
+&#160;
+
+
+This article contains the code for the network client as previous
+article. The NetworkClient class is a generic starting point for network clients
+and is extended by HttpClient. 
+
+
+&#160;
+
+
+private
+boolean checkHost(String host) {
+
+
+try
+{
+
+
+InetAddress.getByName(host);
+
+
+return(true);
+
+
+}
+catch(UnknownHostException uhe) {
+
+
+outputArea.setText(&quot;Bogus
+host: &quot; + host);
+
+
+return(false);
+
+
+}
+
+
+}
+
+
+}
+
+
+&#160;
+
+
+NetworkClient.java
+
+
+import
+java.net.*;
+
+
+import
+java.io.*;
+
+
+&#160;
+
+
+public
+class NetworkClient {
+
+
+protected
+String host;
+
+
+protected
+int port;
+
+
+&#160;
+
+
+public
+NetworkClient(String host, int port) {
+
+
+this.host
+= host;
+
+
+this.port
+= port;
+
+
+}
+
+
+&#160;
+
+
+public
+void connect() {
+
+
+try
+{
+
+
+Socket
+client = new Socket(host, port);
+
+
+handleConnection(client);
+
+
+}
+catch(UnknownHostException uhe) {
+
+
+System.out.println(&quot;Unknown
+host: &quot; + host);
+
+
+uhe.printStackTrace();
+
+
+}
+catch(IOException ioe) {
+
+
+System.out.println(&quot;IOException:
+&quot; + ioe);
+
+
+ioe.printStackTrace();
+
+
+}
+
+
+}
+
+
+&#160;
+
+
+protected
+void handleConnection(Socket client)
+
+
+throws
+IOException {
+
+
+PrintWriter
+out =
+
+
+SocketUtil.getWriter(client);
+
+
+BufferedReader
+in =
+
+
+SocketUtil.getReader(client);
+
+
+out.println(&quot;Generic
+Network Client&quot;);
+
+
+System.out.println
+
+
+(&quot;Generic
+Network Client:\n&quot; +
+
+
+&quot;Made
+connection to &quot; + host +
+
+
+&quot;
+and got &#146;&quot; + in.readLine() + &quot;&#146; in response&quot;);
+
+
+client.close();
+
+
+}
+
+
+
+
+public
+String getHost() {
+
+
+return(host);
+
+
+}
+
+
+
+
+public
+int getPort() {
+
+
+return(port);
+
+
+}
+
+
+}
+
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</CODE>
+</result>

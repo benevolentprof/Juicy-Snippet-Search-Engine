@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>77200</docid>
+<orderid>0</orderid>
+<type>CODE</type>
+<url>http://danzig.jct.ac.il/java_class/technical.html</url>
+</description>
+<CODE orderid="0" >
+Introduction to Computer Science - Java
+Some Language Specifications
+
+
+ Conditional Operators
+ 
+   || - logical or
+   | - logical binary or
+   &amp;&amp; - logical and
+   &amp; - logical binary and
+   ^ - exclusive or  ( xor )
+   != , &#160; &#160; == ,&#160; &#160; &lt;=, &#160; &#160; &gt;=, &#160; &#160;&lt; , &#160; &#160; &gt;,  &#160; &#160; ! ( condition )
+   &quot;short circuiting&quot;
+ 
+ Operators
+ 
+   +, &#160; &#160; -, &#160; &#160;  =, &#160; &#160; *, &#160; &#160; /, &#160; &#160; %, &#160; &#160; ++, &#160; &#160; --, &#160; &#160; +=, &#160; &#160;-=, &#160; &#160;*=, &#160; &#160;/= , &#160; &#160; %=
+   condition ? statement : statement ;
+   i++ vs. ++i
+ 
+  Casting.  
+
+ &#160; &#160; &#160; Example: 
+
+ &#160; &#160; &#160; int a =7; 
+
+&#160; &#160; &#160; System.out.println( (float)a); 
+ int, float, double, long, boolean, unsigned, final
+
+
+
+
+&amp;copy Nachum Danzig November 2003
+</CODE>
+</result>

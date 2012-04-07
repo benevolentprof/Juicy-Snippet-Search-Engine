@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>502</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://java.sun.com/docs/books/tutorial/uiswing/events/treeexpansionlistener.html</url>
+</description>
+<TEXT orderid="0" >
+Download
+                                the JDK
+                            
+
+                            Search the
+                                Tutorials
+                            
+
+                            Hide the TOC
+                        
+                        
+    
+        Trail: Creating a GUI With JFC/Swing
+        
+Lesson: Writing Event Listeners
+        
+Section: Implementing Listeners for Commonly Handled Events
+    
+
+    
+        
+            Writing Event Listeners
+Introduction to Event Listeners
+General Information about Writing Event Listeners
+Listeners Supported by Swing Components
+Implementing Listeners for Commonly Handled Events
+How to Write an Action Listener
+How to Write a Caret Listener
+How to Write a Change Listener
+How to Write a Component Listener
+How to Write a Container Listener
+How to Write a Document Listener
+How to Write a Focus Listener
+How to Write an Internal Frame Listener
+How to Write an Item Listener
+How to Write a Key Listener
+How to Write a List Data Listener
+How to Write a List Selection Listener
+How to Write a Mouse Listener
+How to Write a Mouse-Motion Listener
+How to Write a Mouse-Wheel Listener
+How to Write a Property Change Listener
+How to Write a Table Model Listener
+How to Write a Tree Expansion Listener
+How to Write a Tree Model Listener
+How to Write a Tree Selection Listener
+How to Write a Tree-Will-Expand Listener
+How to Write an Undoable Edit Listener
+How to Write Window Listeners
+Listener API Table
+Solving Common Event-Handling Problems
+
+    
+    
+            
+                Home Page
+                &gt;
+                Creating a GUI With JFC/Swing
+                &gt;
+                Writing Event Listeners
+            
+            
+                &#171;&#160;Previous&#160;&#8226;&#160;Trail&#160;&#8226;&#160;Next&#160;&#187;
+            
+            How to Write a Tree Expansion Listener
+            
+
+
+
+Sometimes when using a 
+tree, you might need to react when a branch becomes expanded or collapsed.
+For example, you might need to load or save data.
+
+
+
+Two kinds of listeners report expansion and collapse occurrences:
+tree expansion listeners and tree-will-expand listeners.
+This page discusses tree expansion listeners. 
+See 
+How to Write a Tree-Will-Expand
+Listener for a description of Tree-Will-Expand listeners. 
+
+A tree expansion listener detects when an expansion or collapse
+has already occured.
+In general, you should implement a tree expansion listener
+unless you need to prevent an expansion or collapse from ocurring
+.
+
+
+&#160;
+
+This example demonstrates a simple tree expansion listener.
+The text area at the bottom of the window
+displays a message every time a tree expansion event occurs.
+It&apos;s a straightforward, simple demo.
+To see a more interesting version that can veto expansions, see
+How to Write a Tree-Will-Expand
+Listener.
+
+
+
+
+
+Try this:&#160;
+
+Click the Launch button to run TreeExpandEventDemo using
+Java&#8482; Web Start (download JDK 6).
+     Alternatively, to compile and run the example yourself,
+     consult the
+     example index.
+
+
+
+
+
+ Expand a node.  A tree-expanded event is fired.
+ Collapse the node.  A tree-collapsed event is fired.
+
+
+
+
+The following code shows how the program handles expansion events.
+You can find the source code for this example in
+
+TreeExpandEventDemo.java.
+</TEXT>
+<CODE orderid="1" >
+public class TreeExpandEventDemo ... {
+    ...
+    void saySomething(String eventDescription, TreeExpansionEvent e) {
+        textArea.append(eventDescription + &quot;; &quot;
+                        + &quot;path = &quot; + e.getPath()
+                        + newline);
+    }
+
+    class DemoArea ... implements TreeExpansionListener {
+        ...
+        public DemoArea() {
+            ...
+            tree.addTreeExpansionListener(this);
+            ...
+        }
+        ...
+        // Required by TreeExpansionListener interface.
+        public void treeExpanded(TreeExpansionEvent e) {
+            saySomething(&quot;Tree-expanded event detected&quot;, e);
+        }
+
+        // Required by TreeExpansionListener interface.
+        public void treeCollapsed(TreeExpansionEvent e) {
+            saySomething(&quot;Tree-collapsed event detected&quot;, e);
+        }
+    }
+}
+</CODE>
+<TEXT orderid="2" >
+The Tree Expansion Listener API
+
+
+
+The TreeExpansionListener
+   Interface
+TreeExpansionListener has no adapter class.
+
+
+Method
+Purpose
+
+
+
+
+treeCollapsed(TreeExpansionEvent)
+ Called just after a tree node collapses.
+
+
+
+
+
+treeExpanded(TreeExpansionEvent)
+ Called just after a tree node expands.
+
+
+
+
+The TreeExpansionEvent API
+
+
+
+Method
+Purpose
+
+
+
+
+Object getSource()
+Return the object that fired the event.
+
+
+
+
+
+TreePath getPath()
+Returns a 
+TreePath object that identifies each node from the root of the tree
+ to the collapsed/expanded node, inclusive.
+
+
+
+
+
+
+Examples that Use Tree Expansion Listeners
+
+
+The following table lists the
+examples that use tree expansion listeners.
+ 
+
+ 
+
+
+ Example
+
+ Where Described
+
+ Notes
+
+
+
+
+ 
+     TreeExpandEventDemo
+
+ This section
+
+ Displays a message whenever a tree expansion event occurs.
+
+
+
+
+ 
+     TreeExpandEventDemo2
+
+ How to Write a 
+     Tree-Will-Expand Listener
+
+ Adds a tree-will-expand listener to TreeExpandEventDemo.
+
+
+
+
+        
+        
+            &#171; Previous
+            &#8226;
+            Trail
+            &#8226;
+            Next &#187;
+        
+    
+    
+
+
+    Problems with the examples? Try Compiling and Running
+        the Examples: FAQs.
+    
+
+    Complaints? Compliments? Suggestions? Give
+    us your feedback.
+ 
+
+
+Your use of this page (http://java.sun.com/docs/books/tutorial (Last Updated 1/12/2010))
+and all the material on pages under &quot;The Java Tutorials&quot; banner is
+subject to the Terms of Use.
+Additionally, (i) any example code contained in any of these Java
+Tutorials pages is also licensed under the
+Code
+Sample License, and (ii) the entire Java Tutorials content is available for
+download under the Java Tutorials Limited Non-Commercial License
+for limited, non-commercial individual and/or research and instructional use at
+Sun Download Center.
+
+
+
+    
+         
+	 
+            
+              
+              
+           
+          
+          
+
+          
+		About Sun | About This Site | Terms of Use | Trademarks&#160; 
+	 
+          
+		A Sun Developer Network Site
+
+      		Copyright 1995,2010 Oracle Corporation and/or is affiliates
+	 
+          
+
+
+    
+    
+        Previous page: How to Write a Table Model Listener
+        
+Next page: How to Write a Tree Model Listener
+    
+
+    
+    Discuss
+    We welcome your participation in our community.  Please keep your comments
+    civil and on point.  You may optionally provide your email address to
+    be notified of replies &#8212; your information is not used for any other
+    purpose.  By submitting a comment, you agree to these
+    Terms of Use.
+</TEXT>
+</result>

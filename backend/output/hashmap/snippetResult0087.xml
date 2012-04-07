@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>10917</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.javaworld.com/javaworld/jw-11-2000/jw-1117-optimize.html</url>
+</description>
+<TEXT orderid="0" >
+InfoWorld: Modernizing IT
+
+
+JavaWorld: Solutions for Java Developers
+
+
+               
+                 
+
+
+
+  
+  
+    
+    
+    Advanced search
+  
+
+  
+
+
+            
+            
+               
+            
+         
+         
+
+
+            
+      
+      
+
+
+ 
+
+
+
+
+
+
+Research Centers
+			+ Core JavaClient-side JavaDesign PatternsJava LanguageJava Platform APIsJava Programming ConceptsSwing/GUI ProgrammingThreads/Concurrency
+			+ Enterprise JavaAjax/RIA/Web 2.0Architecture &amp; ScalabilityEnterprise Best PracticesJava &amp; XMLJava Web DevelopmentWeb Services &amp; SOAs
+			+ Mobile Java
+			+ Tools &amp; MethodsApplication ServersData Management/RDBMSEnterprise MiddlewareJava IDEsJava SecurityOpen Source ToolsScripting/Other LanguagesSoftware Development LifecycleSoftware Development MethodologiesTesting &amp; DebuggingWeb Application Frameworks
+			+ JavaWorld ArchivesDesign TechniquesHow-to JavaJava 101Java Design PatternsJava Q&amp;AJava TipsJava TrapsServer-side JavaUnder the Hood
+ 
+    
+      Site Resources
+      Featured Articles
+      News &amp; Views
+      Community
+      Java Q&amp;A
+      JW Blogs
+	  Podcasts
+	  Site Map
+    
+    
+	
+	
+      Careers
+	  Newsletters
+      Whitepapers
+      RSS Feeds
+    
+   
+   
+	
+		 About JavaWorld
+         Advertise
+         Write for JW
+	
+	
+	
+
+	
+		
+            
+               
+               
+                  
+                     Java Enterprise Edition
+                  
+               
+               
+            
+            
+               
+            
+            
+               
+                  
+                     
+	
+		
+		JW&apos;s Most Read
+		
+		
+	
+	
+		 Recent:
+
+   Java Tips:&#160;The Serialization algorithm revealed
+   Know your Oracle application server
+   SwingX, JRuby: Survivors?
+   Cloud-ready, multicore-friendly apps, Part 2
+   Lean service architectures with Java EE 6
+
+Archives:
+
+   Hello, OSGi:&#160;Bundles for beginners (2008)
+   
+   Sockets programming in Java:&#160;A tutorial (1996)
+   
+   Understanding JPA, Part 1 (2008)
+   
+   Smartly load your properties (2003)
+   
+   REST for Java developers, Part 1 (2008)
+   
+
+	
+	
+		 
+	
+
+
+
+                        
+
+
+            
+      
+      
+
+
+ 
+
+
+
+
+
+                     
+                     Featured White PapersFree Trial Download: Build Professional Java Installers with InstallAnywhere
+                             
+	
+	
+          
+            Newsletter sign-up  View all newsletters
+			Sign up for our Enterprise Java Newsletter 
+            
+              
+                
+                Enterprise Java
+              
+		    
+            
+			
+			
+            
+          
+        
+        
+       
+    
+        Sponsored Links
+    
+  
+		
+			Slow Apps? Overloaded DBMS? - FREE Download
+			
+            FREE Download Feb 14 - March 7th Eliminate bottlenecks &amp; maximize performance ScaleOut StateServer&#174; 
+	
+   
+  
+	
+
+
+	
+
+
+
+                     
+                     
+                  
+                  JavaWorld.com
+                     &gt; Java Enterprise Edition &gt;
+                  
+                     
+                     
+                     
+                     
+                     Optimize a query on a Map
+                     Comparing techniques for performance tuning a query on a Map class
+                     By&#160;Jack Shirazi,&#160;JavaWorld.com,&#160;11/01/00
+                     
+    
+        
+            Print
+            Email
+            Feedback
+            Resources
+            Discuss
+            
+    
+    
+        Digg
+        Reddit
+        SlashDot
+        Stumble
+        del.icio.us
+        Technorati
+        dzone
+          
+
+                     
+                     
+                     
+
+
+In &quot;Optimizing a query on a collection&quot;, I considered how to optimize a query on an indexable collection. However, optimizing queries on Map classes turns out to be more complicated. In this article, I&apos;ll provide an example of how you can speed up bottlenecks consisting
+                     of Map queries.
+
+ 
+                     The query
+                     First I&apos;ll start with the problem. I&apos;ll use strings as keys for my collection. For their corresponding values, I&apos;ll simply
+                        use integer objects to indicate some value object. For the query, I&apos;ll use a simple test that checks whether any particular
+                        string key includes one of a specified substrings set, and the query will simply return the summation of the integer values
+                        for those string keys, which include the substrings. For example, the Map might be:
+                     
+                     
+                        key -&gt; value
+                        &quot;code&quot; -&gt; 1
+                        &quot;rode&quot; -&gt; 2
+                        &quot;load&quot; -&gt; 3
+                        &quot;toad&quot; -&gt; 4
+                        &quot;road&quot; -&gt; 5
+                     
+
+ 
+                     The query in that case might be &quot;sum of the values for those string keys in the map that contain the substrings od or lo&quot;
+                        (the answer would be 1+2+3=6 for this example list).
+                     
+                     For my actual keys, I&apos;ll generate multicharacter strings by using lowercase letters (a to z). For example, a collection of
+                        all four-character strings would generate a collection of 26 x 26 x 26 x 26 = 456976 four-character strings. The values will
+                        simply be an integer counter that increments by one as each string is added to the Map. I&apos;ll query that Map for the summation of integer values for those strings that contain any of the substrings ie, xy, or pq. I&apos;ve elected to use
+                        a Hashtable object to hold the collection for the start of the tests.
+                     
+                     I&apos;ve chosen to use an easily generated collection for the data and a straightforward query to avoid any application-specific
+                        distractions. I want to focus on the tuning here. The query represents many query types I&apos;ve seen in applications, though
+                        a more representative test would return the value collection for the keys that satisfy the query. I&apos;ve opted for the summation
+                        to avoid generating too many collections in my tests.
+                     
+                     The simple straightforward version of the query is:
+</TEXT>
+<CODE orderid="1" >
+int count = 0;
+    Enumeration enumeration = map.keys();
+    String s;
+    while(enumeration.hasMoreElements())
+    {
+      s = (String) enumeration.nextElement();
+      if(     ( s.indexOf(&quot;ie&quot;) != -1 )
+           || ( s.indexOf(&quot;xy&quot;) != -1 )
+           || ( s.indexOf(&quot;pq&quot;) != -1 ) )
+      {
+        count += ((Integer) this.get(s)).intValue();
+      }
+    }
+    return count;
+</CODE>
+<TEXT orderid="2" >
+For the tests, I&apos;ll use the Sun virtual machines (VMs) from the Java SDK 1.2 and 1.3. In addition, I&apos;ll test with the HotSpot
+                        VMs delivered with those two SDKs -- HotSpot 1.0 and 2.0. I&apos;ll also test one non-JIT VM, which in this case will be the 1.2
+                        VM with the JIT turned off. You can easily turn off the JIT by setting the java.compiler property to NONE:
+                     
+                     
+                          java &quot;-Djava.compiler=NONE&quot; ...
+
+                     
+
+ 
+                     Avoid synchronization
+                     As I said earlier, I started by using a Hashtable object to hold the map. In most applications, bottleneck queries tend to be read-only or single-threaded. In either case,
+                        you can normally use a nonsynchronized object to hold the collection. To do so here requires a simple change to using a HashMap object instead of the Hashtable object I initially used. In addition, I need to change the code to use an iterator, as HashMap does not support an enumerator. In fact, I really shouldn&apos;t have used the enumerator in the original query since the Map interface does not support its use.
+                        
+                     
+
+
+
+
+
+									 
+									 	 12345Next&#160;&gt;
+									 
+                     
+                     
+                     
+                     
+                     
+                     
+    
+        
+            Print
+            Email
+            Feedback
+            Resources 
+            
+    
+    
+        Digg
+        Reddit
+        SlashDot
+        Stumble
+        del.icio.us
+        Technorati
+        dzone
+          
+
+                     CommentWelcome,  LogoutLog in | Register    
+    
+        
+            Login
+                
+                    
+                        Username
+                        
+                                                
+                            
+                        
+                    
+                    
+                        Password
+                        
+                                                
+                            
+                        
+                    
+                
+            
+            
+                            
+                            
+                Forgot your account info?
+            
+        
+    
+    
+    
+
+    Add comment
+        
+        Screen Name            
+        
+        Anonymous comments subject to approval. Register here for member benefits.  
+        
+        
+        Subject            
+                   
+        Comment (required)
+        
+        
+        
+         
+         
+        
+        
+        Have a JavaWorld account? Log in here. Register now for a free account.
+        
+        
+    
+
+ 
+ 
+                     Resources
+
+                           
+                              
+                                 Source code and test scripts
+http://www.javaworld.com/jw-11-2000/optimize/optimize.zip
+                                 &quot;Optimizing a Query on a Collection,&quot; Jack Shirazi&apos;s earlier article on optimizing a query on an indexable collection
+http://java.oreilly.com/news/javaperf_0900.html
+                                 &quot;Minimal Perfect Hashing,&quot; Carlo Pescio (Dr. Dobb&apos;s Journal, July 1996)
+http://www.ddj.com
+                                 Java Performance Tuning, Jack Shirazi (O&apos;Reilly, Sept. 2000)
+http://www.oreilly.com/catalog/javapt/
+                                 Java Performance Tuning Website
+http://www.JavaPerformanceTuning.com
+                              
+                           
+                        
+
+                     
+
+                  
+               
+               
+		
+
+
+
+
+ 
+
+               
+                  
+               
+               
+
+
+            
+      
+      
+
+
+ 
+
+
+
+
+
+               
+
+    
+        Sponsored Links
+    
+    &#160;
+
+   
+      
+         
+            
+               XpoLog Center Correlate application logs with server metrics
+               - XpoLog
+            &#160;
+      
+   
+
+    
+
+
+               
+                  
+               
+               RESEARCH CENTERS: 
+Java Standard Edition | 
+Java Enterprise Edition | 
+Java Micro Edition  | 
+Development Tools
+
+About Us | Advertise | Contact Us | Terms of Service/Privacy 
+Copyright, 2006-2008 Network World, Inc. All rights reserved.
+
+            
+            
+    
+        
+            RESEARCH CENTERS
+            Core Java
+            Enterprise Java
+            Mobile Java
+            Tools &amp; Methods
+            JavaWorld Archives
+        
+        IDG Network
+            CIO Computerworld
+            CSO
+            Demo GamePro
+        
+        
+            Games.net
+            IDGconnect.com
+            IDG World Expo
+            InfoWorld
+            ITworld
+            LinuxWorld.com
+        
+        
+            MacUser 
+            Macworld
+            NetworkWorld.com
+            PC World
+            Playlistmag.com
+        
+    
+
+About Us | Advertise | Contact Us | Terms of Service/Privacy
+Copyright, 2006-2010 Infoworld, Inc. All rights reserved.
+</TEXT>
+</result>

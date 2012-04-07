@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>100062</docid>
+<orderid>2</orderid>
+<type>TEXT</type>
+<url>http://www.javapractices.com/apps/web4j/javadoc/hirondelle/web4j/action/ActionTemplateSearch.html</url>
+</description>
+<TEXT orderid="0" >
+Overview&#160;
+      Package&#160;
+   &#160;Class&#160;
+      Tree&#160;
+      Deprecated&#160;
+      Index&#160;
+      Help&#160;
+  
+
+
+
+ Version 4.4.0
+
+
+
+
+
+&#160;PREV CLASS&#160;
+&#160;NEXT CLASS
+
+  FRAMES  &#160;
+&#160;NO FRAMES  &#160;
+&#160;All Classes
+
+
+
+
+
+
+
+  SUMMARY:&#160;NESTED&#160;|&#160;FIELD&#160;|&#160;CONSTR&#160;|&#160;METHOD
+
+DETAIL:&#160;FIELD&#160;|&#160;CONSTR&#160;|&#160;METHOD
+
+
+
+
+
+
+
+
+
+hirondelle.web4j.action
+
+
+Class ActionTemplateSearch
+
+Object
+  hirondelle.web4j.action.ActionImpl
+      hirondelle.web4j.action.ActionTemplateSearch
+
+
+All Implemented Interfaces: Action
+</TEXT>
+<CODE orderid="1" >
+public abstract class ActionTemplateSearchextends ActionImpl
+</CODE>
+<TEXT orderid="2" >
+Template for search screens.
+
+ Here, a search action has the following :  
+ 
+  it uses a form that allows the user to input search criteria
+  the form must have GET as its method, not POST
+  the underlying database operation is a SELECT, and does not edit the database in any way
+ 
+
+ Search operations never require a redirect operation (since they do not edit the database).
+
+ Search operations have an interesting property : if you build a Model Object to validate and represent 
+  user input into the search form, then its getXXX methods can usually be made package-private, instead 
+  of public. The reason is that such Model Objects are usually not used by JSPs directly. 
+  If desired, such methods can safely return String instead of 
+  SafeText. (The Model Objects themselves cannot be made package-private, since
+  the ModelFromRequest class works only with public classes.)
+
+
+
+
+
+
+
+
+
+
+
+
+Field Summary
+</TEXT>
+<CODE orderid="3" >
+static&#160;RequestParameter
+</CODE>
+<TEXT orderid="4" >
+SUPPORTED_OPERATION
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;The operations supported by this template.
+
+
+&#160;
+
+
+Fields inherited from class hirondelle.web4j.action.ActionImpl
+
+
+ERRORS, ITEM_FOR_EDIT, ITEMS_FOR_LISTING, MESSAGES, USER_ID
+</TEXT>
+</result>

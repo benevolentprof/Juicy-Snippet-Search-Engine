@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>16997</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-tips.org/java-se-tips/javax.swing/how-to-show-data-in-database-with-a-jtable-2.html</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+            
+	      
+
+
+
+
+
+              Home    Java SE Tips               
+
+              
+
+
+            &#160;
+          
+
+
+        
+      
+  
+
+
+
+
+
+  
+    &#160;
+    
+    
+      
+        
+          
+              
+                		
+				
+			
+							
+		
+		
+				
+					
+				
+					Main Menu				
+			
+					
+			
+				
+
+Home
+Java Tutorials
+Book Reviews
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Sitemap
+			
+		
+		
+				
+					
+				
+					Java Network				
+			
+					
+			
+				
+
+
+
+
+
+
+ Java Forums
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+				
+			
+				
+ 
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+			
+		
+		
+				
+					
+				
+					Most Visited Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+					
+				
+					Top Rated Tips				
+			
+					
+			
+				
+
+Java SE Tips
+Java ME Tips
+Java EE Tips
+Other API Tips
+Java Applications
+Java Libraries
+Java Games
+Book Reviews
+			
+		
+		
+				
+				
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+			
+		
+		
+				
+					
+				
+					Statistics				
+			
+					
+			
+				Registered Users: 770Java SE Tips: 614Java ME Tips: 201Java EE Tips: 184Other API Tips: 779Java Applications: 298Java Libraries: 209Java Games: 16Book Reviews: 			
+		
+		
+		                
+              
+              
+                &#160;
+              
+            
+        
+        
+          &#160;
+        
+      
+      
+
+      &#160;
+        
+								
+			
+								
+					How to show data in database with a JTable									
+							
+				
+					
+			
+						
+			
+			User Rating:&#160;/&#160;86
+
+
+PoorBest&#160;
+		
+				
+			
+				This Java Swing tip illustrates a method of showing data in database 
+in a JTable. JTable act as a output for the database. The developer 
+may use this to display a part of data (for example data generated 
+form a query) to the user in a table. The table gives user an 
+impression of database.
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.awt.*;
+
+import&#160;java.awt.event.*;
+
+import&#160;javax.swing.*;
+
+import&#160;javax.swing.table.*;
+
+
+
+public&#160;class&#160;DatabaseTest&#160;extends&#160;JFrame&#160;{
+
+&#160;&#160;
+
+&#160;&#160;JTextField&#160;hostField;
+
+&#160;&#160;JTextField&#160;queryField;
+
+&#160;&#160;QueryTableModel&#160;qtm;
+
+
+
+&#160;&#160;public&#160;DatabaseTest()&#160;{
+
+&#160;&#160;&#160;&#160;super(&quot;Database&#160;Test&#160;Frame&quot;);
+
+&#160;&#160;&#160;&#160;setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+&#160;&#160;&#160;&#160;setSize(350,&#160;200);
+
+
+
+&#160;&#160;&#160;&#160;qtm&#160;=&#160;new&#160;QueryTableModel();
+
+&#160;&#160;&#160;&#160;JTable&#160;table&#160;=&#160;new&#160;JTable(qtm);
+
+&#160;&#160;&#160;&#160;JScrollPane&#160;scrollpane&#160;=&#160;new&#160;JScrollPane(table);
+
+&#160;&#160;&#160;&#160;JPanel&#160;p1&#160;=&#160;new&#160;JPanel();
+
+&#160;&#160;&#160;&#160;p1.setLayout(new&#160;GridLayout(3,&#160;2));
+
+&#160;&#160;&#160;&#160;p1.add(new&#160;JLabel(&quot;Enter&#160;the&#160;Host&#160;URL:&#160;&quot;));
+
+&#160;&#160;&#160;&#160;p1.add(hostField&#160;=&#160;new&#160;JTextField());
+
+&#160;&#160;&#160;&#160;p1.add(new&#160;JLabel(&quot;Enter&#160;your&#160;query:&#160;&quot;));
+
+&#160;&#160;&#160;&#160;p1.add(queryField&#160;=&#160;new&#160;JTextField());
+
+&#160;&#160;&#160;&#160;p1.add(new&#160;JLabel(&quot;Click&#160;here&#160;to&#160;send:&#160;&quot;));
+
+
+
+&#160;&#160;&#160;&#160;JButton&#160;jb&#160;=&#160;new&#160;JButton(&quot;Search&quot;);
+
+&#160;&#160;&#160;&#160;jb.addActionListener(new&#160;ActionListener()&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;public&#160;void&#160;actionPerformed(ActionEvent&#160;e)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;qtm.setHostURL(hostField.getText().trim());
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;qtm.setQuery(queryField.getText().trim());
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;}&#160;);
+
+&#160;&#160;&#160;&#160;p1.add(jb);
+
+&#160;&#160;&#160;&#160;getContentPane().add(p1,&#160;BorderLayout.NORTH);
+
+&#160;&#160;&#160;&#160;getContentPane().add(scrollpane,&#160;BorderLayout.CENTER);
+
+&#160;&#160;}
+
+
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String&#160;args[])&#160;{
+
+&#160;&#160;&#160;&#160;DatabaseTest&#160;tt&#160;=&#160;new&#160;DatabaseTest();
+
+&#160;&#160;&#160;&#160;tt.setVisible(true);
+
+&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+&#160;Related Tips 
+A custom combobox editor for use with the EditableComboBox class
+A demonstration of Java2D transformations
+A game of Tic-Tac-Toe that can be played between two client applets
+A Label that uses inline HTML to format its text
+A program to print limits of the primitive types
+A sample of inline DTD definition
+A sample of linked DTD definition
+A sample XML file
+
+			
+		
+				
+
+		&#160;
+
+		
+
+			
+									
+						
+							&lt; Prev
+					
+										&#160;
+
+					
+										
+						
+							Next &gt;
+					
+								
+			
+			                
+
+
+
+
+
+
+
+ 
+Page 1 of 0 ( 0 comments )
+
+
+       You can share your information about this topic using the form below! 
+
+Please do not post your questions with this form! Thanks.
+
+ 
+
+  
+    
+      
+                
+          
+          
+
+          
+          Name (required)
+
+          
+          
+
+                    
+          
+
+          E-Mail (required)          
+                    
+
+          
+          
+          
+
+          Your email will not be displayed on the site - only to our administrator          
+          
+
+          Homepage(optional)
+
+
+
+
+
+
+
+          
+          
+
+          Comment          
+                    Enable HTML code :
+          
+          Yes
+          
+          No 
+
+          
+          
+          
+          
+
+          
+
+ 
+          
+
+          
+          
+        
+      
+    
+  
+
+
+
+
+
+&#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        
+        &#160;
+      
+      
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+        &#160;
+      
+    
+    
+      
+        
+          &#160;
+          &#160;
+          &#160;
+        
+        
+          &#160;
+          
+              &#160;            
+          &#160;
+        
+        
+          &#160;
+          &#160;
+          &#160;
+        
+      
+    
+    
+      
+        
+            
+            
+            
+        
+      
+    
+	
+	
+
+
+		
+				
+			
+				
+			
+		
+		
+		
+
+
+
+
+
+
+
+
+Home
+
+
+-
+
+
+About Us
+
+
+-
+
+
+Privacy Policy
+
+
+
+
+
+
+Copyright 2005 - 2008 www.java-tips.org
+Java is a trademark of Sun Microsystems, Inc.
+</TEXT>
+</result>

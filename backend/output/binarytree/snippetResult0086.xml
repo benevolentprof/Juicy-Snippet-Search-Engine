@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>81002</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/j2me/api/java/io/DataOutput.html</url>
+</description>
+<TEXT orderid="0" >
+Overview&#160;
+      Package&#160;
+   &#160;Class&#160;
+      Use&#160;
+      Tree&#160;
+      Deprecated&#160;
+      Index&#160;
+      Help&#160;
+  
+
+
+
+MID Profile
+
+
+
+
+
+&#160;PREV CLASS&#160;
+&#160;NEXT CLASS
+
+  FRAMES  &#160;
+&#160;NO FRAMES
+
+
+
+  SUMMARY: &#160;INNER&#160;|&#160;FIELD&#160;|&#160;CONSTR&#160;|&#160;METHOD
+
+DETAIL: &#160;FIELD&#160;|&#160;CONSTR&#160;|&#160;METHOD
+
+
+
+
+
+
+
+
+java.io
+
+
+Interface  DataOutput
+
+All Known Subinterfaces: Datagram
+
+
+All Known Implementing Classes: DataOutputStream
+
+
+
+public interface DataOutput
+
+
+The DataOutput interface provides
+ for converting data from any of the Java
+ primitive types to a series of bytes and
+ writing these bytes to a binary stream.
+ There is  also a facility for converting
+ a String into Java modified
+ UTF-8 format and writing the resulting series
+ of bytes.
+ 
+ For all the methods in this interface that
+ write bytes, it is generally true that if
+ a byte cannot be written for any reason,
+ an IOException is thrown.
+
+
+Since: JDK1.0
+See Also: DataInput, 
+DataOutputStream
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Method Summary
+
+
+
+&#160;void
+</TEXT>
+<CODE orderid="1" >
+write(byte[]&#160;b)
+</CODE>
+<TEXT orderid="2" >
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Writes to the output stream all the bytes in array b.
+
+
+
+&#160;void
+</TEXT>
+</result>

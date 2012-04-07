@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>81010</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.java-samples.com/j2me/api/java/io/EOFException.html</url>
+</description>
+<TEXT orderid="0" >
+Overview&#160;
+      Package&#160;
+   &#160;Class&#160;
+      Use&#160;
+      Tree&#160;
+      Deprecated&#160;
+      Index&#160;
+      Help&#160;
+  
+
+
+
+MID Profile
+
+
+
+
+
+&#160;PREV CLASS&#160;
+&#160;NEXT CLASS
+
+  FRAMES  &#160;
+&#160;NO FRAMES
+
+
+
+  SUMMARY: &#160;INNER&#160;|&#160;FIELD&#160;|&#160;CONSTR&#160;|&#160;METHOD
+
+DETAIL: &#160;FIELD&#160;|&#160;CONSTR&#160;|&#160;METHOD
+
+
+
+
+
+
+
+
+java.io
+
+
+Class  EOFException
+
+java.lang.Object
+  |
+  +--java.lang.Throwable
+        |
+        +--java.lang.Exception
+              |
+              +--java.io.IOException
+                    |
+                    +--java.io.EOFException
+
+
+
+public class EOFExceptionextends IOException
+
+
+Signals that an end of file or end of stream has been reached
+ unexpectedly during input.
+ 
+ This exception is mainly used by data input streams, which
+ generally expect a binary file in a specific format, and for which
+ an end of stream is an unusual condition. Most other input streams
+ return a special value on end of stream.
+ 
+ Note that some input operations react to end-of-file by returning
+ a distinguished value (such as -1) rather than by
+ throwing an exception.
+
+
+Since: JDK1.0
+See Also: DataInputStream, 
+IOException
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Constructor Summary
+
+
+EOFException()
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Constructs an EOFException with null
+ as its error detail message.
+</TEXT>
+<CODE orderid="1" >
+EOFException(String&#160;s)
+</CODE>
+<TEXT orderid="2" >
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Constructs an EOFException with the specified detail
+ message.
+
+
+&#160;
+
+
+
+
+
+Methods inherited from class java.lang.Throwable
+
+
+getMessage, printStackTrace, toString
+
+
+&#160;
+
+
+Methods inherited from class java.lang.Object
+
+
+equals, getClass, hashCode, notify, notifyAll, wait, wait, wait
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+Constructor Detail
+
+
+
+
+EOFException
+</TEXT>
+</result>

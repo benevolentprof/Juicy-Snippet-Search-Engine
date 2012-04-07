@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>9881</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.javacoffeebreak.com/books/extracts/javanotesv3/c10/s5.html</url>
+</description>
+<TEXT orderid="0" >
+New to
+Java? We&apos;ll help you get started with our revised
+beginner&apos;s tutorial,
+or our free
+online textbook.
+
+  
+  
+	 
+    
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+      
+      
+      
+         
+
+
+        
+
+        Get the latest Java books
+
+
+      
+    
+    
+    
+      
+        
+          h t t p : / /w w w . j a v a c o f f e e b r e a k . c
+          o m /
+          
+            
+              
+                
+            
+          
+        
+      
+    
+  
+  
+
+
+
+Section 10.5
+
+    Programming Networked Applications
+
+
+
+SOCKETS AND CLIENT/SERVER programming were introduced
+in the previous section in a mostly theoretical way.
+This section presents a few complete programming examples.  All but one of
+the examples in this section are standalone programs, so you won&apos;t see them
+running on this Web page.  If you want to run these programs,  you will have
+to compile the source code and run them with a Java interpreter.
+
+The first example consists of two programs.  One is a simple client
+and the other is a matching server.  The client makes a connection to
+the server, reads one line of text from the server, and displays that
+text on the screen.  The text sent by the server consists of the
+current date and time on the computer where the server is running.
+In order to open a connection, the client must know the computer
+on which the server is running and the port on which it is listening.
+The server listens on port number 32007.  The port number could be anything
+between 1025 and 65535, as long the server and the client use the same port.
+Port numbers between 1 and 1024 are reserved for standard services and
+should not be used for other servers.  The name or IP number of the
+computer on which the server is running must be specified as a 
+command-line parameter.  For example, if the server is running
+on a computer named math.hws.edu, then you would typically run
+the client with the command &quot;java DataClient math.hws.edu&quot;.  (You might
+need to replace the &quot;java&quot; command with another command if you are
+using a different Java interpreter.)  Here is 
+the complete client program:
+</TEXT>
+<CODE orderid="1" >
+import java.net.*;
+   import java.io.*;
+   
+   public class DateClient {
+   
+      static final int LISTENING_PORT = 32007;
+   
+      public static void main(String[] args) {
+      
+         String computer;     // Name of the computer to connect to.
+         Socket connection;   // A socket for communicating with
+                              //                that computer.
+         Reader incoming;     // Stream for reading data from
+                              //                the connection.
+         
+         /* Get computer name from command line. */
+         
+         if (args.length &gt; 0)
+            computer = args[0];
+         else {
+               // No computer name was given.  Print a message and exit.
+            System.out.println(&quot;Usage:  java DateClient &lt;server&gt;&quot;);
+            return;
+         }
+         
+         /* Make the connection, then read and display a line of text. */
+         
+         try {
+            connection = new Socket( computer, LISTENING_PORT );
+            incoming = new InputStreamReader( connection.getInputStream() );
+            while (true) {
+               int ch = incoming.read();
+               if (ch == -1 || ch == &apos;\n&apos; || ch == &apos;\r&apos;)
+                  break;
+               System.out.print( (char)ch );
+            }
+            System.out.println();
+            incoming.close();
+         }
+         catch (IOException e) {
+            TextIO.putln(&quot;Error:  &quot; + e);
+         }
+         
+      // end main()
+   
+   } // end class DateClient
+</CODE>
+<TEXT orderid="2" >
+Note that all the communication with the server is
+done in a try...catch.  This will catch the IOExceptions
+that can be generated when the connection is opened or closed and
+when characters are read from the stream.  The stream that is used
+for input is a basic Reader, which includes the
+input operation incoming.read().  This function reads one
+character from the stream and returns its Unicode code number.
+If the end-of-stream has been reached, then the value -1 is returned instead.
+The while loop reads characters and
+copies them to standard output until an end-of-stream or end-of-line
+is seen.  An end of line is marked by one of the characters &apos;\n&apos;
+or &apos;\r&apos;, depending on the type of computer on which the server is running.
+
+In order for this program to run without error, the server program
+must be running on the computer to which the client tries to connect.
+By the way, it&apos;s possible to run the client and the server program
+on the same computer.  For example, you can open two command windows,
+start the server in one window and then run the client in the other
+window.  To make things like this easier, most computers will
+recognize the IP number 127.0.0.1 as referring to &quot;this computer&quot;.
+That is, the command &quot;java DateClient 127.0.0.1&quot; will tell
+the DateClient program to connect to a server running on
+the same computer.  Most computers will also recognize the name
+&quot;localhost&quot; as a name for &quot;this computer&quot;.
+
+The server program that corresponds to the DateClient 
+client program is called DateServe.  The DateServe program creates a
+ServerSocket to listen for connection requests on port 32007.
+After the port is created, the
+server will enter an infinite loop in which it accepts and processes
+connections.  This will continue until the program is killed in
+some way -- for example by typing a CONTROL-C in the command
+window where the server is running.  In the previous section, I noted that a server typically
+opens a separate thread to handle each connection.  However, in this
+simple example, the server just calls a subroutine.  In the subroutine, any
+Exception that occurs is caught, so that it will not crash
+the server.  The subroutine creates a PrintWriter stream
+for sending data over the connection.  It writes the current
+date and time to this stream and then closes the connection.
+(The standard class java.util.Date is used to obtain the
+current time.  An object of type Date represents a particular
+date and time.  The default constructor, &quot;new Date()&quot;, creates
+an object that represents the time when the object is created.)
+The complete server program is as follows:
+</TEXT>
+<CODE orderid="3" >
+import java.net.*;
+   import java.io.*;
+   import java.util.Date;
+   
+   public class DateServe {
+   
+      static final int LISTENING_PORT = 32007;
+   
+   
+      public static void main(String[] args) {
+      
+         ServerSocket listener;  // Listens for incoming connections.
+         Socket connection;      // For communication with the
+                                 //             connecting program.
+               
+         /* Accept and process connections forever, or until
+            some error occurs.  (Note that errors that occur 
+            while communicating with a connected program are
+            caught and handled in the sendDate() routine, so
+            they will not crash the server.)
+         */
+               
+         try {
+            listener = new ServerSocket(LISTENING_PORT);
+            TextIO.putln(&quot;Listening on port &quot; + LISTENING_PORT);
+            while (true) {
+               connection = listener.accept();
+               sendDate(connection);
+            }
+         }
+         catch (Exception e) {
+            TextIO.putln(&quot;Sorry, the server has shut down.&quot;);
+            TextIO.putln(&quot;Error:  &quot; + e);
+            return;
+         }
+         
+      }  // end main()
+      
+   
+      static void sendDate(Socket client) {
+           // The parameter, client, is a socket that is
+           // already connected to another program.  Get
+           // an output stream for the connection, send the
+           // current date, and close the connection.
+         try {
+            System.out.println(&quot;Connection from &quot; + 
+                          client.getInetAddress().toString() );
+            Date now = new Date();  // The current date and time.
+            PrintWriter outgoing;   // Stream for sending data.
+            outgoing = new PrintWriter( client.getOutputStream() );
+            outgoing.println( now.toString() );
+            outgoing.flush();  // Make sure the data is actually sent!
+            client.close();
+         }
+         catch (Exception e){
+            System.out.println(&quot;Error: &quot; + e);
+         }
+      } // end sendDate()
+      
+   
+   } //end class DateServe
+</CODE>
+</result>

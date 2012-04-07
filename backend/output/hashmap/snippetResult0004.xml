@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>9393</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.javabeginner.com/java-collections/java-hashmap</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+                                  
+                              
+                                  
+                                    
+                                      
+                                      
+                                      
+                                    
+
+                                    
+                                      
+                                      
+                                      
+                                  
+                              
+                              
+                                  
+                                  
+
+                                  
+                                  
+                                  
+                                  
+                                  
+                              
+                            
+                          
+                        
+
+                      
+                  
+                
+                
+				
+
+                  
+
+                    JDBC Tutorial
+
+                    |
+
+                    Interview Questions
+
+                    |
+
+                    Java Advanced
+
+                    |
+
+                    Other Tech Tutorials
+
+                  
+
+                
+              
+          
+
+        
+      
+      
+                  
+
+            
+              
+            
+            
+
+              &#160;&#160;&#160;&#160;Java Beginner Home
+            
+            
+              &#160;&#160;&#160;&#160;Table of Contents
+            
+
+            
+              &#160;&#160;&#160;&#160;Introduction to Java
+
+            
+            
+              &#160;&#160;&#160;&#160;Getting Started with Java
+            
+            
+              &#160;&#160;&#160;&#160;Basic Language Elements
+            
+            
+
+              &#160;&#160;&#160;&#160;Java Operators
+            
+            
+              &#160;&#160;&#160;&#160;Java Control Statements
+            
+            
+              
+                  
+
+                  
+              &#160;&#160;&#160;&#160;Java Access Modifiers
+            
+
+
+            
+
+              &#160;&#160;&#160;&#160;Classes and Objects
+            
+            
+              &#160;&#160;&#160;&#160;Java Constructors
+            
+            
+              &#160;&#160;&#160;&#160;Object Serialization
+
+            
+            
+              &#160;&#160;&#160;&#160;Java Class Inheritance
+            
+            
+              &#160;&#160;&#160;&#160;Java Object Type Casting
+            
+            
+
+              &#160;&#160;&#160;&#160;Abstract class and Interface
+            
+            
+              &#160;&#160;&#160;&#160;Java Method Overiding
+            
+            
+              &#160;&#160;&#160;&#160;Java toString Method
+
+            
+            
+              &#160;&#160;&#160;&#160;Java String Class
+            
+
+	    
+              &#160;&#160;&#160;&#160;Java String Comparison
+            
+            
+              &#160;&#160;&#160;&#160;Java StringBuffer
+            
+            
+              &#160;&#160;&#160;&#160;Java Exceptions
+
+            
+            
+              &#160;&#160;&#160;&#160;Singleton Pattern
+            
+            
+              &#160;&#160;&#160;&#160;Java Threads Tutorial
+            
+            
+
+              &#160;&#160;&#160;&#160;Java Collections Framework
+            
+            
+              &#160;&#160;&#160;&#160;Java Date Util
+            
+
+            
+              &#160;&#160;&#160;&#160;Swing Tutorial
+
+            
+
+
+             
+              &#160;&#160;&#160;&#160;Download Java Software
+            
+
+             
+              &#160;&#160;&#160;&#160;Advertise
+            
+            
+              &#160;&#160;&#160;&#160;Feedback
+            
+            
+
+              &#160;&#160;&#160;&#160;Java books 
+            
+            
+              
+            
+            
+              
+            
+
+            
+               
+            
+          
+          
+
+
+
+
+          
+            
+              
+
+            
+            
+              
+                
+                  
+                
+								
+
+                      Java HashMap
+					  
+
+
+
+
+
+
+
+	  
+
+	  
+	  
+
+	  
+ The java HashMap class does not guarantee that the order will remain constant over time.
+This implementation provides constant-time performance for the basic operations (get and put), assuming the hash function disperses the elements properly among the buckets.
+The HashMap implementation is not synchronized. If multiple threads access this map concurrently, and at least one of the threads modifies the map structurally, it must be synchronized externally.
+
+To prevent unsynchronized access to the Map: Map m = Collections.synchronizedMap(new HashMap(&#8230;));
+Below is a HashMap Example used to store the number of words that begin with a given letter
+
+
+
+
+/*
+ *  Using a HashMap to store the number of words that begin with a given letter.
+ */
+</TEXT>
+<CODE orderid="1" >
+new Integer(cnt.intValue() + 1));
+			}
+		}
+		System.out.println(&quot;\nnumber of words beginning with each letter is shown below &quot;);
+		System.out.println(counter.toString());
+	}
+}
+import java.util.HashMap;
+
+public class HashMapExample {
+
+	static String[] names = { &quot;heman&quot;, &quot;bob&quot;, &quot;hhh&quot;, &quot;shawn&quot;, &quot;scot&quot;,&quot;shan&quot;, &quot;keeth&quot; };
+	private static HashMap counter = new HashMap();
+	private static Integer cnt = null;
+	public static void main(String args[]) {
+		for (int i = 0; i &lt; names.length; i++) {
+			cnt = (Integer) (counter.get(new Character(names[i].charAt(0))));
+			if (cnt == null) {
+				counter.put(new Character(names[i].charAt(0)),new Integer(&quot;1&quot;));
+			} else {
+				counter.put(new Character(names[i].charAt(0)),
+
+						new Integer(cnt.intValue() + 1));
+			}
+		}
+		System.out.println(&quot;\nnumber of words beginning with each letter is shown below &quot;);
+		System.out.println(counter.toString());
+	}
+}
+</CODE>
+<TEXT orderid="2" >
+Output
+number of words beginning with each letter is shown below
+
+{s=3, b=1, k=1, h=2}
+Download HashMapExample.java
+
+		
+		
+
+					
+		
+	
+			
+
+			
+			
+			
+		
+		
+	
+
+                
+
+              
+            
+            
+              
+            
+          
+       
+      
+      
+
+        
+          &#160;
+          
+        
+      
+      
+        
+          &#160;
+        
+
+        
+          
+              
+                &#160;&#160;&#160;&#160;Java is a trademark of Sun Microsystems, Inc.
+                
+				
+                  
+                    Java Beginner Home
+
+                    |
+                    Terms of Use 
+                    |
+                    Contact  
+                    |
+                    Disclaimer
+
+                  
+                
+                &#169;  Copyright 2007-08 javabeginner.com
+</TEXT>
+</result>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>100060</docid>
+<orderid>10</orderid>
+<type>TEXT</type>
+<url>http://www.javapractices.com/apps/web4j/javadoc/hirondelle/web4j/action/ActionTemplateListAndEdit.html</url>
+</description>
+<TEXT orderid="8" >
+addDynamicParameterToRedirectPage(String&#160;aParamName,
+                                                                   String&#160;aParamValue)
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Add a dynamic query parameter to the redirect ResponsePage.
+</TEXT>
+<CODE orderid="9" >
+protected abstract &#160;void
+</CODE>
+<TEXT orderid="10" >
+attemptAdd()
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Attempt an INSERT operation on the database.
+</TEXT>
+<CODE orderid="11" >
+protected abstract &#160;void
+</CODE>
+<TEXT orderid="12" >
+attemptChange()
+
+
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Attempt an UPDATE operation on the database.
+</TEXT>
+</result>

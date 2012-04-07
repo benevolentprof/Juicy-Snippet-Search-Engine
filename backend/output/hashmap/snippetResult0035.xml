@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>77634</docid>
+<orderid>1</orderid>
+<type>CODE</type>
+<url>http://www.java-samples.com/forprinting.php?tutorialid=1175</url>
+</description>
+<TEXT orderid="0" >
+&#160;
+          
+          
+            
+              
+                
+              
+            
+            Use List, Set, SortedSet, LinkedHashSet, Map, LinkedHashMap in java
+            
+          
+            &#160;
+          
+          
+            
+              
+                
+                  
+                    
+                      
+                        
+                        
+                      
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+        
+          
+            
+              
+                
+                  
+                  
+                    
+
+In this tutorial we can see how to use Collections in java program. Now we can see uses of List, Set, SortedSet, LinkedHashSet, Map,
+LinkedHashMap.
+</TEXT>
+<CODE orderid="1" >
+import java.util.ArrayList;
+
+import java.util.Collection;
+
+import java.util.HashMap;
+
+import java.util.HashSet;
+
+import java.util.Iterator;
+
+import java.util.LinkedHashMap;
+
+import java.util.LinkedHashSet;
+
+import java.util.LinkedList;
+
+import java.util.List;
+
+import java.util.Map;
+
+import java.util.Set;
+
+import java.util.SortedMap;
+
+import java.util.SortedSet;
+
+import java.util.TreeMap;
+
+import java.util.TreeSet;
+
+
+
+public class CollectionExample&#160;
+
+&#160;{
+
+&#160; public static void main(String[] args)&#160;
+
+&#160;&#160; {
+
+&#160;&#160;&#160; List l = new LinkedList();
+
+&#160;&#160;&#160; l.add(&quot;List:angel&quot;);
+
+&#160;&#160;&#160; l.add(&quot;schildt&quot;);
+
+&#160;&#160;&#160; l.add(&quot;mathew&quot;);
+
+&#160;&#160;&#160; l.add(&quot;schildt&quot;);
+
+&#160;&#160;&#160; print(l);&#160;
+
+&#160;&#160;
+
+&#160;&#160;&#160; Set s = new HashSet();
+
+&#160;&#160;&#160; s.add(&quot;set:rose&quot;);
+
+&#160;&#160;&#160; s.add(&quot;schildt&quot;);
+
+&#160;&#160;&#160; s.add(&quot;mathew&quot;);
+
+&#160;&#160;&#160; s.add(&quot;schildt&quot;);
+
+&#160;&#160;&#160; print(s);&#160;
+
+
+
+&#160;&#160;&#160; SortedSet ss = new TreeSet();
+
+&#160;&#160;&#160; ss.add(&quot;set:jasmine&quot;);
+
+&#160;&#160;&#160; ss.add(&quot;schildt&quot;);
+
+&#160;&#160;&#160; ss.add(&quot;mathew&quot;);
+
+&#160;&#160;&#160; ss.add(&quot;schildt&quot;);
+
+&#160;&#160;&#160; print(ss);&#160;
+
+
+
+&#160;&#160;&#160; LinkedHashSet sss = new LinkedHashSet();
+
+&#160;&#160;&#160; sss.add(&quot;set:winslet&quot;);
+
+&#160;&#160;&#160; sss.add(&quot;schildt&quot;);
+
+&#160;&#160;&#160; sss.add(&quot;mathew&quot;);
+
+&#160;&#160;&#160; sss.add(&quot;schildt&quot;);
+
+&#160;&#160;&#160; print(sss);&#160;
+
+
+
+&#160;&#160;&#160; Map m1 = new HashMap();
+
+&#160;&#160;&#160; m1.put(&quot;map&quot;, &quot;HashMap&quot;);
+
+&#160;&#160;&#160; m1.put(&quot;schildt&quot;, &quot;java2&quot;);
+
+&#160;&#160;&#160; m1.put(&quot;mathew&quot;, &quot;Hyden&quot;);
+
+&#160;&#160;&#160; m1.put(&quot;schildt&quot;, &quot;java2s&quot;);
+
+&#160;&#160;&#160; print(m1.keySet());&#160;
+
+&#160;&#160;&#160; print(m1.values());&#160;
+
+
+
+&#160;&#160;&#160; SortedMap sm = new TreeMap();
+
+&#160;&#160;&#160; sm.put(&quot;map&quot;, &quot;TreeMap&quot;);
+
+&#160;&#160;&#160; sm.put(&quot;schildt&quot;, &quot;java2&quot;);
+
+&#160;&#160;&#160; sm.put(&quot;mathew&quot;, &quot;Hyden&quot;);
+
+&#160;&#160;&#160; sm.put(&quot;schildt&quot;, &quot;java2s&quot;);
+
+&#160;&#160;&#160; print(sm.keySet());&#160;
+
+&#160;&#160;&#160; print(sm.values());
+
+&#160;
+
+&#160;&#160;&#160; LinkedHashMap lm = new LinkedHashMap();
+
+&#160;&#160;&#160; lm .put(&quot;map&quot;, &quot;LinkedHashMap&quot;);
+
+&#160;&#160;&#160; lm .put(&quot;schildt&quot;, &quot;java2&quot;);
+
+&#160;&#160;&#160; lm .put(&quot;mathew&quot;, &quot;Hyden&quot;);
+
+&#160;&#160;&#160; lm .put(&quot;schildt&quot;, &quot;java2s&quot;);
+
+&#160;&#160;&#160; print(lm .keySet());&#160;
+
+&#160;&#160;&#160; print(lm .values());&#160;
+
+&#160; }
+
+
+
+&#160; static void print(Collection coll)&#160;
+
+&#160; {
+
+&#160;&#160;&#160; Iterator iter = coll.iterator();
+
+&#160;&#160;&#160; while (iter.hasNext())&#160;
+
+&#160;&#160;&#160; {
+
+&#160;&#160;&#160;&#160;&#160; String elem = (String) iter.next();
+
+&#160;&#160;&#160;&#160;&#160; System.out.print(elem + &quot; &quot;);
+
+&#160;&#160;&#160; }
+
+&#160;&#160;&#160; System.out.println();
+
+&#160; }
+
+
+
+}
+</CODE>
+<TEXT orderid="2" >
+Output:
+
+
+
+List:angel schildt mathew schildt
+
+set:rose schildt mathew
+
+schildt set:jasmine mathew
+
+set:winslet schildt mathew
+
+schildt mathew map
+
+java2 Hyden HashMap
+
+schildt mathew map
+
+java2 Hyden TreeMap
+
+map schildt mathew
+
+LinkedHashMap java2 Hyden
+
+
+
+
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    &#160;
+                  
+                
+              
+            
+            
+            
+          
+          
+            &#160;
+          
+           
+            
+              
+                
+                  
+                    &#160;
+                  
+                  
+                    
+                  
+                  
+                    &#160;
+                  
+                  
+                    
+                      
+                        COPYRIGHT&#169; 2006 java-samples.com. ALL RIGHTS RESERVED.
+                      
+                    
+                  
+                  
+                    &#160;
+</TEXT>
+</result>

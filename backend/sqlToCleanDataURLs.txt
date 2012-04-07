@@ -1,0 +1,38 @@
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/databases/sqlite%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/language/phptutorial%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/tutorials/chirographic%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/tutorials/gtk%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/tutorials/ironpython%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/tutorials/mono%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/tutorials/py%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/tutorials/qt%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/tutorials/py%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/tutorials/qyo%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/tutorials/ruby%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/tutorials/visual%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/tutorials/winapi%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/tutorials/wx%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/wx%';
+
+
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/tutorials/chiro%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/articles/qt%';
+DELETE FROM document WHERE url LIKE 'http://www.zetcode.com/articles/%python%';
+DELETE FROM document WHERE LOCATE('learnola',url)>0 AND LOCATE('java',url)=0 ;
+DELETE FROM document WHERE LOCATE('cogeco.ca',url)>0 AND LOCATE('jtu',url)=0;
+
+DELETE FROM docwithcode WHERE docid in (
+SELECT docid FROM document WHERE url LIKE '%.jar'
+UNION
+SELECT docid FROM document WHERE url LIKE '%.java'
+UNION
+SELECT docid FROM document WHERE url LIKE '%category=ruby%'
+UNION
+SELECT docid FROM document WHERE url LIKE 'http://www.java-samples%asp%'
+UNION
+SELECT docid FROM document WHERE url LIKE 'http://www.java-samples%category=C%'
+UNION
+SELECT docid FROM document WHERE url LIKE '%category=VB%'
+)
+
+

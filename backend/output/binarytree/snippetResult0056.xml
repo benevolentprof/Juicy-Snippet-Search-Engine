@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>74730</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/java-get-example/get-blob.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Get Blob
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				Blob is known as &apos;binary large object&apos;, is a collection of binary data stored as a single entity in a database management system and can hold variable amount of data.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+      Get Blob
+	  
+ 
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+Blob is known as &apos;binary large object&apos;, is a collection of binary data stored
+as a single entity in a database management system and can hold variable amount
+of data. Here in the example shown below we will learn how to retrieve image
+from mysql database which is saved as large binary object.&#160;
+
+
+
+Description of the code:
+
+&#160;&#160; 1. First create connection to the database from where you want
+to retrieve image saved as blob.
+
+&#160;&#160; 2. Create a mysql query to retrieve image value from table
+column.
+
+&#160;&#160; 3. Retrieves the value of the designated column in the
+current row of this ResultSet object as a Blob object by using getBlob()
+method.&#160;
+
+&#160;&#160; 4. Write data on standard output device.
+
+
+
+Table Structure:
+
+  
+    CREATE TABLE pictures ( image_id
+
+      &#160;int(10) NOT NULL auto_increment,
+
+      image blob
+
+      )
+  
+
+
+
+
+	Here is the code of GetBlob.java
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.io.*;
+
+import&#160;java.sql.*;
+
+
+
+class&#160;GetBlob&#160;{
+
+FileOutputStream&#160;image;
+
+Connection&#160;con&#160;=&#160;null;
+
+PreparedStatement&#160;pstmt&#160;=&#160;null;
+
+Statement&#160;stmt=&#160;null;
+
+ResultSet&#160;res&#160;=&#160;null;
+
+StringBuffer&#160;query=null;
+
+String&#160;driverName&#160;=&#160;&quot;com.mysql.jdbc.Driver&quot;;
+
+String&#160;url&#160;=&#160;&quot;jdbc:mysql://localhost:3306/&quot;;;
+
+String&#160;dbName&#160;=&#160;&quot;register&quot;;
+
+String&#160;userName&#160;=&#160;&quot;root&quot;;
+
+String&#160;password&#160;=&#160;&quot;root&quot;;
+
+
+
+public&#160;GetBlob(){
+
+try{
+
+Class.forName(driverName);
+
+con&#160;=&#160;DriverManager.getConnection(url+dbName,userName,password);
+
+stmt=con.createStatement();
+
+ResultSet&#160;rs=stmt.executeQuery(&quot;select&#160;*&#160;from&#160;picture&#160;where&#160;image_id=&apos;3&apos;&quot;);
+
+if&#160;(rs.next())&#160;{
+
+Blob&#160;test=rs.getBlob(&quot;image&quot;);
+
+InputStream&#160;x=test.getBinaryStream();
+
+int&#160;size=x.available();
+
+OutputStream&#160;out=new&#160;FileOutputStream(&quot;C:\\anu.jpg&quot;);
+
+byte&#160;b[]=&#160;new&#160;byte[size];
+
+x.read(b);
+
+out.write(b);
+
+}
+
+}
+
+catch(Exception&#160;e){
+
+System.out.println(&quot;Exception&#160;:&quot;+e);
+
+}
+
+finally{
+
+try{
+
+stmt.close();
+
+con.close();
+
+}
+
+catch(Exception&#160;e){
+
+System.out.println(e);
+
+}
+
+}
+
+}
+
+public&#160;static&#160;void&#160;main(String&#160;args[])&#160;throws&#160;IOException{
+
+GetBlob&#160;blob&#160;=&#160;new&#160;GetBlob();
+
+}
+
+}
+</CODE>
+<TEXT orderid="2" >
+Image retrieved from the database:
+
+
+
+
+Download Source Code
+
+&#160;
+
+  
+
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+      
+    
+  
+
+
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java error identifier excepted ...  180000 viewsJava error class ...  180008 viewsJava error java.lang.noclassdeffounderror ...  180009 viewsGet Length of Array ...  180037 viewsGet Length of Array ...  180059 viewsGet Java Version ...  180076 viewsGet Property by Name ...  180104 viewsJava get Free Memory ...  180111 viewsJava get available Font ...  180112 viewsJava error icon ...  180112 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+java
+windows
+c
+error
+orm
+form
+diff
+io
+dialog
+icons
+sed
+format
+version
+window
+display
+icon
+port
+using
+log
+support
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+0 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Get Blob
+										Java program to get column names of a table
+										Connecting to MySQL database and retrieving and displaying data in JSP
+page
+										Java program to get the color of pixel
+										Java program to get class name without package
+										Java get class directory
+										Downloading and installing JUnit 4.3.1 s
+										Login Form using Ajax
+										Spring Injection Example
+										Get Ascii Value
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

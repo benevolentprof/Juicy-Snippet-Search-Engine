@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>76859</docid>
+<orderid>144</orderid>
+<type>TEXT</type>
+<url>http://en.wikibooks.org/wiki/Java_Programming/Print_version</url>
+</description>
+<TEXT orderid="142" >
+the error will be at the import instead of within your code.
+Furthermore, if you
+</TEXT>
+<CODE orderid="143" >
+import javax.swing.*; and import java.util.*;
+</CODE>
+<TEXT orderid="144" >
+, and javax.swing.Queue is later added in a future version of Java, your code that uses Queue (java.util) will fail to compile. This particular example is fairly unlikely, but if you are working with non-Sun libraries, it may be more likely to happen.
+Importing packages from .jar files
+If you are importing library packages or classes that reside in a .jar file, you must ensure that the file is in the current classpath (both at compile- and execution-time). Apart from this requirement, importing these packages and classes is the same as if they were in their full, expanded, directory structure.
+
+
+Example:
+
+To compile and run a class from a project&apos;s top directory (that contains the two directories /source and /libraries) you could use the following command:
+
+javac -classpath libraries/lib.jar source/MainClass.java
+
+And then to run it, similarly:
+
+java -classpath libraries/lib.jar source/MainClass
+
+(The above is simplified, and demands that MainClass be in the default package, or a package called &apos;source&apos;, which isn&apos;t very desirable.)
+
+Class Loading / Name Space
+
+A fully qualified class name&#160;
+consist of the package name plus the class name.
+For example, the fully qualified class name of HashMap is java.util.HashMap.
+Sometime is can happen that two class has the same name, but it can not have on the same package, otherwise it would be the same class.
+It can be said that the two class with the same name is in different name space. In the above example, the HashMap class is in the java.util name space.
+
+
+Let be two Customer class with different name space (in different package).
+
+com.bluecompany.Customer
+com.redcompany.Customer
+
+
+
+
+When we need to use both class in the same program file, we can use the import keyword only for one of the class. For the other we need to use the fully qualified name.
+
+
+The runtime identity of a class in Java 2&#160;
+is defined by the fully qualified class name and its defining class loader. This means that the same class, loaded by two different class loaders, is seen by the Virtual Machine as two completely different types.
+
+Nested Classes
+
+
+Navigate Language Fundamentals topic: (&#160;v&#160;d&#160;e&#160;)
+
+ Variables
+ Flow control
+ Arrays
+ Methods
+ Statements
+ Identifiers, literals and expressions
+ Types
+ String
+ Classes, Objects and Types
+ Syntax
+ Keywords
+ Packages
+ Nested classes
+ Access modifiers
+ Data and variables
+ Generics
+ Java Security
+
+
+
+
+In Java you can define a class inside an other class.
+A class can be nested:
+
+inside another class,
+or inside a method
+
+Nest a class inside a class
+When a class is declared inside another class, the nested class&apos; access modifier can be public, private or
+</TEXT>
+<CODE orderid="145" >
+package(default).
+public 
+public class OuterClass
+{
+   private String outerInstanceVar;
+
+   public class InnerClass
+   {
+      public void printVars()
+      {
+         System.out.println( &quot;Print Outer Class Instance Var.:&quot; + outerInstanceVar);
+      }
+   } 
+}
+</CODE>
+<TEXT orderid="146" >
+The inner class has access to the enclosing class instance&apos;s variables and methods, even private ones, as seen above. This makes it very different from the nested class in C++, which are equivalent to the &quot;static&quot; inner classes, see below.
+An inner object has a reference to the outer object. The nested object can only be created with a reference to the &apos;outer&apos; object. See below.
+</TEXT>
+</result>

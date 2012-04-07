@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>29322</docid>
+<orderid>0</orderid>
+<type>CODE</type>
+<url>http://www.exampledepot.com/egs/javax.swing.tree/ExpandAll.html</url>
+</description>
+<CODE orderid="0" >
+Example DepotUseful code samples
+
+
+        
+    
+            
+  Home
+  Java
+  Contact
+  Blog
+
+	
+
+
+    
+    
+
+	
+	    
+	
+		
+
+ 
+
+
+
+
+
+
+	    
+	
+	
+
+    
+
+
+    
+    
+
+	
+	    
+	
+		
+
+              
+
+    
+
+
+Java &#187; Java packages &#187; javax.swing.tree &#187; Node Expansion
+
+
+
+
+
+    
+
+
+    
+
+ Expanding or Collapsing All Nodes in a JTree Component
+
+
+
+
+
+
+COPY
+// If expand is true, expands all nodes in the tree.
+// Otherwise, collapses all nodes in the tree.
+public void expandAll(JTree tree, boolean expand) {
+    TreeNode root = (TreeNode)tree.getModel().getRoot();
+
+    // Traverse tree from root
+    expandAll(tree, new TreePath(root), expand);
+}
+private void expandAll(JTree tree, TreePath parent, boolean expand) {
+    // Traverse children
+    TreeNode node = (TreeNode)parent.getLastPathComponent();
+    if (node.getChildCount() &gt;= 0) {
+        for (Enumeration e=node.children(); e.hasMoreElements(); ) {
+            TreeNode n = (TreeNode)e.nextElement();
+            TreePath path = parent.pathByAddingChild(n);
+            expandAll(tree, path, expand);
+        }
+    }
+
+    // Expansion or collapse must be done bottom-up
+    if (expand) {
+        tree.expandPath(parent);
+    } else {
+        tree.collapsePath(parent);
+    }
+}
+
+
+
+
+
+
+
+
+    
+
+
+    
+    
+
+	
+		    
+		    
+		    
+		        	
+			Related examples
+
+		    
+		    
+	
+	    
+	
+		
+    
+  
+  
+      
+        
+      
+  
+                Preventing the Expansion or Collapse of a Node in a JTree Component
+  
+  
+    
+  
+  
+  
+  
+  
+  
+ 
+	    
+	
+	
+
+    
+
+
+    
+    
+
+	
+		    
+		    
+		    
+		        	
+			Post a comment
+
+		    
+		    
+	
+	    
+	
+		
+
+ Your name: 
+ 
+
+
+ Comment: *
+ 
+
+More information about formatting options
+
+CAPTCHAThis question is for testing whether you are a human visitor and to prevent automated spam submissions.
+
+ What code is in the image?: *
+ 
+ Enter the characters shown in the image. Ignore spaces and be careful about upper and lower case.
+
+
+
+
+
+	    
+	
+	
+
+    
+
+
+
+
+
+
+    
+                
+        Login&#160;|&#160;Terms of Use&#160;|&#160;Trademarks&#160;|&#160;Privacy Statement
+Copyright &#169; 2009&#160;Example Depot.&#160;All Rights Reserved.
+</CODE>
+</result>

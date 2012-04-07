@@ -1,0 +1,773 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75246</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/java-conversion/convert-text-to-binary.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Convert Text to Binary
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this section, we will learn how to convert Text to Binary. The following program provides you the functionality to convert Text to Binary.
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Convert Text to Binary
+ 
+
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+      
+      
+In this section, we will learn how to convert Text to Binary.
+The following program provides you the functionality to convert Text to Binary.
+Code Description:
+In the program code below, to take the input from the
+keyboard we have used BufferReader() method in which we have passed an
+object of it which is InputStreamReader() as must be knowing. Then we
+have defined a variable of type int which will convert the input to
+integer line by line. Now we have used a loop here to check the number we well
+input. It will take maximum of 24 bytes as we have declared maxBytes=3. Hence it
+will convert the number into bytes one by one.&#160;
+Here is the code of the program:
+</TEXT>
+<CODE orderid="1" >
+import&#160;java.io.*;
+
+
+
+public&#160;class&#160;TexttoBinary&#160;{
+
+&#160;&#160;private&#160;static&#160;final&#160;int&#160;maxBytes&#160;=&#160;3;
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args)&#160;{
+
+&#160;&#160;&#160;&#160;
+
+&#160;&#160;&#160;&#160;BufferedReader&#160;in&#160;=&#160;new&#160;BufferedReader(new&#160;InputStreamReader(System.in));
+
+&#160;&#160;&#160;&#160;do&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;try&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print(&quot;Type&#160;the&#160;number&#160;to&#160;parse:&#160;&quot;);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;number&#160;=&#160;Integer.parseInt(in.readLine());
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int&#160;Bit;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;String&#160;result&#160;=&#160;&quot;&quot;;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;for&#160;(int&#160;i&#160;=&#160;maxBytes*8;&#160;i&#160;&gt;=&#160;0;&#160;i--)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;Bit&#160;=&#160;1&#160;&lt;&lt;&#160;i;
+
+&#160;&#160;&#160;&#160;&#160;&#160;if&#160;(number&#160;&gt;=&#160;Bit)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;result&#160;+=&#160;1;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;number&#160;-=&#160;Bit;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;else&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;result&#160;+=&#160;0;
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.println(result);
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;catch&#160;(NumberFormatException&#160;e)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;System.exit(0);
+
+&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;catch&#160;(IOException&#160;e)&#160;{
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;e.printStackTrace();
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.exit(1);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;while&#160;(true);
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}
+
+}
+</CODE>
+<TEXT orderid="2" >
+Output of the program:
+
+  
+    
+      C:\unique&gt;javac TexttoBinary.java
+
+        
+
+        C:\unique&gt;java TexttoBinary
+
+        Type the number to parse: 417893
+
+        0000001100110000001100101
+
+        Type the number to parse: 3289
+
+        0000000000000110011011001
+
+        Type the number to parse:
+    
+  
+
+
+
+		
+		
+      Download this example.
+
+
+
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+      
+  
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java Conversion ...  182456 viewsConvert Carats To Grams ...  183105 viewsConvert Grams To Carat ...  183137 viewsConvert Grams To Ounce ...  183172 viewsImplementing Continue Statement In Java ...  183188 viewsThe Unary Operators ...  183244 viewsConvert One Unit to Another ...  183277 viewsJava Date Conversion ...  183303 viewsConvert Gallons To Liters ...  183304 viewsConvert Grams To Pounds ...  183321 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+convert
+io
+help
+this
+program
+to
+learn
+ram
+ear
+e
+il
+section
+in
+converting
+m
+ps
+pro
+s
+is
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+0 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Convert Text to Binary
+										J2ME Alert Example
+										How to connect to MySql Database from Servlet?
+										TextField
+										Convert Vector to Array
+										Creating Bean Class In JSF using NetBeans
+										NetBeans JSF Tutorial
+										Convert Collection to Array
+										Example of Date class
+										Getting list of Local Interfaces on a machine 
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

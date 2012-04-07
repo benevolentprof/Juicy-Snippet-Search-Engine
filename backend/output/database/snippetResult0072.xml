@@ -1,0 +1,878 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>4247</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/data/article.php/3337411/Oracle-and-Java-Stored-Procedures.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Data &amp; Java
+					
+				
+				
+					Read More in Data &amp; Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Oracle and Java Stored Procedures
+			
+			
+				
+				
+					April 8, 2004
+					By 
+Michael  Klaene 
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Beginning with version 8i, the Oracle database includes a fully functional Java Virtual Machine, Oracle JVM. Out of this close relationship between Oracle and Java emerges an important technology for Oracle developers: Java stored procedures. With Java stored procedures, developers have the ability to harness the power of Java when building database applications. This article provides an overview of this increasingly popular technology. Its intended audience is Java developers new to Oracle, and Oracle PL/SQL developers with a basic understanding of Java. After highlighting the benefits of Java stored procedures, I will demonstrate how to create and use them in your applications.
+
+Benefits of Java Stored Procedures
+
+There are a number of scenarios where it makes sense to use Java stored procedures. Given Java&apos;s popularity today, it is certainly possible that members of a development team are more proficient in Java than PL/SQL. Java stored procedures give Java programmers the ability to code in their preferred language. For experienced PL/SQL developers, using Java allows you to take advantage of the Java language to extend the functionality of database applications. Also, Java makes it possible to write database-neutral code. Better yet, it allows you to reuse existing code and dramatically increase productivity.
+
+As you&apos;ll see, PL/SQL and Java can coexist quite nicely in the same application so there is no need to pick one or the other. PL/SQL is an excellent procedural language, highly optimized to work with an Oracle database. Java applications that execute in the Oracle database are also highly scalable. In addition, Java executed by the Oracle JVM benefits from efficient garbage collection and the server&apos;s thread management capabilities.
+
+Java Stored Procedures, Step by Step
+
+In a nutshell, Java stored procedures are Java classes, stored as Oracle schema objects, made accessible to Oracle SQL and PL/SQL through call specifications. Call specifications, as we will see, are simply PL/SQL declarations that &apos;wrap&apos; methods of Java stored in the database. There are four necessary steps when developing a Java stored procedure. We will consider each of these steps now.
+
+#1. Writing the Java Class
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		The beauty of this first step is that it really has little to do with the Oracle database. You simply develop your Java classes using your favorite IDE, such as Oracle&apos;s JDeveloper. Java methods must be public and they must be static if they are to be used as stored procedures.
+
+You can write, compile, and even unit test your Java code before moving it into the Oracle database. In fact, for all but trivial applications, this is the preferred method because it will allow you to take advantage of your IDE&apos;s features, such as debugging and code generation. If you would prefer to compile your Java classes with Oracle&apos;s JVM, the loadjava utility, discussed later, can do this for you.
+
+The following listing displays a simple Java class called EmpManager. For now, it contains a single method to insert an emp record into the database.
+</TEXT>
+<CODE orderid="1" >
+import java.sql.*;
+import oracle.jdbc.*;
+
+public class EmpManager {
+
+   //Add an employee to the database.
+   public static void addEmp(int emp_id, String emp_f_name, 
+      String emp_l_name,float emp_salary, int dept_id) {
+
+      System.out.println(&quot;Creating new employee...&quot;);
+
+      try {
+         Connection conn =
+            DriverManager.getConnection(&quot;jdbc:default:connection:&quot;);
+
+         String sql =
+            &quot;INSERT INTO emp &quot; +
+            &quot;(emp_id,emp_f_name,emp_l_name,emp_salary,dept_id) &quot; +
+            &quot;VALUES(?,?,?,?,?)&quot;;
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         pstmt.setInt(1,emp_id);
+         pstmt.setString(2,emp_f_name);
+         pstmt.setString(3,emp_l_name);
+         pstmt.setFloat(4,emp_salary);
+         pstmt.setInt(5,dept_id);
+         pstmt.executeUpdate();
+         pstmt.close();
+         }
+      catch(SQLException e) {
+         System.err.println(&quot;ERROR! Adding Employee: &quot; 
+           + e.getMessage());
+         }
+   }
+}
+</CODE>
+<TEXT orderid="2" >
+There is nothing out of the ordinary here. Well, almost nothing. In this method, the database connection URL is &quot;jdbc:default:connection:&quot;. When writing Java that will execute inside the Oracle database, you can take advantage of a special server-side JDBC driver. This driver uses the user&apos;s default connection and provides the fastest access to the database.
+
+#2. Loading Classes
+
+Our Java class is to become a full-fledged schema object, so it needs to be moved into the database. Oracle provides a command-line utility called loadjava to accomplish this task. The loadjava utility essentially provides an interface for SQL CREATE JAVA statements, which also may be used to migrate Java-related files to the database.
+
+Because we&apos;ve yet to compile EmpManager.java, we&apos;ll ask loadjava to do this as part of the loading process. This is achieved by specifying the -resolve attribute on the utility.
+
+$ loadjava -u scott/tiger -v -resolve EmpManager.java
+
+In addition to the -resolve attribute, the -v instructs the utility to include verbose feedback, and the -u specifies the database user and password. Because we asked loadjava to compile the source file, both the source and class files become members of the SCOTT schema.
+
+We can verify the status of the compilation and load with a simple query against USER_OBJECTS. If done correctly, the status is &apos;VALID&apos;.
+
+
+SELECT object_name, object_type, status
+FROM user_objects WHERE object_type LIKE &apos;JAVA%&apos;;
+
+object_name object_type status
+
+EmpManager JAVA CLASS  VALID
+EmpManager JAVA SOURCE VALID
+
+
+Conversely, if compilation fails, errors can be examined through the USER_ERRORS view.
+
+If you choose to compile with an IDE, simply load the resulting class file. Then, the source can reside in version control on the file system. The loadjava utility accepts files with the extensions .sqlj (a sqlj source file), .properties, .ser, .jar, and .zip. In the case of .jar and .zip files, Oracle automatically extracts and stores each member as individual schema objects.
+
+Before we move on, there&apos;s one more critical component to the load process that merits discussion: the Oracle JVM resolver. Typically, a JVM uses a classpath to locate Java classes that your program depends upon to run correctly. When storing Java in the database, a resolver accomplishes this.
+
+You can simply think of a resolver as Oracle&apos;s version of classpath. Oracle stores core Java classes in the PUBLIC schema. PUBLIC, as well as your own schema, is automatically included in a default resolver. However, if you need to reference a class from another schema, you must provide your own &apos;resolver spec&apos;. This is done by adding the -resolver attribute. As an example, loadjava -u scott/tiger@test -resolve -resolver &quot;((* SCOTT) (* PUBLIC) (* ADMIN))&quot; specifies that the SCOTT schema, as well as PUBLIC and ADMIN, should be searched when resolving class dependencies.			
+			
+			
+			
+				
+1 
+2 
+
+				
+			
+			
+			
+
+			
+
+			
+
+
+
+
+			
+			
+			
+			
+			
+			
+				
+					Networking Solutions
+					
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+			
+		
+		
+
+
+	
+	Free Newsletters :
+		
+			Enterprise Development Daily
+			Java/Open Source Daily
+			Microsoft Tech Daily
+			4 Guys from Rolla
+			Database Journal
+			Database Daily
+			Web Development Daily
+			Hardware Daily
+			Networking Daily
+		
+		
+		
+	
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+		
+			Most Popular Stories
+			
+		
+		
+			
+				
+					
+						Today
+						This Week
+						All-Time
+					
+				
+				
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Manipulate XML File Data Using C#
+				4 The Top 10 jQuery Plugins for the JavaScript-Weary
+				5 Parsing HTML in Microsoft C#
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 JSF 2.0 Views: Hello Facelets, Goodbye JSP
+				4 Manipulate XML File Data Using C#
+				5 Oracle Programming with PL/SQL Collections
+
+						
+					
+					
+						
+				1 Using JDBC with MySQL, Getting Started
+				2 Creating Use Case Diagrams
+				3 Oracle Programming with PL/SQL Collections
+				4 Manipulate XML File Data Using C#
+				5 Using ASP.NET To Send Email
+
+						
+					
+				
+			
+		
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+			Most Commented On
+			
+		
+		
+			
+				
+					
+						This Week
+						This Month
+						All-Time
+					
+				
+				
+					
+						
+1 Make Your Java Web Applications Impervious to Cross-site Scripting
+2 Using ASP.NET To Send Email
+3 Five Indispensable MySQL Tools
+4 ActiveX Control Tutorial - Part 1
+5 Debugging a Java Program with Eclipse
+
+
+
+
+						
+					
+					
+						
+1 PHP Developers Prefer Using Windows to Build Enterprise Apps: Study
+2 Day 1: Learning the Basics of PL/SQL
+3 Creating Use Case Diagrams
+4 An Introduction to Java Annotations
+5 VB TIP: InputBox - OK or Cancel?
+
+
+
+
+						
+					
+					
+						
+1 Creating Use Case Diagrams
+2 C# Tip: Placing Your C# Application in the System Tray
+3 Day 1: Learning the Basics of PL/SQL
+4 Using ASP.NET To Send Email
+5 Using JDBC with MySQL, Getting Started
+
+
+
+
+						
+					
+				
+			
+		
+	
+	
+	
+		
+			
+				
+					Partners
+				
+				
+					
+						Partner With Us
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					
+				
+			
+		
+		
+			
+				
+					More for Developers
+				
+				
+					
+						Site Map
+						Contact Us
+						CodeGuru
+						Gamelan
+						Jars
+						Discussions
+						VBforums
+						DevX
+						DatabaseJournal
+					
+				
+				
+				
+
+
+
+
+
+
+
+
+
+
+				
+			
+		
+	
+	
+	
+	
+	
+		
+			On the Forums
+			Visit the Forums &#187;
+		
+		
+			
+				
+					
+						Latest
+						Most Views
+						Most Replies
+					
+				
+				
+					
+						
+
+ 1 Sql Compact, File Path problems
+ 2 a C question
+ 3 Help calling an object, new to OOP and know I am missing something stupid.
+ 4 Operator Overloading on an Array
+ 5 TCP Client Server issue
+
+
+						
+					
+					
+						
+
+ 1 Add ScrollBars to JTextArea
+ 2 Create datatable from List&lt;T&gt;?
+ 3 Force stop/kill/eject usb mass storage device
+ 4 Itemstyle.xsl on sharepoint
+ 5 New MFC based on Visual Studio 2008 problems(CMFCPropertySheet)
+
+
+						
+					
+					
+						
+
+ 1 [RESOLVED] C++ does not support default-int
+ 2 Set Focus On Mouse Hover (MFC)
+ 3 Can someone check the DLL?
+ 4 help help, ... :) &quot;game of life&quot;,
+ 5 preallocating space for stl::queue
+
+
+						
+					
+				
+			
+		
+	
+	
+
+
+  
+    
+		Key IT Solutions
+    
+    
+      
+					Effective Software Delivery with IBM
+					SharePoint Development and Programming Forum
+					Microsoft Visual Studio 2010 Showcase
+					MSDN Spotlight
+					PHP for Windows Showcase
+		      
+    
+  
+
+	
+
+Local Guides
+
+&#160;&gt;Architecture &amp; Design
+
+&#160;&gt;Database
+
+&#160;&gt;Java
+
+&#160;&gt;Languages &amp; Tools
+
+&#160;&gt;Microsoft &amp; .NET
+
+&#160;&gt;Open Source
+
+&#160;&gt;Project Management
+
+&#160;&gt;Security
+
+&#160;&gt;Techniques
+
+&#160;&gt;Wireless
+
+
+
+
+
+		
+		
+		
+
+
+
+
+
+
+
+    
+
+    
+
+    The Network for Technology Professionals
+        
+        
+        
+        
+        
+        
+        Search: 
+        
+
+        
+  
+    
+         About Internet.com 
+        
+
+       Legal Notices, Licensing, Permissions, Privacy  Policy.
+        
+
+
+        Advertise | Newsletters |  E-mail Offers
+
+  
+
+
+
+    
+        Solutions
+        
+                        
+				Whitepapers and eBooks
+                
+                    
+                        
+                                                        Article: Adobe Helps PHP Developers Create Rich Internet Applications
+
+						   						                              Intel Brief: Five-Star IT Support--Intel Core 2 processor with vPro Delivers ROI of 524 Percent
+
+						   						                              Intel Whitepaper: Implementing Intel vPro Technology to Drive Down Client Management Costs
+
+						   						                              Intel Article: Intel Core i5 vPro Brings Intelligence to the Processor
+
+						                               
+                         
+                        
+												                              Microsoft Personalized Whitepapers and Resources for You
+
+						   						                              Microsoft Articles: Visual Studio 2010
+
+						   						                              Adobe Article: Java Developers Finding a Home at Adobe Flex
+
+						   						                              MORE WHITEPAPERS, EBOOKS, AND ARTICLES
+
+						   						                          
+                    
+                
+            
+                        
+				Webcasts
+                
+                    
+                        
+                                                        Micro Focus Webcast: Boosting the Impact and Effectiveness of Software Development QA and Testing
+
+						   						                              Intel Video: 2010 Intel Core Processor Technologies
+
+						                               
+                         
+                        
+												                              MORE WEBCASTS, PODCASTS, AND VIDEOS
+
+						   						                          
+                    
+                
+            
+                        
+				Downloads and eKits
+                
+                    
+                        
+                                                        Get Started: Create Applications Without Infrastructure Limits with the Windows Azure Platform
+
+						   						                              HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us
+
+						                               
+                         
+                        
+												                              Iron Speed Designer Application Generator
+
+						   						                              MORE DOWNLOADS, EKITS, AND FREE TRIALS
+
+						   						                          
+                    
+                
+            
+                        
+				Tutorials and Demos
+                
+                    
+                        
+                                                        Develop Cloud Applications - Get Started Now with the Windows Azure Platform
+
+						   						                              Learn Unified Communications
+
+						   						                              Learn SQL Server 2008
+
+						   						                              Learn Windows Server 2008 R2
+
+						   						                              Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+
+						                               
+                         
+                        
+												                              Learn Forefront
+
+						   						                              Learn System Center
+
+						   						                              All About Botnets
+
+						   						                              Learn SharePoint
+
+						   						                              MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+</TEXT>
+</result>

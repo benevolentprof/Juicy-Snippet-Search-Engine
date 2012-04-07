@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>75708</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.roseindia.net/java/example/java/swing/JTreeNone.shtml</url>
+</description>
+<TEXT orderid="0" >
+Java|
+				Frameworks|
+				Databases|
+				Technology|
+				Development|
+				Build/Test tools|
+				OS|
+				Servers|
+				PHP|
+				Books|
+				More|
+		What&apos;s New?
+
+
+		
+      
+
+      
+        
+		
+
+		Core Java|
+				JSP|
+				Servlets|
+				XML|
+				EJB|
+				JEE5|
+				Web Services|
+				J2ME|
+				Glossary|
+		
+
+Questions? | Software Development
+
+
+		
+
+		
+
+      
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+		
+			
+				
+				  
+					&#160;
+					
+					
+
+
+
+
+								
+								  
+									Search&#160;
+									
+									
+									
+
+								  
+								
+								
+
+
+
+
+			
+			Removing Horizontal Lines to Node Groups
+			
+		
+
+
+
+		
+			
+
+
+
+		
+
+
+
+
+ 
+
+
+
+
+
+
+			
+				In this section, you will learn to create none type tree in Java. None type tree means that children nodes are not connected to their parent node
+			
+		
+
+
+
+
+		
+
+
+
+	
+		
+			
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      Removing Horizontal Lines to Node
+      Groups 
+
+      
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+
+Introduction
+In this section, you will learn to create none type
+tree in Java. None type tree means that children nodes are not connected to
+their parent
+node&#160;
+Program Description:
+This program constructs a tree that does
+not&#160;&#160; have any line or ruler
+to connect&#160; parent and the child nodes. This is very simple, if you want to remove
+the connected line, just put the &quot;None&quot; property in the putClientProperty()
+method and you will get none type tree node. Finally, the tree is added to the
+frame.&#160;
+Here
+is the code of this program:
+</TEXT>
+<CODE orderid="1" >
+import&#160;javax.swing.*;
+
+import&#160;javax.swing.event.*;
+
+
+
+public&#160;class&#160;JTreeNone{
+
+
+
+&#160;&#160;public&#160;static&#160;void&#160;main(String[]&#160;args){
+
+&#160;&#160;&#160;&#160;JTree&#160;tree&#160;=&#160;new&#160;JTree();
+
+&#160;&#160;&#160;&#160;tree.putClientProperty(&quot;JTree.lineStyle&quot;,&#160;&quot;None&quot;);
+
+&#160;&#160;&#160;&#160;JScrollPane&#160;scrollpane&#160;=&#160;new&#160;JScrollPane(tree);
+
+&#160;&#160;&#160;&#160;JFrame&#160;fm&#160;=&#160;new&#160;JFrame(&quot;JTreeNone&#160;frame&quot;);
+
+&#160;&#160;&#160;&#160;fm.getContentPane().add(scrollpane,&#160;&quot;Center&quot;);
+
+&#160;&#160;&#160;&#160;fm.setSize(300,300);
+
+&#160;&#160;&#160;&#160;fm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+&#160;&#160;&#160;&#160;fm.setVisible(true);
+
+&#160;&#160;}
+
+}
+    
+   
+  
+   
+
+
+
+
+Download this program.
+
+Output this program:
+</CODE>
+<TEXT orderid="2" >
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+      
+      
+
+      
+  
+
+
+
+
+
+
+
+
+  
+     &#187; View all related tutorials 
+    
+
+
+			
+				More in this series...
+				Most Read
+				Latest
+				Search
+			
+			
+				Java Swing Tutorials ...  251936 viewsShow Scaling property of class AffineTransform ...  252273 viewsShow Shearing property of class AffineTransform ...  252275 viewsOutlining the font ...  252276 viewsShow Translation property of class AffineTransform ...  252280 viewsShow Different Strokes ...  252282 viewsShow Rotation property of class AffineTransform ...  252292 viewsIcon Changes at runtime ...  252294 viewsShow String in Oval ...  252297 viewsAnother Example of Gradient Paint ...  252299 views&#160;  &#187; View all related tutorials 
+			
+
+		
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  1
+  2
+  3
+  4
+  5
+  
+
+
+
+
+Related Tags:
+c
+io
+colors
+color
+ip
+change
+int
+line
+this
+ai
+tar
+rad
+create
+like
+start
+show
+if
+poi
+ie
+long
+
+
+
+
+
+
+
+
+
+
+
+
+		
+				Leave your comment:
+		
+		
+
+				Name:
+				
+		
+		
+				Email:
+				
+		
+		
+
+				URL:
+				
+		
+
+		
+
+				Title:
+				
+		
+
+		
+				Comments:
+
+				
+		
+
+		
+				Enter Code:
+				
+			
+		
+      
+
+        
+
+        
+
+
+		
+		
+			
+				&#160;
+				
+
+				Note:  Emails will not be visible or used in any way, and are not required.  Please keep comments relevant. Any content deemed inappropriate or offensive may be edited and/or deleted. 
+
+No HTML code is allowed.  Line breaks will be converted automatically.  URLs will be auto-linked.  Please use BBCode to format your text.
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    Add This
+      Tutorial To:
+  
+  
+    &#160;
+      Del.icio.us
+    &#160;
+      Digg
+    &#160;
+      Google
+    &#160;
+      Spurl
+
+    &#160;
+      Blink
+    &#160;
+      Furl
+    &#160;
+      Simpy
+    &#160;
+      Y! MyWeb&#160;
+  
+
+
+	Current Comments
+0 comments so far (post your own)
+ View All Comments Latest 10 Comments:
+
+
+
+
+
+
+				
+
+
+
+
+
+	
+
+
+					 
+					  
+						&#160;
+					  
+					 
+
+
+
+					 
+					  
+						
+
+
+					 
+					 
+
+
+					 
+
+					 Tell A Friend
+
+
+					  Your Friend Name
+					 
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+
+						
+&#160;
+					  
+					 
+
+
+		
+					  
+						
+
+
+&#160;
+					  
+					 
+
+
+					
+					
+
+
+					
+
+			
+			  
+
+					
+					
+
+
+
+
+		
+		
+
+		
+			Recently Viewed
+			
+
+			
+
+
+								Java Write To File - Java Tutorial
+										Removing Horizontal Lines to Node Groups
+										Add Edit And Delete Employee Information
+										Create XML File using Servlet
+										Adding Line to JTree
+										Servlet Example To Insert Mysql Clob Data
+										Java Directory - Directory and File Listing Example in Java
+										Adding Horizontal lines to Group Nodes
+										SWT TextEditor
+										JTree ActionListener Example
+					
+			  
+
+
+
+		
+		
+
+
+
+
+	
+	
+
+	
+		Software Solutions
+		
+
+	  
+
+
+		Software Solutions and Services
+
+		Website Designing Services
+
+		Web Designing Packages! From $150!
+		Flex Outsourcing
+
+
+		Hire Flex Developer
+
+		Website Designing Company Web Hosting
+
+		Website Designing Quotation
+
+		Hire PHP Developer
+		Hire PHP programmer
+
+		PHP Outsourcing
+
+		Java Project Outsourcing
+
+		Hire Software Developer
+		Hire Java Developer
+
+	    Hire iPhone developer
+	    Outsourcing iPhone development
+	    Offshore iPhone Apps Development
+
+
+	  
+
+
+
+	
+	
+
+
+
+					 
+					  
+						Search Tutorials
+					  
+					 
+
+				
+				
+
+					
+					  
+						
+						  
+							 
+						  
+						
+					  
+
+					
+
+				
+				
+
+
+					 
+					  
+
+
+&#160;
+
+
+&#160;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+    
+	 
+			&#160;
+     
+	
+
+
+
+
+    
+          
+
+                      
+                        Home
+
+                      | JSP
+                      | EJB
+                      | JDBC
+                      | Java Servlets
+                      | WAP&#160;
+                      | Free JSP Hosting&#160;
+					  | Search Engine
+                      | News Archive
+                      | Jboss 3.0 tutorial
+                      | Free Linux CD&apos;s
+                      | Forum
+
+					   | Blogs
+
+					   
+
+                      
+                      About Us |
+					  Advertising On RoseIndia.net&#160; |
+					  Site Map
+                      
+		
+    
+
+
+	
+
+
+    
+      
+
+		
+		  
+				
+
+				  
+
+
+				  
+
+				  
+
+				  
+
+				  
+
+				  
+				
+
+          
+	    
+
+
+      
+    
+
+
+     
+        
+         
+
+  
+
+  
+
+        
+
+        
+    
+
+
+     
+        
+          Send your comments, Suggestions or Queries regarding this site at roseindia_net@yahoo.com.
+        
+    
+
+    
+      
+        Copyright &#169; 2008. All rights reserved.
+</TEXT>
+</result>

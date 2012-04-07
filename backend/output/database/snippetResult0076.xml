@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+<description>
+<docid>6089</docid>
+<orderid>0</orderid>
+<type>TEXT</type>
+<url>http://www.developer.com/java/other/article.php/1457081/Installing-and-Using-the-Torque-Object-Mapper.htm</url>
+</description>
+<TEXT orderid="0" >
+Developer.com
+					Internet.com
+				
+				
+			
+		
+		
+		
+
+
+
+		
+	
+	
+	
+		
+			
+				Developer 
+				Microsoft &amp; .NET 
+				Architecture &amp;amp Design 
+				Database 
+				Open Source
+				Other
+			
+		
+		
+			
+				Web Services
+				Security
+				Mobile
+				Project Management
+			
+		
+		
+			RSS 
+		
+		
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	
+    
+
+	
+		
+			
+			
+				March 07, 2010
+				
+				
+					Hot Topics:
+					
+						prev
+						
+							
+							
+								
+C#
+.NET
+ open source
+C++
+Java
+
+								
+							
+							
+						
+						next
+					
+					
+				
+					Developer.com
+					Java
+					Other Java
+					
+				
+				
+					Read More in Other Java &#187;
+				
+						
+			
+			
+			
+				
+				
+					
+
+
+
+
+
+
+
+
+
+					
+				
+				
+				
+					
+					
+				
+			
+			
+			
+			
+			
+			Installing and Using the Torque Object Mapper
+			
+			
+				
+				
+					September 5, 2002
+					By 
+James M.  Turner
+
+Bio &#187;
+					Send Email &#187;
+					More Articles  &#187;
+				
+
+Larry Wall (father of Perl) is fond of saying that one of the virtues of a good programmer is laziness. By this he means that the best programmers never do work that they can avoid by using someone else&apos;s tools.
+
+In Java, there has always been a lot of fairly mindless work that keeps developers from getting to the real job of implementing business logic. One of them, implementing the boilerplate get and set accessors for beans, has been largely eliminated by technologies such as IDEs and now the new DynaBeans framework.
+
+One nettlesome chore still takes up a large amount of development time, however. That is implementing the persistence layer in an application. Anyone who has spent time with a database-enabled project knows the pain that this entails, not so much because it is intellectually difficult, but because it requires a lot of code to handle retrieving, creating, deleting, and updating data.
+
+The Apache Jakarta Torque project is a spin-off of the Turbine application framework; it allows a developer to create one XML file, and have both a persistence layer and database schema automatically generated for them. By using Torque, it is possible to database-enable a simple application in a matter of hours.
+
+
+	
+		Post a comment
+		Email Article
+		Print Article
+		
+			 Share Articles
+			
+				
+					
+						 Digg
+						 del.icio.us
+						 Slashdot
+						 DZone
+						 Reddit
+						 StumbleUpon
+						 Facebook
+						 FriendFeed
+						 Furl
+
+						 Newsvine
+						 Google
+						 LinkedIn
+						 MySpace
+						 Technorati
+						 Twitter
+						 Windows Live
+						 YahooBuzz
+
+					
+				
+			
+		
+	
+
+		To see how Torque works, we&apos;ll look at a sample application with a dose of Torque magic. Let&apos;s assume that we have a group of database tables we&apos;re using to track baseball pitchers, described in conventional SQL (of the MySQL dialect) here:
+
+Here&apos;s Table 1:
+</TEXT>
+<CODE orderid="1" >
+CREATE TABLE PITCHER
+(
+  PITCHER_ID INTEGER NOT NULL AUTO_INCREMENT,
+  LAST_NAME VARCHAR (30) NOT NULL,
+  FIRST_NAME VARCHAR (30) NOT NULL,
+  TEAM_ID INTEGER NOT NULL,
+  PRIMARY KEY(PITCHER_ID),
+  FOREIGN KEY (TEAM_ID) REFERENCES TEAM (TEAM_ID)
+);
+</CODE>
+<TEXT orderid="2" >
+Here&apos;s Table 2:
+</TEXT>
+</result>

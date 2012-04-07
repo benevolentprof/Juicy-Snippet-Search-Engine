@@ -1,0 +1,6 @@
+This is front-end component of Java Code Snippet Search Engine project.
+
+indexes.zip is indexes extracted from collected tutorial web pages.
+html_indexes.zip is indexes storing HTML data, also extracted from collected tutorial web pages.
+
+Both zip files need to be uncompressed into Tomcat working web directory.
