@@ -1,0 +1,24 @@
+Juicy - Java Code Snippet Search Engine
+
+Created by Pete Tantikul (ptantiku@gmail.com) as part of his MSc thesis 
+in the Dept. of Informatics, University of California, Irvine. 
+
+Abstract
+
+Programmers often look for a ``snippet,'' that is, a small piece of 
+example code, to remind themselves of how to solve a problem or to 
+quickly learn about a new resource. However, existing tools such as 
+general-purpose search engines and code-specific search engines do
+not deal well with searches for snippets. In this chapter, we present 
+a prototype search engine designed to work with code snippets. Our 
+approach is based on using the non-code text on a web page as metadata 
+for the snippet to improve indexing and retrieval. We discuss some 
+implementation issues that we encountered, which lead to lessons learned 
+for others who follow. These issues include: extracting snippets from 
+web pages, selecting and indexing metadata, matching query terms with 
+multiple metadata indexes, and identifying a text summary to be used in 
+the presentations of results. 
+
+See thesis\thesis.pdf for details.
+
+
